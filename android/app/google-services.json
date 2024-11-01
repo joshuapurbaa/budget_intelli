@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "957619161751",
+    "project_id": "budget-intellie",
+    "storage_bucket": "budget-intellie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957619161751:android:64cbc1136683d5a56937d2",
+        "android_client_info": {
+          "package_name": "com.porseatechnology.BudgetIntellie"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz2Tc2gTAEuW_mqKbTTVnxAHRtnaq6Bnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957619161751:android:7d9f6c95f55617af6937d2",
+        "android_client_info": {
+          "package_name": "com.porseatechnology.budgetIntelli"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz2Tc2gTAEuW_mqKbTTVnxAHRtnaq6Bnk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
