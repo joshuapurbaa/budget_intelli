@@ -13,7 +13,7 @@ class FinancialCategoryBloc
     required UpdateFinancialCategoryDb updateFinancialCategoryDb,
     required DeleteFinancialCategoryDb deleteFinancialCategoryDb,
     required GetFinancialCategoryDb getFinancialCategoryDb,
-    required GetFinancialCategoriesDb getFinancialCategoriesDb,
+    required GetAllFinancialCategoryDb getFinancialCategoriesDb,
   })  : _insertFinancialCategoryDb = insertFinancialCategoryDb,
         _updateFinancialCategoryDb = updateFinancialCategoryDb,
         _deleteFinancialCategoryDb = deleteFinancialCategoryDb,
@@ -24,15 +24,16 @@ class FinancialCategoryBloc
     on<UpdateFinancialCategoryEvent>(_onUpdateFinancialCategoryEvent);
     on<DeleteFinancialCategoryEvent>(_onDeleteFinancialCategoryEvent);
     on<GetFinancialCategoryEvent>(_onGetFinancialCategoryEvent);
-    on<GetFinancialCategoriesEvent>(_onGetFinancialCategoriesEvent);
+    on<GetAllFinancialCategoryEvent>(_onGetAllFinancialCategoryEvent);
     on<ResetFinancialCategoryStateEvent>(_onResetFinancialCategoryStateEvent);
+    on<SetSelectedFinancialCategoryEvent>(_onSetSelectedFinancialCategoryEvent);
   }
 
   final InsertFinancialCategoryDb _insertFinancialCategoryDb;
   final UpdateFinancialCategoryDb _updateFinancialCategoryDb;
   final DeleteFinancialCategoryDb _deleteFinancialCategoryDb;
   final GetFinancialCategoryDb _getFinancialCategoryDb;
-  final GetFinancialCategoriesDb _getFinancialCategoriesDb;
+  final GetAllFinancialCategoryDb _getFinancialCategoriesDb;
 
   Future<void> _onInsertFinancialCategoryEvent(
     InsertFinancialCategoryEvent event,
@@ -117,8 +118,8 @@ class FinancialCategoryBloc
     );
   }
 
-  Future<void> _onGetFinancialCategoriesEvent(
-    GetFinancialCategoriesEvent event,
+  Future<void> _onGetAllFinancialCategoryEvent(
+    GetAllFinancialCategoryEvent event,
     Emitter<FinancialCategoryState> emit,
   ) async {
     final result = await _getFinancialCategoriesDb(NoParams());
@@ -133,6 +134,17 @@ class FinancialCategoryBloc
         state.copyWith(
           financialCategories: financialCategories,
         ),
+      ),
+    );
+  }
+
+  Future<void> _onSetSelectedFinancialCategoryEvent(
+    SetSelectedFinancialCategoryEvent event,
+    Emitter<FinancialCategoryState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        selectedFinancialCategory: event.financialCategory,
       ),
     );
   }

@@ -8,7 +8,7 @@ final ListMap spendingCategories = [
   },
   {
     'name': 'Transport',
-    'icon': transport,
+    'icon': transportSvg,
     'color': AppColor.blue,
   },
   {

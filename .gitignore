@@ -50,3 +50,5 @@ lib/core/constants/firebase/firebase_constant.dart
 
 # ignore api_key.dart files
 lib/core/constants/api_key.dart
+*.mason
+**/bricks

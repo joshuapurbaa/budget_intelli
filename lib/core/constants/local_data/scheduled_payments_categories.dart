@@ -48,7 +48,7 @@ List<Map<String, dynamic>> schedulePaymentCategories = [
   },
   {
     'name': 'Others',
-    'icon': others,
+    'icon': othersSvg,
     'color': AppColor.yellow,
   },
 ];

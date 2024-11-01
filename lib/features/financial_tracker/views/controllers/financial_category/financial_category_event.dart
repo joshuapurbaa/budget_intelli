@@ -4,7 +4,7 @@ sealed class FinancialCategoryEvent extends Equatable {
   const FinancialCategoryEvent();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 final class InsertFinancialCategoryEvent extends FinancialCategoryEvent {
@@ -43,8 +43,8 @@ final class GetFinancialCategoryEvent extends FinancialCategoryEvent {
   List<Object> get props => [id];
 }
 
-final class GetFinancialCategoriesEvent extends FinancialCategoryEvent {
-  const GetFinancialCategoriesEvent();
+final class GetAllFinancialCategoryEvent extends FinancialCategoryEvent {
+  const GetAllFinancialCategoryEvent();
 
   @override
   List<Object> get props => [];
@@ -55,4 +55,13 @@ final class ResetFinancialCategoryStateEvent extends FinancialCategoryEvent {
 
   @override
   List<Object> get props => [];
+}
+
+final class SetSelectedFinancialCategoryEvent extends FinancialCategoryEvent {
+  const SetSelectedFinancialCategoryEvent(this.financialCategory);
+
+  final FinancialCategory? financialCategory;
+
+  @override
+  List<Object?> get props => [financialCategory];
 }

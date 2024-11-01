@@ -7,7 +7,7 @@ abstract interface class FinancialCategoryRepository {
   Future<Either<Failure, FinancialCategory?>> getFinancialCategoryById(
     String id,
   );
-  Future<Either<Failure, List<FinancialCategory>>> getFinancialCategories();
+  Future<Either<Failure, List<FinancialCategory>>> getAllFinancialCategory();
   Future<Either<Failure, Unit>> insertFinancialCategory(
     FinancialCategory financialCategory,
   );
@@ -32,7 +32,7 @@ class FinancialCategoryRepositoryImpl implements FinancialCategoryRepository {
 
   @override
   Future<Either<Failure, List<FinancialCategory>>>
-      getFinancialCategories() async {
+      getAllFinancialCategory() async {
     try {
       final result = await api.getFinancialCategories();
       return right(result);

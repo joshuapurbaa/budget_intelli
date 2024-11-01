@@ -1014,6 +1014,7 @@ void _initMyPortfolio() {
 
 void _insertFinancialCategoryDb() {
   serviceLocator
+    ..registerLazySingleton(FinancialCategoryDb.new)
     ..registerFactory<FinancialCategoryDbApi>(
       () => FinancialCategoryDbApiImpl(
         serviceLocator(),
@@ -1034,8 +1035,8 @@ void _insertFinancialCategoryDb() {
         serviceLocator(),
       ),
     )
-    ..registerFactory<GetFinancialCategoriesDb>(
-      () => GetFinancialCategoriesDb(
+    ..registerFactory<GetAllFinancialCategoryDb>(
+      () => GetAllFinancialCategoryDb(
         serviceLocator(),
       ),
     )

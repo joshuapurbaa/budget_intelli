@@ -3,7 +3,7 @@ import 'package:budget_intelli/core/core.dart';
 ListMap incomeCategories = [
   {
     'name': 'Salary',
-    'icon': salaryIncome,
+    'icon': salaryIncomeSvg,
     'color': AppColor.green,
   },
   {
@@ -18,7 +18,7 @@ ListMap incomeCategories = [
   },
   {
     'name': 'Gifts',
-    'icon': giftIncome,
+    'icon': giftIncomeSvg,
     'color': AppColor.purple,
   },
   {

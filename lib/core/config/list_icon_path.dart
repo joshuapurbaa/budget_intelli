@@ -14,7 +14,7 @@ List<Map<String, dynamic>> iconPathList = [
   {'name': 'Food', 'path': foodPng},
   {'name': 'Fruit', 'path': fruit},
   {'name': 'Gas', 'path': gas},
-  {'name': 'Gift', 'path': gift},
+  {'name': 'Gift', 'path': giftPng},
   {'name': 'Groceries', 'path': groceries},
   {'name': 'Gym', 'path': gym},
   {'name': 'Income', 'path': income},

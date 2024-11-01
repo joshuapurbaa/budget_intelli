@@ -1,31 +1,22 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class CalculatorBottomSheet extends StatefulWidget {
+class CalculatorBottomSheet extends StatelessWidget {
   const CalculatorBottomSheet({
     super.key,
   });
 
   @override
-  State<CalculatorBottomSheet> createState() => _CalculatorBottomSheetState();
-}
-
-class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
-  final List<String> balancedList = [
-    'Cash',
-    'Credit Card',
-    'Debit Card',
-  ];
-  @override
   Widget build(BuildContext context) {
     final accounts = context.watch<AccountBloc>().state.accounts;
-    print('accounts: $accounts');
+
     return Container(
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.90,
@@ -146,75 +137,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                   ),
                   Gap.horizontal(10),
                   Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: context.color.onInverseSurface,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      // padding: getEdgeInsetsAll(12),
-                      child: DropdownMenu<String>(
-                        controller: TextEditingController(),
-                        expandedInsets: const EdgeInsets.all(8),
-                        menuHeight: 150.h,
-                        selectedTrailingIcon: const Icon(
-                          CupertinoIcons.chevron_up,
-                          size: 20,
-                        ),
-                        inputDecorationTheme: InputDecorationTheme(
-                          border: InputBorder.none,
-                          hintStyle: textStyle(
-                            context,
-                            StyleType.bodMd,
-                          ).copyWith(
-                            color: context.color.primary,
-                          ),
-                        ),
-                        leadingIcon: const Icon(
-                          CupertinoIcons.airplane,
-                          size: 20,
-                          color: Color(0xFF1A1A1A),
-                        ),
-                        trailingIcon: Icon(
-                          CupertinoIcons.chevron_down,
-                          size: 20,
-                          color: context.color.primary,
-                        ),
-                        hintText: 'Category',
-                        textStyle: textStyle(
-                          context,
-                          StyleType.bodMd,
-                        ).copyWith(
-                          fontWeight: FontWeight.w700,
-                        ),
-                        requestFocusOnTap: false,
-                        onSelected: (String? value) {},
-                        menuStyle: MenuStyle(
-                          visualDensity: VisualDensity.standard,
-                          shape:
-                              WidgetStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                        dropdownMenuEntries:
-                            balancedList.map<DropdownMenuEntry<String>>(
-                          (String month) {
-                            return DropdownMenuEntry<String>(
-                              value: month,
-                              label: month,
-                              style: MenuItemButton.styleFrom(
-                                visualDensity: VisualDensity.comfortable,
-                                textStyle: textStyle(
-                                  context,
-                                  StyleType.bodMd,
-                                ),
-                              ),
-                            );
-                          },
-                        ).toList(),
-                      ),
-                    ),
+                    child: CategoryDropdown(),
                   ),
                 ],
               ),
