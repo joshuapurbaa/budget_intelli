@@ -21,16 +21,16 @@ class FinancialCategoryHistoryBloc
         _getFinancialCategoryHistoriesDb = getFinancialCategoryHistoriesDb,
         super(const FinancialCategoryHistoryState()) {
     on<InsertFinancialCategoryHistoryEvent>(
-        _onInsertFinancialCategoryHistoryEvent);
+        _onInsertFinancialCategoryHistoryEvent,);
     on<UpdateFinancialCategoryHistoryEvent>(
-        _onUpdateFinancialCategoryHistoryEvent);
+        _onUpdateFinancialCategoryHistoryEvent,);
     on<DeleteFinancialCategoryHistoryEvent>(
-        _onDeleteFinancialCategoryHistoryEvent);
+        _onDeleteFinancialCategoryHistoryEvent,);
     on<GetFinancialCategoryHistoryEvent>(_onGetFinancialCategoryHistoryEvent);
     on<GetFinancialCategoryHistoriesEvent>(
-        _onGetFinancialCategoryHistoriesEvent);
+        _onGetFinancialCategoryHistoriesEvent,);
     on<ResetFinancialCategoryHistoryStateEvent>(
-        _onResetFinancialCategoryHistoryStateEvent);
+        _onResetFinancialCategoryHistoryStateEvent,);
   }
 
   final InsertFinancialCategoryHistoryDb _insertFinancialCategoryHistoryDb;

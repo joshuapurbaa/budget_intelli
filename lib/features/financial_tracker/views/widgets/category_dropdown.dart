@@ -75,7 +75,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
             ),
             leadingIcon: Padding(
                 padding: const EdgeInsets.all(8),
-                child: _buildLeadingIconMenu(state.selectedFinancialCategory)),
+                child: _buildLeadingIconMenu(state.selectedFinancialCategory),),
             trailingIcon: Icon(
               CupertinoIcons.chevron_down,
               size: 20,

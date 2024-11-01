@@ -1,7 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
-import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -136,7 +135,7 @@ class CalculatorBottomSheet extends StatelessWidget {
                     ),
                   ),
                   Gap.horizontal(10),
-                  Expanded(
+                  const Expanded(
                     child: CategoryDropdown(),
                   ),
                 ],
