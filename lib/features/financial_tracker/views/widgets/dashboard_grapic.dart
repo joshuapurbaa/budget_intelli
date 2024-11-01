@@ -9,7 +9,7 @@ class DashboardGraphic extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: MediaQuery.of(context).size.height * 0.25,
-      child: Placeholder(),
+      child: const Placeholder(),
     );
   }
 }

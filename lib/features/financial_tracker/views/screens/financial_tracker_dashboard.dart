@@ -17,7 +17,7 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            DrawerHeader(
+            const DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
@@ -30,15 +30,15 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
               ),
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text('Home'),
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
               onTap: () {
                 Navigator.pop(context); // Menutup drawer
               },
             ),
             ListTile(
-              leading: Icon(Icons.settings),
-              title: Text('Settings'),
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
               onTap: () {
                 Navigator.pop(context); // Menutup drawer
               },
@@ -46,7 +46,7 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
           ],
         ),
       ),
-      body: CustomScrollView(
+      body: const CustomScrollView(
         slivers: [
           FinancialTrackerDashboardAppbar(),
           FinancialTrackerDashboardBody(),

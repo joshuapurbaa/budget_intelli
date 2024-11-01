@@ -22,23 +22,23 @@ class SummaryDashboardItem extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppText(
+                const AppText(
                   text: 'Clothing',
                   style: StyleType.headSm,
                 ),
                 Gap.vertical(5),
-                AppText(
+                const AppText(
                   text: 'Cash',
                   style: StyleType.bodMd,
                 ),
               ],
             ),
           ),
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               AppText(
-                text: '\$',
+                text: r'$',
                 style: StyleType.bodMd,
               ),
               AppText(
@@ -46,7 +46,7 @@ class SummaryDashboardItem extends StatelessWidget {
                 style: StyleType.headLg,
               ),
             ],
-          )
+          ),
         ],
       ),
     );

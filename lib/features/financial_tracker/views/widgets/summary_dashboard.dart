@@ -22,18 +22,18 @@ class SummaryDashboard extends StatelessWidget {
             ),
             child: Column(
               children: [
-                AppText(
+                const AppText(
                   text: 'Day',
                   style: StyleType.headSm,
                 ),
                 Gap.vertical(10),
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   mainAxisAlignment: MainAxisAlignment.center,
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     AppText(
-                      text: '\$',
+                      text: r'$',
                       style: StyleType.bodMd,
                     ),
                     AppText(
@@ -56,18 +56,18 @@ class SummaryDashboard extends StatelessWidget {
             ),
             child: Column(
               children: [
-                AppText(
+                const AppText(
                   text: 'Week',
                   style: StyleType.headSm,
                 ),
                 Gap.vertical(10),
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   mainAxisAlignment: MainAxisAlignment.center,
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     AppText(
-                      text: '\$',
+                      text: r'$',
                       style: StyleType.bodMd,
                     ),
                     AppText(
@@ -90,18 +90,18 @@ class SummaryDashboard extends StatelessWidget {
             ),
             child: Column(
               children: [
-                AppText(
+                const AppText(
                   text: 'Month',
                   style: StyleType.headSm,
                 ),
                 Gap.vertical(10),
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.baseline,
                   mainAxisAlignment: MainAxisAlignment.center,
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     AppText(
-                      text: '\$',
+                      text: r'$',
                       style: StyleType.bodMd,
                     ),
                     AppText(
