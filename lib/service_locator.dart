@@ -27,6 +27,8 @@ Future<void> initDependencies() async {
   _initRepetition();
   _initGoal();
   _initMyPortfolio();
+  _insertFinancialCategoryDb();
+  _insertFinancialCategoryHistoryDb();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -1006,6 +1008,102 @@ void _initMyPortfolio() {
         getMyPortfolioByIdDb: serviceLocator(),
         getMyPortfolioListDb: serviceLocator(),
         deleteMyPortfolioDb: serviceLocator(),
+      ),
+    );
+}
+
+void _insertFinancialCategoryDb() {
+  serviceLocator
+    ..registerFactory<FinancialCategoryDbApi>(
+      () => FinancialCategoryDbApiImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<FinancialCategoryRepository>(
+      () => FinancialCategoryRepositoryImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<InsertFinancialCategoryDb>(
+      () => InsertFinancialCategoryDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetFinancialCategoryDb>(
+      () => GetFinancialCategoryDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetFinancialCategoriesDb>(
+      () => GetFinancialCategoriesDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<UpdateFinancialCategoryDb>(
+      () => UpdateFinancialCategoryDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<DeleteFinancialCategoryDb>(
+      () => DeleteFinancialCategoryDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => FinancialCategoryBloc(
+        insertFinancialCategoryDb: serviceLocator(),
+        updateFinancialCategoryDb: serviceLocator(),
+        getFinancialCategoryDb: serviceLocator(),
+        getFinancialCategoriesDb: serviceLocator(),
+        deleteFinancialCategoryDb: serviceLocator(),
+      ),
+    );
+}
+
+void _insertFinancialCategoryHistoryDb() {
+  serviceLocator
+    ..registerFactory<FinancialCategoryHistoryDbApi>(
+      () => FinancialCategoryHistoryDbApiImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<FinancialCategoryHistoryRepository>(
+      () => FinancialCategoryHistoryRepositoryImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<InsertFinancialCategoryHistoryDb>(
+      () => InsertFinancialCategoryHistoryDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetFinancialCategoryHistoryDb>(
+      () => GetFinancialCategoryHistoryDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetFinancialCategoryHistoriesDb>(
+      () => GetFinancialCategoryHistoriesDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<UpdateFinancialCategoryHistoryDb>(
+      () => UpdateFinancialCategoryHistoryDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<DeleteFinancialCategoryHistoryDb>(
+      () => DeleteFinancialCategoryHistoryDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerLazySingleton(
+      () => FinancialCategoryHistoryBloc(
+        insertFinancialCategoryHistoryDb: serviceLocator(),
+        updateFinancialCategoryHistoryDb: serviceLocator(),
+        getFinancialCategoryHistoryDb: serviceLocator(),
+        getFinancialCategoryHistoriesDb: serviceLocator(),
+        deleteFinancialCategoryHistoryDb: serviceLocator(),
       ),
     );
 }

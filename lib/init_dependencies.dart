@@ -9,6 +9,7 @@ import 'package:budget_intelli/features/budget/data/repositories_impl/item_categ
 import 'package:budget_intelli/features/category/view/controllers/category/category_cubit.dart';
 import 'package:budget_intelli/features/category/view/controllers/insight/insight_cubit.dart';
 import 'package:budget_intelli/features/category/view/controllers/tracking/tracking_cubit.dart';
+import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:budget_intelli/features/goals/goals_barrel.dart';
 import 'package:budget_intelli/features/my_portfolio/my_portfolio_barrel.dart';
 import 'package:budget_intelli/features/net_worth/data/datasources/database/net_worth_db.dart';

@@ -3,9 +3,9 @@ import 'package:budget_intelli/features/financial_tracker/domain/domain.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:fpdart/fpdart.dart';
 
-class GetFinancialCategoryHistories
+class GetFinancialCategoryHistoriesDb
     implements UseCase<List<FinancialCategoryHistory>, NoParams> {
-  GetFinancialCategoryHistories(this.repository);
+  GetFinancialCategoryHistoriesDb(this.repository);
   final FinancialCategoryHistoryRepository repository;
 
   @override

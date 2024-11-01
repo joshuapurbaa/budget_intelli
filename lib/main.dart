@@ -36,7 +36,6 @@ void main() async {
   };
 
   await configureLocalTimeZone();
-  
 
   final notificationAppLaunchDetails =
       await flutterLocalNotificationsPlugin.getNotificationAppLaunchDetails();
@@ -238,6 +237,12 @@ void main() async {
         ),
         BlocProvider<FinancialDashboardCubit>(
           create: (_) => FinancialDashboardCubit(),
+        ),
+        BlocProvider<FinancialCategoryBloc>(
+          create: (_) => serviceLocator<FinancialCategoryBloc>(),
+        ),
+        BlocProvider<FinancialCategoryHistoryBloc>(
+          create: (_) => serviceLocator<FinancialCategoryHistoryBloc>(),
         ),
       ],
       child: const BudgetIntelli(),

@@ -1,5 +1,7 @@
 export 'controllers/financial_calculator/financial_calculator_cubit.dart';
 export 'controllers/financial_dashboard/financial_dashboard_cubit.dart';
+export 'controllers/financial_category/financial_category_bloc.dart';
+export 'controllers/financial_category_history/financial_category_history_bloc.dart';
 export 'screens/financial_tracker_dashboard.dart';
 export 'widgets/calculator_bottomsheet.dart';
 export 'widgets/calculator_buttons.dart';

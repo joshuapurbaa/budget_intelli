@@ -10,6 +10,7 @@ class FinancialTrackerDashboard extends StatefulWidget {
 }
 
 class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
+  void _financialCategoryInitDefaultData() {}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
