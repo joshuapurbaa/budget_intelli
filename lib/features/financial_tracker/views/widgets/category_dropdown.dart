@@ -74,8 +74,9 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               ),
             ),
             leadingIcon: Padding(
-                padding: const EdgeInsets.all(8),
-                child: _buildLeadingIconMenu(state.selectedFinancialCategory),),
+              padding: const EdgeInsets.all(8),
+              child: _buildLeadingIconMenu(state.selectedFinancialCategory),
+            ),
             trailingIcon: Icon(
               CupertinoIcons.chevron_down,
               size: 20,
@@ -147,6 +148,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
         categoryPng,
         width: 20,
         height: 20,
+        color: context.color.primary,
       );
     }
   }

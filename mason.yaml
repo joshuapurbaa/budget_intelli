@@ -11,3 +11,8 @@ bricks:
     git:
       url: https://github.com/joshuapurbaa/flutter_template.git
       path: bricks/feature
+
+  usecase_db:
+    git:
+      url: https://github.com/joshuapurbaa/flutter_template.git
+      path: bricks/usecase_db
