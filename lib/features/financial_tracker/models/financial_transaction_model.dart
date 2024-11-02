@@ -7,7 +7,7 @@ class FinancialTransaction {
     required this.amount,
     required this.date,
     required this.type,
-    required this.category,
+    required this.categoryName,
     required this.accountName,
     required this.accountId,
     required this.categoryId,
@@ -20,10 +20,10 @@ class FinancialTransaction {
       createdAt: map['created_at'] as String,
       updatedAt: map['updated_at'] as String,
       comment: map['comment'] as String,
-      amount: map['amount'] as String,
+      amount: map['amount'] as int,
       date: map['date'] as String,
       type: map['type'] as String,
-      category: map['category'] as String,
+      categoryName: map['category'] as String,
       accountName: map['account_name'] as String,
       accountId: map['account_id'] as String,
       categoryId: map['category_id'] as String,
@@ -40,7 +40,7 @@ class FinancialTransaction {
       'amount': amount,
       'date': date,
       'type': type,
-      'category': category,
+      'category': categoryName,
       'account_name': accountName,
       'account_id': accountId,
       'category_id': categoryId,
@@ -51,10 +51,10 @@ class FinancialTransaction {
   final String createdAt;
   final String updatedAt;
   final String comment;
-  final String amount;
+  final int amount;
   final String date;
   final String type;
-  final String category;
+  final String categoryName;
   final String accountName;
   final String accountId;
   final String categoryId;
