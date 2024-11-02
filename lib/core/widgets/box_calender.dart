@@ -105,7 +105,7 @@ class _BoxCalenderState extends State<BoxCalender> {
             height: 70.h,
             child: Row(
               children: [
-                getSvgPicture(
+                getSvgAsset(
                   dateCalender,
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
@@ -114,7 +114,7 @@ class _BoxCalenderState extends State<BoxCalender> {
                   child: text,
                 ),
                 Gap.horizontal(16),
-                getSvgPicture(
+                getSvgAsset(
                   isExpanded ? chevronDown : chevronRight,
                   key: actionKey,
                   width: 18,

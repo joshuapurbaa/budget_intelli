@@ -23,7 +23,7 @@ InputDecoration appInputDecoration(
     ),
     prefixIcon: Padding(
       padding: const EdgeInsets.all(20),
-      child: getSvgPicture(
+      child: getSvgAsset(
         prefixIcon,
         width: 20,
         color: colorScheme.onSurface,

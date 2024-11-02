@@ -429,7 +429,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           height: 70.h,
                           child: Row(
                             children: [
-                              getSvgPicture(
+                              getSvgAsset(
                                 dateCalender,
                                 color: context.color.onSurface,
                               ),

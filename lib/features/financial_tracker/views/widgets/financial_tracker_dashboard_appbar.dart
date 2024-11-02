@@ -61,7 +61,7 @@ class _FinancialTrackerDashboardAppbarState
           const Spacer(),
           GestureDetector(
             onTap: _showCalculator,
-            child: getSvgPicture(
+            child: getSvgAsset(
               editSvg,
               color: context.color.onSurface,
             ),

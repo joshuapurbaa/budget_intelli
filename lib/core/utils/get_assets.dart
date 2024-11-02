@@ -4,7 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart' show Lottie;
 import 'package:rive/rive.dart' show RiveAnimation;
 
-Widget getSvgPicture(
+Widget getSvgAsset(
   String path, {
   double width = 24,
   double height = 24,

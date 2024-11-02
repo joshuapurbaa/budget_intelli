@@ -50,7 +50,7 @@ class _AiAssistantExploreState extends State<AiAssistantExplore> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            getSvgPicture(
+                            getSvgAsset(
                               chatBot,
                               width: 50,
                               height: 50,

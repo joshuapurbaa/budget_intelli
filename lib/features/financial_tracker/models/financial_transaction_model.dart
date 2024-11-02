@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 class FinancialTransaction {
   FinancialTransaction({
     required this.id,
@@ -11,6 +13,8 @@ class FinancialTransaction {
     required this.accountName,
     required this.accountId,
     required this.categoryId,
+    this.location,
+    this.picture,
   });
 
   // fromMap method to convert map to model
@@ -27,6 +31,8 @@ class FinancialTransaction {
       accountName: map['account_name'] as String,
       accountId: map['account_id'] as String,
       categoryId: map['category_id'] as String,
+      location: map['location'] as String?,
+      picture: map['picture'] as Uint8List?,
     );
   }
 
@@ -58,4 +64,6 @@ class FinancialTransaction {
   final String accountName;
   final String accountId;
   final String categoryId;
+  final String? location;
+  final Uint8List? picture;
 }

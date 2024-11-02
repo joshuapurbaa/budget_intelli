@@ -116,7 +116,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   boxShadow: [
                     // add shadow on the top side
                     BoxShadow(
-                      color: Theme.of(context).colorScheme.shadow.withOpacity(0.2),
+                      color:
+                          Theme.of(context).colorScheme.shadow.withOpacity(0.2),
                       blurRadius: 10, // soften the shadow
                       offset: const Offset(
                         0, // Move to right 10  horizontally
@@ -143,7 +144,9 @@ class _ChatScreenState extends State<ChatScreen> {
                               context,
                               StyleType.bodLg,
                             ).copyWith(
-                              color: Theme.of(context).colorScheme.onSurfaceVariant,
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurfaceVariant,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -173,7 +176,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
                           _focusNode.unfocus();
                         },
-                        icon: getSvgPicture(
+                        icon: getSvgAsset(
                           send,
                           color: Theme.of(context).colorScheme.onSurface,
                         ),

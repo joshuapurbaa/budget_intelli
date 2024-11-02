@@ -251,7 +251,7 @@ class _AddExpenseTransactionScreenState
                           height: 70.h,
                           child: Row(
                             children: [
-                              getSvgPicture(
+                              getSvgAsset(
                                 dateCalender,
                                 color: Theme.of(context).colorScheme.onSurface,
                               ),

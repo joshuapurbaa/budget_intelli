@@ -13,3 +13,4 @@ export 'widgets/financial_tracker_dashboard_body.dart';
 export 'widgets/summary_dasboard_list.dart';
 export 'widgets/summary_dashboard.dart';
 export 'widgets/summary_dashboard_item.dart';
+export 'widgets/button_image.dart';

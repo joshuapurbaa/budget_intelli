@@ -86,7 +86,7 @@ class _AppBoxUploadImageState extends State<AppBoxUploadImage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     if (!isLoading) ...[
-                      getSvgPicture(
+                      getSvgAsset(
                         cameraReceipt,
                         color: Theme.of(context).colorScheme.onSurface,
                         width: 50,
@@ -94,7 +94,8 @@ class _AppBoxUploadImageState extends State<AppBoxUploadImage> {
                       ),
                       Gap.vertical(8),
                       AppText.reg12(
-                        text: '${localize.uploadReceiptLabel} (${localize.optional})',
+                        text:
+                            '${localize.uploadReceiptLabel} (${localize.optional})',
                         color: context.color.onSurface.withOpacity(0.5),
                       ),
                     ] else ...[

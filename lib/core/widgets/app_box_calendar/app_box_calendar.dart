@@ -38,7 +38,7 @@ class _AppBoxCalendarState extends State<AppBoxCalendar> {
         height: 70.h,
         child: Row(
           children: [
-            getSvgPicture(
+            getSvgAsset(
               dateCalender,
               color: context.color.onSurface,
             ),

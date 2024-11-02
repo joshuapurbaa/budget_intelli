@@ -131,7 +131,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
     if (category != null) {
       final icon = category.iconPath ?? categoryPng;
       if (icon.contains('.svg')) {
-        return getSvgPicture(
+        return getSvgAsset(
           icon,
           width: 20,
           height: 20,

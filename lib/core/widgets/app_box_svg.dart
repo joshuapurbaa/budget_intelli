@@ -31,7 +31,7 @@ class AppBoxSvg extends StatelessWidget {
         borderRadius: shape == null ? borderRadius ?? getRadius(8) : null,
         shape: shape ?? BoxShape.rectangle,
       ),
-      child: getSvgPicture(
+      child: getSvgAsset(
         icon,
         width: (width ?? 30).w,
         height: (height ?? 30).h,

@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
+import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -20,18 +21,47 @@ class CalculatorButtons extends StatelessWidget {
       children: [
         StaggeredGridTile.extent(
           crossAxisCellCount: 2,
-          mainAxisExtent: 70,
+          mainAxisExtent: 75,
           child: GestureDetector(
             onTap: () {},
             child: Container(
+              alignment: Alignment.center,
+              padding: getEdgeInsetsAll(12),
+              decoration: BoxDecoration(
+                color: context.color.onInverseSurface,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  getSvgAsset(dateCalender),
+                  Gap.horizontal(8),
+                  AppText(
+                    text: '03 Nov 2024',
+                    style: StyleType.bodLg,
+                    color: context.color.onSurface,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        StaggeredGridTile.extent(
+          crossAxisCellCount: 1,
+          mainAxisExtent: 75,
+          child: GestureDetector(
+            onTap: () {},
+            child: Container(
+              padding: getEdgeInsetsAll(12),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: context.color.onInverseSurface,
                 borderRadius: BorderRadius.circular(20),
               ),
               child: AppText(
-                text: 'Date',
-                style: StyleType.disMd,
+                text: 'Tebet, Jakarta',
+                style: StyleType.bodMd,
                 color: context.color.onSurface,
                 fontWeight: FontWeight.w400,
               ),
@@ -39,24 +69,9 @@ class CalculatorButtons extends StatelessWidget {
           ),
         ),
         StaggeredGridTile.extent(
-          crossAxisCellCount: 2,
-          mainAxisExtent: 70,
-          child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: 'Receipt',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
+          crossAxisCellCount: 1,
+          mainAxisExtent: 75,
+          child: ButtonImage(),
         ),
         _Button(
           text: '1',

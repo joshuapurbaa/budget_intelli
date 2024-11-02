@@ -65,7 +65,7 @@ class _EditableBoxTextFieldState extends State<EditableBoxTextField> {
           ),
           Visibility(
             visible: !widget.useAppBoxSvg,
-            child: getSvgPicture(
+            child: getSvgAsset(
               widget.prefixIcon,
             ),
           ),
@@ -111,7 +111,7 @@ class _EditableBoxTextFieldState extends State<EditableBoxTextField> {
                 CupertinoIcons.checkmark,
                 color: AppColor.white,
               ),
-              child: getSvgPicture(
+              child: getSvgAsset(
                 editPenWhite,
                 width: 20,
                 height: 20,

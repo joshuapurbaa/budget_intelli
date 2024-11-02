@@ -74,7 +74,7 @@ class _BoxDropdownCategoryState extends State<BoxDropdownCategory> {
                 .map<DropdownMenuEntry<MapStringDynamic>>(
                     (MapStringDynamic category) {
               return DropdownMenuEntry<MapStringDynamic>(
-                leadingIcon: getSvgPicture(
+                leadingIcon: getSvgAsset(
                   category['icon'] as String,
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
@@ -151,7 +151,7 @@ class _TrailingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return getSvgPicture(
+    return getSvgAsset(
       chevronRight,
       width: 18,
       height: 18,
@@ -167,7 +167,7 @@ class _LeadingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: getEdgeInsets(right: 20),
-      child: getSvgPicture(
+      child: getSvgAsset(
         menuCategory,
         color: Theme.of(context).colorScheme.onSurface,
       ),
@@ -195,7 +195,7 @@ class _SelectedTrailingWidget extends StatelessWidget {
         //   ),
         // ),
         // Gap.horizontal(16),
-        getSvgPicture(
+        getSvgAsset(
           chevronDown,
           width: 18,
           height: 18,
