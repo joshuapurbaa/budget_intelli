@@ -5,7 +5,7 @@ import 'package:fpdart/fpdart.dart';
 abstract interface class FinancialTransactionRepository {
   Future<Either<Failure, Unit>> deleteFinancialTransaction(String id);
   Future<Either<Failure, FinancialTransaction?>> getFinancialTransaction(
-      String id);
+      String id,);
   Future<Either<Failure, List<FinancialTransaction>>>
       getAllFinancialTransaction();
   Future<Either<Failure, Unit>> insertFinancialTransaction(
@@ -45,7 +45,7 @@ class FinancialTransactionRepositoryImpl
 
   @override
   Future<Either<Failure, FinancialTransaction?>> getFinancialTransaction(
-      String id) async {
+      String id,) async {
     try {
       final result = await api.getFinancialTransaction(id);
 
