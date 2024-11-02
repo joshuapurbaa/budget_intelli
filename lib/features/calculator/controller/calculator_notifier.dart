@@ -100,7 +100,7 @@ class CalculatorNotifier extends ChangeNotifier {
 
   String _getExpression() {
     final exp = _formatOutput(_expression);
-    return (exp.isEmpty) ? '0' : exp;
+    return (exp.isEmpty) ? '' : exp;
   }
 
   void _clearInput() {

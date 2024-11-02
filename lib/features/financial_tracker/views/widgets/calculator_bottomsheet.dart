@@ -1,10 +1,12 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/account_barrel.dart';
+import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
 class CalculatorBottomSheet extends StatefulWidget {
@@ -18,6 +20,34 @@ class CalculatorBottomSheet extends StatefulWidget {
 
 class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
   final _commentController = TextEditingController();
+  final notifier = CalculatorNotifier();
+
+  @override
+  void initState() {
+    super.initState();
+    notifier.addListener(() {
+      setState(() {});
+    });
+    _setInitialValues();
+  }
+
+  void _setInitialValues() {
+    final amount = ControllerHelper.getAmount(context);
+
+    if (amount != null) {
+      final formatter = NumberFormat('#,###');
+      notifier.setInitialValues(
+        result: formatter.format(amount),
+        expression: formatter.format(amount),
+      );
+    } else {
+      notifier.setInitialValues(
+        result: '0',
+        expression: '0',
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -59,38 +89,30 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                 color: context.color.onSurface,
               ),
               Gap.vertical(15),
-              BlocBuilder<FinancialCalculatorCubit, FinancialCalculatorState>(
-                builder: (context, state) {
-                  return Column(
-                    mainAxisSize: MainAxisSize.min,
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const AppText(
-                            text: r'$',
-                            style: StyleType.disSm,
-                          ),
-                          Gap.horizontal(5),
-                          AppText(
-                            text: NumberFormatter.formatStringToMoneyNoSymbol(
-                              context,
-                              state.amountDisplay,
-                              decimalDigits: 0,
-                            ),
-                            style: StyleType.disLg,
-                          ),
-                        ],
+                      const AppText(
+                        text: r'$',
+                        style: StyleType.disSm,
                       ),
+                      Gap.horizontal(5),
                       AppText(
-                        text: state.expression,
-                        style: StyleType.bodMd,
-                        color: context.color.onSurface.withOpacity(0.5),
-                        fontWeight: FontWeight.w400,
+                        text: notifier.result,
+                        style: StyleType.disLg,
                       ),
                     ],
-                  );
-                },
+                  ),
+                  AppText(
+                    text: notifier.expression,
+                    style: StyleType.bodMd,
+                    color: context.color.onSurface.withOpacity(0.5),
+                    fontWeight: FontWeight.w400,
+                  ),
+                ],
               ),
               TextField(
                 controller: _commentController,
@@ -107,7 +129,9 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                 ),
               ),
               const Spacer(),
-              const CalculatorButtons(),
+              CalculatorButtons(
+                notifier: notifier,
+              ),
               Gap.vertical(8),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

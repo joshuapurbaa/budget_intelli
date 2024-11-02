@@ -1,28 +1,28 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class CalculatorButtons extends StatelessWidget {
   const CalculatorButtons({
+    required this.notifier,
     super.key,
   });
+
+  final CalculatorNotifier notifier;
 
   @override
   Widget build(BuildContext context) {
     return StaggeredGrid.count(
       crossAxisCount: 4,
-      mainAxisSpacing: 4,
+      mainAxisSpacing: 5,
       crossAxisSpacing: 4,
       children: [
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
+        StaggeredGridTile.extent(
+          crossAxisCellCount: 2,
+          mainAxisExtent: 70,
           child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '1');
-            },
+            onTap: () {},
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -30,7 +30,7 @@ class CalculatorButtons extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: AppText(
-                text: '1',
+                text: 'Date',
                 style: StyleType.disMd,
                 color: context.color.onSurface,
                 fontWeight: FontWeight.w400,
@@ -38,13 +38,11 @@ class CalculatorButtons extends StatelessWidget {
             ),
           ),
         ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
+        StaggeredGridTile.extent(
+          crossAxisCellCount: 2,
+          mainAxisExtent: 70,
           child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '2');
-            },
+            onTap: () {},
             child: Container(
               alignment: Alignment.center,
               decoration: BoxDecoration(
@@ -52,7 +50,7 @@ class CalculatorButtons extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: AppText(
-                text: '2',
+                text: 'Receipt',
                 style: StyleType.disMd,
                 color: context.color.onSurface,
                 fontWeight: FontWeight.w400,
@@ -60,312 +58,168 @@ class CalculatorButtons extends StatelessWidget {
             ),
           ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '1',
+          notifier: notifier,
+          buttonText: '1',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '3');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '3',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '2',
+          notifier: notifier,
+          buttonText: '2',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '/');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: getPngAsset(
-                divideIconPng,
-                width: 30,
-                height: 30,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '3',
+          notifier: notifier,
+          buttonText: '3',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '4');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '4',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
-          crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '5');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '5',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
+        _Button(
+          widget: getPngAsset(
+            divideIconPng,
+            width: 30,
+            height: 30,
+            color: context.color.onSurface,
           ),
+          notifier: notifier,
+          buttonText: '/',
+          crossAxisCellCount: 1,
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '4',
+          notifier: notifier,
+          buttonText: '4',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '6');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '6',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '5',
+          notifier: notifier,
+          buttonText: '5',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: 'x');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: 'x',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '6',
+          notifier: notifier,
+          buttonText: '6',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '7');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '7',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: 'x',
+          notifier: notifier,
+          buttonText: 'x',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '8');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '8',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '7',
+          notifier: notifier,
+          buttonText: '7',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '9');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '9',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '8',
+          notifier: notifier,
+          buttonText: '8',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '-');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '-',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '9',
+          notifier: notifier,
+          buttonText: '9',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '0');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '0',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '+',
+          notifier: notifier,
+          buttonText: '+',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '000');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '000',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '0',
+          notifier: notifier,
+          buttonText: '0',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().deleteDigit();
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.error.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Icon(
-                Icons.backspace_outlined,
-                color: context.color.error,
-              ),
-            ),
-          ),
         ),
-        StaggeredGridTile.count(
+        _Button(
+          text: '00',
+          notifier: notifier,
+          buttonText: '00',
           crossAxisCellCount: 1,
-          mainAxisCellCount: 1,
-          child: GestureDetector(
-            onTap: () {
-              context.read<FinancialCalculatorCubit>().addDigit(digit: '+');
-            },
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: '+',
-                style: StyleType.disMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
+        ),
+        _Button(
+          widget: Icon(
+            Icons.backspace_outlined,
+            color: context.color.error,
           ),
+          notifier: notifier,
+          buttonText: 'Del',
+          crossAxisCellCount: 1,
+        ),
+        _Button(
+          text: '-',
+          notifier: notifier,
+          buttonText: '-',
+          crossAxisCellCount: 1,
         ),
       ],
+    );
+  }
+}
+
+class _Button extends StatelessWidget {
+  const _Button({
+    super.key,
+    this.text,
+    required this.notifier,
+    required this.buttonText,
+    required this.crossAxisCellCount,
+    this.widget,
+  });
+
+  final String? text;
+  final String buttonText;
+  final CalculatorNotifier notifier;
+  final int crossAxisCellCount;
+  final Widget? widget;
+
+  @override
+  Widget build(BuildContext context) {
+    final isNumber = RegExp(r'^[0-9]+$').hasMatch(buttonText);
+    return StaggeredGridTile.extent(
+      crossAxisCellCount: crossAxisCellCount,
+      mainAxisExtent: 75,
+      child: GestureDetector(
+        onTap: buttonText == 'Del'
+            ? () {
+                if (notifier.expression.isNotEmpty) {
+                  notifier.startCalculator(
+                    context: context,
+                    buttonText: 'Del',
+                  );
+                }
+              }
+            : () => notifier.startCalculator(
+                  context: context,
+                  buttonText: buttonText,
+                ),
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: isNumber
+                ? context.color.tertiaryContainer
+                : context.color.onInverseSurface,
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: widget ??
+              AppText(
+                text: text ?? buttonText,
+                style: StyleType.disMd,
+                color: context.color.onSurface,
+                fontWeight: FontWeight.w400,
+              ),
+        ),
+      ),
     );
   }
 }
