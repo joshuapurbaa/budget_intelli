@@ -26,7 +26,8 @@ class FinancialTransactionBloc
     on<GetFinancialTransactionEvent>(_onGetFinancialTransactionEvent);
     on<GetAllFinancialTransactionEvent>(_onGetAllFinancialTransactionEvent);
     on<ResetFinancialTransactionStateEvent>(
-        _onResetFinancialTransactionStateEvent);
+      _onResetFinancialTransactionStateEvent,
+    );
   }
 
   final InsertFinancialTransactionDb _insertFinancialTransactionDb;
@@ -40,7 +41,7 @@ class FinancialTransactionBloc
     Emitter<FinancialTransactionState> emit,
   ) async {
     final result =
-        await _insertFinancialTransactionDb(event.FinancialTransaction);
+        await _insertFinancialTransactionDb(event.financialTransaction);
 
     result.fold(
       (fail) => emit(
@@ -62,7 +63,7 @@ class FinancialTransactionBloc
     Emitter<FinancialTransactionState> emit,
   ) async {
     final result =
-        await _updateFinancialTransactionDb(event.FinancialTransaction);
+        await _updateFinancialTransactionDb(event.financialTransaction);
 
     result.fold(
       (fail) => emit(
@@ -112,9 +113,9 @@ class FinancialTransactionBloc
           errorMessage: fail.message,
         ),
       ),
-      (FinancialTransaction) => emit(
+      (financialTransaction) => emit(
         state.copyWith(
-          FinancialTransaction: FinancialTransaction,
+          financialTransaction: financialTransaction,
         ),
       ),
     );
@@ -132,9 +133,9 @@ class FinancialTransactionBloc
           errorMessage: fail.message,
         ),
       ),
-      (FinancialTransaction) => emit(
+      (financialTransactions) => emit(
         state.copyWith(
-          FinancialTransaction: FinancialTransaction,
+          financialTransactions: financialTransactions,
         ),
       ),
     );
