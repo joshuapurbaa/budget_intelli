@@ -7,6 +7,9 @@ class CalculatorNotifier extends ChangeNotifier {
   String _result = ' ';
   String _expression = '';
 
+  String get result => _result;
+  String get expression => _getExpression();
+
   void setInitialValues({
     required String result,
     required String expression,
@@ -16,14 +19,9 @@ class CalculatorNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  String get result => _result;
-
-  String get expression => _getExpression();
-
   void updateDisplayValues({
     required String result,
     required String expression,
-    required String date,
   }) {
     _result = _formatOutput(result);
     _expression = expression;
@@ -44,7 +42,6 @@ class CalculatorNotifier extends ChangeNotifier {
       updateDisplayValues(
         result: result,
         expression: _expression,
-        date: DateTime.now().toString(),
       );
     } else {
       _getButtonText(buttonText);
@@ -122,9 +119,13 @@ class CalculatorNotifier extends ChangeNotifier {
 
   void _deleteLast({bool calculate = true}) {
     if (_expression.isNotEmpty) {
+      _expression = _expression.replaceAll(',', '');
       _expression = _expression.substring(0, _expression.length - 1);
+
       if (_expression.isEmpty) {
         _clearInput();
+      } else {
+        _expression = _formatOutput(_expression);
       }
       if (calculate) {
         _result = _formatOutput(_getResult());

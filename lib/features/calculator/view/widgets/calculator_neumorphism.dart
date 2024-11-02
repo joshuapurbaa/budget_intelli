@@ -228,7 +228,6 @@ class _CalculatorNeumorphismState extends State<CalculatorNeumorphism> {
                           context: context,
                           buttonText: '=',
                         );
-                        print('result :: ${notifier.result}');
                         context.pop(
                           notifier.result,
                         );
