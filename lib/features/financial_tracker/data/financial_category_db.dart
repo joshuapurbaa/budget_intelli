@@ -78,7 +78,7 @@ class FinancialCategoryDb {
     );
   }
 
-  Future<List<FinancialCategory>> getFinancialCategories() async {
+  Future<List<FinancialCategory>> getAllFinancialCategory() async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query('FinancialCategory');
     return List.generate(maps.length, (i) {
@@ -110,7 +110,8 @@ class FinancialCategoryDb {
   }
 
   Future<FinancialCategoryHistory?> getFinancialCategoryHistory(
-      String id,) async {
+    String id,
+  ) async {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
       'FinancialCategoryHistory',
@@ -177,7 +178,8 @@ class FinancialCategoryDb {
   }
 
   Future<void> deleteAllFinancialCategoryHistoriesByCategoryId(
-      String categoryId,) async {
+    String categoryId,
+  ) async {
     final db = await database;
     await db.delete(
       'FinancialCategoryHistory',

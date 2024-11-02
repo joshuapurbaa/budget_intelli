@@ -4,7 +4,7 @@ import 'package:fpdart/fpdart.dart';
 
 abstract interface class FinancialCategoryRepository {
   Future<Either<Failure, Unit>> deleteFinancialCategory(String id);
-  Future<Either<Failure, FinancialCategory?>> getFinancialCategoryById(
+  Future<Either<Failure, FinancialCategory?>> getFinancialCategory(
     String id,
   );
   Future<Either<Failure, List<FinancialCategory>>> getAllFinancialCategory();
@@ -34,7 +34,7 @@ class FinancialCategoryRepositoryImpl implements FinancialCategoryRepository {
   Future<Either<Failure, List<FinancialCategory>>>
       getAllFinancialCategory() async {
     try {
-      final result = await api.getFinancialCategories();
+      final result = await api.getAllFinancialCategory();
       return right(result);
     } on CustomException catch (e) {
       return left(DatabaseFailure('DB Failure: $e'));
@@ -42,11 +42,11 @@ class FinancialCategoryRepositoryImpl implements FinancialCategoryRepository {
   }
 
   @override
-  Future<Either<Failure, FinancialCategory?>> getFinancialCategoryById(
+  Future<Either<Failure, FinancialCategory?>> getFinancialCategory(
     String id,
   ) async {
     try {
-      final result = await api.getFinancialCategoryById(id);
+      final result = await api.getFinancialCategory(id);
 
       if (result != null) {
         return right(result);

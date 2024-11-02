@@ -4,8 +4,8 @@ import 'package:fpdart/fpdart.dart';
 
 abstract interface class FinancialCategoryDbApi {
   Future<Unit> deleteFinancialCategory(String id);
-  Future<FinancialCategory?> getFinancialCategoryById(String id);
-  Future<List<FinancialCategory>> getFinancialCategories();
+  Future<FinancialCategory?> getFinancialCategory(String id);
+  Future<List<FinancialCategory>> getAllFinancialCategory();
   Future<Unit> insertFinancialCategory(FinancialCategory financialCategory);
   Future<Unit> updateFinancialCategory(FinancialCategory financialCategory);
 }
@@ -26,10 +26,10 @@ class FinancialCategoryDbApiImpl implements FinancialCategoryDbApi {
   }
 
   @override
-  Future<List<FinancialCategory>> getFinancialCategories() async {
+  Future<List<FinancialCategory>> getAllFinancialCategory() async {
     try {
       await financialCategoryDb.database;
-      final result = await financialCategoryDb.getFinancialCategories();
+      final result = await financialCategoryDb.getAllFinancialCategory();
 
       return result;
     } catch (e) {
@@ -38,7 +38,7 @@ class FinancialCategoryDbApiImpl implements FinancialCategoryDbApi {
   }
 
   @override
-  Future<FinancialCategory?> getFinancialCategoryById(String id) async {
+  Future<FinancialCategory?> getFinancialCategory(String id) async {
     try {
       await financialCategoryDb.database;
       final result = await financialCategoryDb.getFinancialCategory(id);
@@ -55,11 +55,11 @@ class FinancialCategoryDbApiImpl implements FinancialCategoryDbApi {
 
   @override
   Future<Unit> insertFinancialCategory(
-    FinancialCategory financialCategory,
+    FinancialCategory param,
   ) async {
     try {
       await financialCategoryDb.database;
-      await financialCategoryDb.insertFinancialCategory(financialCategory);
+      await financialCategoryDb.insertFinancialCategory(param);
       return unit;
     } catch (e) {
       throw CustomException('Error: $e');
@@ -68,11 +68,11 @@ class FinancialCategoryDbApiImpl implements FinancialCategoryDbApi {
 
   @override
   Future<Unit> updateFinancialCategory(
-    FinancialCategory financialCategory,
+    FinancialCategory param,
   ) async {
     try {
       await financialCategoryDb.database;
-      await financialCategoryDb.updateFinancialCategory(financialCategory);
+      await financialCategoryDb.updateFinancialCategory(param);
       return unit;
     } catch (e) {
       throw CustomException('Error: $e');

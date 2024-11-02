@@ -8,6 +8,6 @@ class GetFinancialCategoryDb implements UseCase<FinancialCategory?, String> {
 
   @override
   Future<Either<Failure, FinancialCategory?>> call(String id) {
-    return repository.getFinancialCategoryById(id);
+    return repository.getFinancialCategory(id);
   }
 }
