@@ -11,3 +11,8 @@ export 'usecases/financial_category_history/get_financial_category_history_db.da
 export 'usecases/financial_category_history/insert_financial_category_history_db.dart';
 export 'usecases/financial_category_history/update_financial_category_history_db.dart';
 export 'repositories/financial_transaction_repository.dart';
+export 'usecases/financial_transaction/delete_financial_transaction_db.dart';
+export 'usecases/financial_transaction/get_financial_transactions_db.dart';
+export 'usecases/financial_transaction/get_financial_transaction_db.dart';
+export 'usecases/financial_transaction/insert_financial_transaction_db.dart';
+export 'usecases/financial_transaction/update_financial_transaction_db.dart';
