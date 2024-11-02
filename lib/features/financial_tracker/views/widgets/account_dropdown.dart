@@ -81,7 +81,13 @@ class AccountDropdown extends StatelessWidget {
                 fontWeight: FontWeight.w700,
               ),
               requestFocusOnTap: false,
-              onSelected: (Account? value) {},
+              onSelected: (Account? value) {
+                if (value != null) {
+                  context.read<AccountBloc>().add(
+                        SelectAccountEvent(value),
+                      );
+                }
+              },
               menuStyle: MenuStyle(
                 visualDensity: VisualDensity.standard,
                 shape: WidgetStateProperty.all<RoundedRectangleBorder>(

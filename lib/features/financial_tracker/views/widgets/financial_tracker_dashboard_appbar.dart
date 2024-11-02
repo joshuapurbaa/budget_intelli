@@ -18,7 +18,7 @@ class FinancialTrackerDashboardAppbar extends StatefulWidget {
 class _FinancialTrackerDashboardAppbarState
     extends State<FinancialTrackerDashboardAppbar> {
   void _showCalculator() {
-    showModalBottomSheet(
+    showModalBottomSheet<void>(
       isScrollControlled: true,
       context: context,
       builder: (context) {

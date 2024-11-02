@@ -1,15 +1,23 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:uuid/uuid.dart';
 
-class CalculatorBottomSheet extends StatelessWidget {
+class CalculatorBottomSheet extends StatefulWidget {
   const CalculatorBottomSheet({
     super.key,
   });
 
+  @override
+  State<CalculatorBottomSheet> createState() => _CalculatorBottomSheetState();
+}
+
+class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
+  final _commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,7 +92,8 @@ class CalculatorBottomSheet extends StatelessWidget {
                   );
                 },
               ),
-              const TextField(
+              TextField(
+                controller: _commentController,
                 textAlign: TextAlign.center,
                 maxLines: 2,
                 decoration: InputDecoration(
@@ -109,6 +118,33 @@ class CalculatorBottomSheet extends StatelessWidget {
                   backgroundColor: context.color.primary,
                 ),
                 onPressed: () {
+                  final amount = context
+                      .read<FinancialCalculatorCubit>()
+                      .state
+                      .amountDisplay;
+                  final category = context
+                      .read<FinancialCategoryBloc>()
+                      .state
+                      .selectedFinancialCategory;
+                  final account =
+                      context.read<AccountBloc>().state.selectedAccount;
+
+                  if (category != null && account != null) {
+                    final transaction = FinancialTransaction(
+                      id: const Uuid().v4(),
+                      createdAt: DateTime.now().toString(),
+                      updatedAt: DateTime.now().toString(),
+                      comment: _commentController.text,
+                      amount: int.parse(amount),
+                      date: DateTime.now().toString(),
+                      type: 'expense',
+                      categoryName: category.categoryName,
+                      accountName: account.name,
+                      accountId: account.id,
+                      categoryId: category.id,
+                    );
+                  }
+
                   context.pop();
                 },
                 child: AppText(
