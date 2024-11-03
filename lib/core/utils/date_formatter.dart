@@ -171,3 +171,21 @@ String getDayMonth(String dateString, BuildContext context) {
 
   return '$monthString $day';
 }
+
+String? getBulanDariNama(String namaBulan, BuildContext context) {
+  try {
+    final locale = ControllerHelper.getLanguageLocale(context);
+    // Parsing nama bulan dengan format dan locale yang sesuai
+    final format = DateFormat.MMMM(locale.languageCode);
+    final tanggal = format.parse(namaBulan);
+
+    if (tanggal.month < 10) {
+      return '0${tanggal.month}';
+    } else {
+      return tanggal.month.toString();
+    }
+  } catch (e) {
+    // Return null jika nama bulan tidak dikenali
+    return null;
+  }
+}

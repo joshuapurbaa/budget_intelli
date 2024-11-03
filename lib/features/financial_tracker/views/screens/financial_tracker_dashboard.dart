@@ -18,9 +18,19 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
   }
 
   void _getAllFinancialTransactionByMonthAndYearDb() {
+    final monthNow = DateTime.now().month;
+    String? monthStr;
+    if (monthNow < 10) {
+      monthStr = '0$monthNow';
+    } else {
+      monthStr = monthNow.toString();
+    }
     context
         .read<FinancialDashboardCubit>()
-        .getAllFinancialTransactionByMonthAndYear();
+        .getAllFinancialTransactionByMonthAndYear(
+          context,
+          monthStr: monthStr,
+        );
   }
 
   @override

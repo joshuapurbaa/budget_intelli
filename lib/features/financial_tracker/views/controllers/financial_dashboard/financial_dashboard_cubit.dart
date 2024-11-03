@@ -17,8 +17,16 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
   final GetAllFinancialTransactionByMonthAndYearDb
       _getAllFinancialTransactionByMonthAndYearDb;
 
-  void selectMonth({required String month}) {
-    emit(state.copyWith(selectedMonth: month));
+  void selectMonth({
+    required String month,
+    required String monthNumStr,
+  }) {
+    emit(
+      state.copyWith(
+        selectedMonth: month,
+        monthNumStr: monthNumStr,
+      ),
+    );
   }
 
   void toggleIncome({required bool isIncome}) {
@@ -29,27 +37,41 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
     );
   }
 
-  Future<void> getAllFinancialTransactionByMonthAndYear() async {
-    final monthNumber =
-        AppStrings.monthListFullEn.indexOf(state.selectedMonth) + 1;
-    final monthString =
-        monthNumber < 10 ? '0$monthNumber' : monthNumber.toString();
-    final result = await _getAllFinancialTransactionByMonthAndYearDb(
-      MonthYearParams(
-        month: monthString,
-        year: DateTime.now().year.toString(),
-      ),
-    );
+  Future<void> getAllFinancialTransactionByMonthAndYear(
+    BuildContext context, {
+    String? namaBulan,
+    String? monthStr,
+  }) async {
+    String? monthNumber;
 
-    result.fold(
-      (failure) => emit(
-        state.copyWith(transactions: []),
-      ),
-      (transactions) => emit(
-        state.copyWith(
-          transactions: transactions,
+    if (namaBulan != null) {
+      monthNumber = getBulanDariNama(namaBulan, context);
+    } else {
+      monthNumber = monthStr;
+    }
+
+    if (monthNumber != null) {
+      final result = await _getAllFinancialTransactionByMonthAndYearDb(
+        MonthYearParams(
+          month: monthNumber,
+          year: DateTime.now().year.toString(),
         ),
-      ),
-    );
+      );
+
+      result.fold(
+        (failure) => emit(
+          state.copyWith(transactions: []),
+        ),
+        (transactions) => emit(
+          state.copyWith(
+            transactions: transactions,
+          ),
+        ),
+      );
+    } else {
+      emit(
+        state.copyWith(transactions: []),
+      );
+    }
   }
 }

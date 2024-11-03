@@ -138,4 +138,10 @@ class ControllerHelper {
     final languageVal = setting.selectedLanguage.value.toString();
     return languageVal;
   }
+
+  static Locale getLanguageLocale(BuildContext context) {
+    final setting = context.read<SettingBloc>().state;
+    final languageVal = setting.selectedLanguage.value;
+    return languageVal;
+  }
 }

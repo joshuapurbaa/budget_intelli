@@ -5,9 +5,11 @@ final class FinancialDashboardState extends Equatable {
     String? selectedMonth,
     this.isIncome = false,
     this.transactions = const [],
+    this.monthNumStr,
   }) : selectedMonth = selectedMonth ?? _getCurrentMonth();
 
   final String selectedMonth;
+  final String? monthNumStr;
   final bool isIncome;
   final List<FinancialTransaction> transactions;
 
@@ -15,19 +17,22 @@ final class FinancialDashboardState extends Equatable {
     String? selectedMonth,
     bool? isIncome,
     List<FinancialTransaction>? transactions,
+    String? monthNumStr,
   }) {
     return FinancialDashboardState(
       selectedMonth: selectedMonth ?? this.selectedMonth,
       isIncome: isIncome ?? this.isIncome,
       transactions: transactions ?? this.transactions,
+      monthNumStr: monthNumStr ?? this.monthNumStr,
     );
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         selectedMonth,
         isIncome,
         transactions,
+        monthNumStr,
       ];
 
   static String _getCurrentMonth() {

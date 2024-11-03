@@ -133,8 +133,20 @@ class _FinancialTrackerDashboardBodyState
                         );
 
                         if (result != null) {
+                          final monthNumber = getBulanDariNama(
+                            result,
+                            context,
+                          );
                           context.read<FinancialDashboardCubit>().selectMonth(
                                 month: result,
+                                monthNumStr: monthNumber ?? '',
+                              );
+
+                          context
+                              .read<FinancialDashboardCubit>()
+                              .getAllFinancialTransactionByMonthAndYear(
+                                context,
+                                monthStr: monthNumber,
                               );
                         }
                       },
