@@ -85,12 +85,6 @@ class TransactionLocation {
     required this.subLocality,
   });
 
-  final String subAdministritiveArea;
-  final String administritiveArea;
-  final String country;
-  final String locality;
-  final String subLocality;
-
   factory TransactionLocation.fromPlacemark(Placemark placemark) {
     return TransactionLocation(
       subAdministritiveArea: placemark.subAdministrativeArea ?? '',
@@ -111,6 +105,12 @@ class TransactionLocation {
       subLocality: map['sub_locality'] as String,
     );
   }
+
+  final String subAdministritiveArea;
+  final String administritiveArea;
+  final String country;
+  final String locality;
+  final String subLocality;
 
   // toMap method to convert model to map
   Map<String, dynamic> toMap() {

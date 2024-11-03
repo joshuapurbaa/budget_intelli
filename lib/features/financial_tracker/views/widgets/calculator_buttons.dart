@@ -19,12 +19,12 @@ class CalculatorButtons extends StatelessWidget {
       mainAxisSpacing: 5,
       crossAxisSpacing: 4,
       children: [
-        StaggeredGridTile.extent(
+        const StaggeredGridTile.extent(
           crossAxisCellCount: 2,
           mainAxisExtent: 75,
           child: ButtonDateTime(),
         ),
-        StaggeredGridTile.extent(
+        const StaggeredGridTile.extent(
           crossAxisCellCount: 1,
           mainAxisExtent: 75,
           child: ButtonLocation(),
