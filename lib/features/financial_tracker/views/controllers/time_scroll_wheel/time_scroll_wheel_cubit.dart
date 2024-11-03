@@ -11,7 +11,7 @@ class TimeScrollWheelCubit extends Cubit<TimeScrollWheelState> {
     emit(state.copyWith(
       selectedHour: selectedHour,
       period: period,
-    ));
+    ),);
   }
 
   void setSelectedMinuteWheel(String selectedMinute) {

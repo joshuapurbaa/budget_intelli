@@ -1,6 +1,5 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
-import 'package:budget_intelli/features/financial_tracker/views/widgets/time_scroll_wheel.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -37,9 +36,7 @@ class ButtonDateTime extends StatelessWidget {
                     children: [
                       EasyDateTimeLine(
                         initialDate: DateTime.now(),
-                        onDateChange: (selectedDate) {
-                          //`selectedDate` the new date selected.
-                        },
+                        onDateChange: print,
                         headerProps: EasyHeaderProps(
                           selectedDateStyle: TextStyle(
                             color: context.color.primary,
@@ -89,7 +86,7 @@ class ButtonDateTime extends StatelessWidget {
                         ),
                       ),
                       Gap.vertical(16),
-                      AppText(
+                      const AppText(
                         text: 'At',
                         style: StyleType.bodLg,
                       ),
@@ -98,7 +95,7 @@ class ButtonDateTime extends StatelessWidget {
                         padding: getEdgeInsetsSymmetric(horizontal: 80),
                         child: Stack(
                           children: [
-                            TimeScrollWheel(),
+                            const TimeScrollWheel(),
                             Align(
                               alignment: Alignment.centerRight,
                               child: BlocBuilder<TimeScrollWheelCubit,
@@ -110,7 +107,7 @@ class ButtonDateTime extends StatelessWidget {
                                   );
                                 },
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
