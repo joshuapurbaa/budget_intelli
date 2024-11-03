@@ -4,23 +4,22 @@ final class FinancialDashboardState extends Equatable {
   FinancialDashboardState({
     String? selectedMonth,
     this.isIncome = false,
+    this.transactions = const [],
   }) : selectedMonth = selectedMonth ?? _getCurrentMonth();
 
   final String selectedMonth;
   final bool isIncome;
-
-  static String _getCurrentMonth() {
-    final now = DateTime.now();
-    return AppStrings.monthListFullEn[now.month - 1];
-  }
+  final List<FinancialTransaction> transactions;
 
   FinancialDashboardState copyWith({
     String? selectedMonth,
     bool? isIncome,
+    List<FinancialTransaction>? transactions,
   }) {
     return FinancialDashboardState(
       selectedMonth: selectedMonth ?? this.selectedMonth,
       isIncome: isIncome ?? this.isIncome,
+      transactions: transactions ?? this.transactions,
     );
   }
 
@@ -28,5 +27,11 @@ final class FinancialDashboardState extends Equatable {
   List<Object> get props => [
         selectedMonth,
         isIncome,
+        transactions,
       ];
+
+  static String _getCurrentMonth() {
+    final now = DateTime.now();
+    return AppStrings.monthListFullEn[now.month - 1];
+  }
 }

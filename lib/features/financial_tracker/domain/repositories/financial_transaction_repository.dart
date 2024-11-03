@@ -5,9 +5,12 @@ import 'package:fpdart/fpdart.dart';
 abstract interface class FinancialTransactionRepository {
   Future<Either<Failure, Unit>> deleteFinancialTransaction(String id);
   Future<Either<Failure, FinancialTransaction?>> getFinancialTransaction(
-      String id,);
+    String id,
+  );
   Future<Either<Failure, List<FinancialTransaction>>>
       getAllFinancialTransaction();
+  Future<Either<Failure, List<FinancialTransaction>>>
+      getAllFinancialTransactionByMonthAndYear(String month, String year);
   Future<Either<Failure, Unit>> insertFinancialTransaction(
     FinancialTransaction param,
   );
@@ -45,7 +48,8 @@ class FinancialTransactionRepositoryImpl
 
   @override
   Future<Either<Failure, FinancialTransaction?>> getFinancialTransaction(
-      String id,) async {
+    String id,
+  ) async {
     try {
       final result = await api.getFinancialTransaction(id);
 
@@ -78,6 +82,21 @@ class FinancialTransactionRepositoryImpl
     try {
       await api.updateFinancialTransaction(param);
       return right(unit);
+    } on CustomException catch (e) {
+      return left(DatabaseFailure('DB Failure: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<FinancialTransaction>>>
+      getAllFinancialTransactionByMonthAndYear(
+    String month,
+    String year,
+  ) async {
+    try {
+      final result =
+          await api.getAllFinancialTransactionByMonthAndYear(month, year);
+      return right(result);
     } on CustomException catch (e) {
       return left(DatabaseFailure('DB Failure: $e'));
     }

@@ -1,5 +1,6 @@
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FinancialTrackerDashboard extends StatefulWidget {
   const FinancialTrackerDashboard({super.key});
@@ -10,6 +11,18 @@ class FinancialTrackerDashboard extends StatefulWidget {
 }
 
 class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
+  @override
+  void initState() {
+    super.initState();
+    _getAllFinancialTransactionByMonthAndYearDb();
+  }
+
+  void _getAllFinancialTransactionByMonthAndYearDb() {
+    context
+        .read<FinancialDashboardCubit>()
+        .getAllFinancialTransactionByMonthAndYear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

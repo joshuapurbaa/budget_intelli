@@ -155,6 +155,8 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                   );
                   final date =
                       context.read<TimeScrollWheelCubit>().state.selectedDate;
+                  final isIncome =
+                      context.read<FinancialDashboardCubit>().state.isIncome;
 
                   if (category != null && account != null) {
                     final transaction = FinancialTransaction(
@@ -164,7 +166,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                       comment: _commentController.text,
                       amount: double.parse(notifier.result.replaceAll(',', '')),
                       date: date.toString(),
-                      type: 'expense',
+                      type: isIncome ? 'income' : 'expense',
                       categoryName: category.categoryName,
                       accountName: account.name,
                       accountId: account.id,

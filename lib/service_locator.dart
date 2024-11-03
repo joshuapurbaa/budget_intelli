@@ -29,6 +29,8 @@ Future<void> initDependencies() async {
   _initMyPortfolio();
   _insertFinancialCategoryDb();
   _insertFinancialCategoryHistoryDb();
+  _initFinancialTransactionDb();
+  _initFinancialDashboard();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -1107,4 +1109,66 @@ void _insertFinancialCategoryHistoryDb() {
         deleteFinancialCategoryHistoryDb: serviceLocator(),
       ),
     );
+}
+
+void _initFinancialTransactionDb() {
+  serviceLocator
+    ..registerLazySingleton(FinancialTransactionDb.new)
+    ..registerFactory<FinancialTransactionDbApi>(
+      () => FinancialTransactionDbApiImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<FinancialTransactionRepository>(
+      () => FinancialTransactionRepositoryImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<InsertFinancialTransactionDb>(
+      () => InsertFinancialTransactionDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetFinancialTransactionByIdDb>(
+      () => GetFinancialTransactionByIdDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetAllFinancialTransactionDb>(
+      () => GetAllFinancialTransactionDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<UpdateFinancialTransactionDb>(
+      () => UpdateFinancialTransactionDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<DeleteFinancialTransactionDb>(
+      () => DeleteFinancialTransactionDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetAllFinancialTransactionByMonthAndYearDb>(
+      () => GetAllFinancialTransactionByMonthAndYearDb(
+        serviceLocator(),
+      ),
+    );
+  // ..registerLazySingleton(
+  //   () => FinancialTransactionBloc(
+  //     insertFinancialTransactionDb: serviceLocator(),
+  //     updateFinancialTransactionDb: serviceLocator(),
+  //     getFinancialTransactionDb: serviceLocator(),
+  //     getAllFinancialTransactionDb: serviceLocator(),
+  //     deleteFinancialTransactionDb: serviceLocator(),
+  //   ),
+  // );
+}
+
+void _initFinancialDashboard() {
+  serviceLocator.registerLazySingleton(
+    () => FinancialDashboardCubit(
+      getAllFinancialTransactionByMonthAndYearDb: serviceLocator(),
+    ),
+  );
 }

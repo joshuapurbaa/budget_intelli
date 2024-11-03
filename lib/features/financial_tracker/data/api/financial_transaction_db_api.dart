@@ -8,6 +8,10 @@ abstract interface class FinancialTransactionDbApi {
   Future<List<FinancialTransaction>> getAllFinancialTransaction();
   Future<Unit> insertFinancialTransaction(FinancialTransaction param);
   Future<Unit> updateFinancialTransaction(FinancialTransaction param);
+  Future<List<FinancialTransaction>> getAllFinancialTransactionByMonthAndYear(
+    String month,
+    String year,
+  );
 }
 
 class FinancialTransactionDbApiImpl implements FinancialTransactionDbApi {
@@ -68,6 +72,23 @@ class FinancialTransactionDbApiImpl implements FinancialTransactionDbApi {
       await db.database;
       await db.updateFinancialTransaction(param);
       return unit;
+    } catch (e) {
+      throw CustomException('Error: $e');
+    }
+  }
+
+  @override
+  Future<List<FinancialTransaction>> getAllFinancialTransactionByMonthAndYear(
+    String month,
+    String year,
+  ) async {
+    try {
+      await db.database;
+      final result = await db.getAllFinancialTransactionByMonthYear(
+        month: month,
+        year: year,
+      );
+      return result;
     } catch (e) {
       throw CustomException('Error: $e');
     }

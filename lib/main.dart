@@ -236,7 +236,7 @@ void main() async {
           create: (_) => FinancialCalculatorCubit(),
         ),
         BlocProvider<FinancialDashboardCubit>(
-          create: (_) => FinancialDashboardCubit(),
+          create: (_) => serviceLocator<FinancialDashboardCubit>(),
         ),
         BlocProvider<FinancialCategoryBloc>(
           create: (_) => serviceLocator<FinancialCategoryBloc>(),

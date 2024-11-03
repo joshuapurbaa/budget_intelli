@@ -19,6 +19,7 @@ class _FinancialTrackerDashboardBodyState
   Widget build(BuildContext context) {
     return BlocBuilder<FinancialDashboardCubit, FinancialDashboardState>(
       builder: (context, state) {
+        print('isIncome: ${state.isIncome}');
         return SliverFillRemaining(
           child: Padding(
             padding: getEdgeInsetsAll(16),

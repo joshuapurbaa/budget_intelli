@@ -59,11 +59,16 @@ class FinancialTransactionDb {
 
   Future<List<FinancialTransaction>> getAllFinancialTransaction() async {
     final db = await database;
-    final List<Map<String, dynamic>> maps =
-        await db.query('FinancialTransaction');
-    return List.generate(maps.length, (i) {
-      return FinancialTransaction.fromMap(maps[i]);
-    });
+    final List<Map<String, dynamic>> maps = await db.query(
+      'FinancialTransaction',
+      orderBy: 'date DESC',
+    );
+    return List.generate(
+      maps.length,
+      (i) {
+        return FinancialTransaction.fromMap(maps[i]);
+      },
+    );
   }
 
   Future<FinancialTransaction?> getFinancialTransaction(String id) async {
@@ -102,5 +107,25 @@ class FinancialTransactionDb {
   Future<void> deleteAllFinancialTransaction() async {
     final db = await database;
     await db.delete('FinancialTransaction');
+  }
+
+  // get all transactions by month and year
+  Future<List<FinancialTransaction>> getAllFinancialTransactionByMonthYear({
+    required String month,
+    required String year,
+  }) async {
+    final db = await database;
+    final List<Map<String, dynamic>> maps = await db.query(
+      'FinancialTransaction',
+      where: 'strftime("%m", date) = ? AND strftime("%Y", date) = ?',
+      whereArgs: [month, year],
+      orderBy: 'date DESC',
+    );
+    return List.generate(
+      maps.length,
+      (i) {
+        return FinancialTransaction.fromMap(maps[i]);
+      },
+    );
   }
 }

@@ -16,3 +16,4 @@ export 'usecases/financial_transaction/get_financial_transaction_db.dart';
 export 'usecases/financial_transaction/get_financial_transactions_db.dart';
 export 'usecases/financial_transaction/insert_financial_transaction_db.dart';
 export 'usecases/financial_transaction/update_financial_transaction_db.dart';
+export 'usecases/financial_transaction/get_all_financial_transaction_by_month_and_year_db.dart';
