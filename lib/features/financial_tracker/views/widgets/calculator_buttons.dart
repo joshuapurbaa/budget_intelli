@@ -50,25 +50,9 @@ class CalculatorButtons extends StatelessWidget {
         StaggeredGridTile.extent(
           crossAxisCellCount: 1,
           mainAxisExtent: 75,
-          child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              padding: getEdgeInsetsAll(12),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: AppText(
-                text: 'Tebet, Jakarta',
-                style: StyleType.bodMd,
-                color: context.color.onSurface,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
+          child: ButtonLocation(),
         ),
-        StaggeredGridTile.extent(
+        const StaggeredGridTile.extent(
           crossAxisCellCount: 1,
           mainAxisExtent: 75,
           child: ButtonImage(),
@@ -184,11 +168,10 @@ class CalculatorButtons extends StatelessWidget {
 
 class _Button extends StatelessWidget {
   const _Button({
-    super.key,
-    this.text,
     required this.notifier,
     required this.buttonText,
     required this.crossAxisCellCount,
+    this.text,
     this.widget,
   });
 

@@ -52,5 +52,10 @@
 			</dict>
 			<!-- Tambahkan semua identifier SKAdNetwork yang diperlukan di sini -->
 		</array>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>App membutuhkan akses lokasi untuk menampilkan kecamatan dan kota Anda.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>App membutuhkan akses lokasi untuk menampilkan kecamatan dan kota Anda.</string>
+
 	</dict>
 </plist>

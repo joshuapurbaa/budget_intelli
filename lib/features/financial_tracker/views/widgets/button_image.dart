@@ -67,7 +67,7 @@ class ButtonImage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: !isLoading
-                  ? Icon(
+                  ? const Icon(
                       CupertinoIcons.photo_fill_on_rectangle_fill,
                     )
                   : CircularProgressIndicator(

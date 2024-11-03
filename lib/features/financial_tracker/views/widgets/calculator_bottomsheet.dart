@@ -118,7 +118,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                 controller: _commentController,
                 textAlign: TextAlign.center,
                 maxLines: 2,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: 'Add comment...',
                   hintStyle: TextStyle(
                     color: Colors.grey,

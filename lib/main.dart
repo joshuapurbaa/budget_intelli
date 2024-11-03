@@ -244,6 +244,9 @@ void main() async {
         BlocProvider<FinancialCategoryHistoryBloc>(
           create: (_) => serviceLocator<FinancialCategoryHistoryBloc>(),
         ),
+        BlocProvider<LocationCubit>(
+          create: (context) => LocationCubit(),
+        ),
       ],
       child: const BudgetIntelli(),
     ),
