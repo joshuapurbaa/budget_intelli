@@ -22,30 +22,7 @@ class CalculatorButtons extends StatelessWidget {
         StaggeredGridTile.extent(
           crossAxisCellCount: 2,
           mainAxisExtent: 75,
-          child: GestureDetector(
-            onTap: () {},
-            child: Container(
-              alignment: Alignment.center,
-              padding: getEdgeInsetsAll(12),
-              decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  getSvgAsset(dateCalender),
-                  Gap.horizontal(8),
-                  AppText(
-                    text: '03 Nov 2024',
-                    style: StyleType.bodLg,
-                    color: context.color.onSurface,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          child: ButtonDateTime(),
         ),
         StaggeredGridTile.extent(
           crossAxisCellCount: 1,
