@@ -47,6 +47,7 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
   Widget build(BuildContext context) {
     return BlocBuilder<TimeScrollWheelCubit, TimeScrollWheelState>(
       builder: (context, state) {
+        print('selected date: ${state.selectedDate}');
         return Row(
           children: [
             Expanded(
