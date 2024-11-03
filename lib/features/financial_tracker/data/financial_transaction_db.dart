@@ -28,7 +28,7 @@ class FinancialTransactionDb {
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL,
             comment TEXT,
-            amount INTEGER NOT NULL,
+            amount REAL NOT NULL,
             date TEXT NOT NULL,
             type TEXT NOT NULL,
             category_name TEXT NOT NULL,

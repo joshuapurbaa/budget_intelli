@@ -142,16 +142,19 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                   backgroundColor: context.color.primary,
                 ),
                 onPressed: () {
-                  final amount = context
-                      .read<FinancialCalculatorCubit>()
-                      .state
-                      .amountDisplay;
                   final category = context
                       .read<FinancialCategoryBloc>()
                       .state
                       .selectedFinancialCategory;
                   final account =
                       context.read<AccountBloc>().state.selectedAccount;
+                  final location =
+                      context.read<LocationCubit>().state.transactionLocation;
+                  final imageBytes = ControllerHelper.getImagesBytes(
+                    context,
+                  );
+                  final date =
+                      context.read<TimeScrollWheelCubit>().state.selectedDate;
 
                   if (category != null && account != null) {
                     final transaction = FinancialTransaction(
@@ -159,14 +162,18 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                       createdAt: DateTime.now().toString(),
                       updatedAt: DateTime.now().toString(),
                       comment: _commentController.text,
-                      amount: int.parse(amount),
-                      date: DateTime.now().toString(),
+                      amount: double.parse(notifier.result.replaceAll(',', '')),
+                      date: date.toString(),
                       type: 'expense',
                       categoryName: category.categoryName,
                       accountName: account.name,
                       accountId: account.id,
                       categoryId: category.id,
+                      transactionLocation: location,
+                      picture: imageBytes,
                     );
+
+                    debugPrint(transaction.toString());
                   }
 
                   context.pop();

@@ -26,7 +26,7 @@ class FinancialTransaction {
       createdAt: map['created_at'] as String,
       updatedAt: map['updated_at'] as String,
       comment: map['comment'] as String,
-      amount: map['amount'] as int,
+      amount: map['amount'] as double,
       date: map['date'] as String,
       type: map['type'] as String,
       categoryName: map['category'] as String,
@@ -65,7 +65,7 @@ class FinancialTransaction {
   final String createdAt;
   final String updatedAt;
   final String comment;
-  final int amount;
+  final double amount;
   final String date;
   final String type;
   final String categoryName;
@@ -74,6 +74,12 @@ class FinancialTransaction {
   final String categoryId;
   final TransactionLocation? transactionLocation;
   final Uint8List? picture;
+
+  // to String method to convert model to string
+  @override
+  String toString() {
+    return 'FinancialTransaction{id: $id, createdAt: $createdAt, updatedAt: $updatedAt, comment: $comment, amount: $amount, date: $date, type: $type, categoryName: $categoryName, accountName: $accountName, accountId: $accountId, categoryId: $categoryId, transactionLocation: $transactionLocation, picture: $picture}';
+  }
 }
 
 class TransactionLocation {
