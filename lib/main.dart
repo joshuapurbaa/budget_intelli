@@ -247,6 +247,9 @@ void main() async {
         BlocProvider<LocationCubit>(
           create: (context) => LocationCubit(),
         ),
+        BlocProvider<TimeScrollWheelCubit>(
+          create: (context) => TimeScrollWheelCubit(),
+        ),
       ],
       child: const BudgetIntelli(),
     ),

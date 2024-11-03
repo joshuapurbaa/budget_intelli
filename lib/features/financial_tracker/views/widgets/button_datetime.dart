@@ -1,6 +1,9 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/financial_tracker/views/widgets/time_scroll_wheel.dart';
 import 'package:easy_date_timeline/easy_date_timeline.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ButtonDateTime extends StatelessWidget {
   const ButtonDateTime({
@@ -25,64 +28,93 @@ class ButtonDateTime extends StatelessWidget {
           ) {
             return Center(
               child: AlertDialog(
-                shape: const RoundedRectangleBorder(
-                  
-                ),
+                shape: const RoundedRectangleBorder(),
                 content: SizedBox(
-                  height: 200,
+                  // height: 200,
                   width: MediaQuery.of(context).size.width,
-                  child: EasyDateTimeLine(
-                    initialDate: DateTime.now(),
-                    onDateChange: (selectedDate) {
-                      //`selectedDate` the new date selected.
-                    },
-                    headerProps: EasyHeaderProps(
-                      selectedDateStyle: TextStyle(
-                        color: context.color.primary,
-                        fontWeight: FontWeight.bold,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      EasyDateTimeLine(
+                        initialDate: DateTime.now(),
+                        onDateChange: (selectedDate) {
+                          //`selectedDate` the new date selected.
+                        },
+                        headerProps: EasyHeaderProps(
+                          selectedDateStyle: TextStyle(
+                            color: context.color.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        activeColor: context.color.primary,
+                        dayProps: EasyDayProps(
+                          todayHighlightStyle: TodayHighlightStyle.none,
+                          todayHighlightColor: context.color.primary,
+                          activeDayStyle: DayStyle(
+                            dayNumStyle: textStyle(
+                              context,
+                              StyleType.disMd,
+                            ).copyWith(
+                              color: context.color.onPrimary,
+                            ),
+                            monthStrStyle: textStyle(
+                              context,
+                              StyleType.bodSm,
+                            ).copyWith(
+                              color: context.color.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            dayStrStyle: textStyle(
+                              context,
+                              StyleType.bodSm,
+                            ).copyWith(
+                              color: context.color.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          inactiveDayStyle: DayStyle(
+                            dayNumStyle: textStyle(
+                              context,
+                              StyleType.bodLg,
+                            ),
+                          ),
+                          todayStyle: DayStyle(
+                            dayNumStyle: textStyle(
+                              context,
+                              StyleType.bodLg,
+                            ).copyWith(
+                              color: Colors.grey,
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
-                    activeColor: context.color.primary,
-                    dayProps: EasyDayProps(
-                      todayHighlightStyle: TodayHighlightStyle.withBackground,
-                      todayHighlightColor: context.color.primary,
-                      activeDayStyle: DayStyle(
-                        dayNumStyle: textStyle(
-                          context,
-                          StyleType.disMd,
-                        ).copyWith(
-                          color: context.color.onPrimary,
-                        ),
-                        monthStrStyle: textStyle(
-                          context,
-                          StyleType.bodSm,
-                        ).copyWith(
-                          color: context.color.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        dayStrStyle: textStyle(
-                          context,
-                          StyleType.bodSm,
-                        ).copyWith(
-                          color: context.color.onPrimary,
-                          fontWeight: FontWeight.bold,
+                      Gap.vertical(16),
+                      AppText(
+                        text: 'At',
+                        style: StyleType.bodLg,
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.1,
+                        padding: getEdgeInsetsSymmetric(horizontal: 80),
+                        child: Stack(
+                          children: [
+                            TimeScrollWheel(),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: BlocBuilder<TimeScrollWheelCubit,
+                                  TimeScrollWheelState>(
+                                builder: (context, state) {
+                                  return AppText(
+                                    text: state.period,
+                                    style: StyleType.bodLg,
+                                  );
+                                },
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                      inactiveDayStyle: DayStyle(
-                        dayNumStyle: textStyle(
-                          context,
-                          StyleType.bodLg,
-                        ),
-                      ),
-                      todayStyle: DayStyle(
-                        dayNumStyle: textStyle(
-                          context,
-                          StyleType.bodLg,
-                        ).copyWith(
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 ),
                 insetPadding: EdgeInsets.zero,
