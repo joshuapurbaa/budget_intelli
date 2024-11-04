@@ -16,11 +16,16 @@ class FinancialTrackerDashboardAppbar extends StatefulWidget {
 }
 
 class _FinancialTrackerDashboardAppbarState
-    extends State<FinancialTrackerDashboardAppbar> {
+    extends State<FinancialTrackerDashboardAppbar>
+    with TickerProviderStateMixin {
   void _showCalculator() {
     showModalBottomSheet<void>(
       isScrollControlled: true,
       context: context,
+      transitionAnimationController: AnimationController(
+        duration: const Duration(milliseconds: 500),
+        vsync: this,
+      ),
       builder: (context) {
         return const CalculatorBottomSheet();
       },
