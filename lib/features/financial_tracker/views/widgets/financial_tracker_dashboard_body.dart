@@ -18,17 +18,22 @@ class _FinancialTrackerDashboardBodyState
   @override
   void initState() {
     super.initState();
-    _getTodayTransaction();
-  }
-
-  void _getTodayTransaction() {
-    context.read<FinancialDashboardCubit>().getTodayTransactions();
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FinancialDashboardCubit, FinancialDashboardState>(
       builder: (context, state) {
+        var transactions = <FinancialTransaction>[];
+
+        switch (state.filterBy) {
+          case SummaryFilterBy.day:
+            transactions = state.dayTransactions;
+          case SummaryFilterBy.week:
+            transactions = state.weekTransactions;
+          case SummaryFilterBy.month:
+            transactions = state.monthTransactions;
+        }
         return SliverFillRemaining(
           child: Padding(
             padding: getEdgeInsetsAll(16),
@@ -197,9 +202,13 @@ class _FinancialTrackerDashboardBodyState
                 Gap.vertical(20),
                 const DashboardGraphic(),
                 Gap.vertical(20),
-                const SummaryDashboard(),
+                SummaryDashboard(
+                  state: state,
+                ),
                 Gap.vertical(20),
-                const SummaryDashboardList(),
+                SummaryDashboardList(
+                  transactions: transactions,
+                ),
               ],
             ),
           ),

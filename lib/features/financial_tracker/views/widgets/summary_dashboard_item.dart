@@ -1,12 +1,11 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
 
 class SummaryDashboardItem extends StatelessWidget {
   const SummaryDashboardItem({
-    super.key,
     required this.transaction,
+    super.key,
   });
 
   final FinancialTransaction transaction;

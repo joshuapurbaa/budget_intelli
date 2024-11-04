@@ -63,12 +63,13 @@ class NumberFormatter {
     BuildContext context,
     double value, {
     int? decimalDigits,
+    bool isSymbol = true,
   }) {
     final currencyState = context.read<SettingBloc>().state;
     final currency = currencyState.currency;
     final formatter = NumberFormat.currency(
       locale: currency.locale,
-      symbol: '${currency.symbol} ',
+      symbol: isSymbol == true ? '${currency.symbol} ' : '',
       decimalDigits: decimalDigits ?? 2,
     );
 

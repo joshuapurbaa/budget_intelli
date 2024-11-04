@@ -1,10 +1,15 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SummaryDashboard extends StatelessWidget {
   const SummaryDashboard({
     super.key,
+    required this.state,
   });
+
+  final FinancialDashboardState state;
 
   @override
   Widget build(BuildContext context) {
@@ -14,103 +19,128 @@ class SummaryDashboard extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Container(
-            padding: getEdgeInsetsAll(20),
-            decoration: BoxDecoration(
-              color: context.color.onInverseSurface,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Column(
-              children: [
-                const AppText(
-                  text: 'Day',
-                  style: StyleType.headSm,
-                ),
-                Gap.vertical(10),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    AppText(
-                      text: r'$',
-                      style: StyleType.bodMd,
-                    ),
-                    AppText(
-                      text: '0.0',
-                      style: StyleType.headLg,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        Gap.horizontal(5),
-        Expanded(
-          child: Container(
-            padding: getEdgeInsetsAll(20),
-            decoration: BoxDecoration(
-              color: context.color.onInverseSurface,
-              borderRadius: BorderRadius.circular(30),
-            ),
-            child: Column(
-              children: [
-                const AppText(
-                  text: 'Week',
-                  style: StyleType.headSm,
-                ),
-                Gap.vertical(10),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    AppText(
-                      text: r'$',
-                      style: StyleType.bodMd,
-                    ),
-                    AppText(
-                      text: '0.0',
-                      style: StyleType.headLg,
-                    ),
-                  ],
-                ),
-              ],
+          child: GestureDetector(
+            onTap: () {
+              context
+                  .read<FinancialDashboardCubit>()
+                  .setSummaryFilterBy(SummaryFilterBy.day);
+            },
+            child: Container(
+              padding: getEdgeInsetsAll(14),
+              decoration: BoxDecoration(
+                color: context.color.onInverseSurface,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Column(
+                children: [
+                  const AppText(
+                    text: 'Day',
+                    style: StyleType.headSm,
+                  ),
+                  Gap.vertical(5),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      AppText(
+                        text: r'$',
+                        style: StyleType.bodMd,
+                      ),
+                      AppText(
+                        text: NumberFormatter.formatToMoneyDouble(
+                          context,
+                          state.dayTotalAmount,
+                          isSymbol: false,
+                        ),
+                        style: StyleType.headMed,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
         Gap.horizontal(5),
         Expanded(
-          child: Container(
-            padding: getEdgeInsetsAll(20),
-            decoration: BoxDecoration(
-              color: context.color.onInverseSurface,
-              borderRadius: BorderRadius.circular(30),
+          child: GestureDetector(
+            onTap: () {
+              context
+                  .read<FinancialDashboardCubit>()
+                  .setSummaryFilterBy(SummaryFilterBy.week);
+            },
+            child: Container(
+              padding: getEdgeInsetsAll(14),
+              decoration: BoxDecoration(
+                color: context.color.onInverseSurface,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Column(
+                children: [
+                  const AppText(
+                    text: 'Week',
+                    style: StyleType.headSm,
+                  ),
+                  Gap.vertical(5),
+                  const Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      AppText(
+                        text: r'$',
+                        style: StyleType.bodMd,
+                      ),
+                      AppText(
+                        text: '0.0',
+                        style: StyleType.headMed,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-            child: Column(
-              children: [
-                const AppText(
-                  text: 'Month',
-                  style: StyleType.headSm,
-                ),
-                Gap.vertical(10),
-                const Row(
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  textBaseline: TextBaseline.alphabetic,
-                  children: [
-                    AppText(
-                      text: r'$',
-                      style: StyleType.bodMd,
-                    ),
-                    AppText(
-                      text: '0.0',
-                      style: StyleType.headLg,
-                    ),
-                  ],
-                ),
-              ],
+          ),
+        ),
+        Gap.horizontal(5),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              context
+                  .read<FinancialDashboardCubit>()
+                  .setSummaryFilterBy(SummaryFilterBy.month);
+            },
+            child: Container(
+              padding: getEdgeInsetsAll(14),
+              decoration: BoxDecoration(
+                color: context.color.onInverseSurface,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              child: Column(
+                children: [
+                  const AppText(
+                    text: 'Month',
+                    style: StyleType.headSm,
+                  ),
+                  Gap.vertical(5),
+                  const Row(
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: [
+                      AppText(
+                        text: r'$',
+                        style: StyleType.bodMd,
+                      ),
+                      AppText(
+                        text: '0.0',
+                        style: StyleType.headMed,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

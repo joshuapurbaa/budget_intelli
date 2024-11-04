@@ -60,35 +60,51 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
 
       result.fold(
         (failure) => emit(
-          state.copyWith(transactions: []),
+          state.copyWith(monthTransactions: []),
         ),
-        (transactions) => emit(
-          state.copyWith(
-            transactions: transactions,
-          ),
-        ),
+        (transactions) {
+          print('transactions leng: ${transactions.length}');
+          emit(
+            state.copyWith(
+              monthTransactions: transactions,
+            ),
+          );
+          _getAndCalculateTransactions(transactions);
+        },
       );
     } else {
       emit(
-        state.copyWith(transactions: []),
+        state.copyWith(monthTransactions: []),
       );
     }
   }
 
-  // filter transactions that accuring today
-  List<FinancialTransaction> getTodayTransactions() {
+  List<FinancialTransaction> getTodayTransactions(
+    List<FinancialTransaction> transactions,
+  ) {
     final today = DateTime.now();
     final todayStr = today.toString().substring(0, 10);
 
-    return state.transactions
-        .where((element) => element.date == todayStr)
-        .toList();
+    var todayTransactions = <FinancialTransaction>[];
+
+    if (transactions.isNotEmpty) {
+      todayTransactions = transactions
+          .where(
+            (element) => element.date.substring(0, 10) == todayStr,
+          )
+          .toList();
+    }
+
+    return todayTransactions;
   }
 
   // filter transactions that accuring this week
-  List<FinancialTransaction> getThisWeekTransactions() {
+  List<FinancialTransaction> getThisWeekTransactions(
+    List<FinancialTransaction> transactions,
+  ) {
     final today = DateTime.now();
     final todayWeekDay = today.weekday;
+    var weekTransactions = <FinancialTransaction>[];
 
     final firstDayOfWeek = today.subtract(
       Duration(days: todayWeekDay - 1),
@@ -101,18 +117,25 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
     final firstDayOfWeekStr = firstDayOfWeek.toString().substring(0, 10);
     final lastDayOfWeekStr = lastDayOfWeek.toString().substring(0, 10);
 
-    return state.transactions
-        .where((element) =>
-            element.date.compareTo(firstDayOfWeekStr) >= 0 &&
-            element.date.compareTo(lastDayOfWeekStr) <= 0)
-        .toList();
+    if (transactions.isNotEmpty) {
+      weekTransactions = transactions
+          .where((element) =>
+              element.date.compareTo(firstDayOfWeekStr) >= 0 &&
+              element.date.compareTo(lastDayOfWeekStr) <= 0)
+          .toList();
+    }
+
+    return weekTransactions;
   }
 
   // filter transactions that accuring this month
-  List<FinancialTransaction> getThisMonthTransactions() {
+  List<FinancialTransaction> getThisMonthTransactions(
+    List<FinancialTransaction> transactions,
+  ) {
     final today = DateTime.now();
     final todayMonth = today.month;
     final todayYear = today.year;
+    var monthTransactions = <FinancialTransaction>[];
 
     final firstDayOfMonth = DateTime(todayYear, todayMonth, 1);
     final lastDayOfMonth = DateTime(todayYear, todayMonth + 1, 0);
@@ -120,10 +143,54 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
     final firstDayOfMonthStr = firstDayOfMonth.toString().substring(0, 10);
     final lastDayOfMonthStr = lastDayOfMonth.toString().substring(0, 10);
 
-    return state.transactions
-        .where((element) =>
-            element.date.compareTo(firstDayOfMonthStr) >= 0 &&
-            element.date.compareTo(lastDayOfMonthStr) <= 0)
-        .toList();
+    if (transactions.isNotEmpty) {
+      monthTransactions = transactions
+          .where((element) =>
+              element.date.compareTo(firstDayOfMonthStr) >= 0 &&
+              element.date.compareTo(lastDayOfMonthStr) <= 0)
+          .toList();
+    }
+
+    return monthTransactions;
+  }
+
+  void _getAndCalculateTransactions(List<FinancialTransaction> transactions) {
+    final todayTransactions = getTodayTransactions(transactions);
+    final thisWeekTransactions = getThisWeekTransactions(transactions);
+    final thisMonthTransactions = getThisMonthTransactions(transactions);
+
+    final dayTotalAmount = todayTransactions.fold(
+      0.0,
+      (previousValue, element) => previousValue + element.amount,
+    );
+
+    final weekTotalAmount = thisWeekTransactions.fold(
+      0.0,
+      (previousValue, element) => previousValue + element.amount,
+    );
+
+    final monthTotalAmount = thisMonthTransactions.fold(
+      0.0,
+      (previousValue, element) => previousValue + element.amount,
+    );
+
+    emit(
+      state.copyWith(
+        dayTotalAmount: dayTotalAmount,
+        weekTotalAmount: weekTotalAmount,
+        monthTotalAmount: monthTotalAmount,
+        dayTransactions: todayTransactions,
+        weekTransactions: thisWeekTransactions,
+        monthTransactions: thisMonthTransactions,
+      ),
+    );
+  }
+
+  void setSummaryFilterBy(SummaryFilterBy filterBy) {
+    emit(
+      state.copyWith(
+        filterBy: filterBy,
+      ),
+    );
   }
 }
