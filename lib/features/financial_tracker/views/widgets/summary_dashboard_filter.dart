@@ -5,16 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SummaryDashboardFilter extends StatelessWidget {
   const SummaryDashboardFilter({
-    required this.state, super.key,
+    required this.state,
+    super.key,
   });
 
   final FinancialDashboardState state;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final widthSummaryContainer = width / 3;
-
+    final filterBy = state.filterBy;
     return Row(
       children: [
         Expanded(
@@ -25,16 +24,21 @@ class SummaryDashboardFilter extends StatelessWidget {
                   .setSummaryFilterBy(SummaryFilterBy.day);
             },
             child: Container(
-              padding: getEdgeInsetsAll(14),
+              padding: getEdgeInsetsAll(12),
               decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
+                color: filterBy == SummaryFilterBy.day
+                    ? context.color.primary
+                    : context.color.onInverseSurface,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Column(
                 children: [
-                  const AppText(
+                  AppText(
                     text: 'Day',
-                    style: StyleType.headSm,
+                    style: StyleType.bodLg,
+                    color: filterBy == SummaryFilterBy.day
+                        ? context.color.primaryContainer
+                        : null,
                   ),
                   Gap.vertical(5),
                   Row(
@@ -42,9 +46,12 @@ class SummaryDashboardFilter extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     textBaseline: TextBaseline.alphabetic,
                     children: [
-                      const AppText(
+                      AppText(
                         text: r'$',
                         style: StyleType.bodMd,
+                        color: filterBy == SummaryFilterBy.day
+                            ? context.color.primaryContainer
+                            : null,
                       ),
                       AppText(
                         text: NumberFormatter.formatToMoneyDouble(
@@ -52,7 +59,10 @@ class SummaryDashboardFilter extends StatelessWidget {
                           state.dayTotalAmount,
                           isSymbol: false,
                         ),
-                        style: StyleType.headMed,
+                        style: StyleType.headSm,
+                        color: filterBy == SummaryFilterBy.day
+                            ? context.color.primaryContainer
+                            : null,
                       ),
                     ],
                   ),
@@ -70,16 +80,21 @@ class SummaryDashboardFilter extends StatelessWidget {
                   .setSummaryFilterBy(SummaryFilterBy.week);
             },
             child: Container(
-              padding: getEdgeInsetsAll(14),
+              padding: getEdgeInsetsAll(12),
               decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
+                color: filterBy == SummaryFilterBy.week
+                    ? context.color.primary
+                    : context.color.onInverseSurface,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Column(
                 children: [
-                  const AppText(
+                  AppText(
                     text: 'Week',
-                    style: StyleType.headSm,
+                    style: StyleType.bodLg,
+                    color: filterBy == SummaryFilterBy.week
+                        ? context.color.primaryContainer
+                        : null,
                   ),
                   Gap.vertical(5),
                   Row(
@@ -87,9 +102,12 @@ class SummaryDashboardFilter extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     textBaseline: TextBaseline.alphabetic,
                     children: [
-                      const AppText(
+                      AppText(
                         text: r'$',
                         style: StyleType.bodMd,
+                        color: filterBy == SummaryFilterBy.week
+                            ? context.color.primaryContainer
+                            : null,
                       ),
                       AppText(
                         text: NumberFormatter.formatToMoneyDouble(
@@ -97,7 +115,10 @@ class SummaryDashboardFilter extends StatelessWidget {
                           state.weekTotalAmount,
                           isSymbol: false,
                         ),
-                        style: StyleType.headMed,
+                        style: StyleType.headSm,
+                        color: filterBy == SummaryFilterBy.week
+                            ? context.color.primaryContainer
+                            : null,
                       ),
                     ],
                   ),
@@ -115,16 +136,21 @@ class SummaryDashboardFilter extends StatelessWidget {
                   .setSummaryFilterBy(SummaryFilterBy.month);
             },
             child: Container(
-              padding: getEdgeInsetsAll(14),
+              padding: getEdgeInsetsAll(12),
               decoration: BoxDecoration(
-                color: context.color.onInverseSurface,
+                color: filterBy == SummaryFilterBy.month
+                    ? context.color.primary
+                    : context.color.onInverseSurface,
                 borderRadius: BorderRadius.circular(30),
               ),
               child: Column(
                 children: [
-                  const AppText(
+                  AppText(
                     text: 'Month',
-                    style: StyleType.headSm,
+                    style: StyleType.bodLg,
+                    color: filterBy == SummaryFilterBy.month
+                        ? context.color.primaryContainer
+                        : null,
                   ),
                   Gap.vertical(5),
                   Row(
@@ -132,9 +158,12 @@ class SummaryDashboardFilter extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     textBaseline: TextBaseline.alphabetic,
                     children: [
-                      const AppText(
+                      AppText(
                         text: r'$',
                         style: StyleType.bodMd,
+                        color: filterBy == SummaryFilterBy.month
+                            ? context.color.primaryContainer
+                            : null,
                       ),
                       AppText(
                         text: NumberFormatter.formatToMoneyDouble(
@@ -142,7 +171,10 @@ class SummaryDashboardFilter extends StatelessWidget {
                           state.monthTotalAmount,
                           isSymbol: false,
                         ),
-                        style: StyleType.headMed,
+                        style: StyleType.headSm,
+                        color: filterBy == SummaryFilterBy.month
+                            ? context.color.primaryContainer
+                            : null,
                       ),
                     ],
                   ),

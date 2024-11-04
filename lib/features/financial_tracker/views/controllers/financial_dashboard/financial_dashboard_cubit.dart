@@ -118,13 +118,13 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
 
     if (transactions.isNotEmpty) {
       weekTransactions = transactions
-          .where((element) =>
-              element.date.compareTo(firstDayOfWeekStr) >= 0 &&
-              element.date.compareTo(lastDayOfWeekStr) <= 0,)
+          .where(
+            (element) =>
+                element.date.compareTo(firstDayOfWeekStr) >= 0 &&
+                element.date.compareTo(lastDayOfWeekStr) <= 0,
+          )
           .toList();
     }
-
-    print('weekTransactions: ${weekTransactions.length}');
 
     return weekTransactions;
   }
@@ -146,13 +146,13 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
 
     if (transactions.isNotEmpty) {
       monthTransactions = transactions
-          .where((element) =>
-              element.date.compareTo(firstDayOfMonthStr) >= 0 &&
-              element.date.compareTo(lastDayOfMonthStr) <= 0,)
+          .where(
+            (element) =>
+                element.date.compareTo(firstDayOfMonthStr) >= 0 &&
+                element.date.compareTo(lastDayOfMonthStr) <= 0,
+          )
           .toList();
     }
-
-    print('monthTransactions: ${monthTransactions.length}');
 
     return monthTransactions;
   }
@@ -163,17 +163,17 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
     final thisMonthTransactions = getThisMonthTransactions(transactions);
 
     final dayTotalAmount = todayTransactions.fold(
-      0,
+      0.0,
       (previousValue, element) => previousValue + element.amount,
     );
 
     final weekTotalAmount = thisWeekTransactions.fold(
-      0,
+      0.0,
       (previousValue, element) => previousValue + element.amount,
     );
 
     final monthTotalAmount = thisMonthTransactions.fold(
-      0,
+      0.0,
       (previousValue, element) => previousValue + element.amount,
     );
 
