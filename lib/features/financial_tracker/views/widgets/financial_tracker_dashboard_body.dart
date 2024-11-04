@@ -5,20 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class FinancialTrackerDashboardBody extends StatefulWidget {
+class FinancialTrackerDashboardBody extends StatelessWidget {
   const FinancialTrackerDashboardBody({super.key});
-
-  @override
-  State<FinancialTrackerDashboardBody> createState() =>
-      _FinancialTrackerDashboardBodyState();
-}
-
-class _FinancialTrackerDashboardBodyState
-    extends State<FinancialTrackerDashboardBody> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,68 +37,7 @@ class _FinancialTrackerDashboardBodyState
                           color: context.color.onInverseSurface,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<FinancialDashboardCubit>()
-                                      .toggleIncome(isIncome: false);
-                                },
-                                child: Container(
-                                  padding: getEdgeInsetsSymmetric(
-                                    horizontal: 19,
-                                    vertical: 10,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: state.isIncome
-                                        ? context.color.onInverseSurface
-                                        : context.color.primary,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: AppText(
-                                    text: 'Expenses',
-                                    style: StyleType.bodMd,
-                                    color: state.isIncome
-                                        ? context.color.onSurface
-                                        : context.color.onPrimary,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<FinancialDashboardCubit>()
-                                      .toggleIncome(isIncome: true);
-                                },
-                                child: Container(
-                                  padding: getEdgeInsetsSymmetric(
-                                    horizontal: 19,
-                                    vertical: 10,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: state.isIncome
-                                        ? context.color.primary
-                                        : context.color.onInverseSurface,
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: AppText(
-                                    text: 'Income',
-                                    style: StyleType.bodMd,
-                                    maxLines: 1,
-                                    color: state.isIncome
-                                        ? context.color.onPrimary
-                                        : context.color.onSurface,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
+                        child: ExpensesIncomeToggle(),
                       ),
                     ),
                     Gap.horizontal(10),
