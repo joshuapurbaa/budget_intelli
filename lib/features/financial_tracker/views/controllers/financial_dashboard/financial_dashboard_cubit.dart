@@ -58,8 +58,6 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
         ),
       );
 
-      debugPrint('result get: $result');
-
       result.fold(
         (failure) => emit(
           state.copyWith(transactions: []),
@@ -75,5 +73,57 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
         state.copyWith(transactions: []),
       );
     }
+  }
+
+  // filter transactions that accuring today
+  List<FinancialTransaction> getTodayTransactions() {
+    final today = DateTime.now();
+    final todayStr = today.toString().substring(0, 10);
+
+    return state.transactions
+        .where((element) => element.date == todayStr)
+        .toList();
+  }
+
+  // filter transactions that accuring this week
+  List<FinancialTransaction> getThisWeekTransactions() {
+    final today = DateTime.now();
+    final todayWeekDay = today.weekday;
+
+    final firstDayOfWeek = today.subtract(
+      Duration(days: todayWeekDay - 1),
+    );
+
+    final lastDayOfWeek = today.add(
+      Duration(days: 7 - todayWeekDay),
+    );
+
+    final firstDayOfWeekStr = firstDayOfWeek.toString().substring(0, 10);
+    final lastDayOfWeekStr = lastDayOfWeek.toString().substring(0, 10);
+
+    return state.transactions
+        .where((element) =>
+            element.date.compareTo(firstDayOfWeekStr) >= 0 &&
+            element.date.compareTo(lastDayOfWeekStr) <= 0)
+        .toList();
+  }
+
+  // filter transactions that accuring this month
+  List<FinancialTransaction> getThisMonthTransactions() {
+    final today = DateTime.now();
+    final todayMonth = today.month;
+    final todayYear = today.year;
+
+    final firstDayOfMonth = DateTime(todayYear, todayMonth, 1);
+    final lastDayOfMonth = DateTime(todayYear, todayMonth + 1, 0);
+
+    final firstDayOfMonthStr = firstDayOfMonth.toString().substring(0, 10);
+    final lastDayOfMonthStr = lastDayOfMonth.toString().substring(0, 10);
+
+    return state.transactions
+        .where((element) =>
+            element.date.compareTo(firstDayOfMonthStr) >= 0 &&
+            element.date.compareTo(lastDayOfMonthStr) <= 0)
+        .toList();
   }
 }

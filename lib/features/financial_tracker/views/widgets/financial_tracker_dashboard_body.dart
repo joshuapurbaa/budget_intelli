@@ -16,10 +16,19 @@ class FinancialTrackerDashboardBody extends StatefulWidget {
 class _FinancialTrackerDashboardBodyState
     extends State<FinancialTrackerDashboardBody> {
   @override
+  void initState() {
+    super.initState();
+    _getTodayTransaction();
+  }
+
+  void _getTodayTransaction() {
+    context.read<FinancialDashboardCubit>().getTodayTransactions();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<FinancialDashboardCubit, FinancialDashboardState>(
       builder: (context, state) {
-        print('isIncome: ${state.isIncome}');
         return SliverFillRemaining(
           child: Padding(
             padding: getEdgeInsetsAll(16),
