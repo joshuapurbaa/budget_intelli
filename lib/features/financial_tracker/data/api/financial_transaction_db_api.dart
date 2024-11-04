@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class FinancialTransactionDbApi {
@@ -89,7 +90,8 @@ class FinancialTransactionDbApiImpl implements FinancialTransactionDbApi {
         year: year,
       );
       return result;
-    } catch (e) {
+    } catch (e, s) {
+      debugPrint('stack: $s');
       throw CustomException('Error: $e');
     }
   }

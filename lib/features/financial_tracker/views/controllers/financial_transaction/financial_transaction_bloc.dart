@@ -1,6 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'financial_transaction_event.dart';
@@ -42,6 +43,8 @@ class FinancialTransactionBloc
   ) async {
     final result =
         await _insertFinancialTransactionDb(event.financialTransaction);
+
+    debugPrint('result insert: $result');
 
     result.fold(
       (fail) => emit(

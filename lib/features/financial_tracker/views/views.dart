@@ -18,3 +18,4 @@ export 'widgets/summary_dasboard_list.dart';
 export 'widgets/summary_dashboard.dart';
 export 'widgets/summary_dashboard_item.dart';
 export 'widgets/time_scroll_wheel.dart';
+export 'controllers/financial_transaction/financial_transaction_bloc.dart';

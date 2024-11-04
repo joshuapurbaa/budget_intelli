@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:geocoding/geocoding.dart';
@@ -20,7 +21,17 @@ class FinancialTransaction {
   });
 
   // fromMap method to convert map to model
+  // fromMap method to convert map to model
   factory FinancialTransaction.fromMap(Map<String, dynamic> map) {
+    // Parse transactionLocation with error handling
+    TransactionLocation? transactionLocation;
+    if (map['transaction_location'] != null) {
+      if (map['transaction_location'] is Map<String, dynamic>) {
+        transactionLocation = TransactionLocation.fromMap(
+          map['transaction_location'] as Map<String, dynamic>,
+        );
+      }
+    }
     return FinancialTransaction(
       id: map['id'] as String,
       createdAt: map['created_at'] as String,
@@ -29,21 +40,17 @@ class FinancialTransaction {
       amount: map['amount'] as double,
       date: map['date'] as String,
       type: map['type'] as String,
-      categoryName: map['category'] as String,
+      categoryName: map['category_name'] as String,
       accountName: map['account_name'] as String,
       accountId: map['account_id'] as String,
       categoryId: map['category_id'] as String,
-      transactionLocation: map['transaction_location'] != null
-          ? TransactionLocation.fromMap(
-              map['transaction_location'] as Map<String, dynamic>,
-            )
-          : null,
+      transactionLocation: transactionLocation,
       picture: map['picture'] as Uint8List?,
     );
   }
 
   // toMap method to convert model to map
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toMapDb() {
     return <String, dynamic>{
       'id': id,
       'created_at': createdAt,
@@ -52,11 +59,11 @@ class FinancialTransaction {
       'amount': amount,
       'date': date,
       'type': type,
-      'category': categoryName,
+      'category_name': categoryName,
       'account_name': accountName,
       'account_id': accountId,
       'category_id': categoryId,
-      'transaction_location': transactionLocation?.toMap(),
+      'transaction_location': jsonEncode(transactionLocation?.toMap()),
       'picture': picture,
     };
   }

@@ -50,6 +50,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    final localize = textLocalizer(context);
     return Container(
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.90,
@@ -133,57 +134,79 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                 notifier: notifier,
               ),
               Gap.vertical(8),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(382.w, 58.h),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  backgroundColor: context.color.primary,
-                ),
-                onPressed: () {
-                  final category = context
-                      .read<FinancialCategoryBloc>()
-                      .state
-                      .selectedFinancialCategory;
-                  final account =
-                      context.read<AccountBloc>().state.selectedAccount;
-                  final location =
-                      context.read<LocationCubit>().state.transactionLocation;
-                  final imageBytes = ControllerHelper.getImagesBytes(
-                    context,
-                  );
-                  final date =
-                      context.read<TimeScrollWheelCubit>().state.selectedDate;
-                  final isIncome =
-                      context.read<FinancialDashboardCubit>().state.isIncome;
-
-                  if (category != null && account != null) {
-                    final transaction = FinancialTransaction(
-                      id: const Uuid().v4(),
-                      createdAt: DateTime.now().toString(),
-                      updatedAt: DateTime.now().toString(),
-                      comment: _commentController.text,
-                      amount: double.parse(notifier.result.replaceAll(',', '')),
-                      date: date.toString(),
-                      type: isIncome ? 'income' : 'expense',
-                      categoryName: category.categoryName,
-                      accountName: account.name,
-                      accountId: account.id,
-                      categoryId: category.id,
-                      transactionLocation: location,
-                      picture: imageBytes,
-                    );
-
-                    debugPrint(transaction.toString());
+              BlocListener<FinancialTransactionBloc, FinancialTransactionState>(
+                listener: (context, state) {
+                  if (state.insertSuccess) {
+                    context.pop();
+                    context.read<FinancialTransactionBloc>().add(
+                          const ResetFinancialTransactionStateEvent(),
+                        );
+                    context
+                        .read<FinancialDashboardCubit>()
+                        .getAllFinancialTransactionByMonthAndYear(
+                          context,
+                          namaBulan: context
+                              .read<FinancialDashboardCubit>()
+                              .state
+                              .selectedMonth,
+                        );
+                  } else {
+                    AppToast.showToastError(context, localize.failed);
                   }
-
-                  context.pop();
                 },
-                child: AppText(
-                  text: 'Catat Transaksi',
-                  style: StyleType.bodLg,
-                  color: context.color.onPrimary,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(382.w, 58.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    backgroundColor: context.color.primary,
+                  ),
+                  onPressed: () {
+                    final category = context
+                        .read<FinancialCategoryBloc>()
+                        .state
+                        .selectedFinancialCategory;
+                    final account =
+                        context.read<AccountBloc>().state.selectedAccount;
+                    final location =
+                        context.read<LocationCubit>().state.transactionLocation;
+                    final imageBytes = ControllerHelper.getImagesBytes(
+                      context,
+                    );
+                    final date =
+                        context.read<TimeScrollWheelCubit>().state.selectedDate;
+                    final isIncome =
+                        context.read<FinancialDashboardCubit>().state.isIncome;
+
+                    if (category != null && account != null) {
+                      final transaction = FinancialTransaction(
+                        id: const Uuid().v4(),
+                        createdAt: DateTime.now().toString(),
+                        updatedAt: DateTime.now().toString(),
+                        comment: _commentController.text,
+                        amount:
+                            double.parse(notifier.result.replaceAll(',', '')),
+                        date: date.toString(),
+                        type: isIncome ? 'income' : 'expense',
+                        categoryName: category.categoryName,
+                        accountName: account.name,
+                        accountId: account.id,
+                        categoryId: category.id,
+                        transactionLocation: location,
+                        picture: imageBytes,
+                      );
+
+                      context.read<FinancialTransactionBloc>().add(
+                            InsertFinancialTransactionEvent(transaction),
+                          );
+                    }
+                  },
+                  child: AppText(
+                    text: 'Catat Transaksi',
+                    style: StyleType.bodLg,
+                    color: context.color.onPrimary,
+                  ),
                 ),
               ),
               Gap.vertical(20),

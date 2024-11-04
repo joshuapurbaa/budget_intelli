@@ -58,6 +58,8 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
         ),
       );
 
+      debugPrint('result get: $result');
+
       result.fold(
         (failure) => emit(
           state.copyWith(transactions: []),

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -52,7 +55,7 @@ class FinancialTransactionDb {
     final db = await database;
     await db.insert(
       'FinancialTransaction',
-      param.toMap(),
+      param.toMapDb(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }
@@ -89,7 +92,7 @@ class FinancialTransactionDb {
     final db = await database;
     await db.update(
       'FinancialTransaction',
-      param.toMap(),
+      param.toMapDb(),
       where: 'id = ?',
       whereArgs: [param.id],
     );
@@ -121,10 +124,28 @@ class FinancialTransactionDb {
       whereArgs: [month, year],
       orderBy: 'date DESC',
     );
+
+    debugPrint('maps: $maps');
+
+    // Salin setiap elemen dalam maps ke list baru agar dapat dimodifikasi
+    final modifiableMaps = maps.map((map) {
+      final newMap = Map<String, dynamic>.from(map); // Salin map ke objek baru
+      if (newMap['transaction_location'] is String) {
+        try {
+          newMap['transaction_location'] =
+              jsonDecode(newMap['transaction_location'] as String);
+        } catch (e) {
+          debugPrint('Failed to parse transaction_location for map: $map');
+          debugPrint('Error: $e');
+        }
+      }
+      return newMap;
+    }).toList();
+
     return List.generate(
-      maps.length,
+      modifiableMaps.length,
       (i) {
-        return FinancialTransaction.fromMap(maps[i]);
+        return FinancialTransaction.fromMap(modifiableMaps[i]);
       },
     );
   }

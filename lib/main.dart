@@ -244,6 +244,9 @@ void main() async {
         BlocProvider<FinancialCategoryHistoryBloc>(
           create: (_) => serviceLocator<FinancialCategoryHistoryBloc>(),
         ),
+        BlocProvider<FinancialTransactionBloc>(
+          create: (_) => serviceLocator<FinancialTransactionBloc>(),
+        ),
         BlocProvider<LocationCubit>(
           create: (context) => LocationCubit(),
         ),

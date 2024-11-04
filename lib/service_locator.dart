@@ -1153,16 +1153,16 @@ void _initFinancialTransactionDb() {
       () => GetAllFinancialTransactionByMonthAndYearDb(
         serviceLocator(),
       ),
+    )
+    ..registerLazySingleton(
+      () => FinancialTransactionBloc(
+        insertFinancialTransactionDb: serviceLocator(),
+        updateFinancialTransactionDb: serviceLocator(),
+        getFinancialTransactionDb: serviceLocator(),
+        getAllFinancialTransactionDb: serviceLocator(),
+        deleteFinancialTransactionDb: serviceLocator(),
+      ),
     );
-  // ..registerLazySingleton(
-  //   () => FinancialTransactionBloc(
-  //     insertFinancialTransactionDb: serviceLocator(),
-  //     updateFinancialTransactionDb: serviceLocator(),
-  //     getFinancialTransactionDb: serviceLocator(),
-  //     getAllFinancialTransactionDb: serviceLocator(),
-  //     deleteFinancialTransactionDb: serviceLocator(),
-  //   ),
-  // );
 }
 
 void _initFinancialDashboard() {
