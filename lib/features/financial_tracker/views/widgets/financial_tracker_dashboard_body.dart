@@ -137,6 +137,7 @@ class _FinancialTrackerDashboardBodyState
                             result,
                             context,
                           );
+
                           context.read<FinancialDashboardCubit>().selectMonth(
                                 month: result,
                                 monthNumStr: monthNumber ?? '',
