@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class SummaryDashboardList extends StatelessWidget {
   const SummaryDashboardList({
-    super.key,
-    required this.transactions,
+    required this.transactions, super.key,
   });
 
   final List<FinancialTransaction> transactions;

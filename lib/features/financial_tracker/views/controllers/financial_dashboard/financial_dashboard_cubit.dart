@@ -120,7 +120,7 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
       weekTransactions = transactions
           .where((element) =>
               element.date.compareTo(firstDayOfWeekStr) >= 0 &&
-              element.date.compareTo(lastDayOfWeekStr) <= 0)
+              element.date.compareTo(lastDayOfWeekStr) <= 0,)
           .toList();
     }
 
@@ -138,7 +138,7 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
     final todayYear = today.year;
     var monthTransactions = <FinancialTransaction>[];
 
-    final firstDayOfMonth = DateTime(todayYear, todayMonth, 1);
+    final firstDayOfMonth = DateTime(todayYear, todayMonth);
     final lastDayOfMonth = DateTime(todayYear, todayMonth + 1, 0);
 
     final firstDayOfMonthStr = firstDayOfMonth.toString().substring(0, 10);
@@ -148,7 +148,7 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
       monthTransactions = transactions
           .where((element) =>
               element.date.compareTo(firstDayOfMonthStr) >= 0 &&
-              element.date.compareTo(lastDayOfMonthStr) <= 0)
+              element.date.compareTo(lastDayOfMonthStr) <= 0,)
           .toList();
     }
 
@@ -163,17 +163,17 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
     final thisMonthTransactions = getThisMonthTransactions(transactions);
 
     final dayTotalAmount = todayTransactions.fold(
-      0.0,
+      0,
       (previousValue, element) => previousValue + element.amount,
     );
 
     final weekTotalAmount = thisWeekTransactions.fold(
-      0.0,
+      0,
       (previousValue, element) => previousValue + element.amount,
     );
 
     final monthTotalAmount = thisMonthTransactions.fold(
-      0.0,
+      0,
       (previousValue, element) => previousValue + element.amount,
     );
 

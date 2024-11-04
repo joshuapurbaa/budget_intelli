@@ -55,6 +55,7 @@ class SummaryDashboardItem extends StatelessWidget {
                     transaction.amount,
                   )}',
                   style: StyleType.headSm,
+                  color: context.color.error,
                 ),
               ] else ...[
                 AppText(

@@ -5,8 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SummaryDashboardFilter extends StatelessWidget {
   const SummaryDashboardFilter({
-    super.key,
-    required this.state,
+    required this.state, super.key,
   });
 
   final FinancialDashboardState state;
@@ -43,7 +42,7 @@ class SummaryDashboardFilter extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     textBaseline: TextBaseline.alphabetic,
                     children: [
-                      AppText(
+                      const AppText(
                         text: r'$',
                         style: StyleType.bodMd,
                       ),
@@ -83,17 +82,21 @@ class SummaryDashboardFilter extends StatelessWidget {
                     style: StyleType.headSm,
                   ),
                   Gap.vertical(5),
-                  const Row(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     mainAxisAlignment: MainAxisAlignment.center,
                     textBaseline: TextBaseline.alphabetic,
                     children: [
-                      AppText(
+                      const AppText(
                         text: r'$',
                         style: StyleType.bodMd,
                       ),
                       AppText(
-                        text: '0.0',
+                        text: NumberFormatter.formatToMoneyDouble(
+                          context,
+                          state.weekTotalAmount,
+                          isSymbol: false,
+                        ),
                         style: StyleType.headMed,
                       ),
                     ],
@@ -124,17 +127,21 @@ class SummaryDashboardFilter extends StatelessWidget {
                     style: StyleType.headSm,
                   ),
                   Gap.vertical(5),
-                  const Row(
+                  Row(
                     crossAxisAlignment: CrossAxisAlignment.baseline,
                     mainAxisAlignment: MainAxisAlignment.center,
                     textBaseline: TextBaseline.alphabetic,
                     children: [
-                      AppText(
+                      const AppText(
                         text: r'$',
                         style: StyleType.bodMd,
                       ),
                       AppText(
-                        text: '0.0',
+                        text: NumberFormatter.formatToMoneyDouble(
+                          context,
+                          state.monthTotalAmount,
+                          isSymbol: false,
+                        ),
                         style: StyleType.headMed,
                       ),
                     ],

@@ -181,7 +181,7 @@ class ButtonDateTime extends StatelessWidget {
                 width: 80,
                 decoration: BoxDecoration(
                   color: context.color.surfaceTint.withOpacity(0.6),
-                  borderRadius: BorderRadius.only(
+                  borderRadius: const BorderRadius.only(
                     bottomRight: Radius.circular(20),
                     topLeft: Radius.circular(20),
                   ),

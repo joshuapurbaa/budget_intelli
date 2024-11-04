@@ -9,16 +9,14 @@ class TimeScrollWheelCubit extends Cubit<TimeScrollWheelState> {
   void setSelectedHourWheel(String selectedHour) {
     final period = int.parse(selectedHour) < 12 ? 'AM' : 'PM';
     DateTime? updatedDate;
-    if (state.selectedDate != null) {
-      updatedDate = DateTime(
-        state.selectedDate!.year,
-        state.selectedDate!.month,
-        state.selectedDate!.day,
-        int.parse(selectedHour),
-        int.parse(state.selectedMinute),
-      );
-    }
-    emit(
+    updatedDate = DateTime(
+      state.selectedDate.year,
+      state.selectedDate.month,
+      state.selectedDate.day,
+      int.parse(selectedHour),
+      int.parse(state.selectedMinute),
+    );
+      emit(
       state.copyWith(
         selectedHour: selectedHour,
         period: period,
@@ -30,24 +28,22 @@ class TimeScrollWheelCubit extends Cubit<TimeScrollWheelState> {
   void setSelectedMinuteWheel(String selectedMinute) {
     DateTime? updatedDate;
 
-    if (state.selectedDate != null) {
-      updatedDate = DateTime(
-        state.selectedDate!.year,
-        state.selectedDate!.month,
-        state.selectedDate!.day,
-        int.parse(state.selectedHour),
-        int.parse(selectedMinute),
-      );
-    }
-    emit(state.copyWith(
+    updatedDate = DateTime(
+      state.selectedDate.year,
+      state.selectedDate.month,
+      state.selectedDate.day,
+      int.parse(state.selectedHour),
+      int.parse(selectedMinute),
+    );
+      emit(state.copyWith(
       selectedMinute: selectedMinute,
       selectedDate: updatedDate,
-    ));
+    ),);
   }
 
   void setSelectedDate(DateTime selectedDate) {
     emit(state.copyWith(
       selectedDate: selectedDate,
-    ));
+    ),);
   }
 }
