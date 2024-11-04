@@ -63,7 +63,6 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
           state.copyWith(monthTransactions: []),
         ),
         (transactions) {
-          print('transactions leng: ${transactions.length}');
           emit(
             state.copyWith(
               monthTransactions: transactions,
@@ -125,6 +124,8 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
           .toList();
     }
 
+    print('weekTransactions: ${weekTransactions.length}');
+
     return weekTransactions;
   }
 
@@ -150,6 +151,8 @@ class FinancialDashboardCubit extends Cubit<FinancialDashboardState> {
               element.date.compareTo(lastDayOfMonthStr) <= 0)
           .toList();
     }
+
+    print('monthTransactions: ${monthTransactions.length}');
 
     return monthTransactions;
   }

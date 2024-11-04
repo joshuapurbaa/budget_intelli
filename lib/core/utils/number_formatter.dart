@@ -32,27 +32,30 @@ class NumberFormatter {
   }) {
     final currencyState = context.read<SettingBloc>().state;
     final currency = currencyState.currency;
-    final formatter = NumberFormat.currency(
-      locale: currency.locale,
-      symbol: '',
-      decimalDigits: decimalDigits ?? 2,
-    );
-
     // Pertahankan titik desimal dan hapus karakter non-numeric lainnya
     final cleanVal = value.replaceAll(RegExp('[^0-9.]'), '');
 
     // Pastikan nilai tidak kosong
     final parsedValue = double.tryParse(cleanVal) ?? 0.0;
+    final decimalByModulus = parsedValue % 1 == 0 ? 0 : 2;
+
+    final formatter = NumberFormat.currency(
+      locale: currency.locale,
+      symbol: '',
+      decimalDigits: decimalDigits ?? decimalByModulus,
+    );
+
     return formatter.format(parsedValue);
   }
 
   static String formatToMoneyInt(BuildContext context, int value) {
     final currencyState = context.read<SettingBloc>().state;
     final currency = currencyState.currency;
+    final decimalByModulus = value % 1 == 0 ? 0 : 2;
     final formatter = NumberFormat.currency(
       locale: currency.locale,
       symbol: '${currency.symbol} ',
-      decimalDigits: 0,
+      decimalDigits: decimalByModulus,
     );
 
     return formatter.format(value);
@@ -67,10 +70,12 @@ class NumberFormatter {
   }) {
     final currencyState = context.read<SettingBloc>().state;
     final currency = currencyState.currency;
+    final decimalByModulus = value % 1 == 0 ? 0 : 2;
+
     final formatter = NumberFormat.currency(
       locale: currency.locale,
       symbol: isSymbol == true ? '${currency.symbol} ' : '',
-      decimalDigits: decimalDigits ?? 2,
+      decimalDigits: decimalDigits ?? decimalByModulus,
     );
 
     return formatter.format(value);
@@ -83,10 +88,11 @@ class NumberFormatter {
   }) {
     final currencyState = context.read<SettingBloc>().state;
     final currency = currencyState.currency;
+    final decimalByModulus = value % 1 == 0 ? 0 : 2;
     final formatter = NumberFormat.currency(
       locale: currency.locale,
       symbol: '',
-      decimalDigits: decimalDigits ?? 2,
+      decimalDigits: decimalDigits ?? decimalByModulus,
     );
 
     return formatter.format(value);
@@ -95,10 +101,11 @@ class NumberFormatter {
   static String formatToMoneyIntNoSymbol(BuildContext context, int value) {
     final currencyState = context.read<SettingBloc>().state;
     final currency = currencyState.currency;
+    final decimalByModulus = value % 1 == 0 ? 0 : 2;
     final formatter = NumberFormat.currency(
       locale: currency.locale,
       symbol: '',
-      decimalDigits: 0,
+      decimalDigits: decimalByModulus,
     );
 
     return formatter.format(value);

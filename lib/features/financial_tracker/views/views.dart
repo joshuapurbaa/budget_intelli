@@ -15,7 +15,7 @@ export 'widgets/dashboard_grapic.dart';
 export 'widgets/financial_tracker_dashboard_appbar.dart';
 export 'widgets/financial_tracker_dashboard_body.dart';
 export 'widgets/summary_dasboard_list.dart';
-export 'widgets/summary_dashboard.dart';
+export 'widgets/summary_dashboard_filter.dart';
 export 'widgets/summary_dashboard_item.dart';
 export 'widgets/time_scroll_wheel.dart';
 export 'controllers/financial_transaction/financial_transaction_bloc.dart';

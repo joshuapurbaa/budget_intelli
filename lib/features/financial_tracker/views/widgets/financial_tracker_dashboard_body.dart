@@ -202,7 +202,7 @@ class _FinancialTrackerDashboardBodyState
                 Gap.vertical(20),
                 const DashboardGraphic(),
                 Gap.vertical(20),
-                SummaryDashboard(
+                SummaryDashboardFilter(
                   state: state,
                 ),
                 Gap.vertical(20),

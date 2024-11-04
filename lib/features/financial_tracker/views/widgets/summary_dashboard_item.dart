@@ -53,7 +53,6 @@ class SummaryDashboardItem extends StatelessWidget {
                   text: '-${NumberFormatter.formatToMoneyDouble(
                     context,
                     transaction.amount,
-                    decimalDigits: transaction.amount % 1 == 0 ? 0 : 2,
                   )}',
                   style: StyleType.headSm,
                 ),
