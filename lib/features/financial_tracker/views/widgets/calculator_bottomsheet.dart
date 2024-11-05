@@ -51,6 +51,8 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
+    final isIncome = context.watch<FinancialDashboardCubit>().state.isIncome;
+    final zeroExpression = notifier.expression == '0';
     return Container(
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.90,
@@ -85,7 +87,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
               ),
               Gap.vertical(15),
               AppText(
-                text: 'Expenses',
+                text: isIncome ? localize.income : localize.expenses,
                 style: StyleType.bodLg,
                 color: context.color.onSurface,
               ),
@@ -107,20 +109,21 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                       ),
                     ],
                   ),
-                  AppText(
-                    text: notifier.expression,
-                    style: StyleType.bodMd,
-                    color: context.color.onSurface.withOpacity(0.5),
-                    fontWeight: FontWeight.w400,
-                  ),
+                  if (!zeroExpression)
+                    AppText(
+                      text: notifier.expression,
+                      style: StyleType.bodMd,
+                      color: context.color.onSurface.withOpacity(0.5),
+                      fontWeight: FontWeight.w400,
+                    ),
                 ],
               ),
               TextField(
                 controller: _commentController,
                 textAlign: TextAlign.center,
                 maxLines: 2,
-                decoration: const InputDecoration(
-                  hintText: 'Add comment...',
+                decoration: InputDecoration(
+                  hintText: '${localize.addComment}...',
                   hintStyle: TextStyle(
                     color: Colors.grey,
                     fontSize: 18,
@@ -203,7 +206,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                     }
                   },
                   child: AppText(
-                    text: 'Catat Transaksi',
+                    text: localize.recordTransaction,
                     style: StyleType.bodLg,
                     color: context.color.onPrimary,
                   ),

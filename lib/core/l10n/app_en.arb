@@ -370,5 +370,9 @@
     "ofLocalize": "of",
     "saved": "saved",
     "selectGoalPeriod": "Select goal period",
-    "perDayOr": "per day or"
+    "perDayOr": "per day or",
+    "addComment": "Add Comment",
+    "recordTransaction": "Record Transaction",
+    "day": "Day",
+    "week": "Week"
 }

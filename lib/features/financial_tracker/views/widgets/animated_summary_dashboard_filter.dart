@@ -1,7 +1,9 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:timezone/timezone.dart';
 
 class AnimatedSummaryDashboardFilter extends StatefulWidget {
   const AnimatedSummaryDashboardFilter({
@@ -54,6 +56,8 @@ class _AnimatedSummaryDashboardFilterState
   @override
   Widget build(BuildContext context) {
     final filterBy = widget.state.filterBy;
+    final localize = textLocalizer(context);
+    final currency = context.watch<SettingBloc>().state.currency;
 
     return Row(
       children: [
@@ -78,7 +82,7 @@ class _AnimatedSummaryDashboardFilterState
                   child: Column(
                     children: [
                       AppText(
-                        text: 'Day',
+                        text: localize.day,
                         style: StyleType.bodLg,
                         color: filterBy == SummaryFilterBy.day
                             ? context.color.primaryContainer
@@ -91,7 +95,7 @@ class _AnimatedSummaryDashboardFilterState
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           AppText(
-                            text: r'$',
+                            text: currency.symbol,
                             style: StyleType.bodMd,
                             color: filterBy == SummaryFilterBy.day
                                 ? context.color.primaryContainer
@@ -139,7 +143,7 @@ class _AnimatedSummaryDashboardFilterState
                   child: Column(
                     children: [
                       AppText(
-                        text: 'Week',
+                        text: localize.week,
                         style: StyleType.bodLg,
                         color: filterBy == SummaryFilterBy.week
                             ? context.color.primaryContainer
@@ -152,7 +156,7 @@ class _AnimatedSummaryDashboardFilterState
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           AppText(
-                            text: r'$',
+                            text: currency.symbol,
                             style: StyleType.bodMd,
                             color: filterBy == SummaryFilterBy.week
                                 ? context.color.primaryContainer
@@ -200,7 +204,7 @@ class _AnimatedSummaryDashboardFilterState
                   child: Column(
                     children: [
                       AppText(
-                        text: 'Month',
+                        text: localize.month,
                         style: StyleType.bodLg,
                         color: filterBy == SummaryFilterBy.month
                             ? context.color.primaryContainer
@@ -213,7 +217,7 @@ class _AnimatedSummaryDashboardFilterState
                         textBaseline: TextBaseline.alphabetic,
                         children: [
                           AppText(
-                            text: r'$',
+                            text: currency.symbol,
                             style: StyleType.bodMd,
                             color: filterBy == SummaryFilterBy.month
                                 ? context.color.primaryContainer

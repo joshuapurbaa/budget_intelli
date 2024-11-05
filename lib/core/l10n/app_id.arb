@@ -370,5 +370,9 @@
     "ofLocalize": "dari",
     "saved": "tersimpan",
     "selectGoalPeriod": "Pilih periode tujuan",
-    "perDayOr": "per hari atau"
+    "perDayOr": "per hari atau",
+    "addComment": "Tambahkan Komentar",
+    "recordTransaction": "Catat Transaksi",
+    "day": "Hari",
+    "week": "Minggu"
 }

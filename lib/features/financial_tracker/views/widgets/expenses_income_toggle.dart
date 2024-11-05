@@ -8,6 +8,7 @@ class ExpensesIncomeToggle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localize = textLocalizer(context);
     return BlocBuilder<FinancialDashboardCubit, FinancialDashboardState>(
       builder: (context, state) {
         return Row(
@@ -32,7 +33,7 @@ class ExpensesIncomeToggle extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: AppText(
-                    text: 'Expenses',
+                    text: localize.expenses,
                     style: StyleType.bodMd,
                     color: state.isIncome
                         ? context.color.onSurface
@@ -62,7 +63,7 @@ class ExpensesIncomeToggle extends StatelessWidget {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: AppText(
-                    text: 'Income',
+                    text: localize.income,
                     style: StyleType.bodMd,
                     maxLines: 1,
                     color: state.isIncome
