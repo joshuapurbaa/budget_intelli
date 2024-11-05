@@ -37,7 +37,7 @@ class FinancialTrackerDashboardBody extends StatelessWidget {
                           color: context.color.onInverseSurface,
                           borderRadius: BorderRadius.circular(20),
                         ),
-                        child: ExpensesIncomeToggle(),
+                        child: const ExpensesIncomeToggle(),
                       ),
                     ),
                     Gap.horizontal(10),

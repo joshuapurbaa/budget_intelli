@@ -124,7 +124,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                 maxLines: 2,
                 decoration: InputDecoration(
                   hintText: '${localize.addComment}...',
-                  hintStyle: TextStyle(
+                  hintStyle: const TextStyle(
                     color: Colors.grey,
                     fontSize: 18,
                   ),
