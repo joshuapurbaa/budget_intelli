@@ -6,17 +6,17 @@ class MemberHistory {
     required this.updatedAt,
   });
 
-  final String id;
-  final String memberId;
-  final String createdAt;
-  final String updatedAt;
-
   factory MemberHistory.fromMap(Map<String, dynamic> json) => MemberHistory(
         id: json['id'] as String,
         memberId: json['member_id'] as String,
         createdAt: json['created_at'] as String,
         updatedAt: json['updated_at'] as String,
       );
+
+  final String id;
+  final String memberId;
+  final String createdAt;
+  final String updatedAt;
 
   Map<String, dynamic> toMap() => <String, dynamic>{
         'id': id,
