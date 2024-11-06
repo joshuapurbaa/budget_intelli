@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DrawerFinancialTracker extends StatelessWidget {
   const DrawerFinancialTracker({
@@ -9,11 +10,10 @@ class DrawerFinancialTracker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
-           DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(
               color: context.color.primary,
             ),
@@ -36,7 +36,7 @@ class DrawerFinancialTracker extends StatelessWidget {
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
             onTap: () {
-              Navigator.pop(context); // Menutup drawer
+              context.pop(context); // Menutup drawer
             },
           ),
         ],

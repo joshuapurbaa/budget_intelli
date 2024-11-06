@@ -46,4 +46,3 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
     );
   }
 }
-
