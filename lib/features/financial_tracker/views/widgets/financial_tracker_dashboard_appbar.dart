@@ -44,35 +44,32 @@ class _FinancialTrackerDashboardAppbarState
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      centerTitle: true,
-      title: Row(
-        children: [
-          const Spacer(),
-          Row(
-            children: [
-              Gap.vertical(10),
-              const AppText(
-                text: r'$35,000.00',
-                style: StyleType.bodLg,
-              ),
-              Gap.horizontal(5),
-              Icon(
-                CupertinoIcons.chevron_down,
-                color: context.color.onSurface,
-              ),
-            ],
-          ),
-          const Spacer(),
-          GestureDetector(
-            onTap: _showCalculator,
-            child: getSvgAsset(
-              editSvg,
+    return Row(
+      children: [
+        const Spacer(),
+        Row(
+          children: [
+            Gap.vertical(10),
+            const AppText(
+              text: r'$35,000.00',
+              style: StyleType.bodLg,
+            ),
+            Gap.horizontal(5),
+            Icon(
+              CupertinoIcons.chevron_down,
               color: context.color.onSurface,
             ),
+          ],
+        ),
+        const Spacer(),
+        GestureDetector(
+          onTap: _showCalculator,
+          child: getSvgAsset(
+            editSvg,
+            color: context.color.onSurface,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
