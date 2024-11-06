@@ -14,6 +14,7 @@ export 'widgets/calculator_bottomsheet.dart';
 export 'widgets/calculator_buttons.dart';
 export 'widgets/category_dropdown.dart';
 export 'widgets/dashboard_grapic.dart';
+export 'widgets/drawer_financial_tracker.dart';
 export 'widgets/expenses_income_toggle.dart';
 export 'widgets/financial_tracker_dashboard_appbar.dart';
 export 'widgets/financial_tracker_dashboard_body.dart';

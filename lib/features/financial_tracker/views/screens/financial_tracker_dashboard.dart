@@ -40,11 +40,12 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final halfWidth = (MediaQuery.of(context).size.width / 2).toInt();
     return Scaffold(
       backgroundColor: context.color.primaryContainer,
       body: Stack(
         children: [
-          DrawerFinancialTracker(),
+          const DrawerFinancialTracker(),
           TweenAnimationBuilder(
             curve: Curves.easeInOut,
             tween: Tween<double>(begin: 0, end: value),
@@ -54,26 +55,31 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
                 alignment: Alignment.center,
                 transform: Matrix4.identity()
                   ..setEntry(3, 2, 0.001)
-                  ..setEntry(0, 3, 200 * val)
+                  ..setEntry(0, 3, halfWidth * val)
                   ..rotateY((pi / 6) * val),
-                child: Scaffold(
-                  appBar: AppBar(
-                    centerTitle: true,
-                    title: FinancialTrackerDashboardAppbar(),
-                    leading: IconButton(
-                      icon: Icon(Icons.menu),
-                      onPressed: () {
-                        setState(() {
-                          value == 0 ? value = 1 : value = 0;
-                        });
-                      },
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(value == 1 ? 30 : 0),
+                    bottomLeft: Radius.circular(value == 1 ? 30 : 0),
                   ),
-                  body: CustomScrollView(
-                    slivers: [
-                      // FinancialTrackerDashboardAppbar(),
-                      FinancialTrackerDashboardBody(),
-                    ],
+                  child: Scaffold(
+                    appBar: AppBar(
+                      centerTitle: true,
+                      title: const FinancialTrackerDashboardAppbar(),
+                      leading: IconButton(
+                        icon: const Icon(Icons.menu),
+                        onPressed: () {
+                          setState(() {
+                            value == 0 ? value = 1 : value = 0;
+                          });
+                        },
+                      ),
+                    ),
+                    body: const CustomScrollView(
+                      slivers: [
+                        FinancialTrackerDashboardBody(),
+                      ],
+                    ),
                   ),
                 ),
               );
@@ -93,58 +99,6 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
             },
           ),
         ],
-      ),
-    );
-  }
-}
-
-class DrawerFinancialTracker extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        width: 200,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              context.color.primaryContainer,
-              context.color.primaryContainer,
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
-        ),
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            DrawerHeader(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  CircleAvatar(
-                    radius: 45,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text("Financial Tracker"),
-                  ),
-                ],
-              ),
-            ),
-            const ListTile(
-              title: Text("Dashboard"),
-              leading: Icon(Icons.dashboard),
-            ),
-            const ListTile(
-              title: Text("Transactions"),
-              leading: Icon(Icons.account_balance_wallet),
-            ),
-            const ListTile(
-              title: Text("Settings"),
-              leading: Icon(Icons.settings),
-            ),
-          ],
-        ),
       ),
     );
   }
