@@ -7,6 +7,7 @@ import 'package:budget_intelli/features/auth/view/widgets/user_avatar.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/settings/models/pdf_content_model.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -17,11 +18,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
-    required this.user,
     super.key,
   });
-
-  final UserIntelli? user;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -142,451 +140,458 @@ class _ProfileScreenState extends State<ProfileScreen>
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
+    final user = context.watch<SettingBloc>().state.user;
 
-    return BlocBuilder<SettingBloc, SettingState>(
-      builder: (context, settingState) {
-        final bloc = context.read<SettingBloc>();
-        final userIntelli = widget.user;
-        var themeModeStr = '';
-        final darkMode = settingState.themeMode == ThemeMode.dark;
-        final lightMode = settingState.themeMode == ThemeMode.light;
-        final english = settingState.selectedLanguage == Language.english;
+    return Scaffold(
+      body: BlocBuilder<SettingBloc, SettingState>(
+        builder: (context, settingState) {
+          final bloc = context.read<SettingBloc>();
+          final userIntelli = user;
+          var themeModeStr = '';
+          final darkMode = settingState.themeMode == ThemeMode.dark;
+          final lightMode = settingState.themeMode == ThemeMode.light;
+          final english = settingState.selectedLanguage == Language.english;
 
-        final imageUrl = userIntelli?.imageUrl;
-        final premiumUser = userIntelli?.premium ?? false;
+          final imageUrl = userIntelli?.imageUrl;
+          final premiumUser = userIntelli?.premium ?? false;
 
-        String? firstChar;
-        String? name;
-        String? email;
+          String? firstChar;
+          String? name;
+          String? email;
 
-        if (userIntelli?.name != null) {
-          name = userIntelli?.name ?? '-';
-          firstChar = name[0];
-        } else {
-          name = '-';
-          firstChar = '-';
-        }
+          if (userIntelli?.name != null) {
+            name = userIntelli?.name ?? '-';
+            firstChar = name[0];
+          } else {
+            name = '-';
+            firstChar = '-';
+          }
 
-        if (userIntelli?.email != null) {
-          email = userIntelli?.email ?? '-';
-        } else {
-          email = '-';
-        }
+          if (userIntelli?.email != null) {
+            email = userIntelli?.email ?? '-';
+          } else {
+            email = '-';
+          }
 
-        if (darkMode) {
-          themeModeStr = localize.darkMode;
-        } else if (lightMode) {
-          themeModeStr = localize.lightMode;
-        }
+          if (darkMode) {
+            themeModeStr = localize.darkMode;
+          } else if (lightMode) {
+            themeModeStr = localize.lightMode;
+          }
 
-        return CustomScrollView(
-          controller: _scrollController,
-          slivers: [
-            SliverAppBar(
-              backgroundColor: context.color.surface,
-              pinned: true,
-              title: AppText(
-                style: StyleType.headLg,
-                text: localize.profile,
-              ),
-              centerTitle: true,
-              floating: true,
-              snap: true,
-              expandedHeight: 210.h,
-              flexibleSpace: FlexibleSpaceBar(
-                background: UserAvar(
-                  imageUrl: imageUrl ?? '-',
-                  firstChar: firstChar,
-                  name: name,
+          return CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              SliverAppBar(
+                backgroundColor: context.color.surface,
+                pinned: true,
+                title: AppText(
+                  style: StyleType.headLg,
+                  text: localize.profile,
+                ),
+                centerTitle: true,
+                floating: true,
+                snap: true,
+                expandedHeight: 210.h,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: UserAvar(
+                    imageUrl: imageUrl ?? '-',
+                    firstChar: firstChar,
+                    name: name,
+                  ),
                 ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate.fixed(
-                [
-                  Padding(
-                    padding: getEdgeInsetsAll(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        RowText(
-                          left: 'Email',
-                          right: email,
-                        ),
-                        Gap.vertical(10),
-                        RowText(
-                          left: localize.profileAccountType,
-                          right: premiumUser ? 'Premium' : 'Free',
-                        ),
-                        Gap.vertical(10),
-                        const AppDivider(),
-                        Gap.vertical(10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppText.medium14(
-                              text: themeModeStr,
-                            ),
-                            Switch(
-                              value: darkMode,
-                              onChanged: (value) {
-                                final val = !settingState.isDarkMode;
-
-                                if (val) {
-                                  bloc.add(
-                                    ThemeModeChange(
-                                      IntelliThemeMode.dark,
-                                    ),
-                                  );
-                                } else {
-                                  bloc.add(
-                                    ThemeModeChange(
-                                      IntelliThemeMode.light,
-                                    ),
-                                  );
-                                }
-                              },
-                              activeColor: context.color.primary,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppText.medium14(
-                              text: localize.notification,
-                            ),
-                            Switch(
-                              value: settingState.notificationEnable,
-                              onChanged: (value) async {
-                                final val = !settingState.notificationEnable;
-
-                                if (val) {
-                                  if (_notificationsEnabled) {
-                                    _setNotificationSetting(value: val);
-                                    await _setScheduleNotification();
-                                  } else {
-                                    _setNotificationSetting(value: false);
-
-                                    final isEnable =
-                                        await _areNotificationsEnabled();
-                                    if (isEnable == true) {
-                                      await _setScheduleNotification();
-                                    } else {
-                                      _openAndroidNotificationSetting();
-                                    }
-                                  }
-                                } else {
-                                  _setNotificationSetting(value: false);
-                                  await cancelAllNotifications();
-                                }
-                              },
-                              activeColor: context.color.primary,
-                            ),
-                          ],
-                        ),
-                        if (canAuthenticate)
+              SliverList(
+                delegate: SliverChildListDelegate.fixed(
+                  [
+                    Padding(
+                      padding: getEdgeInsetsAll(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          RowText(
+                            left: 'Email',
+                            right: email,
+                          ),
+                          Gap.vertical(10),
+                          RowText(
+                            left: localize.profileAccountType,
+                            right: premiumUser ? 'Premium' : 'Free',
+                          ),
+                          Gap.vertical(10),
+                          const AppDivider(),
+                          Gap.vertical(10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              AppText.medium16(
-                                text: localize.biometricOrPatternLogin,
+                              AppText.medium14(
+                                text: themeModeStr,
                               ),
                               Switch(
-                                value: settingState.useBiometrics == true,
+                                value: darkMode,
                                 onChanged: (value) {
-                                  final val = !settingState.useBiometrics;
+                                  final val = !settingState.isDarkMode;
 
-                                  bloc.add(
-                                    BiometricSettingChange(value: val),
-                                  );
+                                  if (val) {
+                                    bloc.add(
+                                      ThemeModeChange(
+                                        IntelliThemeMode.dark,
+                                      ),
+                                    );
+                                  } else {
+                                    bloc.add(
+                                      ThemeModeChange(
+                                        IntelliThemeMode.light,
+                                      ),
+                                    );
+                                  }
                                 },
                                 activeColor: context.color.primary,
                               ),
                             ],
                           ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppText.medium14(
-                              text: localize.language,
-                            ),
-                            DropdownButton<String>(
-                              underline: const SizedBox(),
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.zero,
-                              value: english ? 'English' : 'Indonesia',
-                              onChanged: (String? value) {
-                                if (value != null) {
-                                  if (value == 'English') {
-                                    bloc.add(
-                                      LanguageChange(Language.english),
-                                    );
-                                  } else {
-                                    bloc.add(
-                                      LanguageChange(
-                                        Language.indonesia,
-                                      ),
-                                    );
-                                  }
-                                }
-                              },
-                              items: <String>['English', 'Indonesia']
-                                  .map<DropdownMenuItem<String>>(
-                                    (String value) => DropdownMenuItem<String>(
-                                      value: value,
-                                      child: AppText.medium14(
-                                        text: value,
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppText.medium14(
-                              text: localize.currency,
-                            ),
-                            DropdownButton<CurrencyModel>(
-                              underline: const SizedBox(),
-                              alignment: Alignment.bottomLeft,
-                              padding: EdgeInsets.zero,
-                              value: settingState.currency,
-                              onChanged: (CurrencyModel? value) {
-                                if (value != null) {
-                                  bloc.add(CurrencyChange(value));
-                                }
-                              },
-                              items: WorldCurrency.currencyList
-                                  .map<DropdownMenuItem<CurrencyModel>>(
-                                    (CurrencyModel value) =>
-                                        DropdownMenuItem<CurrencyModel>(
-                                      value: value,
-                                      child: AppText.medium14(
-                                        text: value.name,
-                                      ),
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppText.medium14(
-                              text: localize.exportData,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                final budgetBlocState =
-                                    context.read<BudgetBloc>().state;
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppText.medium14(
+                                text: localize.notification,
+                              ),
+                              Switch(
+                                value: settingState.notificationEnable,
+                                onChanged: (value) async {
+                                  final val = !settingState.notificationEnable;
 
-                                if (budgetBlocState is GetBudgetsLoaded) {
-                                  final budget = budgetBlocState.budget;
-                                  final transactions = budgetBlocState
-                                      .itemCategoryTransactionsByBudgetId;
-                                  final totalActualIncome =
-                                      budgetBlocState.totalActualIncome;
-                                  final totalActualExpense =
-                                      budgetBlocState.totalActualExpense;
-                                  if (budget != null) {
-                                    final pdfContentList = <PdfContentModel>[];
-                                    final itemCategories =
-                                        <ItemCategoryHistory>[];
+                                  if (val) {
+                                    if (_notificationsEnabled) {
+                                      _setNotificationSetting(value: val);
+                                      await _setScheduleNotification();
+                                    } else {
+                                      _setNotificationSetting(value: false);
 
-                                    final groupCategories =
-                                        budget.groupCategories ?? [];
-
-                                    for (final group in groupCategories) {
-                                      itemCategories
-                                          .addAll(group.itemCategoryHistories);
+                                      final isEnable =
+                                          await _areNotificationsEnabled();
+                                      if (isEnable == true) {
+                                        await _setScheduleNotification();
+                                      } else {
+                                        _openAndroidNotificationSetting();
+                                      }
                                     }
-                                    final incomeCategories = itemCategories
-                                        .where((e) => e.type == 'income');
-                                    final expenseCategories = itemCategories
-                                        .where((e) => e.type == 'expense');
-                                    // final incomeTransactions = transactions.where((e) => e.type == 'income');
-                                    // final expenseTransactions = transactions.where((e) => e.type == 'expense');
+                                  } else {
+                                    _setNotificationSetting(value: false);
+                                    await cancelAllNotifications();
+                                  }
+                                },
+                                activeColor: context.color.primary,
+                              ),
+                            ],
+                          ),
+                          if (canAuthenticate)
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                AppText.medium16(
+                                  text: localize.biometricOrPatternLogin,
+                                ),
+                                Switch(
+                                  value: settingState.useBiometrics == true,
+                                  onChanged: (value) {
+                                    final val = !settingState.useBiometrics;
 
-                                    for (final item in itemCategories) {
-                                      final actualAmount = transactions
-                                          .where(
-                                            (element) =>
-                                                element.itemHistoId == item.id,
-                                          )
-                                          .fold<int>(
-                                            0,
-                                            (previousValue, element) =>
-                                                previousValue + element.amount,
-                                          );
-
-                                      final pdfContent = PdfContentModel(
-                                        categoryName: item.name,
-                                        type: item.type,
-                                        plannedAmount:
-                                            NumberFormatter.formatToMoneyInt(
-                                          context,
-                                          item.amount,
-                                        ),
-                                        actualAmount:
-                                            NumberFormatter.formatToMoneyInt(
-                                          context,
-                                          actualAmount,
+                                    bloc.add(
+                                      BiometricSettingChange(value: val),
+                                    );
+                                  },
+                                  activeColor: context.color.primary,
+                                ),
+                              ],
+                            ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppText.medium14(
+                                text: localize.language,
+                              ),
+                              DropdownButton<String>(
+                                underline: const SizedBox(),
+                                alignment: Alignment.bottomLeft,
+                                padding: EdgeInsets.zero,
+                                value: english ? 'English' : 'Indonesia',
+                                onChanged: (String? value) {
+                                  if (value != null) {
+                                    if (value == 'English') {
+                                      bloc.add(
+                                        LanguageChange(Language.english),
+                                      );
+                                    } else {
+                                      bloc.add(
+                                        LanguageChange(
+                                          Language.indonesia,
                                         ),
                                       );
-
-                                      pdfContentList.add(pdfContent);
                                     }
-                                    final startDate = budget.startDate;
-                                    final endDate = budget.endDate;
-                                    final dateRanges = [startDate, endDate];
-                                    final dateRangeStr =
-                                        formatDateRangeStr(dateRanges, context);
-                                    final language =
-                                        settingState.selectedLanguage.text;
-                                    const summaryDescriptionEn =
-                                        'On this report, you will see the summary of your budget plan and the actual amount of your income and expense.';
-                                    const summaryDescriptionID =
-                                        'Pada laporan ini, Anda akan melihat ringkasan dari rencana anggaran Anda serta jumlah aktual dari pendapatan dan pengeluaran Anda.';
+                                  }
+                                },
+                                items: <String>['English', 'Indonesia']
+                                    .map<DropdownMenuItem<String>>(
+                                      (String value) =>
+                                          DropdownMenuItem<String>(
+                                        value: value,
+                                        child: AppText.medium14(
+                                          text: value,
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppText.medium14(
+                                text: localize.currency,
+                              ),
+                              DropdownButton<CurrencyModel>(
+                                underline: const SizedBox(),
+                                alignment: Alignment.bottomLeft,
+                                padding: EdgeInsets.zero,
+                                value: settingState.currency,
+                                onChanged: (CurrencyModel? value) {
+                                  if (value != null) {
+                                    bloc.add(CurrencyChange(value));
+                                  }
+                                },
+                                items: WorldCurrency.currencyList
+                                    .map<DropdownMenuItem<CurrencyModel>>(
+                                      (CurrencyModel value) =>
+                                          DropdownMenuItem<CurrencyModel>(
+                                        value: value,
+                                        child: AppText.medium14(
+                                          text: value.name,
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppText.medium14(
+                                text: localize.exportData,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  final budgetBlocState =
+                                      context.read<BudgetBloc>().state;
 
-                                    context.read<SettingBloc>().add(
-                                          ExportDataEvent(
-                                            pdfContentList: pdfContentList,
-                                            periodString:
-                                                '${localize.periodFieldLabel}: $dateRangeStr',
-                                            language: language,
-                                            summaryDescription:
-                                                language == 'English'
-                                                    ? summaryDescriptionEn
-                                                    : summaryDescriptionID,
-                                            totalPlannedAmountIncome:
-                                                NumberFormatter
-                                                    .formatToMoneyInt(
-                                              context,
-                                              incomeCategories.fold<int>(
-                                                0,
-                                                (previousValue, element) =>
-                                                    previousValue +
-                                                    element.amount,
-                                              ),
-                                            ),
-                                            totalActualAmountIncome:
-                                                NumberFormatter
-                                                    .formatToMoneyInt(
-                                              context,
-                                              totalActualIncome,
-                                            ),
-                                            totalPlannedAmountExpense:
-                                                NumberFormatter
-                                                    .formatToMoneyInt(
-                                              context,
-                                              expenseCategories.fold<int>(
-                                                0,
-                                                (previousValue, element) =>
-                                                    previousValue +
-                                                    element.amount,
-                                              ),
-                                            ),
-                                            totalActualAmountExpense:
-                                                NumberFormatter
-                                                    .formatToMoneyInt(
-                                              context,
-                                              totalActualExpense,
-                                            ),
+                                  if (budgetBlocState is GetBudgetsLoaded) {
+                                    final budget = budgetBlocState.budget;
+                                    final transactions = budgetBlocState
+                                        .itemCategoryTransactionsByBudgetId;
+                                    final totalActualIncome =
+                                        budgetBlocState.totalActualIncome;
+                                    final totalActualExpense =
+                                        budgetBlocState.totalActualExpense;
+                                    if (budget != null) {
+                                      final pdfContentList =
+                                          <PdfContentModel>[];
+                                      final itemCategories =
+                                          <ItemCategoryHistory>[];
+
+                                      final groupCategories =
+                                          budget.groupCategories ?? [];
+
+                                      for (final group in groupCategories) {
+                                        itemCategories.addAll(
+                                            group.itemCategoryHistories);
+                                      }
+                                      final incomeCategories = itemCategories
+                                          .where((e) => e.type == 'income');
+                                      final expenseCategories = itemCategories
+                                          .where((e) => e.type == 'expense');
+                                      // final incomeTransactions = transactions.where((e) => e.type == 'income');
+                                      // final expenseTransactions = transactions.where((e) => e.type == 'expense');
+
+                                      for (final item in itemCategories) {
+                                        final actualAmount = transactions
+                                            .where(
+                                              (element) =>
+                                                  element.itemHistoId ==
+                                                  item.id,
+                                            )
+                                            .fold<int>(
+                                              0,
+                                              (previousValue, element) =>
+                                                  previousValue +
+                                                  element.amount,
+                                            );
+
+                                        final pdfContent = PdfContentModel(
+                                          categoryName: item.name,
+                                          type: item.type,
+                                          plannedAmount:
+                                              NumberFormatter.formatToMoneyInt(
+                                            context,
+                                            item.amount,
+                                          ),
+                                          actualAmount:
+                                              NumberFormatter.formatToMoneyInt(
+                                            context,
+                                            actualAmount,
                                           ),
                                         );
+
+                                        pdfContentList.add(pdfContent);
+                                      }
+                                      final startDate = budget.startDate;
+                                      final endDate = budget.endDate;
+                                      final dateRanges = [startDate, endDate];
+                                      final dateRangeStr = formatDateRangeStr(
+                                          dateRanges, context);
+                                      final language =
+                                          settingState.selectedLanguage.text;
+                                      const summaryDescriptionEn =
+                                          'On this report, you will see the summary of your budget plan and the actual amount of your income and expense.';
+                                      const summaryDescriptionID =
+                                          'Pada laporan ini, Anda akan melihat ringkasan dari rencana anggaran Anda serta jumlah aktual dari pendapatan dan pengeluaran Anda.';
+
+                                      context.read<SettingBloc>().add(
+                                            ExportDataEvent(
+                                              pdfContentList: pdfContentList,
+                                              periodString:
+                                                  '${localize.periodFieldLabel}: $dateRangeStr',
+                                              language: language,
+                                              summaryDescription:
+                                                  language == 'English'
+                                                      ? summaryDescriptionEn
+                                                      : summaryDescriptionID,
+                                              totalPlannedAmountIncome:
+                                                  NumberFormatter
+                                                      .formatToMoneyInt(
+                                                context,
+                                                incomeCategories.fold<int>(
+                                                  0,
+                                                  (previousValue, element) =>
+                                                      previousValue +
+                                                      element.amount,
+                                                ),
+                                              ),
+                                              totalActualAmountIncome:
+                                                  NumberFormatter
+                                                      .formatToMoneyInt(
+                                                context,
+                                                totalActualIncome,
+                                              ),
+                                              totalPlannedAmountExpense:
+                                                  NumberFormatter
+                                                      .formatToMoneyInt(
+                                                context,
+                                                expenseCategories.fold<int>(
+                                                  0,
+                                                  (previousValue, element) =>
+                                                      previousValue +
+                                                      element.amount,
+                                                ),
+                                              ),
+                                              totalActualAmountExpense:
+                                                  NumberFormatter
+                                                      .formatToMoneyInt(
+                                                context,
+                                                totalActualExpense,
+                                              ),
+                                            ),
+                                          );
+                                    }
                                   }
+                                },
+                                icon: getPngAsset(
+                                  exportFilePng,
+                                  color: context.color.onSurface,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AppText.medium14(
+                                text: localize.requestFeature,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  sendEmail(
+                                    'porseatechnology@gmail.com',
+                                    localize.requestFeature,
+                                    'Hi Budget Intelli,\n\n',
+                                  );
+                                },
+                                icon: const Icon(
+                                  Icons.email_outlined,
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (settingState.isLoggedIn) ...[
+                            Gap.vertical(16),
+                            BlocListener<AuthBloc, AuthState>(
+                              listener: (context, state) {
+                                if (state is SignOutSuccess) {
+                                  context.go(MyRoute.signInInitial);
                                 }
                               },
-                              icon: getPngAsset(
-                                exportFilePng,
-                                color: context.color.onSurface,
+                              child: GestureDetector(
+                                onTap: () {
+                                  AppDialog.showConfirmationDialog(
+                                    context,
+                                    title: localize.areYouSure,
+                                    onConfirm: () {
+                                      context.pop();
+                                      context.read<AuthBloc>().add(
+                                            SignOutEvent(),
+                                          );
+                                    },
+                                    onCancel: () {
+                                      context.pop();
+                                    },
+                                  );
+                                },
+                                child: AppText.color(
+                                  text: localize.signOut,
+                                  color: AppColor.red,
+                                  style: StyleType.bodLg,
+                                ),
                               ),
                             ),
                           ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            AppText.medium14(
-                              text: localize.requestFeature,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                sendEmail(
-                                  'porseatechnology@gmail.com',
-                                  localize.requestFeature,
-                                  'Hi Budget Intelli,\n\n',
-                                );
-                              },
-                              icon: const Icon(
-                                Icons.email_outlined,
+                          if (!premiumUser) ...[
+                            Gap.vertical(32),
+                            // AppButton(
+                            //   label: localize.buyPremium,
+                            //   onPressed: () {
+                            //     _showPremiumModalBottom(userIntelli);
+                            //   },
+                            // ),
+                            // Gap.vertical(16),
+                            AdWidgetRepository(
+                              height: 50,
+                              user: userIntelli,
+                              child: Container(
+                                color: context.color.surface,
                               ),
                             ),
                           ],
-                        ),
-                        if (settingState.isLoggedIn) ...[
-                          Gap.vertical(16),
-                          BlocListener<AuthBloc, AuthState>(
-                            listener: (context, state) {
-                              if (state is SignOutSuccess) {
-                                context.go(MyRoute.signInInitial);
-                              }
-                            },
-                            child: GestureDetector(
-                              onTap: () {
-                                AppDialog.showConfirmationDialog(
-                                  context,
-                                  title: localize.areYouSure,
-                                  onConfirm: () {
-                                    context.pop();
-                                    context.read<AuthBloc>().add(
-                                          SignOutEvent(),
-                                        );
-                                  },
-                                  onCancel: () {
-                                    context.pop();
-                                  },
-                                );
-                              },
-                              child: AppText.color(
-                                text: localize.signOut,
-                                color: AppColor.red,
-                                style: StyleType.bodLg,
-                              ),
-                            ),
-                          ),
                         ],
-                        if (!premiumUser) ...[
-                          Gap.vertical(32),
-                          // AppButton(
-                          //   label: localize.buyPremium,
-                          //   onPressed: () {
-                          //     _showPremiumModalBottom(userIntelli);
-                          //   },
-                          // ),
-                          // Gap.vertical(16),
-                          AdWidgetRepository(
-                            height: 50,
-                            user: userIntelli,
-                            child: Container(
-                              color: context.color.surface,
-                            ),
-                          ),
-                        ],
-                      ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
-        );
-      },
+            ],
+          );
+        },
+      ),
     );
   }
 

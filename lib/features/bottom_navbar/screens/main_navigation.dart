@@ -211,9 +211,7 @@ class _MainNavigationState extends State<MainNavigation> {
               ExplorePage(
                 user: user,
               ),
-              ProfileScreen(
-                user: user,
-              ),
+              ProfileScreen(),
             ],
           ),
           floatingActionButton: FloatingActionButton(

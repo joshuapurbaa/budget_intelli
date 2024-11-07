@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class DrawerFinancialTracker extends StatelessWidget {
   const DrawerFinancialTracker({
@@ -14,7 +15,7 @@ class DrawerFinancialTracker extends StatelessWidget {
           gradient: LinearGradient(
             colors: [
               context.color.primaryContainer,
-              context.color.primaryContainer,
+              Color(0xff406836),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -49,7 +50,12 @@ class DrawerFinancialTracker extends StatelessWidget {
               ),
               leading: Icon(Icons.account_balance_wallet),
             ),
-            const ListTile(
+            ListTile(
+              onTap: () {
+                context.pushNamed(
+                  MyRoute.profileScreen.noSlashes(),
+                );
+              },
               title: AppText(
                 text: 'Settings',
                 style: StyleType.bodLg,

@@ -359,6 +359,16 @@ class AppRoute {
           const FinancialTrackerDashboard(),
           rightToLeft: true,
         ),
+        routes: [
+          GoRoute(
+            path: MyRoute.profileScreen.noSlashes(),
+            name: MyRoute.profileScreen.noSlashes(),
+            pageBuilder: (context, state) => _customTransitionPage(
+              const ProfileScreen(),
+              rightToLeft: true,
+            ),
+          ),
+        ],
       ),
     ],
   );
