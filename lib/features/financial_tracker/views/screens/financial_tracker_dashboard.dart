@@ -55,7 +55,7 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
                 alignment: Alignment.center,
                 transform: Matrix4.identity()
                   ..setEntry(3, 2, 0.001)
-                  ..setEntry(0, 3, halfWidth * val)
+                  ..setEntry(0, 3, (halfWidth - 12) * val)
                   ..rotateY((pi / 6) * val),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
