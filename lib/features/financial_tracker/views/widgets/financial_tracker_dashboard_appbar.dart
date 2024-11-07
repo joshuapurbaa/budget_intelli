@@ -4,6 +4,7 @@ import 'package:budget_intelli/features/financial_tracker/financial_tracker_barr
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class FinancialTrackerDashboardAppbar extends StatefulWidget {
   const FinancialTrackerDashboardAppbar({
@@ -18,28 +19,10 @@ class FinancialTrackerDashboardAppbar extends StatefulWidget {
 class _FinancialTrackerDashboardAppbarState
     extends State<FinancialTrackerDashboardAppbar>
     with TickerProviderStateMixin {
-  void _showCalculator() {
-    showModalBottomSheet<void>(
-      isScrollControlled: true,
-      context: context,
-      transitionAnimationController: AnimationController(
-        duration: const Duration(milliseconds: 500),
-        vsync: this,
-      ),
-      builder: (context) {
-        return const CalculatorBottomSheet();
-      },
-    );
-  }
-
   @override
   void initState() {
     super.initState();
-    _getAccount();
-  }
-
-  void _getAccount() {
-    context.read<AccountBloc>().add(GetAccountsEvent());
+    _getAccounts();
   }
 
   @override
@@ -60,9 +43,16 @@ class _FinancialTrackerDashboardAppbarState
                   style: StyleType.bodLg,
                 ),
                 Gap.horizontal(5),
-                Icon(
-                  CupertinoIcons.chevron_down,
-                  color: context.color.onSurface,
+                GestureDetector(
+                  onTap: () {
+                    context.pushNamed(
+                      MyRoute.accountScreenFinancialTracker.noSlashes(),
+                    );
+                  },
+                  child: Icon(
+                    CupertinoIcons.chevron_down,
+                    color: context.color.onSurface,
+                  ),
                 ),
               ],
             );
@@ -77,6 +67,38 @@ class _FinancialTrackerDashboardAppbarState
           ),
         ),
       ],
+    );
+  }
+
+  void _showCalculator() {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      context: context,
+      transitionAnimationController: AnimationController(
+        duration: const Duration(milliseconds: 500),
+        vsync: this,
+      ),
+      builder: (context) {
+        return const CalculatorBottomSheet();
+      },
+    );
+  }
+
+  void _getAccounts() {
+    context.read<AccountBloc>().add(GetAccountsEvent());
+  }
+
+  void _showAccounts() {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      context: context,
+      transitionAnimationController: AnimationController(
+        duration: const Duration(milliseconds: 500),
+        vsync: this,
+      ),
+      builder: (context) {
+        return const AccountsBottomsheet();
+      },
     );
   }
 }

@@ -374,5 +374,8 @@
     "addComment": "Tambahkan Komentar",
     "recordTransaction": "Catat Transaksi",
     "day": "Hari",
-    "week": "Minggu"
+    "week": "Minggu",
+    "settings": "Pengaturan",
+    "member": "Anggota",
+    "financialTracker": "Pelacak Keuangan"
 }

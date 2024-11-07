@@ -368,6 +368,14 @@ class AppRoute {
               rightToLeft: true,
             ),
           ),
+          GoRoute(
+            path: MyRoute.accountScreenFinancialTracker.noSlashes(),
+            name: MyRoute.accountScreenFinancialTracker.noSlashes(),
+            pageBuilder: (context, state) => _customTransitionPage(
+              const AccountScreen(),
+              bottomToTop: true,
+            ),
+          ),
         ],
       ),
     ],

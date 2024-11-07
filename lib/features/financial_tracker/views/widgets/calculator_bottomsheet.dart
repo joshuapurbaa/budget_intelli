@@ -31,23 +31,6 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
     _setInitialValues();
   }
 
-  void _setInitialValues() {
-    final amount = ControllerHelper.getAmount(context);
-
-    if (amount != null) {
-      final formatter = NumberFormat('#,###');
-      notifier.setInitialValues(
-        result: formatter.format(amount),
-        expression: formatter.format(amount),
-      );
-    } else {
-      notifier.setInitialValues(
-        result: '0',
-        expression: '0',
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
@@ -218,5 +201,22 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
         ],
       ),
     );
+  }
+
+  void _setInitialValues() {
+    final amount = ControllerHelper.getAmount(context);
+
+    if (amount != null) {
+      final formatter = NumberFormat('#,###');
+      notifier.setInitialValues(
+        result: formatter.format(amount),
+        expression: formatter.format(amount),
+      );
+    } else {
+      notifier.setInitialValues(
+        result: '0',
+        expression: '0',
+      );
+    }
   }
 }

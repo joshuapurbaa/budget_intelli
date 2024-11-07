@@ -9,13 +9,14 @@ class DrawerFinancialTracker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localize = textLocalizer(context);
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
               context.color.primaryContainer,
-              Color(0xff406836),
+              const Color(0xff406836),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -26,29 +27,29 @@ class DrawerFinancialTracker extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DrawerHeader(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    color: context.color.primary,
+                  ),
+                ),
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    radius: 45,
+                    radius: 40,
                     backgroundColor: context.color.primary,
                   ),
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.all(10),
                     child: AppText(
-                      text: 'Financial Tracker',
+                      text: localize.financialTracker,
                       style: StyleType.headSm,
                     ),
                   ),
                 ],
               ),
-            ),
-            const ListTile(
-              title: AppText(
-                text: 'Transactions',
-                style: StyleType.bodLg,
-              ),
-              leading: Icon(Icons.account_balance_wallet),
             ),
             ListTile(
               onTap: () {
@@ -57,10 +58,28 @@ class DrawerFinancialTracker extends StatelessWidget {
                 );
               },
               title: AppText(
-                text: 'Settings',
+                text: localize.member,
                 style: StyleType.bodLg,
               ),
-              leading: Icon(Icons.settings),
+              leading: getPngAsset(
+                familyMemberPng,
+                color: context.color.primary,
+              ),
+            ),
+            ListTile(
+              onTap: () {
+                context.pushNamed(
+                  MyRoute.profileScreen.noSlashes(),
+                );
+              },
+              title: AppText(
+                text: localize.settings,
+                style: StyleType.bodLg,
+              ),
+              leading: Icon(
+                Icons.settings,
+                color: context.color.primary,
+              ),
             ),
           ],
         ),

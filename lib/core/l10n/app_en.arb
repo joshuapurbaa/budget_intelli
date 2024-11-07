@@ -374,5 +374,8 @@
     "addComment": "Add Comment",
     "recordTransaction": "Record Transaction",
     "day": "Day",
-    "week": "Week"
+    "week": "Week",
+    "settings": "Settings",
+    "member": "Member",
+    "financialTracker": "Financial Tracker"
 }

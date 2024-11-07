@@ -79,6 +79,7 @@ const String takeProfitPng = '$png/take-profit.png';
 const String reasonPng = '$png/reason.png';
 const String pieChartPng = '$png/pie-chart.png';
 const String divideIconPng = '$png/divide.png';
+const String familyMemberPng = '$png/family-member.png';
 
 // riv
 const String spendingRiv = '$riv/spending.riv';

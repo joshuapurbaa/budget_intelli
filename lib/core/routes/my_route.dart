@@ -33,6 +33,8 @@ class MyRoute {
   static const String addAssetAccount = '/add-asset-account';
   static const String addLiabilityAccount = '/add-liability-account';
   static const String accountScreen = '/account-screen';
+  static const String accountScreenFinancialTracker =
+      '/account-screen-financial-tracker';
   static const String addAccountScreen = '/add-account-screen';
   static const String accountTransactionScreen = '/account-transaction-screen';
   static const String accountTransferScreen = '/account-transfer-screen';
