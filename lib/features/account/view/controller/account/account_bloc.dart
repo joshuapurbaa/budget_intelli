@@ -135,6 +135,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     Emitter<AccountState> emit,
   ) async {
     final result = await _getAccountsUsecase(NoParams());
+    var totalBalance = 0.0;
 
     result.fold(
       (failure) => emit(
@@ -142,11 +143,18 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
           error: failure.message,
         ),
       ),
-      (accounts) => emit(
-        state.copyWith(
-          accounts: accounts,
-        ),
-      ),
+      (accounts) {
+        for (final account in accounts) {
+          totalBalance += account.amount;
+        }
+
+        emit(
+          state.copyWith(
+            accounts: accounts,
+            totalBalance: totalBalance,
+          ),
+        );
+      },
     );
   }
 

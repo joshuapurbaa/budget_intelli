@@ -47,19 +47,26 @@ class _FinancialTrackerDashboardAppbarState
     return Row(
       children: [
         const Spacer(),
-        Row(
-          children: [
-            Gap.vertical(10),
-            const AppText(
-              text: r'$35,000.00',
-              style: StyleType.bodLg,
-            ),
-            Gap.horizontal(5),
-            Icon(
-              CupertinoIcons.chevron_down,
-              color: context.color.onSurface,
-            ),
-          ],
+        BlocBuilder<AccountBloc, AccountState>(
+          builder: (context, state) {
+            return Row(
+              children: [
+                Gap.vertical(10),
+                AppText(
+                  text: NumberFormatter.formatToMoneyDouble(
+                    context,
+                    state.totalBalance ?? 0.0,
+                  ),
+                  style: StyleType.bodLg,
+                ),
+                Gap.horizontal(5),
+                Icon(
+                  CupertinoIcons.chevron_down,
+                  color: context.color.onSurface,
+                ),
+              ],
+            );
+          },
         ),
         const Spacer(),
         GestureDetector(

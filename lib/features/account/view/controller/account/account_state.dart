@@ -16,6 +16,7 @@ final class AccountState {
     this.newAccountParam,
     this.updatedFirstAccountParam,
     this.updatedSecondAccountParam,
+    this.totalBalance,
   });
 
   factory AccountState.initial() {
@@ -38,6 +39,7 @@ final class AccountState {
   final Account? newAccountParam;
   final Account? updatedFirstAccountParam;
   final Account? updatedSecondAccountParam;
+  final double? totalBalance;
 
   AccountState copyWith({
     List<Account>? accounts,
@@ -54,6 +56,7 @@ final class AccountState {
     Account? updatedFirstAccountParam,
     Account? updatedSecondAccountParam,
     bool? isEdit,
+    double? totalBalance,
   }) {
     return AccountState(
       accounts: accounts ?? this.accounts,
@@ -73,6 +76,7 @@ final class AccountState {
           updatedFirstAccountParam ?? this.updatedFirstAccountParam,
       updatedSecondAccountParam:
           updatedSecondAccountParam ?? this.updatedSecondAccountParam,
+      totalBalance: totalBalance ?? this.totalBalance,
     );
   }
 
@@ -93,7 +97,8 @@ final class AccountState {
         listEquals(other.itemCategoryTransactions, itemCategoryTransactions) &&
         other.newAccountParam == newAccountParam &&
         other.updatedFirstAccountParam == updatedFirstAccountParam &&
-        other.updatedSecondAccountParam == updatedSecondAccountParam;
+        other.updatedSecondAccountParam == updatedSecondAccountParam &&
+        other.totalBalance == totalBalance;
   }
 
   @override
@@ -110,5 +115,6 @@ final class AccountState {
       itemCategoryHistories.hashCode ^
       newAccountParam.hashCode ^
       updatedFirstAccountParam.hashCode ^
-      updatedSecondAccountParam.hashCode;
+      updatedSecondAccountParam.hashCode ^
+      totalBalance.hashCode;
 }
