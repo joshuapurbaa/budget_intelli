@@ -59,8 +59,12 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
                   ..rotateY((pi / 6) * val),
                 child: ClipRRect(
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(value == 1 ? 30 : 0),
-                    bottomLeft: Radius.circular(value == 1 ? 30 : 0),
+                    topLeft: Radius.circular(
+                      value == 1 ? 30 : 0,
+                    ),
+                    bottomLeft: Radius.circular(
+                      value == 1 ? 30 : 0,
+                    ),
                   ),
                   child: Scaffold(
                     appBar: AppBar(

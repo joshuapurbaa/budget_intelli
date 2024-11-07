@@ -2,13 +2,14 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
 
 class DrawerFinancialTracker extends StatelessWidget {
-  const DrawerFinancialTracker({super.key});
+  const DrawerFinancialTracker({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.6,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
@@ -21,6 +22,7 @@ class DrawerFinancialTracker extends StatelessWidget {
         ),
         padding: const EdgeInsets.all(8),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             DrawerHeader(
               child: Column(
@@ -32,21 +34,26 @@ class DrawerFinancialTracker extends StatelessWidget {
                   ),
                   const Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text('Financial Tracker'),
+                    child: AppText(
+                      text: 'Financial Tracker',
+                      style: StyleType.headSm,
+                    ),
                   ),
                 ],
               ),
             ),
             const ListTile(
-              title: Text('Dashboard'),
-              leading: Icon(Icons.dashboard),
-            ),
-            const ListTile(
-              title: Text('Transactions'),
+              title: AppText(
+                text: 'Transactions',
+                style: StyleType.bodLg,
+              ),
               leading: Icon(Icons.account_balance_wallet),
             ),
             const ListTile(
-              title: Text('Settings'),
+              title: AppText(
+                text: 'Settings',
+                style: StyleType.bodLg,
+              ),
               leading: Icon(Icons.settings),
             ),
           ],
