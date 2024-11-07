@@ -80,6 +80,12 @@ const String reasonPng = '$png/reason.png';
 const String pieChartPng = '$png/pie-chart.png';
 const String divideIconPng = '$png/divide.png';
 const String familyMemberPng = '$png/family-member.png';
+const String wifePng = '$png/wife.png';
+const String selfPng = '$png/self.png';
+const String parentsPng = '$png/parents.png';
+const String husbandPng = '$png/husband.png';
+const String housePng = '$png/house.png';
+const String childPng = '$png/child.png';
 
 // riv
 const String spendingRiv = '$riv/spending.riv';
