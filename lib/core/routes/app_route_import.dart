@@ -19,6 +19,7 @@ import 'package:budget_intelli/features/category/view/widgets/list_icon_screen.d
 import 'package:budget_intelli/features/financial_calculator/financial_calculator_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:budget_intelli/features/goals/goals_barrel.dart';
+import 'package:budget_intelli/features/member/views/views.dart';
 import 'package:budget_intelli/features/my_portfolio/my_portfolio_barrel.dart';
 import 'package:budget_intelli/features/net_worth/net_worth_barrel.dart';
 import 'package:budget_intelli/features/schedule_payment/schedule_payment_barrel.dart';

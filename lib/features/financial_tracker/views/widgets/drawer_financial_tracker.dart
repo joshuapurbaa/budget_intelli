@@ -42,7 +42,7 @@ class DrawerFinancialTracker extends StatelessWidget {
                     backgroundColor: context.color.primary,
                   ),
                   Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     child: AppText(
                       text: localize.financialTracker,
                       style: StyleType.headSm,
@@ -54,7 +54,7 @@ class DrawerFinancialTracker extends StatelessWidget {
             ListTile(
               onTap: () {
                 context.pushNamed(
-                  MyRoute.profileScreen.noSlashes(),
+                  MyRoute.member.noSlashes(),
                 );
               },
               title: AppText(
@@ -69,7 +69,7 @@ class DrawerFinancialTracker extends StatelessWidget {
             ListTile(
               onTap: () {
                 context.pushNamed(
-                  MyRoute.profileScreen.noSlashes(),
+                  MyRoute.setting.noSlashes(),
                 );
               },
               title: AppText(

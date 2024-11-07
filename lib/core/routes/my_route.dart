@@ -53,4 +53,6 @@ class MyRoute {
   static const String financialDashboardTracker =
       '/dashboard-financial-tracker';
   static const String profileScreen = '/profile-screen';
+  static const String member = '/member';
+  static const String setting = '/setting';
 }

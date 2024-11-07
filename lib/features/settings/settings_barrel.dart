@@ -7,4 +7,5 @@ export 'repositories/pdf_repository.dart';
 export 'repositories/preferences/setting_preference_repo.dart';
 export 'repositories/preferences/user_preference_repo.dart';
 export 'repositories/world_currency.dart';
-export 'view/initial_setting_screen.dart';
+export 'views/screens/initial_setting_screen.dart';
+export 'views/screens/setting_screen.dart';

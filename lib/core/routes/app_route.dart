@@ -361,11 +361,11 @@ class AppRoute {
         ),
         routes: [
           GoRoute(
-            path: MyRoute.profileScreen.noSlashes(),
-            name: MyRoute.profileScreen.noSlashes(),
+            path: MyRoute.setting.noSlashes(),
+            name: MyRoute.setting.noSlashes(),
             pageBuilder: (context, state) => _customTransitionPage(
-              const ProfileScreen(),
-              rightToLeft: true,
+              const SettingScreen(),
+              leftToRight: true,
             ),
           ),
           GoRoute(
@@ -374,6 +374,14 @@ class AppRoute {
             pageBuilder: (context, state) => _customTransitionPage(
               const AccountScreen(),
               bottomToTop: true,
+            ),
+          ),
+          GoRoute(
+            path: MyRoute.member.noSlashes(),
+            name: MyRoute.member.noSlashes(),
+            pageBuilder: (context, state) => _customTransitionPage(
+              const MemberScreen(),
+              leftToRight: true,
             ),
           ),
         ],
@@ -385,6 +393,7 @@ class AppRoute {
     Widget child, {
     bool bottomToTop = false,
     bool rightToLeft = false,
+    bool leftToRight = false,
   }) {
     return CustomTransitionPage(
       child: child,
@@ -398,6 +407,10 @@ class AppRoute {
           curve = Curves.ease;
         } else if (rightToLeft) {
           begin = const Offset(1, 0);
+          end = Offset.zero;
+          curve = Curves.ease;
+        } else if (leftToRight) {
+          begin = const Offset(-1, 0);
           end = Offset.zero;
           curve = Curves.ease;
         } else {
