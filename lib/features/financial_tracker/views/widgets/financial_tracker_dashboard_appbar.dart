@@ -87,18 +87,4 @@ class _FinancialTrackerDashboardAppbarState
   void _getAccounts() {
     context.read<AccountBloc>().add(GetAccountsEvent());
   }
-
-  void _showAccounts() {
-    showModalBottomSheet<void>(
-      isScrollControlled: true,
-      context: context,
-      transitionAnimationController: AnimationController(
-        duration: const Duration(milliseconds: 500),
-        vsync: this,
-      ),
-      builder: (context) {
-        return const AccountsBottomsheet();
-      },
-    );
-  }
 }

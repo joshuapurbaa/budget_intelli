@@ -419,12 +419,16 @@ class AppRoute {
           curve = Curves.ease;
         }
 
-        final tween = Tween(begin: begin, end: end).chain(
-          CurveTween(curve: curve),
-        );
-
         return SlideTransition(
-          position: animation.drive(tween),
+          position: Tween<Offset>(
+            begin: begin,
+            end: end,
+          ).animate(
+            CurvedAnimation(
+              parent: animation,
+              curve: curve,
+            ),
+          ),
           child: child,
         );
       },

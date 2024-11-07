@@ -3,7 +3,6 @@ import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/ai_assistant/ai_assistant_barrel.dart';
 import 'package:budget_intelli/features/auth/view/screens/initial_screen.dart';
 import 'package:budget_intelli/features/auth/view/screens/onboarding_screen.dart';
-import 'package:budget_intelli/features/auth/view/screens/profile_screen.dart';
 import 'package:budget_intelli/features/auth/view/screens/signin_screen_from_profile.dart';
 import 'package:budget_intelli/features/auth/view/screens/signin_screen_initial.dart';
 import 'package:budget_intelli/features/auth/view/screens/signup_screen_from_profile.dart';

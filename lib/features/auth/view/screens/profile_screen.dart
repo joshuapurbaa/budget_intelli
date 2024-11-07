@@ -7,7 +7,6 @@ import 'package:budget_intelli/features/auth/view/widgets/user_avatar.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/settings/models/pdf_content_model.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
