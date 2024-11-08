@@ -28,9 +28,11 @@ class AppDialog {
                 }
               },
               child: ColoredBox(
-                color: Colors.black.withOpacity(0.5), // warna background dengan opacity 50%
+                color: Colors.black
+                    .withOpacity(0.5), // warna background dengan opacity 50%
                 child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5), // intensitas blur
+                  filter:
+                      ImageFilter.blur(sigmaX: 5, sigmaY: 5), // intensitas blur
                   child: blurBackground
                       ? ColoredBox(
                           color: Colors.black.withOpacity(
@@ -53,7 +55,8 @@ class AppDialog {
     );
   }
 
-  static Future<void> showLoading(BuildContext context, {String? message}) async {
+  static Future<void> showLoading(BuildContext context,
+      {String? message}) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
@@ -184,7 +187,50 @@ class AppDialog {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: imageUrl != null ? Image.network(imageUrl) : Image.memory(imageBytes!),
+          content: imageUrl != null
+              ? Image.network(imageUrl)
+              : Image.memory(imageBytes!),
+        );
+      },
+    );
+  }
+
+  static Future<Object?> showAnimationDialog({
+    required BuildContext context,
+    required Widget child,
+  }) async {
+    return showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: Colors.black54,
+      transitionDuration: const Duration(milliseconds: 300),
+      pageBuilder: (
+        BuildContext buildContext,
+        animation,
+        secondaryAnimation,
+      ) {
+        return Center(
+          child: AlertDialog(
+            shape: const RoundedRectangleBorder(),
+            content: SizedBox(
+              // height: 200,
+              width: MediaQuery.of(context).size.width,
+              child: child,
+            ),
+            insetPadding: EdgeInsets.zero,
+          ),
+        );
+      },
+      transitionBuilder: (
+        context,
+        animation,
+        secondaryAnimation,
+        child,
+      ) {
+        return ScaleTransition(
+          scale: animation,
+          child: child,
         );
       },
     );

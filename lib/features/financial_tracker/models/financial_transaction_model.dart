@@ -16,6 +16,8 @@ class FinancialTransaction {
     required this.accountName,
     required this.accountId,
     required this.categoryId,
+    required this.memberId,
+    required this.memberName,
     this.transactionLocation,
     this.picture,
   });
@@ -44,6 +46,8 @@ class FinancialTransaction {
       accountName: map['account_name'] as String,
       accountId: map['account_id'] as String,
       categoryId: map['category_id'] as String,
+      memberId: map['member_id'] as String,
+      memberName: map['member_name'] as String,
       transactionLocation: transactionLocation,
       picture: map['picture'] as Uint8List?,
     );
@@ -63,6 +67,8 @@ class FinancialTransaction {
       'account_name': accountName,
       'account_id': accountId,
       'category_id': categoryId,
+      'member_id': memberId,
+      'member_name': memberName,
       'transaction_location': jsonEncode(transactionLocation?.toMap()),
       'picture': picture,
     };
@@ -79,13 +85,15 @@ class FinancialTransaction {
   final String accountName;
   final String accountId;
   final String categoryId;
+  final String memberId;
+  final String memberName;
   final TransactionLocation? transactionLocation;
   final Uint8List? picture;
 
   // to String method to convert model to string
   @override
   String toString() {
-    return 'FinancialTransaction{id: $id, createdAt: $createdAt, updatedAt: $updatedAt, comment: $comment, amount: $amount, date: $date, type: $type, categoryName: $categoryName, accountName: $accountName, accountId: $accountId, categoryId: $categoryId, transactionLocation: $transactionLocation, picture: $picture}';
+    return 'FinancialTransaction{id: $id, createdAt: $createdAt, updatedAt: $updatedAt, comment: $comment, amount: $amount, date: $date, type: $type, categoryName: $categoryName, accountName: $accountName, accountId: $accountId, categoryId: $categoryId, transactionLocation: $transactionLocation, picture: $picture member_id: $memberId, member_name: $memberName}';
   }
 }
 

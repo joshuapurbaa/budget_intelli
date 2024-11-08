@@ -39,7 +39,9 @@ class FinancialTransactionDb {
             account_id TEXT NOT NULL,
             category_id TEXT NOT NULL,
             transaction_location TEXT,
-            picture BLOB
+            picture BLOB,
+            member_id TEXT NOT NULL,
+            member_name TEXT NOT NULL
           )
         ''');
       },

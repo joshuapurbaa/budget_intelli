@@ -28,7 +28,8 @@ class MemberDb {
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL,
             name TEXT NOT NULL,
-            icon_path TEXT NOT NULL
+            icon_path TEXT NOT NULL,
+            icon BLOB NOT NULL
           )
         ''');
       },

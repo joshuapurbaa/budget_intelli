@@ -27,19 +27,19 @@ class _MemberScreenState extends State<MemberScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: List.generate(
-                      memberStatic.length,
+                      memberStaticList.length,
                       (index) {
-                        final iconPath = memberStatic[index].iconPath;
+                        final iconPath = memberStaticList[index].iconPath;
                         if (iconPath != null) {
                           return MemberItem(
                             iconPath: iconPath,
-                            title: memberStatic[index].name,
+                            title: memberStaticList[index].name,
                             onTap: () {},
                           );
                         } else {
                           return MemberItem(
-                            icon: memberStatic[index].icon,
-                            title: memberStatic[index].name,
+                            icon: memberStaticList[index].icon,
+                            title: memberStaticList[index].name,
                             onTap: () {},
                           );
                         }

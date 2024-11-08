@@ -1,14 +1,15 @@
 part of 'financial_transaction_bloc.dart';
 
 final class FinancialTransactionState extends Equatable {
-  const FinancialTransactionState({
+  FinancialTransactionState({
     this.insertSuccess = false,
     this.updateSuccess = false,
     this.deleteSuccess = false,
     this.financialTransactions = const [],
     this.financialTransaction,
     this.errorMessage,
-  });
+    Member? selectedMember,
+  }) : selectedMember = selectedMember ?? memberStaticList[0];
 
   final bool insertSuccess;
   final bool updateSuccess;
@@ -16,6 +17,7 @@ final class FinancialTransactionState extends Equatable {
   final String? errorMessage;
   final List<FinancialTransaction> financialTransactions;
   final FinancialTransaction? financialTransaction;
+  final Member selectedMember;
 
   FinancialTransactionState copyWith({
     bool? insertSuccess,
@@ -24,6 +26,7 @@ final class FinancialTransactionState extends Equatable {
     List<FinancialTransaction>? financialTransactions,
     FinancialTransaction? financialTransaction,
     String? errorMessage,
+    Member? selectedMember,
   }) {
     return FinancialTransactionState(
       insertSuccess: insertSuccess ?? this.insertSuccess,
@@ -33,6 +36,7 @@ final class FinancialTransactionState extends Equatable {
           financialTransactions ?? this.financialTransactions,
       financialTransaction: financialTransaction ?? this.financialTransaction,
       errorMessage: errorMessage ?? this.errorMessage,
+      selectedMember: selectedMember ?? this.selectedMember,
     );
   }
 
@@ -44,5 +48,6 @@ final class FinancialTransactionState extends Equatable {
         financialTransactions,
         financialTransaction,
         errorMessage,
+        selectedMember,
       ];
 }

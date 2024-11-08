@@ -2,6 +2,7 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/member/member_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -119,81 +120,103 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
               CalculatorButtons(
                 notifier: notifier,
               ),
-              Gap.vertical(8),
-              BlocListener<FinancialTransactionBloc, FinancialTransactionState>(
-                listener: (context, state) {
-                  if (state.insertSuccess) {
-                    context.pop();
-                    context.read<FinancialTransactionBloc>().add(
-                          const ResetFinancialTransactionStateEvent(),
-                        );
-                    context
-                        .read<FinancialDashboardCubit>()
-                        .getAllFinancialTransactionByMonthAndYear(
-                          context,
-                          namaBulan: context
+              Gap.vertical(5),
+              Row(
+                children: [
+                  MemberButton(),
+                  Gap.horizontal(5),
+                  Expanded(
+                    child: BlocConsumer<FinancialTransactionBloc,
+                        FinancialTransactionState>(
+                      listener: (context, state) {
+                        if (state.insertSuccess) {
+                          context.pop();
+                          context.read<FinancialTransactionBloc>().add(
+                                const ResetFinancialTransactionStateEvent(),
+                              );
+                          context
                               .read<FinancialDashboardCubit>()
-                              .state
-                              .selectedMonth,
+                              .getAllFinancialTransactionByMonthAndYear(
+                                context,
+                                namaBulan: context
+                                    .read<FinancialDashboardCubit>()
+                                    .state
+                                    .selectedMonth,
+                              );
+                        } else {
+                          AppToast.showToastError(context, localize.failed);
+                        }
+                      },
+                      builder: (context, state) {
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(382.w, 65.h),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            backgroundColor: context.color.primary,
+                          ),
+                          onPressed: () {
+                            final category = context
+                                .read<FinancialCategoryBloc>()
+                                .state
+                                .selectedFinancialCategory;
+                            final account = context
+                                .read<AccountBloc>()
+                                .state
+                                .selectedAccount;
+                            final location = context
+                                .read<LocationCubit>()
+                                .state
+                                .transactionLocation;
+                            final imageBytes = ControllerHelper.getImagesBytes(
+                              context,
+                            );
+                            final date = context
+                                .read<TimeScrollWheelCubit>()
+                                .state
+                                .selectedDate;
+                            final isIncome = context
+                                .read<FinancialDashboardCubit>()
+                                .state
+                                .isIncome;
+
+                            if (category != null && account != null) {
+                              final transaction = FinancialTransaction(
+                                id: const Uuid().v4(),
+                                createdAt: DateTime.now().toString(),
+                                updatedAt: DateTime.now().toString(),
+                                comment: _commentController.text,
+                                amount: double.parse(
+                                    notifier.result.replaceAll(',', '')),
+                                date: date.toString(),
+                                type: isIncome ? 'income' : 'expense',
+                                categoryName: category.categoryName,
+                                accountName: account.name,
+                                accountId: account.id,
+                                categoryId: category.id,
+                                transactionLocation: location,
+                                picture: imageBytes,
+                                memberId: state.selectedMember.id,
+                                memberName: state.selectedMember.name,
+                              );
+
+                              context.read<FinancialTransactionBloc>().add(
+                                    InsertFinancialTransactionEvent(
+                                        transaction),
+                                  );
+                            }
+                          },
+                          child: AppText(
+                            text: localize.recordTransaction,
+                            style: StyleType.bodLg,
+                            color: context.color.onPrimary,
+                          ),
                         );
-                  } else {
-                    AppToast.showToastError(context, localize.failed);
-                  }
-                },
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(382.w, 58.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      },
                     ),
-                    backgroundColor: context.color.primary,
                   ),
-                  onPressed: () {
-                    final category = context
-                        .read<FinancialCategoryBloc>()
-                        .state
-                        .selectedFinancialCategory;
-                    final account =
-                        context.read<AccountBloc>().state.selectedAccount;
-                    final location =
-                        context.read<LocationCubit>().state.transactionLocation;
-                    final imageBytes = ControllerHelper.getImagesBytes(
-                      context,
-                    );
-                    final date =
-                        context.read<TimeScrollWheelCubit>().state.selectedDate;
-                    final isIncome =
-                        context.read<FinancialDashboardCubit>().state.isIncome;
-
-                    if (category != null && account != null) {
-                      final transaction = FinancialTransaction(
-                        id: const Uuid().v4(),
-                        createdAt: DateTime.now().toString(),
-                        updatedAt: DateTime.now().toString(),
-                        comment: _commentController.text,
-                        amount:
-                            double.parse(notifier.result.replaceAll(',', '')),
-                        date: date.toString(),
-                        type: isIncome ? 'income' : 'expense',
-                        categoryName: category.categoryName,
-                        accountName: account.name,
-                        accountId: account.id,
-                        categoryId: category.id,
-                        transactionLocation: location,
-                        picture: imageBytes,
-                      );
-
-                      context.read<FinancialTransactionBloc>().add(
-                            InsertFinancialTransactionEvent(transaction),
-                          );
-                    }
-                  },
-                  child: AppText(
-                    text: localize.recordTransaction,
-                    style: StyleType.bodLg,
-                    color: context.color.onPrimary,
-                  ),
-                ),
+                ],
               ),
               Gap.vertical(20),
             ],
@@ -218,5 +241,98 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
         expression: '0',
       );
     }
+  }
+}
+
+class MemberButton extends StatefulWidget {
+  const MemberButton({
+    super.key,
+  });
+
+  @override
+  State<MemberButton> createState() => _MemberButtonState();
+}
+
+class _MemberButtonState extends State<MemberButton> {
+  Member? selectedMember;
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<FinancialTransactionBloc, FinancialTransactionState>(
+      builder: (context, state) {
+        final member = state.selectedMember;
+        final iconPath = member.iconPath;
+        final icon = member.icon;
+        return ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            fixedSize: Size(85.w, 65.h),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            backgroundColor: context.color.primaryContainer,
+          ),
+          onPressed: () {
+            AppDialog.showAnimationDialog(
+              context: context,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(
+                    memberStaticList.length,
+                    (index) {
+                      final iconPath = memberStaticList[index].iconPath;
+                      final icon = memberStaticList[index].icon;
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: Size(85.w, 65.h),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            backgroundColor: context.color.primaryContainer,
+                          ),
+                          onPressed: () {
+                            context.read<FinancialTransactionBloc>().add(
+                                  SelectMemberEvent(
+                                    memberStaticList[index],
+                                  ),
+                                );
+                            context.pop();
+                          },
+                          child: iconPath != null
+                              ? getPngAsset(
+                                  iconPath,
+                                  width: 30,
+                                  height: 30,
+                                  color: context.color.primary,
+                                )
+                              : Image.memory(
+                                  icon!,
+                                  width: 30,
+                                  height: 30,
+                                ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            );
+          },
+          child: iconPath != null
+              ? getPngAsset(
+                  iconPath,
+                  width: 30,
+                  height: 30,
+                  color: context.color.primary,
+                )
+              : Image.memory(
+                  icon!,
+                  width: 30,
+                  height: 30,
+                ),
+        );
+      },
+    );
   }
 }

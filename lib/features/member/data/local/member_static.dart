@@ -1,7 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/member/member_barrel.dart';
 
-final memberStatic = <Member>[
+final memberStaticList = <Member>[
   Member(
     id: '1-self',
     name: 'Self',

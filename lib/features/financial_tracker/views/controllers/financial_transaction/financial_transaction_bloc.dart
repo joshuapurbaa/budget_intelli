@@ -1,5 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/member/data/data.dart';
+import 'package:budget_intelli/features/member/member_barrel.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +22,7 @@ class FinancialTransactionBloc
         _deleteFinancialTransactionDb = deleteFinancialTransactionDb,
         _getFinancialTransactionDb = getFinancialTransactionDb,
         _getAllFinancialTransactionDb = getAllFinancialTransactionDb,
-        super(const FinancialTransactionState()) {
+        super(FinancialTransactionState()) {
     on<InsertFinancialTransactionEvent>(_onInsertFinancialTransactionEvent);
     on<UpdateFinancialTransactionEvent>(_onUpdateFinancialTransactionEvent);
     on<DeleteFinancialTransactionEvent>(_onDeleteFinancialTransactionEvent);
@@ -29,6 +31,7 @@ class FinancialTransactionBloc
     on<ResetFinancialTransactionStateEvent>(
       _onResetFinancialTransactionStateEvent,
     );
+    on<SelectMemberEvent>(_onSelectMemberEvent);
   }
 
   final InsertFinancialTransactionDb _insertFinancialTransactionDb;
@@ -148,6 +151,13 @@ class FinancialTransactionBloc
     ResetFinancialTransactionStateEvent event,
     Emitter<FinancialTransactionState> emit,
   ) async {
-    emit(const FinancialTransactionState());
+    emit(FinancialTransactionState());
+  }
+
+  Future<void> _onSelectMemberEvent(
+    SelectMemberEvent event,
+    Emitter<FinancialTransactionState> emit,
+  ) async {
+    emit(state.copyWith(selectedMember: event.member));
   }
 }
