@@ -86,6 +86,7 @@ const String parentsPng = '$png/parents.png';
 const String husbandPng = '$png/husband.png';
 const String housePng = '$png/house.png';
 const String childPng = '$png/child.png';
+const String pawprintPetPng = '$png/pawprint-pet.png';
 
 // riv
 const String spendingRiv = '$riv/spending.riv';
