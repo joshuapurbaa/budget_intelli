@@ -1,12 +1,7 @@
-import 'dart:typed_data';
-
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
-import 'package:budget_intelli/features/member/member_barrel.dart';
-import 'package:budget_intelli/features/settings/settings_barrel.dart';
-import 'package:budget_intelli/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
