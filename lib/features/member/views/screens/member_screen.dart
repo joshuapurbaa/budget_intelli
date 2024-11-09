@@ -30,19 +30,13 @@ class _MemberScreenState extends State<MemberScreen> {
                       memberStaticList.length,
                       (index) {
                         final iconPath = memberStaticList[index].iconPath;
-                        if (iconPath != null) {
-                          return MemberItem(
-                            iconPath: iconPath,
-                            title: memberStaticList[index].name,
-                            onTap: () {},
-                          );
-                        } else {
-                          return MemberItem(
-                            icon: memberStaticList[index].icon,
-                            title: memberStaticList[index].name,
-                            onTap: () {},
-                          );
-                        }
+                        final icon = memberStaticList[index].icon;
+                        return MemberItem(
+                          iconPath: iconPath,
+                          icon: icon,
+                          title: memberStaticList[index].name,
+                          onTap: () {},
+                        );
                       },
                     ),
                   ),
