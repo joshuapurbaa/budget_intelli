@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +24,8 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
 
   @override
   Widget build(BuildContext context) {
+    final localize = textLocalizer(context);
+
     return BlocBuilder<FinancialCategoryBloc, FinancialCategoryState>(
       builder: (context, state) {
         return Container(
@@ -55,8 +58,8 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               size: 20,
               color: context.color.primary,
             ),
-            hintText:
-                state.selectedFinancialCategory?.categoryName ?? 'Category',
+            hintText: state.selectedFinancialCategory?.categoryName ??
+                localize.category,
             textStyle: textStyle(
               context,
               StyleType.bodMd,
@@ -82,7 +85,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               (FinancialCategory category) {
                 return DropdownMenuEntry<FinancialCategory>(
                   value: category,
-                  label: _buildLabel(state.language, category.categoryName),
+                  label: _buildLabel(category.categoryName),
                   leadingIcon: _buildLeadingIconMenu(category),
                   style: MenuItemButton.styleFrom(
                     visualDensity: VisualDensity.comfortable,
@@ -100,8 +103,9 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
     );
   }
 
-  String _buildLabel(String? language, String categoryName) {
-    if (language == 'English') {
+  String _buildLabel(String categoryName) {
+    final language = context.watch<SettingBloc>().state.selectedLanguage;
+    if (language.text == 'English') {
       return categoryName;
     } else {
       switch (categoryName) {
