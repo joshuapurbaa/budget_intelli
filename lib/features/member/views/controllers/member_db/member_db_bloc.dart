@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/member/member_barrel.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
+import 'package:budget_intelli/init_dependencies.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 part 'member_db_event.dart';
 part 'member_db_state.dart';
 
@@ -18,9 +22,13 @@ class MemberDbBloc extends Bloc<MemberDbEvent, MemberDbState> {
         _getAllMemberDb = getAllMemberDb,
         _getMemberByIdDb = getMemberByIdDb,
         super(const MemberDbState()) {
-    on<MemberDbEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+    on<InsertMemberDbEvent>(_onInsertMemberDbEvent);
+    on<UpdateMemberDbEvent>(_onUpdateMemberDbEvent);
+    on<DeleteMemberDbEvent>(_onDeleteMemberDbEvent);
+    on<GetMemberDbEvent>(_onGetMemberDbEvent);
+    on<GetAllMemberDbEvent>(_onGetAllMemberDbEvent);
+    on<ResetMemberDbEventStateEvent>(_onResetMemberDbEventStateEvent);
+    on<SelectMemberDbEvent>(_onSelectMemberDbEvent);
   }
 
   final InsertMemberDb _insertMemberDb;
@@ -28,4 +36,141 @@ class MemberDbBloc extends Bloc<MemberDbEvent, MemberDbState> {
   final DeleteMemberDb _deleteMemberDb;
   final GetAllMemberDb _getAllMemberDb;
   final GetMemberByIdDb _getMemberByIdDb;
+
+  Future<void> _onInsertMemberDbEvent(
+    InsertMemberDbEvent event,
+    Emitter<MemberDbState> emit,
+  ) async {
+    final result = await _insertMemberDb(event.entity);
+
+    result.fold(
+      (fail) => emit(
+        state.copyWith(
+          insertSuccess: false,
+          errorMessage: fail.message,
+        ),
+      ),
+      (_) => emit(
+        state.copyWith(
+          insertSuccess: true,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onUpdateMemberDbEvent(
+    UpdateMemberDbEvent event,
+    Emitter<MemberDbState> emit,
+  ) async {
+    final result = await _updateMemberDb(event.entity);
+
+    result.fold(
+      (fail) => emit(
+        state.copyWith(
+          updateSuccess: false,
+          errorMessage: fail.message,
+        ),
+      ),
+      (_) => emit(
+        state.copyWith(
+          updateSuccess: true,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onDeleteMemberDbEvent(
+    DeleteMemberDbEvent event,
+    Emitter<MemberDbState> emit,
+  ) async {
+    final result = await _deleteMemberDb(event.id);
+
+    result.fold(
+      (fail) => emit(
+        state.copyWith(
+          deleteSuccess: false,
+          errorMessage: fail.message,
+        ),
+      ),
+      (_) => emit(
+        state.copyWith(
+          deleteSuccess: true,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onGetMemberDbEvent(
+    GetMemberDbEvent event,
+    Emitter<MemberDbState> emit,
+  ) async {
+    final result = await _getMemberByIdDb(event.id);
+
+    result.fold(
+      (fail) => emit(
+        state.copyWith(
+          errorMessage: fail.message,
+        ),
+      ),
+      (member) => emit(
+        state.copyWith(
+          member: member,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _onGetAllMemberDbEvent(
+    GetAllMemberDbEvent event,
+    Emitter<MemberDbState> emit,
+  ) async {
+    final result = await _getAllMemberDb(NoParams());
+    final language = await _getLanguage();
+
+    result.fold(
+      (fail) => emit(
+        state.copyWith(
+          errorMessage: fail.message,
+        ),
+      ),
+      (members) {
+        final allMembers = memberStaticList..addAll(members);
+        emit(
+          state.copyWith(
+            members: allMembers,
+            language: language,
+            selectedMember: allMembers[0],
+          ),
+        );
+      },
+    );
+  }
+
+  Future<void> _onResetMemberDbEventStateEvent(
+    ResetMemberDbEventStateEvent event,
+    Emitter<MemberDbState> emit,
+  ) async {
+    emit(
+      const MemberDbState().copyWith(
+        language: event.language,
+      ),
+    );
+  }
+
+  Future<String> _getLanguage() async {
+    final language =
+        await serviceLocator<SettingPreferenceRepo>().getLanguage();
+    return language;
+  }
+
+  Future<void> _onSelectMemberDbEvent(
+    SelectMemberDbEvent event,
+    Emitter<MemberDbState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        selectedMember: event.member,
+      ),
+    );
+  }
 }

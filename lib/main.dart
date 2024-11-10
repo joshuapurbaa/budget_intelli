@@ -9,6 +9,7 @@ import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/category/category_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:budget_intelli/features/goals/goals_barrel.dart';
+import 'package:budget_intelli/features/member/views/controllers/member_db/member_db_bloc.dart';
 import 'package:budget_intelli/features/my_portfolio/my_portfolio_barrel.dart';
 import 'package:budget_intelli/features/net_worth/net_worth_barrel.dart';
 import 'package:budget_intelli/features/schedule_payment/schedule_payment_barrel.dart';
@@ -252,6 +253,9 @@ void main() async {
         ),
         BlocProvider<TimeScrollWheelCubit>(
           create: (context) => TimeScrollWheelCubit(),
+        ),
+        BlocProvider<MemberDbBloc>(
+          create: (_) => serviceLocator<MemberDbBloc>(),
         ),
       ],
       child: const BudgetIntelli(),

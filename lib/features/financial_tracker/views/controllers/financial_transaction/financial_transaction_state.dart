@@ -8,8 +8,7 @@ final class FinancialTransactionState extends Equatable {
     this.financialTransactions = const [],
     this.financialTransaction,
     this.errorMessage,
-    Member? selectedMember,
-  }) : selectedMember = selectedMember ?? memberStaticList[0];
+  });
 
   final bool insertSuccess;
   final bool updateSuccess;
@@ -17,7 +16,6 @@ final class FinancialTransactionState extends Equatable {
   final String? errorMessage;
   final List<FinancialTransaction> financialTransactions;
   final FinancialTransaction? financialTransaction;
-  final Member selectedMember;
 
   FinancialTransactionState copyWith({
     bool? insertSuccess,
@@ -36,7 +34,6 @@ final class FinancialTransactionState extends Equatable {
           financialTransactions ?? this.financialTransactions,
       financialTransaction: financialTransaction ?? this.financialTransaction,
       errorMessage: errorMessage ?? this.errorMessage,
-      selectedMember: selectedMember ?? this.selectedMember,
     );
   }
 
@@ -48,6 +45,5 @@ final class FinancialTransactionState extends Equatable {
         financialTransactions,
         financialTransaction,
         errorMessage,
-        selectedMember,
       ];
 }

@@ -1,27 +1,41 @@
 import 'dart:typed_data';
 
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:budget_intelli/features/member/member_barrel.dart';
-import 'package:budget_intelli/features/settings/settings_barrel.dart';
-import 'package:budget_intelli/init_dependencies.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
-class ButtonMember extends StatelessWidget {
+class ButtonMember extends StatefulWidget {
   const ButtonMember({
     super.key,
   });
 
   @override
+  State<ButtonMember> createState() => _ButtonMemberState();
+}
+
+class _ButtonMemberState extends State<ButtonMember> {
+  @override
+  void initState() {
+    super.initState();
+    _getAllMember();
+  }
+
+  void _getAllMember() {
+    context.read<MemberDbBloc>().add(
+          const GetAllMemberDbEvent(),
+        );
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FinancialTransactionBloc, FinancialTransactionState>(
+    return BlocBuilder<MemberDbBloc, MemberDbState>(
       builder: (context, state) {
         final member = state.selectedMember;
-        final iconPath = member.iconPath;
-        final icon = member.icon;
+        final iconPath = member?.iconPath;
+        final icon = member?.icon;
         return ElevatedButton(
           style: ElevatedButton.styleFrom(
             fixedSize: Size(85.w, 65.h),
@@ -34,53 +48,74 @@ class ButtonMember extends StatelessWidget {
           onPressed: () {
             AppDialog.showAnimationDialog(
               context: context,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: List.generate(
-                    memberStaticList.length,
-                    (index) {
-                      final iconPath = memberStaticList[index].iconPath;
-                      final icon = memberStaticList[index].icon;
-                      return Padding(
-                        padding: const EdgeInsets.only(right: 10),
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(85.w, 70.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            padding: EdgeInsets.zero,
-                            backgroundColor: context.color.primaryContainer,
-                          ),
-                          onPressed: () {
-                            context.read<FinancialTransactionBloc>().add(
-                                  SelectMemberEvent(
-                                    memberStaticList[index],
-                                  ),
-                                );
-                            context.pop();
-                          },
-                          child: _IconMember(
-                            iconPath: iconPath,
-                            icon: icon,
-                            name: memberStaticList[index].name,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
+              child: _MemberList(
+                members: state.members,
+                language: state.language,
               ),
             );
           },
           child: _IconMember(
             iconPath: iconPath,
             icon: icon,
-            name: member.name,
+            name: member?.name ?? 'Select Member',
+            language: state.language,
           ),
         );
       },
+    );
+  }
+}
+
+class _MemberList extends StatelessWidget {
+  const _MemberList({
+    super.key,
+    required this.members,
+    this.language,
+  });
+
+  final List<Member> members;
+  final String? language;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: List.generate(
+          members.length,
+          (index) {
+            final iconPath = members[index].iconPath;
+            final icon = members[index].icon;
+            return Padding(
+              padding: const EdgeInsets.only(right: 10),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(85.w, 70.h),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.zero,
+                  backgroundColor: context.color.primaryContainer,
+                ),
+                onPressed: () {
+                  context.read<MemberDbBloc>().add(
+                        SelectMemberDbEvent(
+                          members[index],
+                        ),
+                      );
+                  context.pop();
+                },
+                child: _IconMember(
+                  iconPath: iconPath,
+                  icon: icon,
+                  name: members[index].name,
+                  language: language,
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
@@ -91,32 +126,19 @@ class _IconMember extends StatefulWidget {
     this.iconPath,
     this.icon,
     required this.name,
+    this.language,
   });
 
   final String? iconPath;
   final Uint8List? icon;
   final String name;
+  final String? language;
 
   @override
   State<_IconMember> createState() => _IconMemberState();
 }
 
 class _IconMemberState extends State<_IconMember> {
-  String? language;
-
-  @override
-  void initState() {
-    super.initState();
-    _getLanguage();
-  }
-
-  Future<void> _getLanguage() async {
-    language = await serviceLocator<SettingPreferenceRepo>().getLanguage();
-    setState(() {
-      language = language;
-    });
-  }
-
   String _setName(String language, String name) {
     if (language == 'Indonesia') {
       if (name == 'Self') {
@@ -138,8 +160,8 @@ class _IconMemberState extends State<_IconMember> {
 
   @override
   Widget build(BuildContext context) {
-    if (language == null) {
-      return const CircularProgressIndicator.adaptive();
+    if (widget.language == null) {
+      return CircularProgressIndicator.adaptive();
     }
 
     if (widget.iconPath != null) {
@@ -154,7 +176,7 @@ class _IconMemberState extends State<_IconMember> {
           ),
           Gap.vertical(2),
           AppText(
-            text: _setName(language!, widget.name),
+            text: _setName(widget.language!, widget.name),
             style: StyleType.bodSm,
             color: context.color.primary,
           ),
@@ -171,7 +193,7 @@ class _IconMemberState extends State<_IconMember> {
           ),
           Gap.vertical(3),
           AppText(
-            text: _setName(language!, widget.name),
+            text: _setName(widget.language!, widget.name),
             style: StyleType.bodSm,
             color: context.color.primary,
           ),

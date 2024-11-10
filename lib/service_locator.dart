@@ -31,6 +31,7 @@ Future<void> initDependencies() async {
   _insertFinancialCategoryHistoryDb();
   _initFinancialTransactionDb();
   _initFinancialDashboard();
+  _initMemberDb();
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -1171,4 +1172,51 @@ void _initFinancialDashboard() {
       getAllFinancialTransactionByMonthAndYearDb: serviceLocator(),
     ),
   );
+}
+
+void _initMemberDb() {
+  serviceLocator
+    ..registerLazySingleton(MemberDb.new)
+    ..registerFactory<MemberDbApi>(
+      () => MemberDbApiImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<MemberDbRepository>(
+      () => MemberDbRepositoryImpl(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<InsertMemberDb>(
+      () => InsertMemberDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetMemberByIdDb>(
+      () => GetMemberByIdDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<GetAllMemberDb>(
+      () => GetAllMemberDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<UpdateMemberDb>(
+      () => UpdateMemberDb(
+        serviceLocator(),
+      ),
+    )
+    ..registerFactory<DeleteMemberDb>(() => DeleteMemberDb(
+          serviceLocator(),
+        ))
+    ..registerLazySingleton(
+      () => MemberDbBloc(
+        insertMemberDb: serviceLocator(),
+        updateMemberDb: serviceLocator(),
+        getMemberByIdDb: serviceLocator(),
+        getAllMemberDb: serviceLocator(),
+        deleteMemberDb: serviceLocator(),
+      ),
+    );
 }

@@ -2,6 +2,7 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/member/member_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -180,7 +181,14 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                                 .state
                                 .isIncome;
 
-                            if (category != null && account != null) {
+                            final selectedMember = context
+                                .read<MemberDbBloc>()
+                                .state
+                                .selectedMember;
+
+                            if (category != null &&
+                                account != null &&
+                                selectedMember != null) {
                               final transaction = FinancialTransaction(
                                 id: const Uuid().v4(),
                                 createdAt: DateTime.now().toString(),
@@ -196,13 +204,14 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                                 categoryId: category.id,
                                 transactionLocation: location,
                                 picture: imageBytes,
-                                memberId: state.selectedMember.id,
-                                memberName: state.selectedMember.name,
+                                memberId: selectedMember.id,
+                                memberName: selectedMember.name,
                               );
 
                               context.read<FinancialTransactionBloc>().add(
                                     InsertFinancialTransactionEvent(
-                                        transaction),
+                                      transaction,
+                                    ),
                                   );
                             }
                           },

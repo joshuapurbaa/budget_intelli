@@ -1,9 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
-import 'package:budget_intelli/features/member/data/data.dart';
 import 'package:budget_intelli/features/member/member_barrel.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'financial_transaction_event.dart';
@@ -31,7 +29,6 @@ class FinancialTransactionBloc
     on<ResetFinancialTransactionStateEvent>(
       _onResetFinancialTransactionStateEvent,
     );
-    on<SelectMemberEvent>(_onSelectMemberEvent);
   }
 
   final InsertFinancialTransactionDb _insertFinancialTransactionDb;
@@ -46,8 +43,6 @@ class FinancialTransactionBloc
   ) async {
     final result =
         await _insertFinancialTransactionDb(event.financialTransaction);
-
-    debugPrint('result insert: $result');
 
     result.fold(
       (fail) => emit(
@@ -152,12 +147,5 @@ class FinancialTransactionBloc
     Emitter<FinancialTransactionState> emit,
   ) async {
     emit(FinancialTransactionState());
-  }
-
-  Future<void> _onSelectMemberEvent(
-    SelectMemberEvent event,
-    Emitter<FinancialTransactionState> emit,
-  ) async {
-    emit(state.copyWith(selectedMember: event.member));
   }
 }

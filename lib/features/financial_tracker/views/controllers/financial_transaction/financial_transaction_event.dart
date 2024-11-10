@@ -57,12 +57,3 @@ final class ResetFinancialTransactionStateEvent
   @override
   List<Object> get props => [];
 }
-
-final class SelectMemberEvent extends FinancialTransactionEvent {
-  const SelectMemberEvent(this.member);
-
-  final Member member;
-
-  @override
-  List<Object> get props => [member];
-}

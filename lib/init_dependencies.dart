@@ -11,6 +11,7 @@ import 'package:budget_intelli/features/category/view/controllers/insight/insigh
 import 'package:budget_intelli/features/category/view/controllers/tracking/tracking_cubit.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:budget_intelli/features/goals/goals_barrel.dart';
+import 'package:budget_intelli/features/member/member_barrel.dart';
 import 'package:budget_intelli/features/my_portfolio/my_portfolio_barrel.dart';
 import 'package:budget_intelli/features/net_worth/data/datasources/database/net_worth_db.dart';
 import 'package:budget_intelli/features/net_worth/net_worth_barrel.dart';

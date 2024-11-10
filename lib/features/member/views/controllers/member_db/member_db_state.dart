@@ -5,19 +5,53 @@ final class MemberDbState extends Equatable {
     this.insertSuccess = false,
     this.updateSuccess = false,
     this.deleteSuccess = false,
+    this.errorMessage,
     this.members = const <Member>[],
+    this.member,
+    this.language,
+    this.selectedMember,
   });
 
   final bool insertSuccess;
   final bool updateSuccess;
   final bool deleteSuccess;
+  final String? errorMessage;
   final List<Member> members;
+  final Member? member;
+  final String? language;
+  final Member? selectedMember;
+
+  MemberDbState copyWith({
+    bool? insertSuccess,
+    bool? updateSuccess,
+    bool? deleteSuccess,
+    String? errorMessage,
+    List<Member>? members,
+    Member? member,
+    String? language,
+    Member? selectedMember,
+  }) {
+    return MemberDbState(
+      insertSuccess: insertSuccess ?? this.insertSuccess,
+      updateSuccess: updateSuccess ?? this.updateSuccess,
+      deleteSuccess: deleteSuccess ?? this.deleteSuccess,
+      errorMessage: errorMessage ?? this.errorMessage,
+      members: members ?? this.members,
+      member: member ?? this.member,
+      language: language ?? this.language,
+      selectedMember: selectedMember ?? this.selectedMember,
+    );
+  }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         insertSuccess,
         updateSuccess,
         deleteSuccess,
+        errorMessage,
         members,
+        member,
+        language,
+        selectedMember,
       ];
 }

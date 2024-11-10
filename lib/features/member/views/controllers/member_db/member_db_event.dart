@@ -10,7 +10,7 @@ sealed class MemberDbEvent extends Equatable {
 final class InsertMemberDbEvent extends MemberDbEvent {
   const InsertMemberDbEvent(this.entity);
 
-  final MemberDbEvent entity;
+  final Member entity;
 
   @override
   List<Object> get props => [entity];
@@ -19,7 +19,7 @@ final class InsertMemberDbEvent extends MemberDbEvent {
 final class UpdateMemberDbEvent extends MemberDbEvent {
   const UpdateMemberDbEvent(this.entity);
 
-  final MemberDbEvent entity;
+  final Member entity;
 
   @override
   List<Object> get props => [entity];
@@ -51,8 +51,21 @@ final class GetAllMemberDbEvent extends MemberDbEvent {
 }
 
 final class ResetMemberDbEventStateEvent extends MemberDbEvent {
-  const ResetMemberDbEventStateEvent();
+  const ResetMemberDbEventStateEvent(
+    this.language,
+  );
+
+  final String language;
 
   @override
   List<Object> get props => [];
+}
+
+final class SelectMemberDbEvent extends MemberDbEvent {
+  const SelectMemberDbEvent(this.member);
+
+  final Member member;
+
+  @override
+  List<Object> get props => [member];
 }
