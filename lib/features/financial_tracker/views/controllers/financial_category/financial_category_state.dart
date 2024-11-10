@@ -9,6 +9,7 @@ final class FinancialCategoryState extends Equatable {
     this.financialCategory,
     this.errorMessage,
     this.selectedFinancialCategory,
+    this.language,
   });
 
   final bool insertSuccess;
@@ -18,6 +19,7 @@ final class FinancialCategoryState extends Equatable {
   final List<FinancialCategory> financialCategories;
   final FinancialCategory? financialCategory;
   final FinancialCategory? selectedFinancialCategory;
+  final String? language;
 
   FinancialCategoryState copyWith({
     bool? insertSuccess,
@@ -27,6 +29,7 @@ final class FinancialCategoryState extends Equatable {
     FinancialCategory? financialCategory,
     String? errorMessage,
     FinancialCategory? selectedFinancialCategory,
+    String? language,
   }) {
     return FinancialCategoryState(
       insertSuccess: insertSuccess ?? this.insertSuccess,
@@ -37,6 +40,7 @@ final class FinancialCategoryState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
       selectedFinancialCategory:
           selectedFinancialCategory ?? this.selectedFinancialCategory,
+      language: language ?? this.language,
     );
   }
 
@@ -49,5 +53,6 @@ final class FinancialCategoryState extends Equatable {
         financialCategory,
         errorMessage,
         selectedFinancialCategory,
+        language,
       ];
 }

@@ -4,7 +4,7 @@ import 'package:uuid/uuid.dart';
 
 final financialCategoryHardcodedEN = <FinancialCategory>[
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '1-food-category',
     categoryName: 'Food',
     type: 'expense',
     createdAt: DateTime.now().toString(),
@@ -13,7 +13,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFFE57373,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '2-transport-category',
     categoryName: 'Transport',
     type: 'expense',
     createdAt: DateTime.now().toString(),
@@ -22,7 +22,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFF81C784,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '3-salary-category',
     categoryName: 'Salary',
     type: 'income',
     createdAt: DateTime.now().toString(),
@@ -31,7 +31,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFF64B5F6,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '4-gift-category',
     categoryName: 'Gift',
     type: 'income',
     createdAt: DateTime.now().toString(),
@@ -40,7 +40,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFF9575CD,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '5-shopping-category',
     categoryName: 'Shopping',
     type: 'expense',
     createdAt: DateTime.now().toString(),
@@ -49,7 +49,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFF4DB6AC,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '6-health-category',
     categoryName: 'Health',
     type: 'expense',
     createdAt: DateTime.now().toString(),
@@ -58,7 +58,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFFAED581,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '7-entertainment-category',
     categoryName: 'Entertainment',
     type: 'expense',
     createdAt: DateTime.now().toString(),
@@ -67,7 +67,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFF4DD0E1,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '8-investment-category',
     categoryName: 'Investment',
     type: 'income',
     createdAt: DateTime.now().toString(),
@@ -76,7 +76,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFFFFD54F,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '9-education-category',
     categoryName: 'Education',
     type: 'expense',
     createdAt: DateTime.now().toString(),
@@ -85,7 +85,7 @@ final financialCategoryHardcodedEN = <FinancialCategory>[
     hexColor: 0xFF90A4AE,
   ),
   FinancialCategory(
-    id: const Uuid().v4(),
+    id: '10-others-category',
     categoryName: 'Others',
     type: 'expense',
     createdAt: DateTime.now().toString(),

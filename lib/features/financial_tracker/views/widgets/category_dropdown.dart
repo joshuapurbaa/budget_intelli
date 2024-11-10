@@ -15,11 +15,6 @@ class CategoryDropdown extends StatefulWidget {
 }
 
 class _CategoryDropdownState extends State<CategoryDropdown> {
-  Future<void> _initFinancialCategoryInstance() async {
-    final language =
-        await serviceLocator<SettingPreferenceRepo>().getLanguage();
-  }
-
   @override
   void initState() {
     super.initState();
@@ -30,12 +25,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<FinancialCategoryBloc, FinancialCategoryState>(
-      listener: (context, state) {
-        if (state.financialCategories.isEmpty) {
-          _initFinancialCategoryInstance();
-        }
-      },
+    return BlocBuilder<FinancialCategoryBloc, FinancialCategoryState>(
       builder: (context, state) {
         return Container(
           decoration: BoxDecoration(
@@ -94,7 +84,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               (FinancialCategory category) {
                 return DropdownMenuEntry<FinancialCategory>(
                   value: category,
-                  label: category.categoryName,
+                  label: _buildLabel(state.language, category.categoryName),
                   leadingIcon: _buildLeadingIconMenu(category),
                   style: MenuItemButton.styleFrom(
                     visualDensity: VisualDensity.comfortable,
@@ -110,6 +100,37 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
         );
       },
     );
+  }
+
+  String _buildLabel(String? language, String categoryName) {
+    if (language == 'English') {
+      return categoryName;
+    } else {
+      switch (categoryName) {
+        case 'Food':
+          return 'Makanan';
+        case 'Transport':
+          return 'Transportasi';
+        case 'Salary':
+          return 'Gaji';
+        case 'Gift':
+          return 'Hadiah';
+        case 'Shopping':
+          return 'Belanja';
+        case 'Health':
+          return 'Kesehatan';
+        case 'Entertainment':
+          return 'Hiburan';
+        case 'Investment':
+          return 'Investasi';
+        case 'Education':
+          return 'Pendidikan';
+        case 'Others':
+          return 'Lainnya';
+        default:
+          return categoryName;
+      }
+    }
   }
 
   Widget _buildLeadingIconMenu(FinancialCategory? category) {

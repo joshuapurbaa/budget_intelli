@@ -1,5 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
+import 'package:budget_intelli/init_dependencies.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -123,6 +125,8 @@ class FinancialCategoryBloc
     Emitter<FinancialCategoryState> emit,
   ) async {
     final result = await _getFinancialCategoriesDb(NoParams());
+    final language =
+        await serviceLocator<SettingPreferenceRepo>().getLanguage();
 
     result.fold(
       (fail) => emit(
@@ -136,6 +140,7 @@ class FinancialCategoryBloc
         emit(
           state.copyWith(
             financialCategories: categories,
+            language: language,
           ),
         );
       },
