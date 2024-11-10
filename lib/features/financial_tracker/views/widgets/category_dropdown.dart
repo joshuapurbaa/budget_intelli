@@ -7,7 +7,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CategoryDropdown extends StatefulWidget {
-  const CategoryDropdown({super.key});
+  const CategoryDropdown({
+    required this.isIncome,
+    super.key,
+  });
+
+  final bool isIncome;
 
   @override
   State<CategoryDropdown> createState() => _CategoryDropdownState();
@@ -28,6 +33,12 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
 
     return BlocBuilder<FinancialCategoryBloc, FinancialCategoryState>(
       builder: (context, state) {
+        final filterCategory = widget.isIncome
+            ? state.financialCategories
+                .where((category) => category.type == 'income')
+            : state.financialCategories
+                .where((category) => category.type == 'expense');
+
         return Container(
           decoration: BoxDecoration(
             color: context.color.onInverseSurface,
@@ -80,8 +91,8 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
                 ),
               ),
             ),
-            dropdownMenuEntries: state.financialCategories
-                .map<DropdownMenuEntry<FinancialCategory>>(
+            dropdownMenuEntries:
+                filterCategory.map<DropdownMenuEntry<FinancialCategory>>(
               (FinancialCategory category) {
                 return DropdownMenuEntry<FinancialCategory>(
                   value: category,

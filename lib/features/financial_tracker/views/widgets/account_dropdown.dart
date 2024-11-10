@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/account_barrel.dart';
+import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,8 +12,9 @@ class AccountDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accounts = context.watch<AccountBloc>().state.accounts;
     final localize = textLocalizer(context);
+    final accounts = context.watch<AccountBloc>().state.accounts;
+
     return Container(
       decoration: BoxDecoration(
         color: context.color.onInverseSurface,

@@ -66,8 +66,10 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                     child: AccountDropdown(),
                   ),
                   Gap.horizontal(10),
-                  const Expanded(
-                    child: CategoryDropdown(),
+                  Expanded(
+                    child: CategoryDropdown(
+                      isIncome: isIncome,
+                    ),
                   ),
                 ],
               ),
