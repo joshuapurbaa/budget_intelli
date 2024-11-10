@@ -15,7 +15,10 @@ class AppRoute {
           .getOnlyFinancialTracker();
       final onInitialScreen = state.fullPath == MyRoute.initialScreen;
 
-      if (onlyFinancialTracker && onInitialScreen) {
+      if (onlyFinancialTracker &&
+          onInitialScreen &&
+          continueWithoutLogin &&
+          initialSettingDone) {
         return MyRoute.financialDashboardTracker;
       }
 
