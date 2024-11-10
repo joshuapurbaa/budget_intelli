@@ -3,6 +3,7 @@ import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:budget_intelli/features/member/member_barrel.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -37,6 +38,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
     final localize = textLocalizer(context);
     final isIncome = context.watch<FinancialDashboardCubit>().state.isIncome;
     final zeroExpression = notifier.expression == '0';
+    final currencySymbol = context.watch<SettingBloc>().state.currency.symbol;
     return Container(
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.90,
@@ -82,8 +84,8 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const AppText(
-                        text: r'$',
+                      AppText(
+                        text: currencySymbol,
                         style: StyleType.disSm,
                       ),
                       Gap.horizontal(5),
@@ -110,7 +112,8 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                   hintText: '${localize.addComment}...',
                   hintStyle: const TextStyle(
                     color: Colors.grey,
-                    fontSize: 18,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
                   ),
                   border: InputBorder.none,
                   focusedBorder: InputBorder.none,

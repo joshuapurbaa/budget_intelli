@@ -12,6 +12,7 @@ class AccountDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final accounts = context.watch<AccountBloc>().state.accounts;
+    final localize = textLocalizer(context);
     return Container(
       decoration: BoxDecoration(
         color: context.color.onInverseSurface,
@@ -28,7 +29,7 @@ class AccountDropdown extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AppText(
-                      text: 'Add Account',
+                      text: localize.addAccountFIeldLabel,
                       style: StyleType.bodMd,
                       color: context.color.primary,
                       textAlign: TextAlign.center,
