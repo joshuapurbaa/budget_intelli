@@ -42,9 +42,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       _onGetAllItemCategoryTransactionsEvent,
     );
     on<TransferAccountEvent>(_onTransferAccountEvent);
-    on<ResetAccountStateEvent>((event, emit) {
-      emit(AccountState.initial());
-    });
+    on<ResetSelectedAccountStateEvent>(_onResetSelectedAccountStateEvent);
   }
 
   final InsertAccountUsecase _insertAccountUsecase;
@@ -150,6 +148,8 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         for (final account in accounts) {
           totalBalance += account.amount;
         }
+
+        print('Total Balance: $totalBalance');
 
         emit(
           state.copyWith(
@@ -258,6 +258,17 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     emit(
       state.copyWith(
         accountTypes: accountTypes,
+      ),
+    );
+  }
+
+  Future<void> _onResetSelectedAccountStateEvent(
+    ResetSelectedAccountStateEvent event,
+    Emitter<AccountState> emit,
+  ) async {
+    emit(
+      state.copyWith(
+        selectedAccount: null,
       ),
     );
   }

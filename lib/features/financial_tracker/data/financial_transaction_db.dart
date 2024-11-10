@@ -127,8 +127,6 @@ class FinancialTransactionDb {
       orderBy: 'date DESC',
     );
 
-    debugPrint('maps: $maps');
-
     // Salin setiap elemen dalam maps ke list baru agar dapat dimodifikasi
     final modifiableMaps = maps.map((map) {
       final newMap = Map<String, dynamic>.from(map); // Salin map ke objek baru
@@ -138,7 +136,6 @@ class FinancialTransactionDb {
               jsonDecode(newMap['transaction_location'] as String);
         } catch (e) {
           debugPrint('Failed to parse transaction_location for map: $map');
-          debugPrint('Error: $e');
         }
       }
       return newMap;

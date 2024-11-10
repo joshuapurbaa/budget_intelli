@@ -90,8 +90,7 @@ class FinancialTransactionDbApiImpl implements FinancialTransactionDbApi {
         year: year,
       );
       return result;
-    } catch (e, s) {
-      debugPrint('stack: $s');
+    } catch (e) {
       throw CustomException('Error: $e');
     }
   }

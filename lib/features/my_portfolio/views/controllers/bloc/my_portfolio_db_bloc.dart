@@ -40,8 +40,6 @@ class MyPortfolioDbBloc extends Bloc<MyPortfolioDbEvent, MyPortfolioDbState> {
   ) async {
     final result = await _insertMyPortfolioDb(event.myPortfolio);
 
-    print('result :: $result');
-
     result.fold(
       (fail) => emit(
         state.copyWith(

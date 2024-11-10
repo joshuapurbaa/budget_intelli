@@ -268,7 +268,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
         );
 
     context.read<AccountBloc>().add(
-          ResetAccountStateEvent(),
+          ResetSelectedAccountStateEvent(),
         );
 
     context.read<MemberDbBloc>().add(

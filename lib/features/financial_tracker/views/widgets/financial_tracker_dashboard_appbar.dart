@@ -32,6 +32,7 @@ class _FinancialTrackerDashboardAppbarState
         const Spacer(),
         BlocBuilder<AccountBloc, AccountState>(
           builder: (context, state) {
+            print('state.totalBalance: ${state.totalBalance}');
             return Row(
               children: [
                 Gap.vertical(10),
