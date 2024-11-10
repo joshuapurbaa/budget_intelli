@@ -194,9 +194,32 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                                 .state
                                 .selectedMember;
 
-                            if (category != null &&
-                                account != null &&
-                                selectedMember != null) {
+                            if (notifier.result.trim() == '0' ||
+                                notifier.result == ' ') {
+                              AppToast.showToastError(
+                                context,
+                                localize.amountRequired,
+                              );
+                              return;
+                            }
+
+                            if (category == null) {
+                              AppToast.showToastError(
+                                context,
+                                localize.categoryRequired,
+                              );
+                              return;
+                            }
+
+                            if (account == null) {
+                              AppToast.showToastError(
+                                context,
+                                localize.accountRequired,
+                              );
+                              return;
+                            }
+
+                            if (selectedMember != null) {
                               final transaction = FinancialTransaction(
                                 id: const Uuid().v4(),
                                 createdAt: DateTime.now().toString(),

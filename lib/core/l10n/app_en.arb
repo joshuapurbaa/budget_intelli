@@ -377,5 +377,8 @@
     "week": "Week",
     "settings": "Settings",
     "member": "Member",
-    "financialTracker": "Financial Tracker"
+    "financialTracker": "Financial Tracker",
+    "categoryRequired": "Category is required",
+    "accountRequired": "Account is required",
+    "amountRequired": "Amount is required"
 }

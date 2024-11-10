@@ -377,5 +377,8 @@
     "week": "Minggu",
     "settings": "Pengaturan",
     "member": "Anggota",
-    "financialTracker": "Pelacak Keuangan"
+    "financialTracker": "Pelacak Keuangan",
+    "categoryRequired": "Kategori diperlukan",
+    "accountRequired": "Akun diperlukan",
+    "amountRequired": "Jumlah diperlukan"
 }
