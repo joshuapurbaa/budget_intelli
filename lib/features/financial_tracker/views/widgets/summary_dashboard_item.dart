@@ -14,6 +14,7 @@ class SummaryDashboardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final location = transaction.transactionLocation;
     final locationName = location?.subLocality ?? '';
+    final member = transaction.memberName;
     final expense = transaction.type == 'expense';
     return Padding(
       padding: getEdgeInsets(bottom: 10),
@@ -35,13 +36,11 @@ class SummaryDashboardItem extends StatelessWidget {
                   text: transaction.categoryName,
                   style: StyleType.headSm,
                 ),
-                if (locationName.isNotEmpty) ...[
-                  Gap.vertical(5),
-                  AppText(
-                    text: locationName,
-                    style: StyleType.bodMd,
-                  ),
-                ],
+                Gap.vertical(5),
+                MemberNameLocalization(
+                  name: member,
+                  color: context.color.onSurface.withOpacity(0.7),
+                ),
               ],
             ),
           ),

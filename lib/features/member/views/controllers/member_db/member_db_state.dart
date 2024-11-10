@@ -8,7 +8,6 @@ final class MemberDbState extends Equatable {
     this.errorMessage,
     this.members = const <Member>[],
     this.member,
-    this.language,
     this.selectedMember,
   });
 
@@ -18,7 +17,6 @@ final class MemberDbState extends Equatable {
   final String? errorMessage;
   final List<Member> members;
   final Member? member;
-  final String? language;
   final Member? selectedMember;
 
   MemberDbState copyWith({
@@ -28,7 +26,6 @@ final class MemberDbState extends Equatable {
     String? errorMessage,
     List<Member>? members,
     Member? member,
-    String? language,
     Member? selectedMember,
   }) {
     return MemberDbState(
@@ -38,7 +35,6 @@ final class MemberDbState extends Equatable {
       errorMessage: errorMessage ?? this.errorMessage,
       members: members ?? this.members,
       member: member ?? this.member,
-      language: language ?? this.language,
       selectedMember: selectedMember ?? this.selectedMember,
     );
   }
@@ -51,7 +47,6 @@ final class MemberDbState extends Equatable {
         errorMessage,
         members,
         member,
-        language,
         selectedMember,
       ];
 }

@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/member/member_barrel.dart';
-import 'package:budget_intelli/features/settings/settings_barrel.dart';
-import 'package:budget_intelli/init_dependencies.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 part 'member_db_event.dart';
@@ -125,7 +123,6 @@ class MemberDbBloc extends Bloc<MemberDbEvent, MemberDbState> {
     Emitter<MemberDbState> emit,
   ) async {
     final result = await _getAllMemberDb(NoParams());
-    final language = await _getLanguage();
 
     result.fold(
       (fail) => emit(
@@ -138,7 +135,6 @@ class MemberDbBloc extends Bloc<MemberDbEvent, MemberDbState> {
         emit(
           state.copyWith(
             members: allMembers,
-            language: language,
             selectedMember: allMembers[0],
           ),
         );
@@ -153,12 +149,6 @@ class MemberDbBloc extends Bloc<MemberDbEvent, MemberDbState> {
     emit(
       const MemberDbState(),
     );
-  }
-
-  Future<String> _getLanguage() async {
-    final language =
-        await serviceLocator<SettingPreferenceRepo>().getLanguage();
-    return language;
   }
 
   Future<void> _onSelectMemberDbEvent(

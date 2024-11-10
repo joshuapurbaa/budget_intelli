@@ -26,6 +26,7 @@ export 'helper/category_jury.dart';
 export 'helper/controller_helper.dart';
 export 'helper/extensions.dart';
 export 'helper/get_current_path.dart';
+export 'widgets/member_name_localization.dart';
 // network
 export 'network/connection_checker.dart';
 // routes

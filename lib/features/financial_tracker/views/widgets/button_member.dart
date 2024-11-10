@@ -50,7 +50,6 @@ class _ButtonMemberState extends State<ButtonMember> {
               context: context,
               child: _MemberList(
                 members: state.members,
-                language: state.language,
               ),
             );
           },
@@ -58,7 +57,6 @@ class _ButtonMemberState extends State<ButtonMember> {
             iconPath: iconPath,
             icon: icon,
             name: member?.name ?? 'Select Member',
-            language: state.language,
           ),
         );
       },
@@ -69,11 +67,9 @@ class _ButtonMemberState extends State<ButtonMember> {
 class _MemberList extends StatelessWidget {
   const _MemberList({
     required this.members,
-    this.language,
   });
 
   final List<Member> members;
-  final String? language;
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +104,6 @@ class _MemberList extends StatelessWidget {
                   iconPath: iconPath,
                   icon: icon,
                   name: members[index].name,
-                  language: language,
                 ),
               ),
             );
@@ -121,44 +116,24 @@ class _MemberList extends StatelessWidget {
 
 class _IconMember extends StatefulWidget {
   const _IconMember({
-    required this.name, this.iconPath,
+    required this.name,
+    this.iconPath,
     this.icon,
-    this.language,
   });
 
   final String? iconPath;
   final Uint8List? icon;
   final String name;
-  final String? language;
 
   @override
   State<_IconMember> createState() => _IconMemberState();
 }
 
 class _IconMemberState extends State<_IconMember> {
-  String _setName(String language, String name) {
-    if (language == 'Indonesia') {
-      if (name == 'Self') {
-        return 'Sendiri';
-      } else if (name == 'Wife') {
-        return 'Istri';
-      } else if (name == 'Husband') {
-        return 'Suami';
-      } else if (name == 'Child') {
-        return 'Anak';
-      } else if (name == 'Parents') {
-        return 'Orang Tua';
-      } else if (name == 'Pet') {
-        return 'Peliharaan';
-      }
-    }
-    return name;
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (widget.language == null) {
-      return const CircularProgressIndicator.adaptive();
+    if (widget.iconPath == null && widget.icon == null) {
+      return CircularProgressIndicator.adaptive();
     }
 
     if (widget.iconPath != null) {
@@ -172,11 +147,7 @@ class _IconMemberState extends State<_IconMember> {
             color: context.color.primary,
           ),
           Gap.vertical(2),
-          AppText(
-            text: _setName(widget.language!, widget.name),
-            style: StyleType.bodSm,
-            color: context.color.primary,
-          ),
+          MemberNameLocalization(name: widget.name),
         ],
       );
     } else {
@@ -189,11 +160,7 @@ class _IconMemberState extends State<_IconMember> {
             height: 30,
           ),
           Gap.vertical(3),
-          AppText(
-            text: _setName(widget.language!, widget.name),
-            style: StyleType.bodSm,
-            color: context.color.primary,
-          ),
+          MemberNameLocalization(name: widget.name),
         ],
       );
     }
