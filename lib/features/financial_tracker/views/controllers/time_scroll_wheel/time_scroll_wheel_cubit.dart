@@ -16,7 +16,7 @@ class TimeScrollWheelCubit extends Cubit<TimeScrollWheelState> {
       int.parse(selectedHour),
       int.parse(state.selectedMinute),
     );
-      emit(
+    emit(
       state.copyWith(
         selectedHour: selectedHour,
         period: period,
@@ -35,15 +35,23 @@ class TimeScrollWheelCubit extends Cubit<TimeScrollWheelState> {
       int.parse(state.selectedHour),
       int.parse(selectedMinute),
     );
-      emit(state.copyWith(
-      selectedMinute: selectedMinute,
-      selectedDate: updatedDate,
-    ),);
+    emit(
+      state.copyWith(
+        selectedMinute: selectedMinute,
+        selectedDate: updatedDate,
+      ),
+    );
   }
 
   void setSelectedDate(DateTime selectedDate) {
-    emit(state.copyWith(
-      selectedDate: selectedDate,
-    ),);
+    emit(
+      state.copyWith(
+        selectedDate: selectedDate,
+      ),
+    );
+  }
+
+  void resetState() {
+    emit(TimeScrollWheelState());
   }
 }

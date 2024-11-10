@@ -273,5 +273,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
         );
 
     context.read<LocationCubit>().resetLocation();
+    context.read<TimeScrollWheelCubit>().resetState();
+    context.read<UploadImageBloc>().add(ResetImage());
   }
 }
