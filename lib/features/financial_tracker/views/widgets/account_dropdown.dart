@@ -43,7 +43,6 @@ class AccountDropdown extends StatelessWidget {
               ),
             )
           : DropdownMenu<Account>(
-              controller: TextEditingController(),
               expandedInsets: const EdgeInsets.all(8),
               menuHeight: 150.h,
               selectedTrailingIcon: const Icon(

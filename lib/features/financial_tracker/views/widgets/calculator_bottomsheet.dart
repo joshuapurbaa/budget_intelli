@@ -29,7 +29,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
     notifier.addListener(() {
       setState(() {});
     });
-    _setInitialValues();
+    _resetState();
   }
 
   @override
@@ -143,8 +143,11 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                                     .state
                                     .selectedMonth,
                               );
-                        } else {
-                          AppToast.showToastError(context, localize.failed);
+                        }
+
+                        if (state.errorMessage != null) {
+                          AppToast.showToastError(
+                              context, state.errorMessage ?? localize.failed);
                         }
                       },
                       builder: (context, state) {
@@ -195,7 +198,8 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                                 updatedAt: DateTime.now().toString(),
                                 comment: _commentController.text,
                                 amount: double.parse(
-                                    notifier.result.replaceAll(',', ''),),
+                                  notifier.result.replaceAll(',', ''),
+                                ),
                                 date: date.toString(),
                                 type: isIncome ? 'income' : 'expense',
                                 categoryName: category.categoryName,
@@ -249,5 +253,13 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
         expression: '0',
       );
     }
+  }
+
+  void _resetState() {
+    _commentController.clear();
+    _setInitialValues();
+    context
+        .read<FinancialCategoryBloc>()
+        .add(ResetFinancialCategoryStateEvent());
   }
 }
