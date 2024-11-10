@@ -2,12 +2,11 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path/path.dart';
 
 class MemberNameLocalization extends StatefulWidget {
   const MemberNameLocalization({
-    super.key,
     required this.name,
+    super.key,
     this.style,
     this.color,
   });

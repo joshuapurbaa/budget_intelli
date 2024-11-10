@@ -149,8 +149,6 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
           totalBalance += account.amount;
         }
 
-        print('Total Balance: $totalBalance');
-
         emit(
           state.copyWith(
             accounts: accounts,
@@ -268,7 +266,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   ) async {
     emit(
       state.copyWith(
-        selectedAccount: null,
+        
       ),
     );
   }

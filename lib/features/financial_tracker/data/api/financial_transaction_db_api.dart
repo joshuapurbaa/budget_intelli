@@ -1,6 +1,5 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
-import 'package:flutter/material.dart';
 import 'package:fpdart/fpdart.dart';
 
 abstract interface class FinancialTransactionDbApi {

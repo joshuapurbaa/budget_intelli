@@ -133,7 +133,7 @@ class _IconMemberState extends State<_IconMember> {
   @override
   Widget build(BuildContext context) {
     if (widget.iconPath == null && widget.icon == null) {
-      return CircularProgressIndicator.adaptive();
+      return const CircularProgressIndicator.adaptive();
     }
 
     if (widget.iconPath != null) {

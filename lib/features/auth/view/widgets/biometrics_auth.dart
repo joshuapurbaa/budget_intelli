@@ -130,7 +130,7 @@ class _BimetricAuthState extends State<BimetricAuth> {
   }
 
   Future<void> _openBiometricSettings() async {
-    AppSettings.openAppSettings(
+    await AppSettings.openAppSettings(
       type: AppSettingsType.security,
     );
   }

@@ -12,8 +12,6 @@ class SummaryDashboardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final location = transaction.transactionLocation;
-    final locationName = location?.subLocality ?? '';
     final member = transaction.memberName;
     final expense = transaction.type == 'expense';
     return Padding(

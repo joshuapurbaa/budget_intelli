@@ -50,7 +50,7 @@ class MyPortfolioListScreen extends StatelessWidget {
         child: AppButton(
           label: 'Add Portfolio',
           onPressed: () async {
-            final result = await context.pushNamed(
+            await context.pushNamed(
               MyRoute.addPortfolio.noSlashes(),
             );
           },

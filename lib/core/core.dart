@@ -26,7 +26,6 @@ export 'helper/category_jury.dart';
 export 'helper/controller_helper.dart';
 export 'helper/extensions.dart';
 export 'helper/get_current_path.dart';
-export 'widgets/member_name_localization.dart';
 // network
 export 'network/connection_checker.dart';
 // routes
@@ -108,6 +107,7 @@ export 'widgets/label_with_divider_right.dart';
 export 'widgets/line_graph_daily.dart';
 export 'widgets/line_graph_monthly.dart';
 export 'widgets/line_graph_weekly.dart';
+export 'widgets/member_name_localization.dart';
 export 'widgets/month_dropdown.dart';
 export 'widgets/outline_button_primary.dart';
 export 'widgets/row_icon_and_text.dart';

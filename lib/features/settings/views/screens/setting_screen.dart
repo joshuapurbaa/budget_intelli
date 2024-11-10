@@ -149,26 +149,7 @@ class _SettingScreenState extends State<SettingScreen>
           final lightMode = settingState.themeMode == ThemeMode.light;
           final english = settingState.selectedLanguage == Language.english;
 
-          final imageUrl = userIntelli?.imageUrl;
           final premiumUser = userIntelli?.premium ?? false;
-
-          String? firstChar;
-          String? name;
-          String? email;
-
-          if (userIntelli?.name != null) {
-            name = userIntelli?.name ?? '-';
-            firstChar = name[0];
-          } else {
-            name = '-';
-            firstChar = '-';
-          }
-
-          if (userIntelli?.email != null) {
-            email = userIntelli?.email ?? '-';
-          } else {
-            email = '-';
-          }
 
           if (darkMode) {
             themeModeStr = localize.darkMode;
@@ -377,7 +358,8 @@ class _SettingScreenState extends State<SettingScreen>
 
                                       for (final group in groupCategories) {
                                         itemCategories.addAll(
-                                            group.itemCategoryHistories,);
+                                          group.itemCategoryHistories,
+                                        );
                                       }
                                       final incomeCategories = itemCategories
                                           .where((e) => e.type == 'income');
@@ -421,7 +403,9 @@ class _SettingScreenState extends State<SettingScreen>
                                       final endDate = budget.endDate;
                                       final dateRanges = [startDate, endDate];
                                       final dateRangeStr = formatDateRangeStr(
-                                          dateRanges, context,);
+                                        dateRanges,
+                                        context,
+                                      );
                                       final language =
                                           settingState.selectedLanguage.text;
                                       const summaryDescriptionEn =
