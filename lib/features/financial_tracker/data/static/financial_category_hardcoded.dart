@@ -1,6 +1,5 @@
 import 'package:budget_intelli/core/config/asset_paths.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
-import 'package:uuid/uuid.dart';
 
 final financialCategoryHardcodedEN = <FinancialCategory>[
   FinancialCategory(
