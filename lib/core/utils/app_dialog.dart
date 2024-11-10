@@ -56,7 +56,7 @@ class AppDialog {
   }
 
   static Future<void> showLoading(BuildContext context,
-      {String? message}) async {
+      {String? message,}) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,

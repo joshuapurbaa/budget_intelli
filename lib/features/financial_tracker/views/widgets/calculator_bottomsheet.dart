@@ -123,7 +123,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
               Gap.vertical(5),
               Row(
                 children: [
-                  ButtonMember(),
+                  const ButtonMember(),
                   Gap.horizontal(5),
                   Expanded(
                     child: BlocConsumer<FinancialTransactionBloc,
@@ -195,7 +195,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                                 updatedAt: DateTime.now().toString(),
                                 comment: _commentController.text,
                                 amount: double.parse(
-                                    notifier.result.replaceAll(',', '')),
+                                    notifier.result.replaceAll(',', ''),),
                                 date: date.toString(),
                                 type: isIncome ? 'income' : 'expense',
                                 categoryName: category.categoryName,

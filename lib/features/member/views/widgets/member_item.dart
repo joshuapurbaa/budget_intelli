@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 
 class MemberItem extends StatelessWidget {
   const MemberItem({
-    super.key,
+    required this.title, required this.onTap, super.key,
     this.iconPath,
-    required this.title,
-    required this.onTap,
     this.icon,
   });
 

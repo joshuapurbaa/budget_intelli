@@ -404,7 +404,7 @@ class _ProfileScreenState extends State<ProfileScreen>
 
                                       for (final group in groupCategories) {
                                         itemCategories.addAll(
-                                            group.itemCategoryHistories);
+                                            group.itemCategoryHistories,);
                                       }
                                       final incomeCategories = itemCategories
                                           .where((e) => e.type == 'income');
@@ -448,7 +448,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       final endDate = budget.endDate;
                                       final dateRanges = [startDate, endDate];
                                       final dateRangeStr = formatDateRangeStr(
-                                          dateRanges, context);
+                                          dateRanges, context,);
                                       final language =
                                           settingState.selectedLanguage.text;
                                       const summaryDescriptionEn =

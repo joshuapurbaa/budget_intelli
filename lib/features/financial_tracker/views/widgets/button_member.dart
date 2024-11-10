@@ -68,7 +68,6 @@ class _ButtonMemberState extends State<ButtonMember> {
 
 class _MemberList extends StatelessWidget {
   const _MemberList({
-    super.key,
     required this.members,
     this.language,
   });
@@ -122,10 +121,8 @@ class _MemberList extends StatelessWidget {
 
 class _IconMember extends StatefulWidget {
   const _IconMember({
-    super.key,
-    this.iconPath,
+    required this.name, this.iconPath,
     this.icon,
-    required this.name,
     this.language,
   });
 
@@ -161,7 +158,7 @@ class _IconMemberState extends State<_IconMember> {
   @override
   Widget build(BuildContext context) {
     if (widget.language == null) {
-      return CircularProgressIndicator.adaptive();
+      return const CircularProgressIndicator.adaptive();
     }
 
     if (widget.iconPath != null) {
