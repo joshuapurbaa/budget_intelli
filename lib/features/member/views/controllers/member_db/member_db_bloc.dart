@@ -151,9 +151,7 @@ class MemberDbBloc extends Bloc<MemberDbEvent, MemberDbState> {
     Emitter<MemberDbState> emit,
   ) async {
     emit(
-      const MemberDbState().copyWith(
-        language: event.language,
-      ),
+      const MemberDbState(),
     );
   }
 

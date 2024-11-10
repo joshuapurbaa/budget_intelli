@@ -51,11 +51,7 @@ final class GetAllMemberDbEvent extends MemberDbEvent {
 }
 
 final class ResetMemberDbEventStateEvent extends MemberDbEvent {
-  const ResetMemberDbEventStateEvent(
-    this.language,
-  );
-
-  final String language;
+  const ResetMemberDbEventStateEvent();
 
   @override
   List<Object> get props => [];

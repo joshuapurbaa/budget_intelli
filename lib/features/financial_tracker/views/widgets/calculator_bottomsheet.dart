@@ -147,7 +147,9 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
 
                         if (state.errorMessage != null) {
                           AppToast.showToastError(
-                              context, state.errorMessage ?? localize.failed);
+                            context,
+                            state.errorMessage ?? localize.failed,
+                          );
                         }
                       },
                       builder: (context, state) {
@@ -258,8 +260,18 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
   void _resetState() {
     _commentController.clear();
     _setInitialValues();
-    context
-        .read<FinancialCategoryBloc>()
-        .add(ResetFinancialCategoryStateEvent());
+    context.read<FinancialCategoryBloc>().add(
+          const ResetFinancialCategoryStateEvent(),
+        );
+
+    context.read<AccountBloc>().add(
+          ResetAccountStateEvent(),
+        );
+
+    context.read<MemberDbBloc>().add(
+          const ResetMemberDbEventStateEvent(),
+        );
+
+    context.read<LocationCubit>().resetLocation();
   }
 }

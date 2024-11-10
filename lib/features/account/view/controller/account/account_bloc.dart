@@ -42,6 +42,9 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
       _onGetAllItemCategoryTransactionsEvent,
     );
     on<TransferAccountEvent>(_onTransferAccountEvent);
+    on<ResetAccountStateEvent>((event, emit) {
+      emit(AccountState.initial());
+    });
   }
 
   final InsertAccountUsecase _insertAccountUsecase;

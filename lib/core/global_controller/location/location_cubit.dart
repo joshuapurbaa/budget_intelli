@@ -70,4 +70,10 @@ class LocationCubit extends Cubit<LocationState> {
       );
     }
   }
+
+  Future<void> resetLocation() async {
+    emit(
+      const LocationState(),
+    );
+  }
 }

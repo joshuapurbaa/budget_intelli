@@ -44,3 +44,5 @@ final class SelectAccountEvent extends AccountEvent {
 final class SetAccountBlocToInitial extends AccountEvent {}
 
 final class SetInitialAccountTypes extends AccountEvent {}
+
+final class ResetAccountStateEvent extends AccountEvent {}
