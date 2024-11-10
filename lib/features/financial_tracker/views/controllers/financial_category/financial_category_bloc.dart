@@ -130,11 +130,15 @@ class FinancialCategoryBloc
           errorMessage: fail.message,
         ),
       ),
-      (financialCategories) => emit(
-        state.copyWith(
-          financialCategories: financialCategories,
-        ),
-      ),
+      (financialCategories) {
+        final categories = financialCategoryHardcodedEN
+          ..addAll(financialCategories);
+        emit(
+          state.copyWith(
+            financialCategories: categories,
+          ),
+        );
+      },
     );
   }
 

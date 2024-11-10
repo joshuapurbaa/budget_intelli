@@ -1,6 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
+import 'package:budget_intelli/init_dependencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,24 +16,8 @@ class CategoryDropdown extends StatefulWidget {
 
 class _CategoryDropdownState extends State<CategoryDropdown> {
   Future<void> _initFinancialCategoryInstance() async {
-    final language = await SettingPreferenceRepo().getLanguage();
-    List<FinancialCategory>? financialCategory;
-    if (language == 'English') {
-      financialCategory = financialCategoryHardcodedEN;
-    } else {
-      financialCategory = financialCategoryHardcodedID;
-    }
-
-    _setFinancialCategoryDb(financialCategory);
-  }
-
-  void _setFinancialCategoryDb(List<FinancialCategory> financialCategory) {
-    for (final category in financialCategory) {
-      if (!mounted) return;
-      context.read<FinancialCategoryBloc>().add(
-            InsertFinancialCategoryEvent(category),
-          );
-    }
+    final language =
+        await serviceLocator<SettingPreferenceRepo>().getLanguage();
   }
 
   @override
@@ -128,6 +113,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
   }
 
   Widget _buildLeadingIconMenu(FinancialCategory? category) {
+    final others = category?.categoryName == 'Others';
     if (category != null) {
       final icon = category.iconPath ?? categoryPng;
       if (icon.contains('.svg')) {
@@ -135,6 +121,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
           icon,
           width: 20,
           height: 20,
+          color: others ? context.color.primary : null,
         );
       } else {
         return getPngAsset(
