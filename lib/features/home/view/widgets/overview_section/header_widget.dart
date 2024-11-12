@@ -33,7 +33,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     return Padding(
       padding: getEdgeInsets(
         left: 16,
-        top: 10,
         right: 16,
         bottom: 10,
       ),
