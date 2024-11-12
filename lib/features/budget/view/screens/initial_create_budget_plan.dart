@@ -147,7 +147,7 @@ class _InitialCreateBudgetPlanScreenState
                       left: 16,
                       top: 16,
                       right: 16,
-                      bottom: 10,
+                      bottom: 8,
                     ),
                     sliver: SliverToBoxAdapter(
                       child: Column(
@@ -163,7 +163,7 @@ class _InitialCreateBudgetPlanScreenState
                               );
                             },
                             child: AppGlass(
-                              margin: getEdgeInsets(bottom: 10),
+                              margin: getEdgeInsets(bottom: 8),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -187,7 +187,7 @@ class _InitialCreateBudgetPlanScreenState
                             focusNode: _budgetNameFocus,
                             isPng: true,
                           ),
-                          Gap.vertical(10),
+                          Gap.vertical(8),
                           // AppGlass(
                           //   child: Row(
                           //     mainAxisAlignment: MainAxisAlignment.center,
@@ -283,7 +283,10 @@ class _InitialCreateBudgetPlanScreenState
                       portions: state.portions,
                     ),
                   SliverPadding(
-                    padding: getEdgeInsetsAll(16),
+                    padding: getEdgeInsetsSymmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
                     sliver: SliverToBoxAdapter(
                       child: Column(
                         children: [
@@ -474,7 +477,7 @@ class _InitialCreateBudgetPlanScreenState
                             //     _showPremiumModalBottom(userIntelli);
                             //   },
                             // ),
-                            Gap.vertical(16),
+                            Gap.vertical(8),
                             AdWidgetRepository(
                               // user: userIntelli,
                               height: 50,

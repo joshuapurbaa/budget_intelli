@@ -589,7 +589,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                     ),
                   ),
                   if (isLast && widget.fromInitial) ...[
-                    Gap.vertical(16),
+                    Gap.vertical(8),
                     GestureDetector(
                       onTap: () async {
                         _unfocusAll();
@@ -653,7 +653,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
             },
           );
         },
-        separatorBuilder: (context, index) => Gap.vertical(10),
+        separatorBuilder: (context, index) => Gap.vertical(8),
       ),
     );
   }
