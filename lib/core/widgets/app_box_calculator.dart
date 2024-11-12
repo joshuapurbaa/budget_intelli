@@ -39,32 +39,6 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
         }
 
         _showCalculator();
-
-        // showModalBottomSheet<String>(
-        //   isScrollControlled: true,
-        //   shape: const RoundedRectangleBorder(
-        //     borderRadius: BorderRadius.only(
-        //       topLeft: Radius.circular(20),
-        //       topRight: Radius.circular(20),
-        //     ),
-        //   ),
-        //   transitionAnimationController: _animationController,
-        //   context: context,
-        //   builder: (context) => const ClipRRect(
-        //     borderRadius: BorderRadius.only(
-        //       topLeft: Radius.circular(20),
-        //       topRight: Radius.circular(20),
-        //     ),
-        //     child: CalculatorNeumorphism(),
-        //   ),
-        // ).then((value) {
-        //   if (value != null && value.isNotEmpty && value != ' ') {
-        //     setState(() {
-        //       label = value;
-        //     });
-        //     widget.onValueSelected.call(value);
-        //   }
-        // });
       },
       child: AppGlass(
         height: 70.h,
