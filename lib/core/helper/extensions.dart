@@ -14,18 +14,57 @@ extension StringExtensions on String {
   }
 }
 
-extension StringToDoubleParsing on String {
-  /// Mengonversi string ke double dengan mempertimbangkan format
-  /// internasional menggunakan NumberFormat dari paket intl.
+// extension StringToDoubleParsing on String {
+//   /// Mengonversi string ke double dengan mempertimbangkan format
+//   /// internasional menggunakan NumberFormat dari paket intl.
 
-  double toDoubleIntl(BuildContext context) {
-    final languageVal = ControllerHelper.getLanguage(context);
-    return NumberFormat.decimalPattern(languageVal).parse(this).toDouble();
-  }
-}
+//   double toDoubleIntl(BuildContext context) {
+//     final languageVal = ControllerHelper.getLanguage(context);
+//     return NumberFormat.decimalPattern(languageVal).parse(this).toDouble();
+//   }
+// }
 
 extension StringToDateTime on String {
   DateTime toDateTime() {
     return DateTime.parse(this);
+  }
+}
+
+extension StringToDouble on String {
+  double toDouble() {
+    // Hapus spasi putih di awal dan akhir string
+    var input = trim();
+
+    // Deteksi apakah terdapat lebih dari satu tanda koma atau titik
+    if (input.contains(',') && input.contains('.')) {
+      // Jika koma digunakan sebagai desimal, ganti koma dengan titik dan hilangkan titik sebagai pemisah ribuan
+      if (input.lastIndexOf(',') > input.lastIndexOf('.')) {
+        input = input.replaceAll('.', '');
+        input = input.replaceAll(',', '.');
+      }
+      // Jika titik digunakan sebagai desimal, hilangkan koma sebagai pemisah ribuan
+      else {
+        input = input.replaceAll(',', '');
+      }
+    } else if (input.contains(',')) {
+      // Jika hanya ada koma, anggap itu sebagai desimal
+      input = input.replaceAll(',', '.');
+    } else if (input.contains('.')) {
+      final parts = input.split('.');
+      if (parts.length == 2 && parts[1] == '0' || parts[1] == '00') {
+        return double.parse(parts[0]);
+      }
+      final inputInt = int.tryParse(input.replaceAll('.', ''));
+      return inputInt!.toDouble();
+    }
+
+    // Coba konversi string yang telah dibersihkan menjadi double
+    try {
+      return double.parse(input);
+    } catch (e) {
+      throw FormatException(
+        'Input tidak valid untuk dikonversi ke double: $input',
+      );
+    }
   }
 }

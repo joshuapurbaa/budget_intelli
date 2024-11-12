@@ -68,11 +68,11 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
             (12 * (_daterange[1]!.year - _daterange[0]!.year));
       }
 
-      final goalAmount = _updatedGoalAmount!.toDoubleIntl(context);
-      final saved = widget.saved.toString().toDoubleIntl(context);
+      final goalAmount = _updatedGoalAmount!.toDouble();
+      final saved = widget.saved;
 
       // Hitung total amount yang perlu dicapai
-      remainingAmountGoal = goalAmount - saved;
+      remainingAmountGoal = goalAmount - saved!;
 
       planAmountPerDay = remainingAmountGoal / daysRemaining;
 
@@ -227,6 +227,9 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                     context.read<GoalDatabaseBloc>().add(
                           GetGoalFromDbByIdEvent(widget.goal.id),
                         );
+                    context.read<GoalDatabaseBloc>().add(
+                          GetGoalsFromDbEvent(),
+                        );
                   }
                 }
               },
@@ -255,8 +258,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                         if (widget.saved != null &&
                             _updatedGoalAmount != null) {
                           final remainingAmount =
-                              _updatedGoalAmount!.toDoubleIntl(context) -
-                                  widget.saved!;
+                              _updatedGoalAmount!.toDouble() - widget.saved!;
 
                           final updatedGoal = GoalModel(
                             id: goal.id,

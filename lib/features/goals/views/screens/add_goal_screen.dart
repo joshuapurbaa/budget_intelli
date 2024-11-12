@@ -38,15 +38,17 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
         _startingBalance != null) {
       final startDate = dateRange[0];
       final endDate = dateRange[1];
+      print('goalAmount 1: $_goalAmount');
 
-      final goalAmount = _goalAmount!.toDoubleIntl(context);
+      final goalAmount = _goalAmount!.toDouble();
 
-      final startingBalance = _startingBalance!.toDoubleIntl(context);
+      final startingBalance = _startingBalance!.toDouble();
+
+      print('goalAmount: $goalAmount');
+      print('startingBalance: $startingBalance');
 
       // Hitung total amount yang perlu dicapai
       remainingAmountGoal = goalAmount - startingBalance;
-
-      print('Remaining Amount Goal: ${remainingAmountGoal.toDouble().toStringAsFixed(2)}');
 
       // Hitung bulan yang tersisa dalam tahun
       int monthsRemaining;
@@ -250,7 +252,6 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           child: AppButton(
             label: localize.save,
             onPressed: () {
-
               if (dateRange.isNotEmpty &&
                   _goalAmount != null &&
                   _startingBalance != null &&

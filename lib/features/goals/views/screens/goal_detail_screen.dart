@@ -39,8 +39,8 @@ class GoalDetailScreen extends StatelessWidget {
         double? saved;
 
         if (goal != null) {
-          final goalAmount = goal.goalAmount.toDoubleIntl(context);
-          final remainingAmount = goal.remainingAmount.toDoubleIntl(context);
+          final goalAmount = goal.goalAmount.toDouble();
+          final remainingAmount = goal.remainingAmount.toDouble();
 
           saved = goalAmount - remainingAmount;
 
@@ -54,13 +54,11 @@ class GoalDetailScreen extends StatelessWidget {
           savedStr = NumberFormatter.formatToMoneyDouble(
             context,
             saved,
-            decimalDigits: 0,
           );
 
           goalAmountStr = NumberFormatter.formatToMoneyDouble(
             context,
             goalAmount,
-            decimalDigits: 0,
           );
 
           final startDate = goal.startGoalDate.toDateTime();
@@ -233,6 +231,7 @@ class GoalDetailScreen extends StatelessWidget {
                                                 text:
                                                     '${localize.toHitYourGoalOn}  $suggestedDailyAmount per day or $suggestedMonthlyAmount ${localize.perMonth} ',
                                                 style: StyleType.bodSm,
+                                                noMaxLines: true,
                                               ),
                                             ],
                                           ),

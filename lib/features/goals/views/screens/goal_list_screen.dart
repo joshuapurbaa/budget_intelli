@@ -58,19 +58,20 @@ class _GoalListScreenState extends State<GoalListScreen> {
                   itemCount: goals.length,
                   itemBuilder: (context, index) {
                     final goal = goals[index];
-                    final saved = goal.goalAmount.toDoubleIntl(context) -
-                        goal.remainingAmount.toDoubleIntl(context);
+                    print('goal.goalAmount: ${goal.goalAmount}');
+                    print('goal.remainingAmount: ${goal.remainingAmount}');
+
+                    final saved = goal.goalAmount.toDouble() -
+                        goal.remainingAmount.toDouble();
 
                     final savedStr = NumberFormatter.formatToMoneyDouble(
                       context,
                       saved,
-                      decimalDigits: 0,
                     );
 
                     final goalAmountStr = NumberFormatter.formatToMoneyDouble(
                       context,
-                      goal.goalAmount.toDoubleIntl(context),
-                      decimalDigits: 0,
+                      goal.goalAmount.toDouble(),
                     );
 
                     final startDate = goal.startGoalDate.toDateTime();
@@ -112,26 +113,27 @@ class _GoalListScreenState extends State<GoalListScreen> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  AppText(
-                                    text: goal.goalName,
-                                    style: StyleType.bodLg,
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: AppText(
+                                          text: goal.goalName,
+                                          style: StyleType.bodLg,
+                                          maxLines: 1,
+                                        ),
+                                      ),
+                                      Gap.horizontal(10),
+                                      AppText(
+                                        text: remainingDays,
+                                        style: StyleType.bodMd,
+                                        fontWeight: FontWeight.bold,
+                                        color: context.color.error,
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
-                            Gap.horizontal(10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
                                   AppText(
                                     text:
                                         '$savedStr ${localize.ofLocalize} $goalAmountStr ${localize.saved}',
-                                    style: StyleType.bodMd,
-                                  ),
-                                  Gap.vertical(5),
-                                  AppText(
-                                    text: remainingDays,
                                     style: StyleType.bodMd,
                                   ),
                                 ],
