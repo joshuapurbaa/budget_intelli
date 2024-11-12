@@ -61,7 +61,9 @@ class _GoalListScreenState extends State<GoalListScreen> {
                     print('goal.goalAmount: ${goal.goalAmount}');
                     print('goal.remainingAmount: ${goal.remainingAmount}');
                     print(
-                        'goal.remainingAmount.toDouble() ${goal.remainingAmount.toDouble()}');
+                        'goal.goalAmount.toDouble(): ${goal.goalAmount.toDouble()}',);
+                    print(
+                        'goal.remainingAmount.toDouble() ${goal.remainingAmount.toDouble()}',);
 
                     final saved = goal.goalAmount.toDouble() -
                         goal.remainingAmount.toDouble();

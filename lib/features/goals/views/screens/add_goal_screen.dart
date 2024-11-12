@@ -1,6 +1,5 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/goals/goals_barrel.dart';
-import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,14 +37,10 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
         _startingBalance != null) {
       final startDate = dateRange[0];
       final endDate = dateRange[1];
-      print('goalAmount 1: $_goalAmount');
 
       final goalAmount = _goalAmount!.toDouble();
 
       final startingBalance = _startingBalance!.toDouble();
-
-      print('goalAmount: $goalAmount');
-      print('startingBalance: $startingBalance');
 
       // Hitung total amount yang perlu dicapai
       remainingAmountGoal = goalAmount - startingBalance;

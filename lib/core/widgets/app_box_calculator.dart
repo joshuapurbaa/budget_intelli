@@ -91,7 +91,7 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
         amount = widget.label;
       }
       return AppText(
-        text: '${currency.symbol} ${amount}',
+        text: '${currency.symbol} $amount',
         fontWeight: FontWeight.w700,
         style: StyleType.bodMd,
         color: colorScheme.onSurface,

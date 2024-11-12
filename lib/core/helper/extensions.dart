@@ -1,6 +1,4 @@
-import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 extension ContextExtensions on BuildContext {
   ColorScheme get color => Theme.of(this).colorScheme;
@@ -53,6 +51,10 @@ extension StringToDouble on String {
       final parts = input.split('.');
       if (parts.length == 2 && parts[1] == '0' || parts[1] == '00') {
         return double.parse(parts[0]);
+      } else {
+        if (parts[1].length == 3) {
+          return input.replaceAll('.', '').toDouble();
+        }
       }
     }
 

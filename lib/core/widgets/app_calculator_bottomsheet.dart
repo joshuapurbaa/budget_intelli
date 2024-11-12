@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:uuid/uuid.dart';
 
 class AppCalculatorBottomSheet extends StatefulWidget {
   const AppCalculatorBottomSheet({
@@ -114,7 +113,7 @@ class _AppCalculatorBottomSheetState extends State<AppCalculatorBottomSheet> {
                     context,
                     notifier.result,
                   );
-                  print('amount: $amount');
+
                   context.pop(amount);
                 },
                 child: AppText(
