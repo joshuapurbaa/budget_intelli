@@ -16,6 +16,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   });
 
   const AppText.color({
@@ -30,6 +31,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   });
 
   const AppText.reg12({
@@ -43,6 +45,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   }) : style = StyleType.bodSm;
 
   const AppText.bold14({
@@ -55,6 +58,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.bodMd,
         fontWeight = FontWeight.w700;
 
@@ -68,6 +72,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.bodMd,
         fontWeight = FontWeight.w400;
 
@@ -81,6 +86,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.bodMd,
         fontWeight = FontWeight.w300;
 
@@ -94,6 +100,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.bodMd,
         fontWeight = FontWeight.w500;
 
@@ -107,6 +114,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.bodLg,
         fontWeight = FontWeight.w500;
 
@@ -120,6 +128,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.bodLg,
         fontWeight = FontWeight.w400;
 
@@ -133,6 +142,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.bodLg,
         fontWeight = FontWeight.w300;
 
@@ -146,6 +156,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.titSm,
         fontWeight = FontWeight.w400;
 
@@ -159,6 +170,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.titSm,
         fontWeight = FontWeight.w600;
 
@@ -172,6 +184,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   })  : style = StyleType.bodMd,
         fontWeight = FontWeight.w400;
 
@@ -187,6 +200,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   }) : fontStyle = FontStyle.italic;
 
   const AppText.autoSize({
@@ -200,6 +214,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.animation,
+    this.minFontSize,
   }) : autoSize = true;
 
   const AppText.noMaxLines({
@@ -213,6 +228,7 @@ class AppText extends StatelessWidget {
     this.autoSize,
     this.maxLines,
     this.animation,
+    this.minFontSize,
   }) : noMaxLines = true;
 
   const AppText.animate({
@@ -226,6 +242,7 @@ class AppText extends StatelessWidget {
     this.autoSize,
     this.maxLines,
     this.noMaxLines,
+    this.minFontSize,
   }) : animation = true;
 
   final String text;
@@ -238,12 +255,13 @@ class AppText extends StatelessWidget {
   final int? maxLines;
   final bool? noMaxLines;
   final bool? animation;
+  final double? minFontSize;
 
   @override
   Widget build(BuildContext context) {
     if (autoSize != null) {
       return AutoSizeText(
-        minFontSize: 30,
+        minFontSize: minFontSize ?? 12,
         text,
         style: textStyle(
           context,

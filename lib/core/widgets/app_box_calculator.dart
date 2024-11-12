@@ -1,5 +1,4 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -126,8 +125,8 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
     }
   }
 
-  void _showCalculator() {
-    showModalBottomSheet<void>(
+  Future<void> _showCalculator() async {
+    final result = await showModalBottomSheet<String>(
       isScrollControlled: true,
       context: context,
       transitionAnimationController: AnimationController(
@@ -138,5 +137,12 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
         return const AppCalculatorBottomSheet();
       },
     );
+
+    if (result != null && result.isNotEmpty && result != ' ') {
+      setState(() {
+        label = result;
+        widget.onValueSelected.call(result);
+      });
+    }
   }
 }
