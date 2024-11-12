@@ -54,8 +54,6 @@ extension StringToDouble on String {
       if (parts.length == 2 && parts[1] == '0' || parts[1] == '00') {
         return double.parse(parts[0]);
       }
-      final inputInt = int.tryParse(input.replaceAll('.', ''));
-      return inputInt!.toDouble();
     }
 
     // Coba konversi string yang telah dibersihkan menjadi double
