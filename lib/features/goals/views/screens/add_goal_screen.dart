@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/goals/goals_barrel.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -39,10 +40,13 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
       final endDate = dateRange[1];
 
       final goalAmount = _goalAmount!.toDoubleIntl(context);
+
       final startingBalance = _startingBalance!.toDoubleIntl(context);
 
       // Hitung total amount yang perlu dicapai
       remainingAmountGoal = goalAmount - startingBalance;
+
+      print('Remaining Amount Goal: ${remainingAmountGoal.toDouble().toStringAsFixed(2)}');
 
       // Hitung bulan yang tersisa dalam tahun
       int monthsRemaining;
@@ -199,6 +203,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                             text:
                                 '${localize.toHitYourGoalOn}  $_suggestedDailyAmount ${localize.perDayOr} $_suggestedMonthlyAmount ${localize.perMonth} ',
                             style: StyleType.bodSm,
+                            noMaxLines: true,
                           ),
                         ],
                       ),
@@ -245,6 +250,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
           child: AppButton(
             label: localize.save,
             onPressed: () {
+
               if (dateRange.isNotEmpty &&
                   _goalAmount != null &&
                   _startingBalance != null &&

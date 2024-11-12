@@ -1,5 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBoxCalculator extends StatefulWidget {
@@ -69,6 +71,7 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
   ) {
     final localize = textLocalizer(context);
     final colorScheme = Theme.of(context).colorScheme;
+    final currency = context.watch<SettingBloc>().state.currency;
 
     if (label.contains(localize.amountFieldLabel) ||
         label.contains(localize.totalAmountFieldLabel) ||
@@ -83,15 +86,12 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
     } else {
       String? amount;
       if (label.isNotEmpty) {
-        amount = NumberFormatter.formatStringToMoney(
-          context,
-          label,
-        );
+        amount = label;
       } else {
         amount = widget.label;
       }
       return AppText(
-        text: amount,
+        text: '${currency.symbol} ${amount}',
         fontWeight: FontWeight.w700,
         style: StyleType.bodMd,
         color: colorScheme.onSurface,

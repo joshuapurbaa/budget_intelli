@@ -76,7 +76,10 @@ class _AppCalculatorBottomSheetState extends State<AppCalculatorBottomSheet> {
                           Expanded(
                             child: AppText.autoSize(
                               maxLines: 2,
-                              text: notifier.result,
+                              text: NumberFormatter.formatStringToMoneyNoSymbol(
+                                context,
+                                notifier.result,
+                              ),
                               style: StyleType.disLg,
                             ),
                           ),
@@ -107,7 +110,12 @@ class _AppCalculatorBottomSheetState extends State<AppCalculatorBottomSheet> {
                   backgroundColor: context.color.primary,
                 ),
                 onPressed: () {
-                  context.pop(notifier.result);
+                  final amount = NumberFormatter.formatStringToMoneyNoSymbol(
+                    context,
+                    notifier.result,
+                  );
+                  print('amount: $amount');
+                  context.pop(amount);
                 },
                 child: AppText(
                   text: localize.recordTransaction,

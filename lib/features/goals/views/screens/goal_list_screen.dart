@@ -120,20 +120,22 @@ class _GoalListScreenState extends State<GoalListScreen> {
                               ),
                             ),
                             Gap.horizontal(10),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                AppText(
-                                  text:
-                                      '$savedStr ${localize.ofLocalize} $goalAmountStr ${localize.saved}',
-                                  style: StyleType.bodMd,
-                                ),
-                                Gap.vertical(5),
-                                AppText(
-                                  text: remainingDays,
-                                  style: StyleType.bodMd,
-                                ),
-                              ],
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  AppText(
+                                    text:
+                                        '$savedStr ${localize.ofLocalize} $goalAmountStr ${localize.saved}',
+                                    style: StyleType.bodMd,
+                                  ),
+                                  Gap.vertical(5),
+                                  AppText(
+                                    text: remainingDays,
+                                    style: StyleType.bodMd,
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ),
