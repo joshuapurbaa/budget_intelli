@@ -181,7 +181,6 @@ class _InsightViewState extends State<InsightView> {
                     left: 16,
                     right: 16,
                     bottom: 10,
-                    top: 10,
                   ),
                   child: ExpansionTile(
                     expansionAnimationStyle: AnimationStyle(

@@ -117,7 +117,6 @@ class _TrackingViewState extends State<TrackingView> {
             SliverToBoxAdapter(
               child: Container(
                 padding: getEdgeInsets(left: 16, right: 16),
-                margin: getEdgeInsets(top: 10),
                 height: 65.h,
                 child: Row(
                   children: [

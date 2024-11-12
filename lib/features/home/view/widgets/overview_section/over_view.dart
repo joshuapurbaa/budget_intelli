@@ -292,7 +292,6 @@ class _OverViewState extends State<OverView> {
             child: ListView(
               children: [
                 const HeaderWidget(),
-                Gap.vertical(10),
                 BlocListener<PromptAnalysisCubit, PromptAnalysisState>(
                   listener: (context, state) {
                     if (state.loadingAnalysis) {
