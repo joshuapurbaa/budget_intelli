@@ -22,18 +22,13 @@ class AppBoxCalculator extends StatefulWidget {
 }
 
 class _AppBoxCalculatorState extends State<AppBoxCalculator>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
+    with TickerProviderStateMixin {
   String label = '';
 
   @override
   void initState() {
     super.initState();
     label = widget.label;
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 50),
-    );
   }
 
   @override
@@ -44,31 +39,33 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
           widget.focusNode!.unfocus();
         }
 
-        showModalBottomSheet<String>(
-          isScrollControlled: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-          ),
-          transitionAnimationController: _animationController,
-          context: context,
-          builder: (context) => const ClipRRect(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              topRight: Radius.circular(20),
-            ),
-            child: CalculatorNeumorphism(),
-          ),
-        ).then((value) {
-          if (value != null && value.isNotEmpty && value != ' ') {
-            setState(() {
-              label = value;
-            });
-            widget.onValueSelected.call(value);
-          }
-        });
+        _showCalculator();
+
+        // showModalBottomSheet<String>(
+        //   isScrollControlled: true,
+        //   shape: const RoundedRectangleBorder(
+        //     borderRadius: BorderRadius.only(
+        //       topLeft: Radius.circular(20),
+        //       topRight: Radius.circular(20),
+        //     ),
+        //   ),
+        //   transitionAnimationController: _animationController,
+        //   context: context,
+        //   builder: (context) => const ClipRRect(
+        //     borderRadius: BorderRadius.only(
+        //       topLeft: Radius.circular(20),
+        //       topRight: Radius.circular(20),
+        //     ),
+        //     child: CalculatorNeumorphism(),
+        //   ),
+        // ).then((value) {
+        //   if (value != null && value.isNotEmpty && value != ' ') {
+        //     setState(() {
+        //       label = value;
+        //     });
+        //     widget.onValueSelected.call(value);
+        //   }
+        // });
       },
       child: AppGlass(
         height: 70.h,
@@ -127,5 +124,19 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
         color: colorScheme.onSurface,
       );
     }
+  }
+
+  void _showCalculator() {
+    showModalBottomSheet<void>(
+      isScrollControlled: true,
+      context: context,
+      transitionAnimationController: AnimationController(
+        duration: const Duration(milliseconds: 500),
+        vsync: this,
+      ),
+      builder: (context) {
+        return const AppCalculatorBottomSheet();
+      },
+    );
   }
 }

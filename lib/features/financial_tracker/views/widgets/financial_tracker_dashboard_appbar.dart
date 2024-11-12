@@ -79,7 +79,7 @@ class _FinancialTrackerDashboardAppbarState
         vsync: this,
       ),
       builder: (context) {
-        return const CalculatorBottomSheet();
+        return const TransactionCalculatorBottomSheet();
       },
     );
   }

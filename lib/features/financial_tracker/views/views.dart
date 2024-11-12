@@ -11,7 +11,7 @@ export 'widgets/button_datetime.dart';
 export 'widgets/button_image.dart';
 export 'widgets/button_location.dart';
 export 'widgets/button_member.dart';
-export 'widgets/calculator_bottomsheet.dart';
+export 'widgets/transaction_calculator_bottomsheet.dart';
 export 'widgets/calculator_buttons.dart';
 export 'widgets/category_dropdown.dart';
 export 'widgets/dashboard_grapic.dart';

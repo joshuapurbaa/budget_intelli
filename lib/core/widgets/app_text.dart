@@ -243,6 +243,7 @@ class AppText extends StatelessWidget {
   Widget build(BuildContext context) {
     if (autoSize != null) {
       return AutoSizeText(
+        minFontSize: 30,
         text,
         style: textStyle(
           context,

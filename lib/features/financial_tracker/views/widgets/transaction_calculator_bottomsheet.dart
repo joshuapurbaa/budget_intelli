@@ -11,16 +11,18 @@ import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 
-class CalculatorBottomSheet extends StatefulWidget {
-  const CalculatorBottomSheet({
+class TransactionCalculatorBottomSheet extends StatefulWidget {
+  const TransactionCalculatorBottomSheet({
     super.key,
   });
 
   @override
-  State<CalculatorBottomSheet> createState() => _CalculatorBottomSheetState();
+  State<TransactionCalculatorBottomSheet> createState() =>
+      _TransactionCalculatorBottomSheetState();
 }
 
-class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
+class _TransactionCalculatorBottomSheetState
+    extends State<TransactionCalculatorBottomSheet> {
   final _commentController = TextEditingController();
   final notifier = CalculatorNotifier();
 
@@ -122,7 +124,7 @@ class _CalculatorBottomSheetState extends State<CalculatorBottomSheet> {
                 ),
               ),
               const Spacer(),
-              CalculatorButtons(
+              FinancialCalculatorButtons(
                 notifier: notifier,
               ),
               Gap.vertical(5),

@@ -1,11 +1,10 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
-import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-class FinancialCalculatorButtons extends StatelessWidget {
-  const FinancialCalculatorButtons({
+class AppCalculatorButtons extends StatelessWidget {
+  const AppCalculatorButtons({
     required this.notifier,
     super.key,
   });
@@ -19,21 +18,6 @@ class FinancialCalculatorButtons extends StatelessWidget {
       mainAxisSpacing: 5,
       crossAxisSpacing: 4,
       children: [
-        const StaggeredGridTile.extent(
-          crossAxisCellCount: 2,
-          mainAxisExtent: 75,
-          child: ButtonDateTime(),
-        ),
-        const StaggeredGridTile.extent(
-          crossAxisCellCount: 1,
-          mainAxisExtent: 75,
-          child: ButtonLocation(),
-        ),
-        const StaggeredGridTile.extent(
-          crossAxisCellCount: 1,
-          mainAxisExtent: 75,
-          child: ButtonImage(),
-        ),
         _Button(
           text: '1',
           notifier: notifier,
