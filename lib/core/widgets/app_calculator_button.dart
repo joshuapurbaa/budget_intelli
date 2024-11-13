@@ -44,7 +44,7 @@ class AppCalculatorButtons extends StatelessWidget {
             color: context.color.onSurface,
           ),
           notifier: notifier,
-          buttonText: '/',
+          buttonText: '÷',
           crossAxisCellCount: 1,
         ),
         _Button(
@@ -66,9 +66,9 @@ class AppCalculatorButtons extends StatelessWidget {
           crossAxisCellCount: 1,
         ),
         _Button(
-          text: 'x',
+          text: '×',
           notifier: notifier,
-          buttonText: 'x',
+          buttonText: '×',
           crossAxisCellCount: 1,
         ),
         _Button(

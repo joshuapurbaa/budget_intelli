@@ -3,7 +3,6 @@ import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/calculator/calculator_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
 import 'package:budget_intelli/features/member/member_barrel.dart';
-import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,13 +39,6 @@ class _TransactionCalculatorBottomSheetState
     final localize = textLocalizer(context);
     final isIncome = context.watch<FinancialDashboardCubit>().state.isIncome;
     final zeroExpression = notifier.expression == '0';
-
-    final cleanVal = NumberFormatter.formatStringToMoneyNoSymbol(
-      context,
-      notifier.result,
-    );
-
-    print('cleanVal: ${cleanVal.toDouble()}');
 
     return Container(
       constraints: BoxConstraints(
@@ -284,7 +276,7 @@ class _TransactionCalculatorBottomSheetState
     } else {
       notifier.setInitialValues(
         result: '0',
-        expression: '0',
+        expression: '',
       );
     }
   }

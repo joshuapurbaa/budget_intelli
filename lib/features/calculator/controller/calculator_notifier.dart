@@ -50,12 +50,27 @@ class CalculatorNotifier extends ChangeNotifier {
   }
 
   void _getButtonText(String buttonValue) {
+    final regExp = RegExp(r'[÷x+/-]$');
+    if (expression.isNotEmpty) {
+      final lastChar = expression[expression.length - 1];
+      if (regExp.hasMatch(lastChar) && regExp.hasMatch(buttonValue)) {
+        _deleteLast();
+      }
+    } else {
+      print('expression is empty');
+      if (regExp.hasMatch(buttonValue)) {
+        _expression = '';
+        notifyListeners();
+        return;
+      }
+    }
+
     if (expression.startsWith('0') && buttonValue == '0') {
       _expression = '0';
       return;
     }
 
-    final regExp1 = RegExp(r'[.÷×+]$');
+    final regExp1 = RegExp(r'[.÷x+]$');
     if (expression == '0' && regExp1.hasMatch(buttonValue)) {
       _expression = '0$buttonValue';
       return;
@@ -65,12 +80,12 @@ class CalculatorNotifier extends ChangeNotifier {
       _deleteLast(calculate: false);
     }
 
-    final regExp2 = RegExp(r'\.((\d+)|[÷×+-])?$');
+    final regExp2 = RegExp(r'\.((\d+)|[÷x+-])?$');
     if (regExp2.hasMatch(expression) && buttonValue == '.') {
       return;
     }
 
-    final regExp3 = RegExp(r'[÷×+]$');
+    final regExp3 = RegExp(r'[÷x+]$');
     if (expression.endsWith('-') && regExp3.hasMatch(buttonValue)) {
       return;
     }
