@@ -381,5 +381,6 @@
     "categoryRequired": "Category is required",
     "accountRequired": "Account is required",
     "amountRequired": "Amount is required",
-    "at": "at"
+    "at": "at",
+    "startBudgeting": "Start Budgeting"
 }

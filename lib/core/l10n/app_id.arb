@@ -381,5 +381,6 @@
     "categoryRequired": "Kategori diperlukan",
     "accountRequired": "Akun diperlukan",
     "amountRequired": "Jumlah diperlukan",
-    "at": "di"
+    "at": "di",
+    "startBudgeting": "Mulai Menganggarkan"
 }

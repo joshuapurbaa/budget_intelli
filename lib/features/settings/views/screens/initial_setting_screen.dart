@@ -520,7 +520,7 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                       context.go(MyRoute.initialCreateBudgetPlan);
                     },
                     child: AppText(
-                      text: 'Start Budgeting',
+                      text: localize.startBudgeting,
                       style: StyleType.bodLg,
                       color: context.color.onSurface,
                     ),
@@ -532,47 +532,43 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                         delay: 300.ms,
                         duration: 600.ms,
                       ),
-                  Gap.vertical(10),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: context.color.surface,
-                      side: BorderSide(
-                        color: context.color.onSurface,
-                      ),
-                      minimumSize: Size(double.infinity, 58.h),
-                    ),
-                    onPressed: () async {
-                      context.read<SettingBloc>()
-                        ..add(
-                          SetUserAlreadySetInitialSetting(
-                            alreadySetInitialSetting: true,
-                          ),
-                        )
-                        ..add(
-                          SetUserContinueWithoutLogin(
-                            continueWithoutLogin: true,
-                          ),
-                        )
-                        ..add(
-                          SetOnlyFinancialTrackerChange(
-                            value: true,
-                          ),
-                        );
-                      context.go(MyRoute.financialDashboardTracker);
-                    },
-                    child: AppText(
-                      text: 'Expense and Income Tracker',
-                      style: StyleType.bodLg,
-                      color: context.color.onSurface,
-                    ),
-                  )
-                      .animate()
-                      .fadeIn() // uses `Animate.defaultDuration`
-                      .scale() // inherits duration from fadeIn
-                      .move(
-                        delay: 300.ms,
-                        duration: 600.ms,
-                      ),
+                  // Gap.vertical(10),
+                  // OutlinedButton(
+                  //   style: OutlinedButton.styleFrom(
+                  //     backgroundColor: context.color.surface,
+                  //     side: BorderSide(
+                  //       color: context.color.onSurface,
+                  //     ),
+                  //     minimumSize: Size(double.infinity, 58.h),
+                  //   ),
+                  //   onPressed: () async {
+                  //     context.read<SettingBloc>()
+                  //       ..add(
+                  //         SetUserAlreadySetInitialSetting(
+                  //           alreadySetInitialSetting: true,
+                  //         ),
+                  //       )
+                  //       ..add(
+                  //         SetUserContinueWithoutLogin(
+                  //           continueWithoutLogin: true,
+                  //         ),
+                  //       )
+                  //       ..add(
+                  //         SetOnlyFinancialTrackerChange(
+                  //           value: true,
+                  //         ),
+                  //       );
+                  //     context.go(MyRoute.financialDashboardTracker);
+                  //   },
+                  //   child: AppText(
+                  //     text: 'Expense and Income Tracker',
+                  //     style: StyleType.bodLg,
+                  //     color: context.color.onSurface,
+                  //   ),
+                  // ).animate().fadeIn().scale().move(
+                  //       delay: 300.ms,
+                  //       duration: 600.ms,
+                  //     ),
                   // Gap.vertical(20),
                   // OutlinedButton(
                   //   style: OutlinedButton.styleFrom(
