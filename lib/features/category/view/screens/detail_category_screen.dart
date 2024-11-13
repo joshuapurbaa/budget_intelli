@@ -161,9 +161,9 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
         String? remainingStr;
 
         var totalTransactions = '0';
-        var spent = 0;
+        var spent = 0.0;
         var spentStr = '0';
-        var remaining = 0;
+        var remaining = 0.0;
 
         final itemCategoryTransaction = state.itemCategoryTransactions;
 
@@ -173,12 +173,12 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
               );
         }
         totalTransactions = itemCategoryTransaction.length.toString();
-        spentStr = NumberFormatter.formatToMoneyInt(context, spent);
+        spentStr = NumberFormatter.formatToMoneyDouble(context, spent);
 
         if (amount != null) {
-          amountStr = NumberFormatter.formatToMoneyInt(context, amount);
+          amountStr = NumberFormatter.formatToMoneyDouble(context, amount);
           remainingStr =
-              NumberFormatter.formatToMoneyInt(context, amount - spent);
+              NumberFormatter.formatToMoneyDouble(context, amount - spent);
           remaining = amount - spent;
         }
 
@@ -493,7 +493,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
   void _showEditAmountDialog({
     required BuildContext context,
     required ItemCategoryHistory itemCategory,
-    required int leftToBudget,
+    required double leftToBudget,
   }) {
     AppDialog.showCustomDialog(
       context,

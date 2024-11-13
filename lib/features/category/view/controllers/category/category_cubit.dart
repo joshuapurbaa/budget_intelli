@@ -103,7 +103,7 @@ class CategoryCubit extends Cubit<CategoryState> {
     GroupCategoryHistory? groupCategoryHistory,
     List<Color>? pickerColor,
     List<Color>? currentColor,
-    int? lefToBudget,
+    double? lefToBudget,
   }) {
     emit(
       state.copyWith(
@@ -137,7 +137,7 @@ class CategoryCubit extends Cubit<CategoryState> {
   void getBudgetAndGroup({
     Budget? budget,
     List<GroupCategoryHistory>? groupCategoryHistory,
-    int? lefToBudget,
+    double? lefToBudget,
   }) {
     emit(
       state.copyWith(
@@ -571,7 +571,8 @@ class CategoryCubit extends Cubit<CategoryState> {
   }
 
   Future<List<ItemCategoryHistory>> getItemCategoryHistoriesByBudgetId(
-      String budgetId,) async {
+    String budgetId,
+  ) async {
     final result = await _getItemCategoryHistoriesByBudgetId(budgetId);
 
     final itemCategoryHistories = <ItemCategoryHistory>[];

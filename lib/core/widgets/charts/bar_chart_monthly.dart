@@ -9,14 +9,15 @@ class BarChartMonthly extends StatelessWidget {
     super.key,
   });
 
-  final List<int> monthlyAmounts;
+  final List<double> monthlyAmounts;
 
   @override
   Widget build(BuildContext context) {
     double? maxY;
 
     if (monthlyAmounts.isNotEmpty) {
-      maxY = monthlyAmounts.reduce((value, element) => value > element ? value : element).toDouble();
+      maxY = monthlyAmounts
+          .reduce((value, element) => value > element ? value : element);
     }
 
     return AspectRatio(

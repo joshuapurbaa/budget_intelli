@@ -66,9 +66,9 @@ class _AddExpenseTransactionScreenState
         final itemId = category?.id;
         String? remainingStr;
         if (stateCategory.leftToBudget != null) {
-          remainingStr = NumberFormatter.formatToMoneyInt(
+          remainingStr = NumberFormatter.formatToMoneyDouble(
             context,
-            stateCategory.leftToBudget ?? 0,
+            stateCategory.leftToBudget ?? 0.0,
           );
         }
 

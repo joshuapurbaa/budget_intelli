@@ -9,11 +9,11 @@ class CategoryTotal {
   factory CategoryTotal.fromJson(Map<String, dynamic> json) {
     return CategoryTotal(
       name: json['name'] as String,
-      total: json['total'] as int,
+      total: json['total'] as double,
       iconPath: json['icon-path'] as String?,
     );
   }
   final String name;
-  final int total;
+  final double total;
   final String? iconPath;
 }

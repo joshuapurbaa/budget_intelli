@@ -16,14 +16,13 @@ class ControllerHelper {
     return category;
   }
 
-  static int? getAmount(BuildContext context) {
+  static double? getAmount(BuildContext context) {
     try {
       final state = context.read<BoxCalculatorCubit>().state;
 
       if (state is BoxCalculatorSelected) {
-      
         final stringAmount = state.value.replaceAll(',', '');
-        return int.parse(stringAmount);
+        return stringAmount.toDouble();
       } else {
         return null;
       }

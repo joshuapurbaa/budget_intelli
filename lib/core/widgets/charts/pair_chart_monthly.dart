@@ -28,8 +28,8 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
         final monthlyIncomeMap = state.monthlyIncomeMap;
         final monthlyExpenseMap = state.monthlyExpenseMap;
 
-        var incomeAmounts = <int>[];
-        var expenseAmounts = <int>[];
+        var incomeAmounts = <double>[];
+        var expenseAmounts = <double>[];
 
         if (monthlyIncomeMap.isNotEmpty) {
           incomeAmounts = monthlyIncomeMap.values.toList();
@@ -47,11 +47,9 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
 
         if (incomeAmounts.isNotEmpty && expenseAmounts.isNotEmpty) {
           final maxIncomeY = incomeAmounts
-              .reduce((value, element) => value > element ? value : element)
-              .toDouble();
+              .reduce((value, element) => value > element ? value : element);
           final maxExpenseY = expenseAmounts
-              .reduce((value, element) => value > element ? value : element)
-              .toDouble();
+              .reduce((value, element) => value > element ? value : element);
 
           maxY = maxIncomeY > maxExpenseY ? maxIncomeY : maxExpenseY;
 
@@ -106,11 +104,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 0,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[0].toDouble(),
+                            toY: incomeAmounts[0],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[0].toDouble(),
+                            toY: expenseAmounts[0],
                             color: rightBarColor,
                           ),
                         ],
@@ -120,11 +118,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 1,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[1].toDouble(),
+                            toY: incomeAmounts[1],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[1].toDouble(),
+                            toY: expenseAmounts[1],
                             color: rightBarColor,
                           ),
                         ],
@@ -134,11 +132,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 2,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[2].toDouble(),
+                            toY: incomeAmounts[2],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[2].toDouble(),
+                            toY: expenseAmounts[2],
                             color: rightBarColor,
                           ),
                         ],
@@ -148,11 +146,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 3,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[3].toDouble(),
+                            toY: incomeAmounts[3],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[3].toDouble(),
+                            toY: expenseAmounts[3],
                             color: rightBarColor,
                           ),
                         ],
@@ -162,11 +160,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 4,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[4].toDouble(),
+                            toY: incomeAmounts[4],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[4].toDouble(),
+                            toY: expenseAmounts[4],
                             color: rightBarColor,
                           ),
                         ],
@@ -176,11 +174,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 5,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[5].toDouble(),
+                            toY: incomeAmounts[5],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[5].toDouble(),
+                            toY: expenseAmounts[5],
                             color: rightBarColor,
                           ),
                         ],
@@ -190,11 +188,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 6,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[6].toDouble(),
+                            toY: incomeAmounts[6],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[6].toDouble(),
+                            toY: expenseAmounts[6],
                             color: rightBarColor,
                           ),
                         ],
@@ -204,11 +202,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 7,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[7].toDouble(),
+                            toY: incomeAmounts[7],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[7].toDouble(),
+                            toY: expenseAmounts[7],
                             color: rightBarColor,
                           ),
                         ],
@@ -218,11 +216,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 8,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[8].toDouble(),
+                            toY: incomeAmounts[8],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[8].toDouble(),
+                            toY: expenseAmounts[8],
                             color: rightBarColor,
                           ),
                         ],
@@ -232,11 +230,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 9,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[9].toDouble(),
+                            toY: incomeAmounts[9],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[9].toDouble(),
+                            toY: expenseAmounts[9],
                             color: rightBarColor,
                           ),
                         ],
@@ -246,11 +244,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 10,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[10].toDouble(),
+                            toY: incomeAmounts[10],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[10].toDouble(),
+                            toY: expenseAmounts[10],
                             color: rightBarColor,
                           ),
                         ],
@@ -260,11 +258,11 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
                         x: 11,
                         barRods: [
                           BarChartRodData(
-                            toY: incomeAmounts[11].toDouble(),
+                            toY: incomeAmounts[11],
                             color: leftBarColor,
                           ),
                           BarChartRodData(
-                            toY: expenseAmounts[11].toDouble(),
+                            toY: expenseAmounts[11],
                             color: rightBarColor,
                           ),
                         ],

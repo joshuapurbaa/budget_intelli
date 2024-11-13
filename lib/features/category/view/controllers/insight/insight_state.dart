@@ -30,12 +30,12 @@ final class InsightState {
   final List<ItemCategoryTransaction> sixMonthTransactions;
   final List<ItemCategoryTransaction> nineMonthTransactions;
   final List<ItemCategoryTransaction> twelveMonthTransactions;
-  final List<int> totalTransactionAmounts;
-  final Map<String, int> dailyTransactions;
-  final Map<String, int> monthlyTransactions;
-  final Map<String, int> yearlyTransactions;
-  final Map<String, int> monthlyIncomeMap;
-  final Map<String, int> monthlyExpenseMap;
+  final List<double> totalTransactionAmounts;
+  final Map<String, double> dailyTransactions;
+  final Map<String, double> monthlyTransactions;
+  final Map<String, double> yearlyTransactions;
+  final Map<String, double> monthlyIncomeMap;
+  final Map<String, double> monthlyExpenseMap;
   final String selectedFrequency;
 
   InsightState copyWith({
@@ -48,12 +48,12 @@ final class InsightState {
     List<ItemCategoryTransaction>? sixMonthTransactions,
     List<ItemCategoryTransaction>? nineMonthTransactions,
     List<ItemCategoryTransaction>? twelveMonthTransactions,
-    List<int>? totalTransactionAmounts,
-    Map<String, int>? dailyTransactions,
-    Map<String, int>? monthlyTransactions,
-    Map<String, int>? yearlyTransactions,
-    Map<String, int>? monthlyIncomeMap,
-    Map<String, int>? monthlyExpenseMap,
+    List<double>? totalTransactionAmounts,
+    Map<String, double>? dailyTransactions,
+    Map<String, double>? monthlyTransactions,
+    Map<String, double>? yearlyTransactions,
+    Map<String, double>? monthlyIncomeMap,
+    Map<String, double>? monthlyExpenseMap,
     String? selectedFrequency,
   }) {
     return InsightState(

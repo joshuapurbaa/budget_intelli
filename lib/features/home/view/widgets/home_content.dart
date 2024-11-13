@@ -108,10 +108,10 @@ class _HomeContentState extends State<HomeContent>
                   var itemCategoryTransactions = <ItemCategoryTransaction>[];
 
                   Budget? budget;
-                  var totalActualExpense = 0;
-                  var totalActualIncome = 0;
-                  var totalBudgetExpense = 0;
-                  var totalBudgetIncome = 0;
+                  var totalActualExpense = 0.0;
+                  var totalActualIncome = 0.0;
+                  var totalBudgetExpense = 0.0;
+                  var totalBudgetIncome = 0.0;
                   // var totalPlanExpense = 0;
                   // var totalPlanIncome = 0;
 

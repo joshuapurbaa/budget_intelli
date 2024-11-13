@@ -375,7 +375,7 @@ class _SettingScreenState extends State<SettingScreen>
                                                   element.itemHistoId ==
                                                   item.id,
                                             )
-                                            .fold<int>(
+                                            .fold<double>(
                                               0,
                                               (previousValue, element) =>
                                                   previousValue +
@@ -385,13 +385,13 @@ class _SettingScreenState extends State<SettingScreen>
                                         final pdfContent = PdfContentModel(
                                           categoryName: item.name,
                                           type: item.type,
-                                          plannedAmount:
-                                              NumberFormatter.formatToMoneyInt(
+                                          plannedAmount: NumberFormatter
+                                              .formatToMoneyDouble(
                                             context,
                                             item.amount,
                                           ),
-                                          actualAmount:
-                                              NumberFormatter.formatToMoneyInt(
+                                          actualAmount: NumberFormatter
+                                              .formatToMoneyDouble(
                                             context,
                                             actualAmount,
                                           ),
@@ -425,9 +425,9 @@ class _SettingScreenState extends State<SettingScreen>
                                                       : summaryDescriptionID,
                                               totalPlannedAmountIncome:
                                                   NumberFormatter
-                                                      .formatToMoneyInt(
+                                                      .formatToMoneyDouble(
                                                 context,
-                                                incomeCategories.fold<int>(
+                                                incomeCategories.fold<double>(
                                                   0,
                                                   (previousValue, element) =>
                                                       previousValue +
@@ -436,15 +436,15 @@ class _SettingScreenState extends State<SettingScreen>
                                               ),
                                               totalActualAmountIncome:
                                                   NumberFormatter
-                                                      .formatToMoneyInt(
+                                                      .formatToMoneyDouble(
                                                 context,
                                                 totalActualIncome,
                                               ),
                                               totalPlannedAmountExpense:
                                                   NumberFormatter
-                                                      .formatToMoneyInt(
+                                                      .formatToMoneyDouble(
                                                 context,
-                                                expenseCategories.fold<int>(
+                                                expenseCategories.fold<double>(
                                                   0,
                                                   (previousValue, element) =>
                                                       previousValue +
@@ -453,7 +453,7 @@ class _SettingScreenState extends State<SettingScreen>
                                               ),
                                               totalActualAmountExpense:
                                                   NumberFormatter
-                                                      .formatToMoneyInt(
+                                                      .formatToMoneyDouble(
                                                 context,
                                                 totalActualExpense,
                                               ),

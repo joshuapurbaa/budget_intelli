@@ -45,7 +45,7 @@ class _SchedulePaymentsDetailScreenState
         final repetitions = state.repetitions;
         final name = schedulePayment?.name;
         var description = schedulePayment?.description ?? '-';
-        final amountFormatted = NumberFormatter.formatToMoneyInt(
+        final amountFormatted = NumberFormatter.formatToMoneyDouble(
           context,
           schedulePayment?.amount ?? 0,
         );

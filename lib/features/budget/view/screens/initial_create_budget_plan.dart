@@ -662,7 +662,7 @@ class _InitialCreateBudgetPlanScreenState
       } else {
         if (state.totalBalance != null) {
           if (state.totalBalance! < 0) {
-            final money = NumberFormatter.formatToMoneyInt(
+            final money = NumberFormatter.formatToMoneyDouble(
               context,
               state.totalBalance ?? 0,
             );
@@ -670,7 +670,7 @@ class _InitialCreateBudgetPlanScreenState
             secondTitle = localize.exceedsBudget;
             return (firstTitle, secondTitle);
           } else {
-            final money = NumberFormatter.formatToMoneyInt(
+            final money = NumberFormatter.formatToMoneyDouble(
               context,
               state.totalBalance ?? 0,
             );

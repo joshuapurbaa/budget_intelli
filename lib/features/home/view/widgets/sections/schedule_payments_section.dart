@@ -50,7 +50,7 @@ class SchedulePaymentsSection extends StatelessWidget {
             itemBuilder: (context, index) {
               final item = schedulePayments[index];
               final name = item.name;
-              final amountFormatted = NumberFormatter.formatToMoneyInt(
+              final amountFormatted = NumberFormatter.formatToMoneyDouble(
                 context,
                 item.amount,
               );

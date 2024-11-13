@@ -113,7 +113,7 @@ class _TransactionItemList extends StatelessWidget {
 
   final String formatDate;
   final String? spendOn;
-  final int amount;
+  final double amount;
   final String time;
   // final bool noChevron;
   // final void Function()? onTap;
@@ -172,7 +172,7 @@ class _TransactionItemList extends StatelessWidget {
               ),
             ),
             AppText(
-              text: NumberFormatter.formatToMoneyInt(
+              text: NumberFormatter.formatToMoneyDouble(
                 context,
                 amount,
               ),

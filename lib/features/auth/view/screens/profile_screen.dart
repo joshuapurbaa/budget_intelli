@@ -404,7 +404,8 @@ class _ProfileScreenState extends State<ProfileScreen>
 
                                       for (final group in groupCategories) {
                                         itemCategories.addAll(
-                                            group.itemCategoryHistories,);
+                                          group.itemCategoryHistories,
+                                        );
                                       }
                                       final incomeCategories = itemCategories
                                           .where((e) => e.type == 'income');
@@ -420,7 +421,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                   element.itemHistoId ==
                                                   item.id,
                                             )
-                                            .fold<int>(
+                                            .fold<double>(
                                               0,
                                               (previousValue, element) =>
                                                   previousValue +
@@ -430,13 +431,13 @@ class _ProfileScreenState extends State<ProfileScreen>
                                         final pdfContent = PdfContentModel(
                                           categoryName: item.name,
                                           type: item.type,
-                                          plannedAmount:
-                                              NumberFormatter.formatToMoneyInt(
+                                          plannedAmount: NumberFormatter
+                                              .formatToMoneyDouble(
                                             context,
                                             item.amount,
                                           ),
-                                          actualAmount:
-                                              NumberFormatter.formatToMoneyInt(
+                                          actualAmount: NumberFormatter
+                                              .formatToMoneyDouble(
                                             context,
                                             actualAmount,
                                           ),
@@ -448,7 +449,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       final endDate = budget.endDate;
                                       final dateRanges = [startDate, endDate];
                                       final dateRangeStr = formatDateRangeStr(
-                                          dateRanges, context,);
+                                        dateRanges,
+                                        context,
+                                      );
                                       final language =
                                           settingState.selectedLanguage.text;
                                       const summaryDescriptionEn =
@@ -468,9 +471,9 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                       : summaryDescriptionID,
                                               totalPlannedAmountIncome:
                                                   NumberFormatter
-                                                      .formatToMoneyInt(
+                                                      .formatToMoneyDouble(
                                                 context,
-                                                incomeCategories.fold<int>(
+                                                incomeCategories.fold<double>(
                                                   0,
                                                   (previousValue, element) =>
                                                       previousValue +
@@ -479,15 +482,15 @@ class _ProfileScreenState extends State<ProfileScreen>
                                               ),
                                               totalActualAmountIncome:
                                                   NumberFormatter
-                                                      .formatToMoneyInt(
+                                                      .formatToMoneyDouble(
                                                 context,
                                                 totalActualIncome,
                                               ),
                                               totalPlannedAmountExpense:
                                                   NumberFormatter
-                                                      .formatToMoneyInt(
+                                                      .formatToMoneyDouble(
                                                 context,
-                                                expenseCategories.fold<int>(
+                                                expenseCategories.fold<double>(
                                                   0,
                                                   (previousValue, element) =>
                                                       previousValue +
@@ -496,7 +499,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                               ),
                                               totalActualAmountExpense:
                                                   NumberFormatter
-                                                      .formatToMoneyInt(
+                                                      .formatToMoneyDouble(
                                                 context,
                                                 totalActualExpense,
                                               ),

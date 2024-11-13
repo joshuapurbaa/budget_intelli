@@ -40,12 +40,12 @@ class _FrequencyViewState extends State<FrequencyView> {
 
         final totalAmountTransactionsExpenses =
             transactionsFrequencyOnlyExpense.fold(
-          0,
+          0.0,
           (previousValue, element) => previousValue + element.amount,
         );
         final totalAmountTransactionsIncome =
             transactionsFrequencyOnlyIncome.fold(
-          0,
+          0.0,
           (previousValue, element) => previousValue + element.amount,
         );
         final title = state.titleFrequency;
@@ -97,7 +97,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 ),
                                 Gap.vertical(8),
                                 AppText(
-                                  text: NumberFormatter.formatToMoneyInt(
+                                  text: NumberFormatter.formatToMoneyDouble(
                                     context,
                                     totalAmountTransactionsExpenses,
                                   ),
@@ -136,7 +136,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                   fontWeight: FontWeight.bold,
                                 ),
                                 AppText(
-                                  text: NumberFormatter.formatToMoneyInt(
+                                  text: NumberFormatter.formatToMoneyDouble(
                                     context,
                                     totalAmountTransactionsIncome,
                                   ),

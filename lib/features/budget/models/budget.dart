@@ -35,10 +35,10 @@ class Budget {
       isWeekly: data?['is_weekly'] == 1,
       month: data?['month'] as int? ?? 0,
       year: data?['year'] as int? ?? 0,
-      totalPlanIncome: data?['total_plan_income'] as int? ?? 0,
-      totalPlanExpense: data?['total_plan_expense'] as int? ?? 0,
-      totalActualIncome: data?['total_actual_income'] as int? ?? 0,
-      totalActualExpense: data?['total_actual_expense'] as int? ?? 0,
+      totalPlanIncome: data?['total_plan_income'] as double? ?? 0,
+      totalPlanExpense: data?['total_plan_expense'] as double? ?? 0,
+      totalActualIncome: data?['total_actual_income'] as double? ?? 0,
+      totalActualExpense: data?['total_actual_expense'] as double? ?? 0,
     );
   }
 
@@ -66,10 +66,10 @@ class Budget {
       isWeekly: json['is_weekly'] == 1,
       month: json['month'] as int,
       year: json['year'] as int,
-      totalPlanIncome: json['total_plan_income'] as int,
-      totalPlanExpense: json['total_plan_expense'] as int,
-      totalActualIncome: json['total_actual_income'] as int,
-      totalActualExpense: json['total_actual_expense'] as int,
+      totalPlanIncome: json['total_plan_income'] as double,
+      totalPlanExpense: json['total_plan_expense'] as double,
+      totalActualIncome: json['total_actual_income'] as double,
+      totalActualExpense: json['total_actual_expense'] as double,
       groupCategories: groupCategoriesList,
     );
   }
@@ -84,10 +84,10 @@ class Budget {
   final bool isWeekly;
   final int month;
   final int year;
-  final int totalPlanIncome;
-  final int totalPlanExpense;
-  final int totalActualIncome;
-  final int totalActualExpense;
+  final double totalPlanIncome;
+  final double totalPlanExpense;
+  final double totalActualIncome;
+  final double totalActualExpense;
   final List<GroupCategoryHistory>? groupCategories;
 
   Map<String, dynamic> toJson() => {
@@ -157,10 +157,10 @@ class Budget {
     bool? isWeekly,
     int? month,
     int? year,
-    int? totalPlanIncome,
-    int? totalPlanExpense,
-    int? totalActualIncome,
-    int? totalActualExpense,
+    double? totalPlanIncome,
+    double? totalPlanExpense,
+    double? totalActualIncome,
+    double? totalActualExpense,
     List<GroupCategoryHistory>? groupCategories,
   }) {
     return Budget(

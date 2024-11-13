@@ -17,8 +17,8 @@ class PromptAnalysisState {
 
   final Budget? budget;
   final List<ItemCategoryTransaction> itemCategoryTransactionsByBudgetId;
-  final int totalActualIncome;
-  final int totalActualExpense;
+  final double totalActualIncome;
+  final double totalActualExpense;
   final bool loadingAnalysis;
   final bool analysisCompleted;
   final bool analysisError;
@@ -29,8 +29,8 @@ class PromptAnalysisState {
   PromptAnalysisState copyWith({
     Budget? budget,
     List<ItemCategoryTransaction>? itemCategoryTransactionsByBudgetId,
-    int? totalActualIncome,
-    int? totalActualExpense,
+    double? totalActualIncome,
+    double? totalActualExpense,
     bool? loadingAnalysis,
     bool? analysisCompleted,
     bool? analysisError,
@@ -40,13 +40,15 @@ class PromptAnalysisState {
   }) {
     return PromptAnalysisState(
       budget: budget ?? this.budget,
-      itemCategoryTransactionsByBudgetId: itemCategoryTransactionsByBudgetId ?? this.itemCategoryTransactionsByBudgetId,
+      itemCategoryTransactionsByBudgetId: itemCategoryTransactionsByBudgetId ??
+          this.itemCategoryTransactionsByBudgetId,
       totalActualIncome: totalActualIncome ?? this.totalActualIncome,
       totalActualExpense: totalActualExpense ?? this.totalActualExpense,
       loadingAnalysis: loadingAnalysis ?? this.loadingAnalysis,
       analysisCompleted: analysisCompleted ?? this.analysisCompleted,
       analysisError: analysisError ?? this.analysisError,
-      analysisGenerateModel: analysisGenerateModel ?? this.analysisGenerateModel,
+      analysisGenerateModel:
+          analysisGenerateModel ?? this.analysisGenerateModel,
       language: language ?? this.language,
       textPrompt: textPrompt ?? this.textPrompt,
     );
@@ -58,7 +60,8 @@ class PromptAnalysisState {
 
     return other is PromptAnalysisState &&
         other.budget == budget &&
-        listEquals(other.itemCategoryTransactionsByBudgetId, itemCategoryTransactionsByBudgetId) &&
+        listEquals(other.itemCategoryTransactionsByBudgetId,
+            itemCategoryTransactionsByBudgetId) &&
         other.totalActualIncome == totalActualIncome &&
         other.totalActualExpense == totalActualExpense &&
         other.loadingAnalysis == loadingAnalysis &&

@@ -71,8 +71,8 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
       final result = await _getBudgetsFromDB(event.id);
       final resultGetTransactions =
           await _getItemCategoryTransactionsByBudgetId(event.id);
-      var totalActualExpense = 0;
-      var totalActualIncome = 0;
+      var totalActualExpense = 0.0;
+      var totalActualIncome = 0.0;
 
       result.fold(
         (error) => emit(BudgetError(failure: error)),

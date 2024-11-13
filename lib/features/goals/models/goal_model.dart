@@ -16,12 +16,12 @@ class GoalModel {
     return GoalModel(
       id: map['id'] as String,
       goalName: map['goal_name'] as String,
-      goalAmount: map['goal_amount'] as String,
-      perDayAmount: map['per_day_amount'] as String,
-      perMonthAmount: map['per_month_amount'] as String,
+      goalAmount: map['goal_amount'] as double,
+      perDayAmount: map['per_day_amount'] as double,
+      perMonthAmount: map['per_month_amount'] as double,
       startGoalDate: map['start_goal_date'] as String,
       endGoalDate: map['end_goal_date'] as String,
-      remainingAmount: map['remaining_amount'] as String,
+      remainingAmount: map['remaining_amount'] as double,
       createdAt: map['created_at'] as String,
       updatedAt: map['updated_at'] as String,
     );
@@ -29,12 +29,12 @@ class GoalModel {
 
   final String id;
   final String goalName;
-  final String goalAmount;
-  final String perDayAmount;
-  final String perMonthAmount;
+  final double goalAmount;
+  final double perDayAmount;
+  final double perMonthAmount;
   final String startGoalDate;
   final String endGoalDate;
-  final String remainingAmount;
+  final double remainingAmount;
   final String createdAt;
   final String updatedAt;
 

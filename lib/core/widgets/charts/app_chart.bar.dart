@@ -36,8 +36,8 @@ class AppChartBarState extends State<AppChartBar> {
             final monthly = frequency == 'Monthly';
             final yearly = frequency == 'Yearly';
 
-            var dailyAmounts = <int>[];
-            var monthlyAmounts = <int>[];
+            var dailyAmounts = <double>[];
+            var monthlyAmounts = <double>[];
 
             if (dailyTransactions.isNotEmpty) {
               dailyAmounts = dailyTransactions.values.toList();

@@ -150,9 +150,9 @@ class _AddGroupCategoryScreenState extends State<AddGroupCategoryScreen> {
                                 ),
                               ),
                               TextSpan(
-                                text: NumberFormatter.formatToMoneyInt(
+                                text: NumberFormatter.formatToMoneyDouble(
                                   context,
-                                  categoryState.leftToBudget ?? 0,
+                                  categoryState.leftToBudget ?? 0.0,
                                 ),
                                 style: textStyle(
                                   context,

@@ -45,7 +45,7 @@ class PromptAnalysisCubit extends Cubit<PromptAnalysisState> {
   }
 
   Future<void> setTotalActualIncome({
-    required int totalActualIncome,
+    required double totalActualIncome,
   }) async {
     emit(
       state.copyWith(
@@ -55,7 +55,7 @@ class PromptAnalysisCubit extends Cubit<PromptAnalysisState> {
   }
 
   Future<void> setTotalActualExpense({
-    required int totalActualExpense,
+    required double totalActualExpense,
   }) async {
     emit(
       state.copyWith(
@@ -97,7 +97,8 @@ class PromptAnalysisCubit extends Cubit<PromptAnalysisState> {
         return;
       }
 
-      final analysisGenerated = AnalysisGenerateModel.fromGeneratedContent(content);
+      final analysisGenerated =
+          AnalysisGenerateModel.fromGeneratedContent(content);
 
       emit(
         state.copyWith(

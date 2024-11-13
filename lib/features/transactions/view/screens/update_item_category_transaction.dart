@@ -425,7 +425,7 @@ class _UpdateItemCategoryTransactionScreenState
   void _onDeleteTransaction(
     Budget budget, {
     required String id,
-    required int amount,
+    required double amount,
   }) {
     context.read<CategoryCubit>().deleteItemCategoryTransaction(
           id: id,

@@ -28,15 +28,15 @@ final class GetBudgetsLoaded extends BudgetState {
 
   final Budget? budget;
   final List<Budget>? budgets;
-  final int totalActualExpense;
-  final int totalActualIncome;
+  final double totalActualExpense;
+  final double totalActualIncome;
   final List<ItemCategoryTransaction> itemCategoryTransactionsByBudgetId;
 
   GetBudgetsLoaded copyWith({
     Budget? budget,
     List<Budget>? budgets,
-    int? totalActualExpense,
-    int? totalActualIncome,
+    double? totalActualExpense,
+    double? totalActualIncome,
     List<ItemCategoryTransaction>? itemCategoryTransactionsByBudgetId,
   }) {
     return GetBudgetsLoaded(
@@ -44,7 +44,8 @@ final class GetBudgetsLoaded extends BudgetState {
       budgets: budgets ?? this.budgets,
       totalActualExpense: totalActualExpense ?? this.totalActualExpense,
       totalActualIncome: totalActualIncome ?? this.totalActualIncome,
-      itemCategoryTransactionsByBudgetId: itemCategoryTransactionsByBudgetId ?? this.itemCategoryTransactionsByBudgetId,
+      itemCategoryTransactionsByBudgetId: itemCategoryTransactionsByBudgetId ??
+          this.itemCategoryTransactionsByBudgetId,
     );
   }
 
@@ -57,7 +58,8 @@ final class GetBudgetsLoaded extends BudgetState {
           budgets == other.budgets &&
           totalActualExpense == other.totalActualExpense &&
           totalActualIncome == other.totalActualIncome &&
-          itemCategoryTransactionsByBudgetId == other.itemCategoryTransactionsByBudgetId;
+          itemCategoryTransactionsByBudgetId ==
+              other.itemCategoryTransactionsByBudgetId;
 
   @override
   int get hashCode =>

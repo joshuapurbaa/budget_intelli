@@ -99,7 +99,7 @@ class InsightCubit extends Cubit<InsightState> {
           }).toList();
 
           final monthlyIncomeTransactionsMap =
-              onlyIncomeTransactions.fold<Map<String, int>>(
+              onlyIncomeTransactions.fold<Map<String, double>>(
             {},
             (previousValue, element) {
               final createdAt = DateTime.parse(element.createdAt);
@@ -113,14 +113,14 @@ class InsightCubit extends Cubit<InsightState> {
           );
 
           final monthlyExpenseTransactionsMap =
-              onlyExpenseTransactions.fold<Map<String, int>>(
+              onlyExpenseTransactions.fold<Map<String, double>>(
             {},
             (previousValue, element) {
               final createdAt = DateTime.parse(element.createdAt);
               final monthName = kIsWeb
                   ? DateFormat('MMMM').format(createdAt)
                   : DateFormat('MMMM').format(createdAt);
-              final amount = previousValue[monthName] ?? 0;
+              final amount = previousValue[monthName] ?? 0.0;
               previousValue[monthName] = amount + element.amount;
               return previousValue;
             },
@@ -204,7 +204,7 @@ class InsightCubit extends Cubit<InsightState> {
       return element.itemHistoId == categoryId;
     }).toList();
 
-    final totalTransactionAmounts = <int>[];
+    final totalTransactionAmounts = <double>[];
 
     // sum up the total amount of transactions for each month
     for (var i = 0; i < 12; i++) {
@@ -214,7 +214,7 @@ class InsightCubit extends Cubit<InsightState> {
         return createdAt.month == month;
       }).toList();
 
-      final totalAmount = transactionsForMonth.fold<int>(
+      final totalAmount = transactionsForMonth.fold<double>(
         0,
         (previousValue, element) => previousValue + element.amount,
       );
@@ -233,7 +233,7 @@ class InsightCubit extends Cubit<InsightState> {
     }).toList();
 
     // daily transaction is total transaction for the day. example data ['Monday':400,'Tuesday': 200,'Wednesday': 20,'Thursday': 400,'Friday': 50,'Saturaday':600,'Sunday': 700]
-    final dailyTransactions = transactions.fold<Map<String, int>>(
+    final dailyTransactions = transactions.fold<Map<String, double>>(
       {},
       (previousValue, element) {
         final createdAt = DateTime.parse(element.createdAt);
@@ -257,7 +257,7 @@ class InsightCubit extends Cubit<InsightState> {
     };
 
     // monthly transaction is total transaction for the month. example data ['January':400,'February': 200,'March': 20,'April': 400,'May': 50,'June':600,'July': 700,'August': 400,'September': 200,'October': 20,'November': 400,'December': 50]
-    final monthlyTransactions = transactions.fold<Map<String, int>>(
+    final monthlyTransactions = transactions.fold<Map<String, double>>(
       {},
       (previousValue, element) {
         final createdAt = DateTime.parse(element.createdAt);
@@ -286,7 +286,7 @@ class InsightCubit extends Cubit<InsightState> {
     };
 
     // yearly transaction is total transaction for the year. example data ['2021':400,'2022': 200,'2023': 20,'2024': 400,'2025': 50] but we are going to use the current year and dynamically add new year as the year goes by
-    final yearlyTransactions = transactions.fold<Map<String, int>>(
+    final yearlyTransactions = transactions.fold<Map<String, double>>(
       {},
       (previousValue, element) {
         final createdAt = DateTime.parse(element.createdAt);

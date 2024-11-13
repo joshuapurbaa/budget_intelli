@@ -145,14 +145,14 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
           } else {
             if (state.totalBalance != null) {
               if (state.totalBalance! < 0) {
-                final money = NumberFormatter.formatToMoneyInt(
+                final money = NumberFormatter.formatToMoneyDouble(
                   context,
                   state.totalBalance ?? 0,
                 );
                 firstTitle = money;
                 secondTitle = localize.exceedsBudget;
               } else {
-                final money = NumberFormatter.formatToMoneyInt(
+                final money = NumberFormatter.formatToMoneyDouble(
                   context,
                   state.totalBalance ?? 0,
                 );

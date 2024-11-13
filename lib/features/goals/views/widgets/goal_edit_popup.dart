@@ -22,7 +22,7 @@ class GoalEditPopup extends StatefulWidget {
 class _GoalEditPopupState extends State<GoalEditPopup> {
   final _goalNameController = TextEditingController();
   List<DateTime?> _daterange = [];
-  String? _updatedGoalAmount;
+  double? _updatedGoalAmount;
 
   @override
   void dispose() {
@@ -141,10 +141,13 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
             ),
             Gap.vertical(22),
             AppBoxCalculator(
-              label: widget.goal.goalAmount,
+              label: NumberFormatter.formatToMoneyDouble(
+                context,
+                widget.goal.goalAmount,
+              ),
               onValueSelected: (value) {
                 setState(() {
-                  _updatedGoalAmount = value;
+                  _updatedGoalAmount = value.toDouble();
                 });
               },
             ),
@@ -258,7 +261,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                         if (widget.saved != null &&
                             _updatedGoalAmount != null) {
                           final remainingAmount =
-                              _updatedGoalAmount!.toDouble() - widget.saved!;
+                              _updatedGoalAmount! - widget.saved!;
 
                           final updatedGoal = GoalModel(
                             id: goal.id,
@@ -266,12 +269,11 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                             goalAmount: _updatedGoalAmount!,
                             startGoalDate: _daterange[0].toString(),
                             endGoalDate: _daterange[1].toString(),
-                            remainingAmount: '$remainingAmount',
+                            remainingAmount: remainingAmount,
                             createdAt: goal.createdAt,
                             updatedAt: DateTime.now().toString(),
-                            perDayAmount: planAmountPerDay!.toStringAsFixed(2),
-                            perMonthAmount:
-                                planAmountPerMonth!.toStringAsFixed(2),
+                            perDayAmount: planAmountPerDay!,
+                            perMonthAmount: planAmountPerMonth!,
                           );
 
                           context.read<GoalDatabaseBloc>().add(

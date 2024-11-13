@@ -15,7 +15,7 @@ class AccountHistory {
       id: map['id'] as String,
       accountId: map['account_id'] as String,
       name: map['name'] as String,
-      amount: map['amount'] as int,
+      amount: map['amount'] as double,
       createdAt: map['created_at'] as String,
       updatedAt: map['updated_at'] as String,
       iconPath: map['icon_path'] as String?,
@@ -26,7 +26,7 @@ class AccountHistory {
   final String id;
   final String accountId;
   final String name;
-  final int amount;
+  final double amount;
   final String createdAt;
   final String updatedAt;
   final String? iconPath;
@@ -49,7 +49,7 @@ class AccountHistory {
     String? id,
     String? accountId,
     String? name,
-    int? amount,
+    double? amount,
     String? createdAt,
     String? updatedAt,
     String? iconPath,

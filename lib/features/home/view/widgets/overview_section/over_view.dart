@@ -29,10 +29,10 @@ class OverView extends StatefulWidget {
 
   final List<GroupCategoryHistory> groupCategoryHistories;
   final Budget budget;
-  final int totalActualExpense;
-  final int totalBudgetExpense;
-  final int totalActualIncome;
-  final int totalBudgetIncome;
+  final double totalActualExpense;
+  final double totalBudgetExpense;
+  final double totalActualIncome;
+  final double totalBudgetIncome;
   final UserIntelli? user;
   final List<ItemCategoryTransaction> itemCategoryTransactions;
 
@@ -48,8 +48,8 @@ class _OverViewState extends State<OverView> {
   void didUpdateWidget(covariant OverView oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    var totalPlannedExpense = 0;
-    var oldTotalPlannedIncome = 0;
+    var totalPlannedExpense = 0.0;
+    var oldTotalPlannedIncome = 0.0;
 
     final oldGroupCategoryHistories = oldWidget.groupCategoryHistories;
     for (final groupCategoryHistory in oldGroupCategoryHistories) {
@@ -273,7 +273,7 @@ class _OverViewState extends State<OverView> {
               (element) => element.itemCategoryHistories,
             )
             .toList();
-        final totalPlannedExpense = itemCategoryHistoryExpense.fold<int>(
+        final totalPlannedExpense = itemCategoryHistoryExpense.fold<double>(
           0,
           (previousValue, element) => previousValue + element.amount,
         );
@@ -411,7 +411,7 @@ class _OverViewState extends State<OverView> {
                       final groupName = groupCategoryHistory.groupName;
                       final items = groupCategoryHistory.itemCategoryHistories;
 
-                      final totalAmount = items.fold<int>(
+                      final totalAmount = items.fold<double>(
                         0,
                         (previousValue, element) =>
                             previousValue + element.amount,
@@ -459,7 +459,7 @@ class _OverViewState extends State<OverView> {
                                   ),
                                   Gap.horizontal(10),
                                   AppText(
-                                    text: NumberFormatter.formatToMoneyInt(
+                                    text: NumberFormatter.formatToMoneyDouble(
                                       context,
                                       totalAmount,
                                     ),
@@ -598,7 +598,7 @@ class _OverViewState extends State<OverView> {
                                                 element.itemHistoId ==
                                                 items[index].id,
                                           )
-                                          .fold<int>(
+                                          .fold<double>(
                                             0,
                                             (previousValue, element) =>
                                                 previousValue + element.amount,
@@ -688,7 +688,7 @@ class _OverViewState extends State<OverView> {
                                                     fontWeightLeft:
                                                         FontWeight.w500,
                                                     right: NumberFormatter
-                                                        .formatToMoneyInt(
+                                                        .formatToMoneyDouble(
                                                       context,
                                                       items[index].amount,
                                                     ),

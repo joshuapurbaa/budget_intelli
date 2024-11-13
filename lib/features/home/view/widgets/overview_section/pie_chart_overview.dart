@@ -13,7 +13,7 @@ class PieChartOverview extends StatefulWidget {
   });
 
   final List<GroupCategoryHistory> groupCategoryHistories;
-  final int totalExpense;
+  final double totalExpense;
   final bool expensesEmpty;
 
   @override
@@ -86,7 +86,8 @@ class _PieChartOverviewState extends State<PieChartOverview> {
                               height: 10,
                               decoration: BoxDecoration(
                                 color: Color(
-                                    widget.groupCategoryHistories[i].hexColor,),
+                                  widget.groupCategoryHistories[i].hexColor,
+                                ),
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -115,7 +116,7 @@ class _PieChartOverviewState extends State<PieChartOverview> {
   List<PieChartSectionData> showingSections() {
     final groups = widget.groupCategoryHistories;
 
-    final amount = <int>[];
+    final amount = <double>[];
     final name = <String>[];
     final portion = <double>[];
     final color = <Color>[];
@@ -126,7 +127,7 @@ class _PieChartOverviewState extends State<PieChartOverview> {
         continue;
       }
       final itemCategories = group.itemCategoryHistories;
-      var total = 0;
+      var total = 0.0;
       for (var j = 0; j < itemCategories.length; j++) {
         final itemCategory = itemCategories[j];
         total += itemCategory.amount;

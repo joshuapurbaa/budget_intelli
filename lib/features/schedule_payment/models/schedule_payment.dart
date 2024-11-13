@@ -19,7 +19,7 @@ class SchedulePayment {
       id: map['id'] as String,
       name: map['name'] as String,
       status: map['status'] as String,
-      amount: map['amount'] as int,
+      amount: map['amount'] as double,
       dueDate: map['due_date'] as String,
       description: map['description'] as String?,
       createdAt: map['created_at'] as String,
@@ -36,7 +36,7 @@ class SchedulePayment {
   final String id;
   final String name;
   final String status;
-  final int amount;
+  final double amount;
   final String dueDate;
   final String? description;
   final String createdAt;
@@ -60,7 +60,7 @@ class SchedulePayment {
     String? id,
     String? name,
     String? status,
-    int? amount,
+    double? amount,
     String? dueDate,
     String? description,
     String? createdAt,

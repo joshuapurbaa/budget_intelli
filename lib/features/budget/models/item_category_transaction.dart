@@ -29,7 +29,7 @@ class ItemCategoryTransaction {
       id: json['id'] as String,
       itemHistoId: json['item_id'] as String,
       categoryName: json['category_name'] as String,
-      amount: json['amount'] as int,
+      amount: json['amount'] as double,
       createdAt: json['created_at'] as String,
       type: json['type'] as String,
       updatedAt: json['updated_at'] as String?,
@@ -55,7 +55,7 @@ class ItemCategoryTransaction {
       id: data?['id'] as String,
       itemHistoId: data?['item_id'] as String,
       categoryName: data?['category_name'] as String,
-      amount: data?['amount'] as int,
+      amount: data?['amount'] as double,
       createdAt: data?['created_at'] as String,
       type: data?['type'] as String,
       updatedAt: data?['updated_at'] as String?,
@@ -106,7 +106,7 @@ class ItemCategoryTransaction {
   final String categoryName;
   final String budgetId;
   final String groupId;
-  final int amount;
+  final double amount;
   final String createdAt;
   final String type;
   final String? updatedAt;
@@ -118,7 +118,7 @@ class ItemCategoryTransaction {
     String? id,
     String? itemId,
     String? categoryName,
-    int? amount,
+    double? amount,
     String? createdAt,
     String? type,
     String? updatedAt,

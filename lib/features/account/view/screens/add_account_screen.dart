@@ -151,6 +151,13 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
             if (insertSuccess) {
               _onInsertSuccess(state.newAccountParam);
             }
+
+            if (state.error != null) {
+              AppToast.showToastError(
+                context,
+                state.error ?? localize.anErrorOccured,
+              );
+            }
           },
           builder: (context, state) {
             final accountTypes = state.accountTypes;
@@ -181,7 +188,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                           isPng: true,
                           iconColor: context.color.onSurface,
                         ),
-                        Gap.vertical(10),
+                        Gap.vertical(8),
                         AppGlass(
                           height: 70.h,
                           padding: getEdgeInsets(
@@ -244,7 +251,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                             ).toList(),
                           ),
                         ),
-                        Gap.vertical(10),
+                        Gap.vertical(8),
                         BoxCalculator(
                           label: '${localize.amountFieldLabel}*',
                         ),
@@ -263,8 +270,6 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                     onPressed: () {
                                       final amount =
                                           ControllerHelper.getAmount(context);
-
-                                      print('amount: $amount');
 
                                       if (amount != null &&
                                           _accountNameController

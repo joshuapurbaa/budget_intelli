@@ -32,7 +32,7 @@ class ItemCategoryHistory {
       type: map['type'] as String,
       createdAt: map['created_at'] as String,
       isExpense: map['is_expense'] == 1 || false,
-      amount: map['amount'] as int,
+      amount: map['amount'] as double,
       totalTransactions: map['total_transactions'] as int?,
       iconPath: map['icon_path'] as String?,
       hexColor: map['hex_color'] as int?,
@@ -41,7 +41,7 @@ class ItemCategoryHistory {
       endDate: map['end_date'] as String?,
       isFavorite: map['is_favorite'] == 1 || false,
       carryOverAmount: map['carry_over_amount'] as int?,
-      remaining: map['remaining'] as int?,
+      remaining: map['remaining'] as double?,
       itemId: map['item_id'] as String,
       groupName: map['group_name'] as String,
     );
@@ -60,7 +60,7 @@ class ItemCategoryHistory {
       type: data?['type'] as String,
       createdAt: data?['created_at'] as String,
       isExpense: data?['is_expense'] == 1 || false,
-      amount: data?['amount'] as int,
+      amount: data?['amount'] as double,
       totalTransactions: data?['total_transactions'] as int?,
       iconPath: data?['icon_path'] as String?,
       hexColor: data?['hex_color'] as int?,
@@ -69,7 +69,7 @@ class ItemCategoryHistory {
       endDate: data?['end_date'] as String?,
       isFavorite: data?['is_favorite'] == 1 || false,
       carryOverAmount: data?['carry_over_amount'] as int?,
-      remaining: data?['remaining'] as int?,
+      remaining: data?['remaining'] as double?,
       itemId: data?['item_id'] as String,
       groupName: data?['group_name'] as String,
     );
@@ -77,7 +77,7 @@ class ItemCategoryHistory {
 
   final String id;
   final String name;
-  final int amount;
+  final double amount;
   final String groupHistoryId;
   final String? budgetId;
   final String type;
@@ -90,7 +90,7 @@ class ItemCategoryHistory {
   final String? endDate;
   final bool isFavorite;
   final int? carryOverAmount;
-  final int? remaining;
+  final double? remaining;
   final int? totalTransactions;
   final String itemId;
   final String groupName;
@@ -147,7 +147,7 @@ class ItemCategoryHistory {
   ItemCategoryHistory copyWith({
     String? id,
     String? name,
-    int? amount,
+    double? amount,
     String? groupHistoryId,
     String? budgetId,
     String? type,
@@ -160,7 +160,7 @@ class ItemCategoryHistory {
     String? endDate,
     bool? isFavorite,
     int? carryOverAmount,
-    int? remaining,
+    double? remaining,
     int? totalTransactions,
     String? itemId,
     String? groupName,

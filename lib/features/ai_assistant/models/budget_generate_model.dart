@@ -23,7 +23,7 @@ class BudgetGenerateModel {
     if (json
         case {
           'budget_name': final String budgetName,
-          'income_amount': final int incomeAmount,
+          'income_amount': final double incomeAmount,
           'expense': final List<dynamic> expense,
           'notes': final String notes,
         }) {
@@ -42,7 +42,7 @@ class BudgetGenerateModel {
   }
 
   final String budgetName;
-  final int incomeAmount;
+  final double incomeAmount;
   final List<ExpenseGroupGenerate> expense;
   final String notes;
 
@@ -69,7 +69,9 @@ class ExpenseGroupGenerate {
       groupName: json['group_name'] as String,
       groupExplanation: json['group_explanation'] as String,
       color: json['color'] as String,
-      itemCategories: (json['item_categories'] as List).map((e) => ItemCategoryGenerate.fromJson(e as Map<String, dynamic>)).toList(),
+      itemCategories: (json['item_categories'] as List)
+          .map((e) => ItemCategoryGenerate.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
   }
 
@@ -105,12 +107,12 @@ class ItemCategoryGenerate {
   factory ItemCategoryGenerate.fromJson(Map<String, dynamic> json) {
     return ItemCategoryGenerate(
       itemCategoryName: json['item_category_name'] as String,
-      amount: json['amount'] as int,
+      amount: json['amount'] as double,
     );
   }
 
   String itemCategoryName;
-  int amount;
+  double amount;
 
   Map<String, dynamic> toJson() {
     return {

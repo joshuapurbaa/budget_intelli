@@ -30,8 +30,8 @@ final class BudgetFormState {
   factory BudgetFormState.initial() {
     return const BudgetFormState(
       groupCategoryHistories: [],
-      totalPlanIncome: 0,
-      totalPlanExpense: 0,
+      totalPlanIncome: 0.0,
+      totalPlanExpense: 0.0,
       loading: false,
       initial: true,
     );
@@ -39,9 +39,9 @@ final class BudgetFormState {
 
   final List<GroupCategoryHistory> groupCategoryHistories;
   final List<GroupCategory> selectedGroupCategories;
-  final int totalPlanIncome;
-  final int totalPlanExpense;
-  final int? totalBalance;
+  final double totalPlanIncome;
+  final double totalPlanExpense;
+  final double? totalBalance;
   final bool insertBudgetSuccess;
   final bool insertItemSuccess;
   final bool insertGroupSuccess;
@@ -62,17 +62,17 @@ final class BudgetFormState {
 
   BudgetFormState copyWith({
     List<GroupCategoryHistory>? groupCategoryHistories,
-    int? totalPlanIncome,
+    double? totalPlanIncome,
     bool? insertBudgetSuccess,
     bool? insertItemSuccess,
     bool? insertGroupSuccess,
     bool? initial,
-    int? totalPlanExpense,
+    double? totalPlanExpense,
     String? message,
     DateTime? startDate,
     DateTime? endDate,
     List<DateTime?>? dateRange,
-    int? totalBalance,
+    double? totalBalance,
     bool? loading,
     List<GroupCategory>? selectedGroupCategories,
     List<ItemCategoryHistory>? allItemCategoryHistories,
@@ -88,7 +88,8 @@ final class BudgetFormState {
   }) {
     return BudgetFormState(
       totalPlanIncome: totalPlanIncome ?? this.totalPlanIncome,
-      groupCategoryHistories: groupCategoryHistories ?? this.groupCategoryHistories,
+      groupCategoryHistories:
+          groupCategoryHistories ?? this.groupCategoryHistories,
       totalPlanExpense: totalPlanExpense ?? this.totalPlanExpense,
       insertBudgetSuccess: insertBudgetSuccess ?? this.insertBudgetSuccess,
       insertItemSuccess: insertItemSuccess ?? this.insertItemSuccess,
@@ -100,14 +101,20 @@ final class BudgetFormState {
       dateRange: dateRange ?? this.dateRange,
       totalBalance: totalBalance ?? this.totalBalance,
       loading: loading ?? this.loading,
-      selectedGroupCategories: selectedGroupCategories ?? this.selectedGroupCategories,
-      allItemCategoryHistories: allItemCategoryHistories ?? this.allItemCategoryHistories,
-      selectedItemCategoryHistories: selectedItemCategoryHistories ?? this.selectedItemCategoryHistories,
+      selectedGroupCategories:
+          selectedGroupCategories ?? this.selectedGroupCategories,
+      allItemCategoryHistories:
+          allItemCategoryHistories ?? this.allItemCategoryHistories,
+      selectedItemCategoryHistories:
+          selectedItemCategoryHistories ?? this.selectedItemCategoryHistories,
       portions: portions ?? this.portions,
-      groupCategoryHistoriesParams: groupCategoryHistoriesParams ?? this.groupCategoryHistoriesParams,
-      itemCategoryHistoriesParams: itemCategoryHistoriesParams ?? this.itemCategoryHistoriesParams,
+      groupCategoryHistoriesParams:
+          groupCategoryHistoriesParams ?? this.groupCategoryHistoriesParams,
+      itemCategoryHistoriesParams:
+          itemCategoryHistoriesParams ?? this.itemCategoryHistoriesParams,
       budgetParams: budgetParams ?? this.budgetParams,
-      groupCategoriesParams: groupCategoriesParams ?? this.groupCategoriesParams,
+      groupCategoriesParams:
+          groupCategoriesParams ?? this.groupCategoriesParams,
       itemCategoriesParams: itemCategoriesParams ?? this.itemCategoriesParams,
     );
   }

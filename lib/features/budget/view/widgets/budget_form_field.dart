@@ -197,7 +197,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
 
           if (amount > 0) {
             rightController = TextEditingController(
-              text: NumberFormatter.formatToMoneyInt(context, amount),
+              text: NumberFormatter.formatToMoneyDouble(context, amount),
             );
           } else {
             rightController = TextEditingController();
@@ -1054,7 +1054,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                               if (cleanVal.isNotEmpty) {
                                                 final newCategory =
                                                     item.copyWith(
-                                                  amount: int.parse(cleanVal),
+                                                  amount: cleanVal.toDouble(),
                                                 );
 
                                                 _onChangeField(
@@ -1082,7 +1082,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                               contentPadding:
                                                   const EdgeInsets.all(10),
                                               hintText: NumberFormatter
-                                                  .formatToMoneyInt(
+                                                  .formatToMoneyDouble(
                                                 context,
                                                 item.amount,
                                               ),

@@ -74,7 +74,7 @@ final class CategoryState {
   final List<Color> currentColor;
   final List<GroupCategory> searchResultGroupCategory;
   final bool successUpdateBudget;
-  final int? leftToBudget;
+  final double? leftToBudget;
 
   CategoryState copyWith({
     ItemCategoryHistory? itemCategoryHistory,
@@ -111,7 +111,7 @@ final class CategoryState {
     List<Color>? currentColor,
     List<GroupCategory>? searchResultGroupCategory,
     bool? successUpdateBudget,
-    int? leftToBudget,
+    double? leftToBudget,
   }) {
     return CategoryState(
       itemCategoryHistory: itemCategoryHistory ?? this.itemCategoryHistory,
@@ -119,32 +119,46 @@ final class CategoryState {
       failure: failure ?? this.failure,
       successUpdate: successUpdate ?? this.successUpdate,
       successDelete: successDelete ?? this.successDelete,
-      successDeleteTransaction: successDeleteTransaction ?? this.successDeleteTransaction,
-      itemCategoryTransactions: itemCategoryTransactions ?? this.itemCategoryTransactions,
-      groupCategoryHistories: groupCategoryHistories ?? this.groupCategoryHistories,
+      successDeleteTransaction:
+          successDeleteTransaction ?? this.successDeleteTransaction,
+      itemCategoryTransactions:
+          itemCategoryTransactions ?? this.itemCategoryTransactions,
+      groupCategoryHistories:
+          groupCategoryHistories ?? this.groupCategoryHistories,
       budget: budget ?? this.budget,
       addNewItemCategory: addNewItemCategory ?? this.addNewItemCategory,
       groupCategoryHistory: groupCategoryHistory ?? this.groupCategoryHistory,
       successInsert: successInsert ?? this.successInsert,
-      itemCategoryTransaction: itemCategoryTransaction ?? this.itemCategoryTransaction,
+      itemCategoryTransaction:
+          itemCategoryTransaction ?? this.itemCategoryTransaction,
       groupIdDeletedIndex: groupIdDeletedIndex ?? this.groupIdDeletedIndex,
       successDeleteBudget: successDeleteBudget ?? this.successDeleteBudget,
       imageUrl: imageUrl ?? this.imageUrl,
       imageBytes: imageBytes ?? this.imageBytes,
       itemCategories: itemCategories ?? this.itemCategories,
-      itemCategoryHistoriesCurrentBudgetId: itemCategoryHistoriesCurrentBudgetId ?? this.itemCategoryHistoriesCurrentBudgetId,
+      itemCategoryHistoriesCurrentBudgetId:
+          itemCategoryHistoriesCurrentBudgetId ??
+              this.itemCategoryHistoriesCurrentBudgetId,
       groupCategories: groupCategories ?? this.groupCategories,
-      groupCategoryHistoriesCurrentBudgetId: groupCategoryHistoriesCurrentBudgetId ?? this.groupCategoryHistoriesCurrentBudgetId,
+      groupCategoryHistoriesCurrentBudgetId:
+          groupCategoryHistoriesCurrentBudgetId ??
+              this.groupCategoryHistoriesCurrentBudgetId,
       account: account ?? this.account,
       itemCategoryParam: itemCategoryParam ?? this.itemCategoryParam,
-      itemCategoryHistoryParam: itemCategoryHistoryParam ?? this.itemCategoryHistoryParam,
-      groupCategoryHistoriesParam: groupCategoryHistoriesParam ?? this.groupCategoryHistoriesParam,
-      itemCategoryHistoriesParam: itemCategoryHistoriesParam ?? this.itemCategoryHistoriesParam,
-      insertGroupCategoryHistorySuccess: insertGroupCategoryHistorySuccess ?? this.insertGroupCategoryHistorySuccess,
-      updateGroupCategoryHistorySuccess: updateGroupCategoryHistorySuccess ?? this.updateGroupCategoryHistorySuccess,
+      itemCategoryHistoryParam:
+          itemCategoryHistoryParam ?? this.itemCategoryHistoryParam,
+      groupCategoryHistoriesParam:
+          groupCategoryHistoriesParam ?? this.groupCategoryHistoriesParam,
+      itemCategoryHistoriesParam:
+          itemCategoryHistoriesParam ?? this.itemCategoryHistoriesParam,
+      insertGroupCategoryHistorySuccess: insertGroupCategoryHistorySuccess ??
+          this.insertGroupCategoryHistorySuccess,
+      updateGroupCategoryHistorySuccess: updateGroupCategoryHistorySuccess ??
+          this.updateGroupCategoryHistorySuccess,
       pickerColor: pickerColor ?? this.pickerColor,
       currentColor: currentColor ?? this.currentColor,
-      searchResultGroupCategory: searchResultGroupCategory ?? this.searchResultGroupCategory,
+      searchResultGroupCategory:
+          searchResultGroupCategory ?? this.searchResultGroupCategory,
       successUpdateBudget: successUpdateBudget ?? this.successUpdateBudget,
       leftToBudget: leftToBudget ?? this.leftToBudget,
     );
@@ -185,13 +199,18 @@ final class CategoryState {
         other.account == account &&
         other.itemCategoryParam == itemCategoryParam &&
         other.itemCategoryHistoryParam == itemCategoryHistoryParam &&
-        listEquals(other.groupCategoryHistoriesParam, groupCategoryHistoriesParam) &&
-        listEquals(other.itemCategoryHistoriesParam, itemCategoryHistoriesParam) &&
-        other.insertGroupCategoryHistorySuccess == insertGroupCategoryHistorySuccess &&
-        other.updateGroupCategoryHistorySuccess == updateGroupCategoryHistorySuccess &&
+        listEquals(
+            other.groupCategoryHistoriesParam, groupCategoryHistoriesParam) &&
+        listEquals(
+            other.itemCategoryHistoriesParam, itemCategoryHistoriesParam) &&
+        other.insertGroupCategoryHistorySuccess ==
+            insertGroupCategoryHistorySuccess &&
+        other.updateGroupCategoryHistorySuccess ==
+            updateGroupCategoryHistorySuccess &&
         listEquals(other.pickerColor, pickerColor) &&
         listEquals(other.currentColor, currentColor) &&
-        listEquals(other.searchResultGroupCategory, searchResultGroupCategory) &&
+        listEquals(
+            other.searchResultGroupCategory, searchResultGroupCategory) &&
         other.successUpdateBudget == successUpdateBudget &&
         other.leftToBudget == leftToBudget;
   }

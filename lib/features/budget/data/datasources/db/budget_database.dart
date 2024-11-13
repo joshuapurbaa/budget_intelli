@@ -35,10 +35,10 @@ class BudgetDatabase {
             is_weekly INTEGER NOT NULL,
             month INTEGER NOT NULL,
             year INTEGER NOT NULL,
-            total_plan_expense INTEGER NOT NULL,
-            total_plan_income INTEGER NOT NULL,
-            total_actual_expense INTEGER,
-            total_actual_income INTEGER
+            total_plan_expense REAL NOT NULL,
+            total_plan_income REAL NOT NULL,
+            total_actual_expense REAL,
+            total_actual_income REAL
           )
         ''');
         await db.execute('''
@@ -89,7 +89,7 @@ class BudgetDatabase {
             type TEXT NOT NULL,
             created_at TEXT NOT NULL,
             is_expense INTEGER NOT NULL,
-            amount INTEGER,
+            amount REAL,
             total_transactions INTEGER,
             icon_path TEXT,
             hex_color INTEGER,
@@ -111,7 +111,7 @@ class BudgetDatabase {
             category_name TEXT NOT NULL,
             budget_id TEXT,
             group_history_id TEXT,
-            amount INTEGER NOT NULL,
+            amount REAL NOT NULL,
             created_at TEXT NOT NULL,
             account_id TEXT NOT NULL,
             type TEXT NOT NULL,

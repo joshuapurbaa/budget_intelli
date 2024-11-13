@@ -79,7 +79,6 @@ export 'domain/usecases/item_category_transactions/update_item_category_transact
 export 'models/budget.dart';
 export 'models/group_category.dart';
 export 'models/group_category_history.dart';
-export 'models/group_category_params.dart';
 export 'models/item_category.dart';
 export 'models/item_category_history.dart';
 export 'models/item_category_transaction.dart';

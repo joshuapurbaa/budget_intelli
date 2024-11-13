@@ -26,7 +26,7 @@ class SchedulePaymentDatabase {
             id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
             status TEXT NOT NULL,
-            amount INTEGER NOT NULL,
+            amount REAL NOT NULL,
             due_date TEXT NOT NULL,
             description TEXT,
             created_at TEXT NOT NULL,

@@ -19,7 +19,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   List<DateTime?> dateRange = [];
   String? _suggestedMonthlyAmount;
   String? _suggestedDailyAmount;
-  String? _goalAmount;
+  double? _goalAmount;
   String? _startingBalance;
 
   final _goalNameFocusNode = FocusNode();
@@ -38,7 +38,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
       final startDate = dateRange[0];
       final endDate = dateRange[1];
 
-      final goalAmount = _goalAmount!.toDouble();
+      final goalAmount = _goalAmount!;
 
       final startingBalance = _startingBalance!.toDouble();
 
@@ -99,7 +99,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                     label: '${localize.goalAmount}*',
                     onValueSelected: (value) {
                       setState(() {
-                        _goalAmount = value;
+                        _goalAmount = value.toDouble();
                       });
                     },
                   ),
@@ -258,12 +258,11 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   goalAmount: _goalAmount!,
                   startGoalDate: dateRange[0].toString(),
                   endGoalDate: dateRange[1].toString(),
-                  remainingAmount:
-                      remainingAmountGoal.toDouble().toStringAsFixed(2),
+                  remainingAmount: remainingAmountGoal.toDouble(),
                   createdAt: currentDate.toString(),
                   updatedAt: currentDate.toString(),
-                  perDayAmount: planAmountPerDay!.toStringAsFixed(2),
-                  perMonthAmount: planAmountPerMonth!.toStringAsFixed(2),
+                  perDayAmount: planAmountPerDay!,
+                  perMonthAmount: planAmountPerMonth!,
                 );
 
                 context.read<GoalDatabaseBloc>().add(InsertGoalToDbEvent(goal));

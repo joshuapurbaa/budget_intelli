@@ -157,17 +157,17 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
             .firstWhere((element) => element.type == AppStrings.incomeType)
             .itemCategoryHistories
             .map((e) => e.amount)
-            .fold(0, (previousValue, element) => previousValue + element)
-        : 0;
+            .fold(0.0, (previousValue, element) => previousValue + element)
+        : 0.0;
 
     final totalExpense = groupCategoryCustom
         .where((element) => element.type != AppStrings.incomeType)
         .map(
           (e) => e.itemCategoryHistories
               .map((e) => e.amount)
-              .fold(0, (previousValue, element) => previousValue + element),
+              .fold(0.0, (previousValue, element) => previousValue + element),
         )
-        .fold(0, (previousValue, element) => previousValue + element);
+        .fold(0.0, (previousValue, element) => previousValue + element);
 
     final totalBalance = totalIncome - totalExpense;
 
@@ -361,17 +361,17 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
             .firstWhere((element) => element.type == AppStrings.incomeType)
             .itemCategoryHistories
             .map((e) => e.amount)
-            .fold(0, (previousValue, element) => previousValue + element)
-        : 0;
+            .fold(0.0, (previousValue, element) => previousValue + element)
+        : 0.0;
 
     final totalExpense = groupCategoryHistories
         .where((element) => element.type != AppStrings.incomeType)
         .map(
           (e) => e.itemCategoryHistories
               .map((e) => e.amount)
-              .fold(0, (previousValue, element) => previousValue + element),
+              .fold(0.0, (previousValue, element) => previousValue + element),
         )
-        .fold(0, (previousValue, element) => previousValue + element);
+        .fold(0.0, (previousValue, element) => previousValue + element);
 
     final totalBalance = totalIncome - totalExpense;
 
@@ -530,8 +530,8 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
               .firstWhere((element) => element.type == AppStrings.incomeType)
               .itemCategoryHistories
               .map((e) => e.amount)
-              .fold(0, (previousValue, element) => previousValue + element)
-          : 0;
+              .fold(0.0, (previousValue, element) => previousValue + element)
+          : 0.0;
 
       // kurangi total income dengan exp312ense yang berasal dari group selain Income
       final totalExpense = newGroupCategory.groupCategoryHistories
@@ -539,9 +539,9 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
           .map(
             (e) => e.itemCategoryHistories
                 .map((e) => e.amount)
-                .fold(0, (previousValue, element) => previousValue + element),
+                .fold(0.0, (previousValue, element) => previousValue + element),
           )
-          .fold(0, (previousValue, element) => previousValue + element);
+          .fold(0.0, (previousValue, element) => previousValue + element);
 
       add(
         UpdatePortionsEvent(
@@ -639,8 +639,8 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
               )
               .itemCategoryHistories
               .map((e) => e.amount)
-              .fold(0, (previousValue, element) => previousValue + element)
-          : 0;
+              .fold(0.0, (previousValue, element) => previousValue + element)
+          : 0.0;
 
       final totalExpense = newGroupCategory.groupCategoryHistories
           .where(
@@ -649,9 +649,9 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
           .map(
             (e) => e.itemCategoryHistories
                 .map((e) => e.amount)
-                .fold(0, (previousValue, element) => previousValue + element),
+                .fold(0.0, (previousValue, element) => previousValue + element),
           )
-          .fold(0, (previousValue, element) => previousValue + element);
+          .fold(0.0, (previousValue, element) => previousValue + element);
 
       final total = totalIncome - totalExpense;
 
@@ -684,7 +684,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
   ) {
     final groups = event.groupCategories;
 
-    final amount = <int>[];
+    final amount = <double>[];
     final name = <String>[];
     final portion = <double>[0];
 
@@ -694,7 +694,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
         continue;
       }
       final itemCategories = group.itemCategoryHistories;
-      var total = 0;
+      var total = 0.0;
       for (var j = 0; j < itemCategories.length; j++) {
         final itemCategory = itemCategories[j];
         total += itemCategory.amount;

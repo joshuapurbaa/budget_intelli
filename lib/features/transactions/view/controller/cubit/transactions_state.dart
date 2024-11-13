@@ -17,7 +17,7 @@ final class AddExpenseTransactionSuccess extends TransactionsState {
 
   final ItemCategoryTransaction itemCategoryTransaction;
   final Account selectedAccount;
-  final int amount;
+  final double amount;
   final String budgetId;
 }
 

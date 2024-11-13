@@ -9,18 +9,19 @@ class BarChartYearly extends StatelessWidget {
     super.key,
   });
 
-  final Map<String, int> yearlyTransactions;
+  final Map<String, double> yearlyTransactions;
 
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
 
     if (yearlyTransactions.isNotEmpty) {
-      var yearlyAmounts = <int>[];
+      var yearlyAmounts = <double>[];
       var yearTitles = <String>[];
       double? maxY;
       yearlyAmounts = yearlyTransactions.values.toList();
-      maxY = yearlyAmounts.reduce((value, element) => value > element ? value : element).toDouble();
+      maxY = yearlyAmounts
+          .reduce((value, element) => value > element ? value : element);
 
       yearTitles = yearlyTransactions.keys.toList();
 

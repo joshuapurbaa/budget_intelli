@@ -18,7 +18,7 @@ class AccountScreen extends StatelessWidget {
       ),
       body: BlocBuilder<AccountBloc, AccountState>(
         builder: (context, state) {
-          var totalAmount = 0;
+          var totalAmount = 0.0;
           final accounts = state.accounts;
 
           if (accounts.isNotEmpty) {
@@ -71,7 +71,7 @@ class AccountScreen extends StatelessWidget {
                           ),
                         ),
                         TextSpan(
-                          text: NumberFormatter.formatToMoneyInt(
+                          text: NumberFormatter.formatToMoneyDouble(
                             context,
                             totalAmount,
                           ),
@@ -147,7 +147,7 @@ class AccountScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 AppText(
-                                  text: NumberFormatter.formatToMoneyInt(
+                                  text: NumberFormatter.formatToMoneyDouble(
                                     context,
                                     account.amount,
                                   ),

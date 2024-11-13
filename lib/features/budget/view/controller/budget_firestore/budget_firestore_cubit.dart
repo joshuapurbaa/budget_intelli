@@ -543,7 +543,7 @@ class BudgetFirestoreCubit extends Cubit<BudgetFirestoreState> {
   Future<void> insertItemCategoryTransactionToFirestore({
     required ItemCategoryTransaction itemCategoryTransaction,
     required Account selectedAccount,
-    required int amount,
+    required double amount,
   }) async {
     emit(
       state.copyWith(
@@ -611,7 +611,7 @@ class BudgetFirestoreCubit extends Cubit<BudgetFirestoreState> {
   Future<bool> _updateAccount(
     Account account, {
     required bool isExpense,
-    required int amount,
+    required double amount,
   }) async {
     Account? updatedAccount;
 

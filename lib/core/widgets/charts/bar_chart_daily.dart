@@ -11,7 +11,7 @@ class BarChartDaily extends StatelessWidget {
     super.key,
   });
 
-  final List<int> dailyAmounts;
+  final List<double> dailyAmounts;
   final Language selectedLanguage;
 
   @override
@@ -20,8 +20,7 @@ class BarChartDaily extends StatelessWidget {
 
     if (dailyAmounts.isNotEmpty) {
       maxY = dailyAmounts
-          .reduce((value, element) => value > element ? value : element)
-          .toDouble();
+          .reduce((value, element) => value > element ? value : element);
     }
 
     return BarChart(

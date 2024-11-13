@@ -25,21 +25,21 @@ class GoalDatabase {
           CREATE TABLE Goals (
             id TEXT PRIMARY KEY,
             goal_name TEXT NOT NULL,
-            goal_amount TEXT NOT NULL,
+            goal_amount REAL NOT NULL,
             start_goal_date TEXT NOT NULL,
             end_goal_date TEXT NOT NULL,
-            remaining_amount TEXT NOT NULL,
+            remaining_amount REAL NOT NULL,
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL,
-            per_day_amount TEXT NOT NULL,
-            per_month_amount TEXT NOT NULL
+            per_day_amount REAL NOT NULL,
+            per_month_amount REAL NOT NULL
           )
         ''');
         await db.execute('''
           CREATE TABLE GoalsHistory (
             id TEXT PRIMARY KEY,
             goal_id TEXT NOT NULL,
-            saved_amount TEXT NOT NULL,
+            saved_amount REAL NOT NULL,
             created_at TEXT NOT NULL,
             updated_at TEXT NOT NULL,
             FOREIGN KEY (goal_id) REFERENCES Goals(id)

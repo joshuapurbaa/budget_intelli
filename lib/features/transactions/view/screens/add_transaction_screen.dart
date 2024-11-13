@@ -600,7 +600,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                 itemId: category?.id ?? '',
               );
 
-      var spent = 0;
+      var spent = 0.0;
       final amount = category?.amount;
 
       if (transactions.isNotEmpty) {
@@ -611,7 +611,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       setState(() {
         if (amount != null) {
           _remainingStr =
-              NumberFormatter.formatToMoneyInt(context, amount - spent);
+              NumberFormatter.formatToMoneyDouble(context, amount - spent);
         }
         _selectedItemCategory = category;
       });

@@ -92,7 +92,7 @@ class _InsightViewState extends State<InsightView> {
         final spendingCategoryTotals = <CategoryTotal>[];
 
         for (final itemCategory in onlyIncomeCategries) {
-          var total = 0;
+          var total = 0.0;
           for (final transaction in onlyIncomeTransactions) {
             if (itemCategory.id == transaction.itemHistoId) {
               total += transaction.amount;
@@ -108,7 +108,7 @@ class _InsightViewState extends State<InsightView> {
         }
 
         for (final itemCategory in onlySpendingCategories) {
-          var total = 0;
+          var total = 0.0;
           for (final transaction in onlySpendingTransactions) {
             if (itemCategory.id == transaction.itemHistoId) {
               total += transaction.amount;
@@ -253,7 +253,7 @@ class _InsightViewState extends State<InsightView> {
                                       ),
                                     ),
                                     AppText(
-                                      text: NumberFormatter.formatToMoneyInt(
+                                      text: NumberFormatter.formatToMoneyDouble(
                                         context,
                                         total,
                                       ),
@@ -344,7 +344,7 @@ class _InsightViewState extends State<InsightView> {
                                       ),
                                     ),
                                     AppText(
-                                      text: NumberFormatter.formatToMoneyInt(
+                                      text: NumberFormatter.formatToMoneyDouble(
                                         context,
                                         total,
                                       ),

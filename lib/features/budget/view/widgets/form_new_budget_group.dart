@@ -778,7 +778,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
 
                               if (cleanVal.isNotEmpty) {
                                 final newCategory = item.copyWith(
-                                  amount: int.parse(cleanVal),
+                                  amount: cleanVal.toDouble(),
                                 );
 
                                 _onChangeField(newCategory);
@@ -799,7 +799,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                             ],
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(10),
-                              hintText: NumberFormatter.formatToMoneyInt(
+                              hintText: NumberFormatter.formatToMoneyDouble(
                                 context,
                                 item.amount,
                               ),

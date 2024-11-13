@@ -12,12 +12,12 @@ class BudgetOverviewTable extends StatelessWidget {
     super.key,
   });
 
-  final int totalPlanIncome;
-  final int totalActualIncome;
-  final int totalPlanExpense;
-  final int totalActualExpense;
-  final int plannedRemaining;
-  final int actualRemaining;
+  final double totalPlanIncome;
+  final double totalActualIncome;
+  final double totalPlanExpense;
+  final double totalActualExpense;
+  final double plannedRemaining;
+  final double actualRemaining;
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class BudgetOverviewTable extends StatelessWidget {
               ),
               DataCell(
                 AppText(
-                  text: NumberFormatter.formatToMoneyInt(
+                  text: NumberFormatter.formatToMoneyDouble(
                     context,
                     totalPlanIncome,
                   ),
@@ -83,7 +83,7 @@ class BudgetOverviewTable extends StatelessWidget {
               ),
               DataCell(
                 AppText(
-                  text: NumberFormatter.formatToMoneyInt(
+                  text: NumberFormatter.formatToMoneyDouble(
                     context,
                     totalActualIncome,
                   ),
@@ -103,7 +103,7 @@ class BudgetOverviewTable extends StatelessWidget {
               ),
               DataCell(
                 AppText(
-                  text: NumberFormatter.formatToMoneyInt(
+                  text: NumberFormatter.formatToMoneyDouble(
                     context,
                     totalPlanExpense,
                   ),
@@ -112,7 +112,7 @@ class BudgetOverviewTable extends StatelessWidget {
               ),
               DataCell(
                 AppText(
-                  text: NumberFormatter.formatToMoneyInt(
+                  text: NumberFormatter.formatToMoneyDouble(
                     context,
                     totalActualExpense,
                   ),
@@ -133,7 +133,7 @@ class BudgetOverviewTable extends StatelessWidget {
               ),
               DataCell(
                 AppText(
-                  text: NumberFormatter.formatToMoneyInt(
+                  text: NumberFormatter.formatToMoneyDouble(
                     context,
                     plannedRemaining,
                   ),
@@ -142,7 +142,7 @@ class BudgetOverviewTable extends StatelessWidget {
               ),
               DataCell(
                 AppText(
-                  text: NumberFormatter.formatToMoneyInt(
+                  text: NumberFormatter.formatToMoneyDouble(
                     context,
                     actualRemaining,
                   ),

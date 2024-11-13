@@ -12,13 +12,15 @@ class TransactionsCubit extends Cubit<TransactionsState> {
     required InsertItemCategoryTransaction insertItemCategoryTransaction,
     required UpdateBudgetUsecase updateBudgetDB,
     required UpdateItemCategoryTransaction updateItemCategoryTransaction,
-    required GetItemCategoryTransactionsByBudgetId getItemCategoryTransactionsByBudgetId,
+    required GetItemCategoryTransactionsByBudgetId
+        getItemCategoryTransactionsByBudgetId,
     required InsertAccountHistoryUsecase insertAccountHistoryUsecase,
     required UpdateAccountUsecase updateAccountUsecase,
   })  : _insertItemCategoryTransaction = insertItemCategoryTransaction,
         _updateBudgetDB = updateBudgetDB,
         _updateItemCategoryTransaction = updateItemCategoryTransaction,
-        _getItemCategoryTransactionsByBudgetId = getItemCategoryTransactionsByBudgetId,
+        _getItemCategoryTransactionsByBudgetId =
+            getItemCategoryTransactionsByBudgetId,
         _insertAccountHistoryUsecase = insertAccountHistoryUsecase,
         _updateAccountUsecase = updateAccountUsecase,
         super(TransactionsInitial());
@@ -26,7 +28,8 @@ class TransactionsCubit extends Cubit<TransactionsState> {
   final InsertItemCategoryTransaction _insertItemCategoryTransaction;
   final UpdateBudgetUsecase _updateBudgetDB;
   final UpdateItemCategoryTransaction _updateItemCategoryTransaction;
-  final GetItemCategoryTransactionsByBudgetId _getItemCategoryTransactionsByBudgetId;
+  final GetItemCategoryTransactionsByBudgetId
+      _getItemCategoryTransactionsByBudgetId;
   final InsertAccountHistoryUsecase _insertAccountHistoryUsecase;
   final UpdateAccountUsecase _updateAccountUsecase;
 
@@ -37,7 +40,7 @@ class TransactionsCubit extends Cubit<TransactionsState> {
   Future<void> insertItemCategoryTransaction({
     required ItemCategoryTransaction itemCategoryTransaction,
     required Account selectedAccount,
-    required int amount,
+    required double amount,
     required String budgetId,
   }) async {
     emit(TransactionsLoading());
@@ -63,7 +66,8 @@ class TransactionsCubit extends Cubit<TransactionsState> {
         amount: amount,
       );
 
-      final result = await _insertItemCategoryTransaction(itemCategoryTransaction);
+      final result =
+          await _insertItemCategoryTransaction(itemCategoryTransaction);
 
       result.fold(
         (failure) {
@@ -99,7 +103,7 @@ class TransactionsCubit extends Cubit<TransactionsState> {
   Future<bool> _updateAccount(
     Account account, {
     required bool isExpense,
-    required int amount,
+    required double amount,
   }) async {
     Account? updatedAccount;
 
@@ -140,7 +144,7 @@ class TransactionsCubit extends Cubit<TransactionsState> {
   Future<void> updateItemCategoryTransaction(
     ItemCategoryTransaction transaction, {
     Account? selectedAccount,
-    int? amount,
+    double? amount,
   }) async {
     emit(TransactionsLoading());
 

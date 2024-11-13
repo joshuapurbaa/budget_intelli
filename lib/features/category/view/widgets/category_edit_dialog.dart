@@ -15,7 +15,7 @@ class CategoryEditDialog extends StatefulWidget {
   });
 
   final ItemCategoryHistory itemCategory;
-  final int leftToBudget;
+  final double leftToBudget;
 
   @override
   State<CategoryEditDialog> createState() => _CategoryEditDialogState();
@@ -37,7 +37,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
     final title = textLocalizer(context).editCategory;
     final category = widget.itemCategory;
     _leftController.text = category.name;
-    _rightController.text = NumberFormatter.formatToMoneyInt(
+    _rightController.text = NumberFormatter.formatToMoneyDouble(
       context,
       category.amount,
     );
@@ -64,7 +64,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   ),
                 ),
                 TextSpan(
-                  text: NumberFormatter.formatToMoneyInt(
+                  text: NumberFormatter.formatToMoneyDouble(
                     context,
                     widget.leftToBudget,
                   ),
@@ -170,13 +170,13 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   ),
                   onPressed: () {
                     final amount = _rightController.text;
-                    final amountInt = int.parse(
-                      amount.replaceAll(RegExp('[^0-9]'), ''),
-                    );
+                    // final amountInt = int.parse(
+                    //   amount.replaceAll(RegExp('[^0-9]'), ''),
+                    // );
                     context.read<CategoryCubit>().updateItemCategoryHistory(
                           itemCategoryHistory: category.copyWith(
                             name: _leftController.text,
-                            amount: amountInt,
+                            amount: amount.toDouble(),
                             updatedAt: DateTime.now().toString(),
                           ),
                         );

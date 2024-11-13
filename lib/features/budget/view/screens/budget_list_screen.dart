@@ -64,7 +64,7 @@ class _BudgetListScreenState extends State<BudgetListScreen> {
                                 ),
                                 Gap.horizontal(16),
                                 AppText(
-                                  text: NumberFormatter.formatToMoneyInt(
+                                  text: NumberFormatter.formatToMoneyDouble(
                                     context,
                                     item.amount,
                                   ),
