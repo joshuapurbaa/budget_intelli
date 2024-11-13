@@ -380,5 +380,6 @@
     "financialTracker": "Financial Tracker",
     "categoryRequired": "Category is required",
     "accountRequired": "Account is required",
-    "amountRequired": "Amount is required"
+    "amountRequired": "Amount is required",
+    "at": "at"
 }

@@ -12,6 +12,7 @@ class ButtonDateTime extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<TimeScrollWheelCubit>().state;
+    final localize = textLocalizer(context);
     return GestureDetector(
       onTap: () {
         showGeneralDialog(
@@ -30,7 +31,6 @@ class ButtonDateTime extends StatelessWidget {
               child: AlertDialog(
                 shape: const RoundedRectangleBorder(),
                 content: SizedBox(
-                  // height: 200,
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -98,8 +98,8 @@ class ButtonDateTime extends StatelessWidget {
                         ),
                       ),
                       Gap.vertical(16),
-                      const AppText(
-                        text: 'At',
+                      AppText(
+                        text: localize.at,
                         style: StyleType.bodLg,
                       ),
                       Container(

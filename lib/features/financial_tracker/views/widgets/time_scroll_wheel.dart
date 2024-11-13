@@ -77,7 +77,7 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
                               isSelected ? FontWeight.bold : FontWeight.normal,
                           color: isSelected
                               ? context.color.primary
-                              : context.color.onPrimary,
+                              : context.color.onSurface.withOpacity(0.2),
                         ),
                       ),
                     );
@@ -86,7 +86,10 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
                 ),
               ),
             ),
-            // ListWheelScrollView for Years
+            AppText(
+              text: ':',
+              style: StyleType.bodLg,
+            ),
             Expanded(
               child: ListWheelScrollView.useDelegate(
                 controller: minuteController,
@@ -114,7 +117,7 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
                               isSelected ? FontWeight.bold : FontWeight.normal,
                           color: isSelected
                               ? context.color.primary
-                              : context.color.onPrimary,
+                              : context.color.onSurface.withOpacity(0.2),
                         ),
                       ),
                     );

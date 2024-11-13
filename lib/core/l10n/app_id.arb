@@ -380,5 +380,6 @@
     "financialTracker": "Pelacak Keuangan",
     "categoryRequired": "Kategori diperlukan",
     "accountRequired": "Akun diperlukan",
-    "amountRequired": "Jumlah diperlukan"
+    "amountRequired": "Jumlah diperlukan",
+    "at": "di"
 }
