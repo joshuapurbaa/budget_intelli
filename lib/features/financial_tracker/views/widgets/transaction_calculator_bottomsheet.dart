@@ -229,9 +229,7 @@ class _TransactionCalculatorBottomSheetState
                                 createdAt: DateTime.now().toString(),
                                 updatedAt: DateTime.now().toString(),
                                 comment: _commentController.text,
-                                amount: double.parse(
-                                  notifier.result.replaceAll(',', ''),
-                                ),
+                                amount: notifier.result.toDouble(),
                                 date: date.toString(),
                                 type: isIncome ? 'income' : 'expense',
                                 categoryName: category.categoryName,

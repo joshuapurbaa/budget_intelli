@@ -21,6 +21,7 @@ class ControllerHelper {
       final state = context.read<BoxCalculatorCubit>().state;
 
       if (state is BoxCalculatorSelected) {
+      
         final stringAmount = state.value.replaceAll(',', '');
         return int.parse(stringAmount);
       } else {

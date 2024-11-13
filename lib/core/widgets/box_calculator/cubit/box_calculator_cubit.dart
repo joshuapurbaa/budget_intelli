@@ -6,6 +6,7 @@ class BoxCalculatorCubit extends Cubit<BoxCalculatorState> {
   BoxCalculatorCubit() : super(BoxCalculatorInitial());
 
   void select(String value) {
+    print('select $value');
     emit(BoxCalculatorSelected(value));
   }
 

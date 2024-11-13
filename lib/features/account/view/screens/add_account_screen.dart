@@ -264,6 +264,8 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                       final amount =
                                           ControllerHelper.getAmount(context);
 
+                                      print('amount: $amount');
+
                                       if (amount != null &&
                                           _accountNameController
                                               .text.isNotEmpty &&

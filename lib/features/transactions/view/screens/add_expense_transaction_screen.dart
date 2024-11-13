@@ -387,7 +387,7 @@ class _AddExpenseTransactionScreenState
                       ),
                       Gap.vertical(10),
                       BoxCalculator(
-                        label: localize.amountFieldLabel,
+                        label: '${localize.amountFieldLabel}*',
                       ),
                       Gap.vertical(10),
                       BlocBuilder<TransactionsCubit, TransactionsState>(
