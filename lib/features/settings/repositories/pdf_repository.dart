@@ -20,7 +20,8 @@ class PdfRepository {
     required String totalPlannedAmountExpense,
   }) async {
     final pdf = pw.Document();
-    final imageLogo = await rootBundle.load('assets/images/splash.png');
+    final imageLogo =
+        await rootBundle.load('assets/images/budget_intelli_splash.png');
     final imageList = imageLogo.buffer.asUint8List();
     var incomeTitle = 'Income:';
     var expenseTitle = 'Expense:';
@@ -40,8 +41,10 @@ class PdfRepository {
       actualTitle = 'Aktual';
     }
 
-    final incomePdfContentList = pdfContentList.where((e) => e.type == 'income').toList();
-    final expensePdfContentList = pdfContentList.where((e) => e.type == 'expense').toList();
+    final incomePdfContentList =
+        pdfContentList.where((e) => e.type == 'income').toList();
+    final expensePdfContentList =
+        pdfContentList.where((e) => e.type == 'expense').toList();
 
     pdf.addPage(
       pw.MultiPage(
