@@ -109,6 +109,9 @@ class _TrackingViewState extends State<TrackingView> {
 
         return CustomScrollView(
           slivers: [
+            SliverToBoxAdapter(
+              child: Gap.vertical(10),
+            ),
             CupertinoSliverRefreshControl(
               onRefresh: () async {
                 _getAllItemCategoryTransactions();

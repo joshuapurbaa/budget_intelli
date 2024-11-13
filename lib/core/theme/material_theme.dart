@@ -368,6 +368,11 @@ class MaterialTheme {
         ),
         scaffoldBackgroundColor: colorScheme.surface,
         canvasColor: colorScheme.surface,
+        tabBarTheme: TabBarTheme(
+          labelColor: colorScheme.primary,
+          unselectedLabelColor: colorScheme.onSurface,
+          dividerColor: colorScheme.surface,
+        ),
         datePickerTheme: DatePickerThemeData(
           cancelButtonStyle: ButtonStyle(
             foregroundColor: WidgetStateProperty.all(colorScheme.primary),

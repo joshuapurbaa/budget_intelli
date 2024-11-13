@@ -6,8 +6,6 @@ class AppGlass extends StatelessWidget {
   const AppGlass({
     required this.child,
     super.key,
-    // required this.startGradient,
-    // required this.endGradient,
     this.begin = Alignment.centerLeft,
     this.end = Alignment.centerRight,
     this.height,
@@ -57,10 +55,6 @@ class AppGlass extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(16),
           ),
-          // border: Border.all(
-          //   width: 0.2,
-          //   color: context.color.primary,
-          // ),
           boxShadow: [
             appBoxShadow(
               context,
@@ -68,14 +62,10 @@ class AppGlass extends StatelessWidget {
           ],
         ),
         child: child,
-      )
-          .animate()
-          .fadeIn() // uses `Animate.defaultDuration`
-          .scale() // inherits duration from fadeIn
-          .move(
+      ).animate().fadeIn().scale().move(
             delay: 300.ms,
             duration: 600.ms,
-          ), // runs after the above w/new duration
+          ),
     );
   }
 }

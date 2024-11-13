@@ -8,6 +8,7 @@ import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({
@@ -112,8 +113,6 @@ class _HomeContentState extends State<HomeContent>
                   var totalActualIncome = 0.0;
                   var totalBudgetExpense = 0.0;
                   var totalBudgetIncome = 0.0;
-                  // var totalPlanExpense = 0;
-                  // var totalPlanIncome = 0;
 
                   if (state is BudgetError) {
                     return const _ErrorWidget();
@@ -125,8 +124,6 @@ class _HomeContentState extends State<HomeContent>
                     budget = state.budget;
                     totalActualExpense = state.totalActualExpense;
                     totalActualIncome = state.totalActualIncome;
-                    // totalPlanIncome = budget?.totalPlanIncome ?? 0;
-                    // totalPlanExpense = budget?.totalPlanExpense ?? 0;
                     itemCategoryTransactions =
                         state.itemCategoryTransactionsByBudgetId;
 
@@ -169,8 +166,8 @@ class _HomeContentState extends State<HomeContent>
                         pinned: true,
                         floating: true,
                         delegate: SliverAppBarDelegate(
-                          minHeight: 80.h,
-                          maxHeight: 80.h,
+                          minHeight: 70.h,
+                          maxHeight: 70.h,
                           child: ColoredBox(
                             color: context.color.surface,
                             child: Column(

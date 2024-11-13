@@ -291,6 +291,7 @@ class _OverViewState extends State<OverView> {
           child: RepaintBoundary(
             child: ListView(
               children: [
+                Gap.vertical(10),
                 const HeaderWidget(),
                 BlocListener<PromptAnalysisCubit, PromptAnalysisState>(
                   listener: (context, state) {
