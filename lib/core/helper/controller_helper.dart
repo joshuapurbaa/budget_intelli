@@ -144,4 +144,10 @@ class ControllerHelper {
     final languageVal = setting.selectedLanguage.value;
     return languageVal;
   }
+
+  static ThemeMode getThemeMode(BuildContext context) {
+    final setting = context.read<SettingBloc>().state;
+    final themeMode = setting.themeMode;
+    return themeMode;
+  }
 }

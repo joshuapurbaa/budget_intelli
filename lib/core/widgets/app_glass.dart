@@ -30,6 +30,8 @@ class AppGlass extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeMode = ControllerHelper.getThemeMode(context);
+    final isDarkMode = themeMode == ThemeMode.dark;
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -39,16 +41,19 @@ class AppGlass extends StatelessWidget {
         padding: padding ?? getEdgeInsetsAll(16),
         margin: margin,
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              context.color.secondaryContainer,
-              context.color.surface,
-              context.color.surface,
-            ],
-            stops: const [0, 1, 1],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          color: isDarkMode ? null : context.color.surface,
+          gradient: isDarkMode
+              ? LinearGradient(
+                  colors: [
+                    context.color.secondaryContainer,
+                    context.color.surface,
+                    context.color.surface,
+                  ],
+                  stops: const [0, 1, 1],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                )
+              : null,
           borderRadius: const BorderRadius.all(
             Radius.circular(16),
           ),
