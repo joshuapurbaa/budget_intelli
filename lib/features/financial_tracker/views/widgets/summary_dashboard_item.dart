@@ -14,6 +14,7 @@ class SummaryDashboardItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final member = transaction.memberName;
     final expense = transaction.type == 'expense';
+
     return Padding(
       padding: getEdgeInsets(bottom: 10),
       child: Row(

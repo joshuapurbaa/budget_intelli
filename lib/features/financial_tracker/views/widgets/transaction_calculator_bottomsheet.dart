@@ -40,7 +40,14 @@ class _TransactionCalculatorBottomSheetState
     final localize = textLocalizer(context);
     final isIncome = context.watch<FinancialDashboardCubit>().state.isIncome;
     final zeroExpression = notifier.expression == '0';
-    final currencySymbol = context.watch<SettingBloc>().state.currency.symbol;
+
+    final cleanVal = NumberFormatter.formatStringToMoneyNoSymbol(
+      context,
+      notifier.result,
+    );
+
+    print('cleanVal: ${cleanVal.toDouble()}');
+
     return Container(
       constraints: BoxConstraints(
         maxHeight: MediaQuery.of(context).size.height * 0.90,
@@ -216,13 +223,19 @@ class _TransactionCalculatorBottomSheetState
                           return;
                         }
 
+                        final cleanVal =
+                            NumberFormatter.formatStringToMoneyNoSymbol(
+                          context,
+                          notifier.result,
+                        );
+
                         if (selectedMember != null) {
                           final transaction = FinancialTransaction(
                             id: const Uuid().v4(),
                             createdAt: DateTime.now().toString(),
                             updatedAt: DateTime.now().toString(),
                             comment: _commentController.text,
-                            amount: notifier.result.toDouble(),
+                            amount: cleanVal.toDouble(),
                             date: date.toString(),
                             type: isIncome ? 'income' : 'expense',
                             categoryName: category.categoryName,

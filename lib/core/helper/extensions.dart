@@ -45,8 +45,16 @@ extension StringToDouble on String {
         input = input.replaceAll(',', '');
       }
     } else if (input.contains(',')) {
-      // Jika hanya ada koma, anggap itu sebagai desimal
-      input = input.replaceAll(',', '.');
+      // Jika hanya ada koma, tetapi dibelakang terdapat 2 digit desimal, maka koma digunakan sebagai desimal
+      final parts = input.split(',');
+      if (parts.length == 2 && parts[1].length == 2) {
+        return double.parse(input);
+      } else {
+        // Jika hanya ada koma, tetapi dibelakang terdapat 3 angka maka hilangkan koma
+        if (parts[1].length == 3) {
+          return double.parse(parts[0] + parts[1]);
+        }
+      }
     } else if (input.contains('.')) {
       final parts = input.split('.');
       if (parts.length == 2 && parts[1] == '0' || parts[1] == '00') {
