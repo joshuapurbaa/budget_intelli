@@ -11,17 +11,20 @@ class NumberFormatter {
   }) {
     final currencyState = context.read<SettingBloc>().state;
     final currency = currencyState.currency;
-    final formatter = NumberFormat.currency(
-      locale: currency.locale,
-      symbol: '${currency.symbol} ',
-      decimalDigits: decimalDigits ?? 2,
-    );
 
-    // Pertahankan titik desimal dan hapus karakter non-numeric lainnya
     final cleanVal = value.replaceAll(RegExp('[^0-9.]'), '');
 
     // Pastikan nilai tidak kosong
     final parsedValue = double.tryParse(cleanVal) ?? 0.0;
+    final decimalByModulus = parsedValue % 1 == 0 ? 0 : 2;
+    final formatter = NumberFormat.currency(
+      locale: currency.locale,
+      symbol: '${currency.symbol} ',
+      decimalDigits: decimalDigits ?? decimalByModulus,
+    );
+
+    // Pertahankan titik desimal dan hapus karakter non-numeric lainnya
+
     return formatter.format(parsedValue);
   }
 

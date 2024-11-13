@@ -46,223 +46,214 @@ class _TransactionCalculatorBottomSheetState
         maxHeight: MediaQuery.of(context).size.height * 0.90,
       ),
       padding: getEdgeInsetsSymmetric(horizontal: 10),
-      child: Stack(
+      child: Column(
         children: [
-          Column(
+          Container(
+            margin: getEdgeInsets(top: 10),
+            height: 5,
+            width: 50,
+            decoration: BoxDecoration(
+              color: context.color.onInverseSurface,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
+              ),
+            ),
+          ),
+          Gap.vertical(20),
+          Row(
             children: [
-              Container(
-                margin: getEdgeInsets(top: 10),
-                height: 5,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: context.color.onInverseSurface,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
+              const Expanded(
+                child: AccountDropdown(),
+              ),
+              Gap.horizontal(10),
+              Expanded(
+                child: CategoryDropdown(
+                  isIncome: isIncome,
                 ),
               ),
-              Gap.vertical(20),
-              Row(
-                children: [
-                  const Expanded(
-                    child: AccountDropdown(),
-                  ),
-                  Gap.horizontal(10),
-                  Expanded(
-                    child: CategoryDropdown(
-                      isIncome: isIncome,
-                    ),
-                  ),
-                ],
-              ),
-              Gap.vertical(15),
-              AppText(
-                text: isIncome ? localize.income : localize.expenses,
-                style: StyleType.bodLg,
-                color: context.color.onSurface,
-              ),
-              Gap.vertical(15),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      AppText(
-                        text: currencySymbol,
-                        style: StyleType.disSm,
-                      ),
-                      Gap.horizontal(5),
-                      AppText(
-                        text: notifier.result,
-                        style: StyleType.disLg,
-                      ),
-                    ],
-                  ),
-                  if (!zeroExpression)
-                    AppText(
-                      text: notifier.expression,
-                      style: StyleType.bodMd,
-                      color: context.color.onSurface.withOpacity(0.5),
-                      fontWeight: FontWeight.w400,
-                    ),
-                ],
-              ),
-              TextField(
-                controller: _commentController,
-                textAlign: TextAlign.center,
-                maxLines: 2,
-                decoration: InputDecoration(
-                  hintText: '${localize.addComment}...',
-                  hintStyle: const TextStyle(
-                    color: Colors.grey,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  border: InputBorder.none,
-                  focusedBorder: InputBorder.none,
-                ),
-              ),
-              const Spacer(),
-              FinancialCalculatorButtons(
-                notifier: notifier,
-              ),
-              Gap.vertical(5),
-              Row(
-                children: [
-                  const ButtonMember(),
-                  Gap.horizontal(5),
-                  Expanded(
-                    child: BlocConsumer<FinancialTransactionBloc,
-                        FinancialTransactionState>(
-                      listener: (context, state) {
-                        if (state.insertSuccess) {
-                          context.pop();
-                          context.read<FinancialTransactionBloc>().add(
-                                const ResetFinancialTransactionStateEvent(),
-                              );
-                          context
-                              .read<FinancialDashboardCubit>()
-                              .getAllFinancialTransactionByMonthAndYear(
-                                context,
-                                namaBulan: context
-                                    .read<FinancialDashboardCubit>()
-                                    .state
-                                    .selectedMonth,
-                              );
-                        }
-
-                        if (state.errorMessage != null) {
-                          AppToast.showToastError(
-                            context,
-                            state.errorMessage ?? localize.failed,
-                          );
-                        }
-                      },
-                      builder: (context, state) {
-                        return ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            fixedSize: Size(382.w, 65.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            backgroundColor: context.color.primary,
-                          ),
-                          onPressed: () {
-                            final category = context
-                                .read<FinancialCategoryBloc>()
-                                .state
-                                .selectedFinancialCategory;
-                            final account = context
-                                .read<AccountBloc>()
-                                .state
-                                .selectedAccount;
-                            final location = context
-                                .read<LocationCubit>()
-                                .state
-                                .transactionLocation;
-                            final imageBytes = ControllerHelper.getImagesBytes(
-                              context,
-                            );
-                            final date = context
-                                .read<TimeScrollWheelCubit>()
-                                .state
-                                .selectedDate;
-                            final isIncome = context
-                                .read<FinancialDashboardCubit>()
-                                .state
-                                .isIncome;
-
-                            final selectedMember = context
-                                .read<MemberDbBloc>()
-                                .state
-                                .selectedMember;
-
-                            if (notifier.result.trim() == '0' ||
-                                notifier.result == ' ') {
-                              AppToast.showToastError(
-                                context,
-                                localize.amountRequired,
-                              );
-                              return;
-                            }
-
-                            if (category == null) {
-                              AppToast.showToastError(
-                                context,
-                                localize.categoryRequired,
-                              );
-                              return;
-                            }
-
-                            if (account == null) {
-                              AppToast.showToastError(
-                                context,
-                                localize.accountRequired,
-                              );
-                              return;
-                            }
-
-                            if (selectedMember != null) {
-                              final transaction = FinancialTransaction(
-                                id: const Uuid().v4(),
-                                createdAt: DateTime.now().toString(),
-                                updatedAt: DateTime.now().toString(),
-                                comment: _commentController.text,
-                                amount: notifier.result.toDouble(),
-                                date: date.toString(),
-                                type: isIncome ? 'income' : 'expense',
-                                categoryName: category.categoryName,
-                                accountName: account.name,
-                                accountId: account.id,
-                                categoryId: category.id,
-                                transactionLocation: location,
-                                picture: imageBytes,
-                                memberId: selectedMember.id,
-                                memberName: selectedMember.name,
-                              );
-
-                              context.read<FinancialTransactionBloc>().add(
-                                    InsertFinancialTransactionEvent(
-                                      transaction,
-                                    ),
-                                  );
-                            }
-                          },
-                          child: AppText(
-                            text: localize.recordTransaction,
-                            style: StyleType.bodLg,
-                            color: context.color.onPrimary,
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              Gap.vertical(20),
             ],
           ),
+          Gap.vertical(12),
+          AppText(
+            text: isIncome ? localize.income : localize.expenses,
+            style: StyleType.bodLg,
+            color: context.color.onSurface,
+          ),
+          Gap.vertical(12),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: AppText.autoSize(
+                    text: NumberFormatter.formatStringToMoney(
+                      context,
+                      notifier.result,
+                    ),
+                    style: StyleType.disLg,
+                    maxLines: 2,
+                    minFontSize: 35,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                if (!zeroExpression)
+                  AppText(
+                    text: notifier.expression,
+                    style: StyleType.bodMd,
+                    color: context.color.onSurface.withOpacity(0.5),
+                    fontWeight: FontWeight.w400,
+                  ),
+              ],
+            ),
+          ),
+          TextField(
+            controller: _commentController,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            decoration: InputDecoration(
+              hintText: '${localize.addComment}...',
+              hintStyle: const TextStyle(
+                color: Colors.grey,
+                fontSize: 15,
+                fontWeight: FontWeight.w400,
+              ),
+              border: InputBorder.none,
+              focusedBorder: InputBorder.none,
+            ),
+          ),
+          FinancialCalculatorButtons(
+            notifier: notifier,
+          ),
+          Gap.vertical(5),
+          Row(
+            children: [
+              const ButtonMember(),
+              Gap.horizontal(5),
+              Expanded(
+                child: BlocConsumer<FinancialTransactionBloc,
+                    FinancialTransactionState>(
+                  listener: (context, state) {
+                    if (state.insertSuccess) {
+                      context.pop();
+                      context.read<FinancialTransactionBloc>().add(
+                            const ResetFinancialTransactionStateEvent(),
+                          );
+                      context
+                          .read<FinancialDashboardCubit>()
+                          .getAllFinancialTransactionByMonthAndYear(
+                            context,
+                            namaBulan: context
+                                .read<FinancialDashboardCubit>()
+                                .state
+                                .selectedMonth,
+                          );
+                    }
+
+                    if (state.errorMessage != null) {
+                      AppToast.showToastError(
+                        context,
+                        state.errorMessage ?? localize.failed,
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        fixedSize: Size(382.w, 65.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        backgroundColor: context.color.primary,
+                      ),
+                      onPressed: () {
+                        final category = context
+                            .read<FinancialCategoryBloc>()
+                            .state
+                            .selectedFinancialCategory;
+                        final account =
+                            context.read<AccountBloc>().state.selectedAccount;
+                        final location = context
+                            .read<LocationCubit>()
+                            .state
+                            .transactionLocation;
+                        final imageBytes = ControllerHelper.getImagesBytes(
+                          context,
+                        );
+                        final date = context
+                            .read<TimeScrollWheelCubit>()
+                            .state
+                            .selectedDate;
+                        final isIncome = context
+                            .read<FinancialDashboardCubit>()
+                            .state
+                            .isIncome;
+
+                        final selectedMember =
+                            context.read<MemberDbBloc>().state.selectedMember;
+
+                        if (notifier.result.trim() == '0' ||
+                            notifier.result == ' ') {
+                          AppToast.showToastError(
+                            context,
+                            localize.amountRequired,
+                          );
+                          return;
+                        }
+
+                        if (category == null) {
+                          AppToast.showToastError(
+                            context,
+                            localize.categoryRequired,
+                          );
+                          return;
+                        }
+
+                        if (account == null) {
+                          AppToast.showToastError(
+                            context,
+                            localize.accountRequired,
+                          );
+                          return;
+                        }
+
+                        if (selectedMember != null) {
+                          final transaction = FinancialTransaction(
+                            id: const Uuid().v4(),
+                            createdAt: DateTime.now().toString(),
+                            updatedAt: DateTime.now().toString(),
+                            comment: _commentController.text,
+                            amount: notifier.result.toDouble(),
+                            date: date.toString(),
+                            type: isIncome ? 'income' : 'expense',
+                            categoryName: category.categoryName,
+                            accountName: account.name,
+                            accountId: account.id,
+                            categoryId: category.id,
+                            transactionLocation: location,
+                            picture: imageBytes,
+                            memberId: selectedMember.id,
+                            memberName: selectedMember.name,
+                          );
+
+                          context.read<FinancialTransactionBloc>().add(
+                                InsertFinancialTransactionEvent(
+                                  transaction,
+                                ),
+                              );
+                        }
+                      },
+                      child: AppText(
+                        text: localize.recordTransaction,
+                        style: StyleType.bodLg,
+                        color: context.color.onPrimary,
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+          Gap.vertical(20),
         ],
       ),
     );
