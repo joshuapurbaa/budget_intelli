@@ -210,7 +210,7 @@ class _AddIncomeIncomeTransactionScreenState
                           ],
                         ),
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       GestureDetector(
                         onTap: _showCalendar,
                         child: AppGlass(
@@ -237,7 +237,7 @@ class _AddIncomeIncomeTransactionScreenState
                           ),
                         ),
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       AppBoxFormField(
                         hintText: hintText,
                         prefixIcon: noteDescriptionPng,
@@ -246,7 +246,7 @@ class _AddIncomeIncomeTransactionScreenState
                         isPng: true,
                         iconColor: context.color.onSurface,
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BlocBuilder<AccountBloc, AccountState>(
                         builder: (context, state) {
                           final accounts = state.accounts;
@@ -351,11 +351,11 @@ class _AddIncomeIncomeTransactionScreenState
                           );
                         },
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BoxCalculator(
                         label: '${localize.amountFieldLabel}*',
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BlocBuilder<TransactionsCubit, TransactionsState>(
                         builder: (context, state) {
                           var created = false;

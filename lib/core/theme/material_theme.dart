@@ -368,6 +368,27 @@ class MaterialTheme {
         ),
         scaffoldBackgroundColor: colorScheme.surface,
         canvasColor: colorScheme.surface,
+        datePickerTheme: DatePickerThemeData(
+          cancelButtonStyle: ButtonStyle(
+            foregroundColor: WidgetStateProperty.all(colorScheme.primary),
+            textStyle: WidgetStateProperty.all(
+              textTheme.bodyLarge!.copyWith(
+                color: colorScheme.error,
+              ),
+            ),
+          ),
+          confirmButtonStyle: ButtonStyle(
+            foregroundColor: WidgetStateProperty.all(colorScheme.primary),
+            textStyle: WidgetStateProperty.all(
+              textTheme.bodyLarge!.copyWith(
+                color: colorScheme.primary,
+              ),
+            ),
+          ),
+          headerHelpStyle: textTheme.bodyLarge!.copyWith(
+            color: colorScheme.onSurface,
+          ),
+        ),
       );
 
   /// Custom Color

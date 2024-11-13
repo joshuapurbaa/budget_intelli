@@ -295,7 +295,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           ),
                         ],
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BlocBuilder<TrackingCubit, TrackingState>(
                         builder: (context, state) {
                           var itemCategories = <ItemCategoryHistory>[];
@@ -422,7 +422,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           );
                         },
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       GestureDetector(
                         onTap: _showCalendar,
                         child: AppGlass(
@@ -449,7 +449,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           ),
                         ),
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       AppBoxFormField(
                         hintText: hintText,
                         prefixIcon: noteDescriptionPng,
@@ -458,7 +458,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         isPng: true,
                         iconColor: context.color.onSurface,
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BlocBuilder<AccountBloc, AccountState>(
                         builder: (context, state) {
                           final accounts = state.accounts;
@@ -545,11 +545,11 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           );
                         },
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BoxCalculator(
                         label: '${localize.amountFieldLabel}*',
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BlocBuilder<TransactionsCubit, TransactionsState>(
                         builder: (context, state) {
                           var created = false;
@@ -564,7 +564,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         },
                       ),
                       if (!premiumUser) ...[
-                        Gap.vertical(10),
+                        Gap.vertical(8),
                         // Gap.vertical(32),
                         // AppButton(
                         //   label: localize.buyPremium,

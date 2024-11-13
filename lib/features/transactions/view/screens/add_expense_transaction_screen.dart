@@ -212,7 +212,7 @@ class _AddExpenseTransactionScreenState
                                 ),
                               ],
                             ),
-                            Gap.vertical(10),
+                            Gap.vertical(8),
                             if (remainingStr != null) ...[
                               Padding(
                                 padding: const EdgeInsets.only(left: 45),
@@ -244,7 +244,7 @@ class _AddExpenseTransactionScreenState
                           ],
                         ),
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       GestureDetector(
                         onTap: _showCalendar,
                         child: AppGlass(
@@ -271,7 +271,7 @@ class _AddExpenseTransactionScreenState
                           ),
                         ),
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       AppBoxFormField(
                         hintText: '${localize.whereDidYouSpendThisMoney}*',
                         prefixIcon: noteDescriptionPng,
@@ -280,7 +280,7 @@ class _AddExpenseTransactionScreenState
                         isPng: true,
                         iconColor: context.color.onSurface,
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BlocBuilder<AccountBloc, AccountState>(
                         builder: (context, state) {
                           final accounts = state.accounts;
@@ -385,11 +385,11 @@ class _AddExpenseTransactionScreenState
                           );
                         },
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BoxCalculator(
                         label: '${localize.amountFieldLabel}*',
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       BlocBuilder<TransactionsCubit, TransactionsState>(
                         builder: (context, state) {
                           var created = false;
