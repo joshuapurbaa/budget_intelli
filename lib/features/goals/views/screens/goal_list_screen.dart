@@ -61,12 +61,12 @@ class _GoalListScreenState extends State<GoalListScreen> {
                     print('goal.goalAmount: ${goal.goalAmount}');
                     print('goal.remainingAmount: ${goal.remainingAmount}');
                     print(
-                        'goal.goalAmount.toDouble(): ${goal.goalAmount.toDouble()}',);
+                        'goal.goalAmount.toDouble(): ${goal.goalAmount}',);
                     print(
-                        'goal.remainingAmount.toDouble() ${goal.remainingAmount.toDouble()}',);
+                        'goal.remainingAmount.toDouble() ${goal.remainingAmount}',);
 
-                    final saved = goal.goalAmount.toDouble() -
-                        goal.remainingAmount.toDouble();
+                    final saved = goal.goalAmount -
+                        goal.remainingAmount;
 
                     final savedStr = NumberFormatter.formatToMoneyDouble(
                       context,
@@ -75,7 +75,7 @@ class _GoalListScreenState extends State<GoalListScreen> {
 
                     final goalAmountStr = NumberFormatter.formatToMoneyDouble(
                       context,
-                      goal.goalAmount.toDouble(),
+                      goal.goalAmount,
                     );
 
                     final startDate = goal.startGoalDate.toDateTime();

@@ -99,7 +99,7 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
 
                           if (value != null &&
                               _assetNameController.text.isNotEmpty) {
-                            final assetValue = value.toDouble();
+                            final assetValue = value;
                             final assetEntity = AssetEntity(
                               name: _assetNameController.text,
                               amount: assetValue,

@@ -66,7 +66,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 0,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[0].toDouble(),
+                  toY: monthlyAmounts[0],
                   gradient: _barsGradient,
                 ),
               ],
@@ -76,7 +76,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 1,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[1].toDouble(),
+                  toY: monthlyAmounts[1],
                   gradient: _barsGradient,
                 ),
               ],
@@ -86,7 +86,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 2,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[2].toDouble(),
+                  toY: monthlyAmounts[2],
                   gradient: _barsGradient,
                 ),
               ],
@@ -96,7 +96,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 3,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[3].toDouble(),
+                  toY: monthlyAmounts[3],
                   gradient: _barsGradient,
                 ),
               ],
@@ -106,7 +106,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 4,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[4].toDouble(),
+                  toY: monthlyAmounts[4],
                   gradient: _barsGradient,
                 ),
               ],
@@ -116,7 +116,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 5,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[5].toDouble(),
+                  toY: monthlyAmounts[5],
                   gradient: _barsGradient,
                 ),
               ],
@@ -126,7 +126,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 6,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[6].toDouble(),
+                  toY: monthlyAmounts[6],
                   gradient: _barsGradient,
                 ),
               ],
@@ -136,7 +136,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 7,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[7].toDouble(),
+                  toY: monthlyAmounts[7],
                   gradient: _barsGradient,
                 ),
               ],
@@ -146,7 +146,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 8,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[8].toDouble(),
+                  toY: monthlyAmounts[8],
                   gradient: _barsGradient,
                 ),
               ],
@@ -156,7 +156,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 9,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[9].toDouble(),
+                  toY: monthlyAmounts[9],
                   gradient: _barsGradient,
                 ),
               ],
@@ -166,7 +166,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 10,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[10].toDouble(),
+                  toY: monthlyAmounts[10],
                   gradient: _barsGradient,
                 ),
               ],
@@ -176,7 +176,7 @@ class BarChartMonthly extends StatelessWidget {
               x: 11,
               barRods: [
                 BarChartRodData(
-                  toY: monthlyAmounts[11].toDouble(),
+                  toY: monthlyAmounts[11],
                   gradient: _barsGradient,
                 ),
               ],

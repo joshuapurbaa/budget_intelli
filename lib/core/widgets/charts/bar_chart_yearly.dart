@@ -87,7 +87,7 @@ class BarChartYearly extends StatelessWidget {
               x: index,
               barRods: [
                 BarChartRodData(
-                  toY: yearlyAmounts[index].toDouble(),
+                  toY: yearlyAmounts[index],
                   gradient: _barsGradient,
                 ),
               ],

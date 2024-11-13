@@ -39,8 +39,8 @@ class GoalDetailScreen extends StatelessWidget {
         double? saved;
 
         if (goal != null) {
-          final goalAmount = goal.goalAmount.toDouble();
-          final remainingAmount = goal.remainingAmount.toDouble();
+          final goalAmount = goal.goalAmount;
+          final remainingAmount = goal.remainingAmount;
 
           saved = goalAmount - remainingAmount;
 

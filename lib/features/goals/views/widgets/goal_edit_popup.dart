@@ -68,7 +68,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
             (12 * (_daterange[1]!.year - _daterange[0]!.year));
       }
 
-      final goalAmount = _updatedGoalAmount!.toDouble();
+      final goalAmount = _updatedGoalAmount!;
       final saved = widget.saved;
 
       // Hitung total amount yang perlu dicapai

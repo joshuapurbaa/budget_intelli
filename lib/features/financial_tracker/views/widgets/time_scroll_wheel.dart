@@ -86,7 +86,7 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
                 ),
               ),
             ),
-            AppText(
+            const AppText(
               text: ':',
               style: StyleType.bodLg,
             ),

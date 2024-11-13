@@ -67,7 +67,7 @@ class BarChartDaily extends StatelessWidget {
             x: 0,
             barRods: [
               BarChartRodData(
-                toY: dailyAmounts[0].toDouble(),
+                toY: dailyAmounts[0],
                 gradient: _barsGradient,
               ),
             ],
@@ -77,7 +77,7 @@ class BarChartDaily extends StatelessWidget {
             x: 1,
             barRods: [
               BarChartRodData(
-                toY: dailyAmounts[1].toDouble(),
+                toY: dailyAmounts[1],
                 gradient: _barsGradient,
               ),
             ],
@@ -87,7 +87,7 @@ class BarChartDaily extends StatelessWidget {
             x: 2,
             barRods: [
               BarChartRodData(
-                toY: dailyAmounts[2].toDouble(),
+                toY: dailyAmounts[2],
                 gradient: _barsGradient,
               ),
             ],
@@ -97,7 +97,7 @@ class BarChartDaily extends StatelessWidget {
             x: 3,
             barRods: [
               BarChartRodData(
-                toY: dailyAmounts[3].toDouble(),
+                toY: dailyAmounts[3],
                 gradient: _barsGradient,
               ),
             ],
@@ -107,7 +107,7 @@ class BarChartDaily extends StatelessWidget {
             x: 4,
             barRods: [
               BarChartRodData(
-                toY: dailyAmounts[4].toDouble(),
+                toY: dailyAmounts[4],
                 gradient: _barsGradient,
               ),
             ],
@@ -117,7 +117,7 @@ class BarChartDaily extends StatelessWidget {
             x: 5,
             barRods: [
               BarChartRodData(
-                toY: dailyAmounts[5].toDouble(),
+                toY: dailyAmounts[5],
                 gradient: _barsGradient,
               ),
             ],
@@ -127,7 +127,7 @@ class BarChartDaily extends StatelessWidget {
             x: 6,
             barRods: [
               BarChartRodData(
-                toY: dailyAmounts[6].toDouble(),
+                toY: dailyAmounts[6],
                 gradient: _barsGradient,
               ),
             ],

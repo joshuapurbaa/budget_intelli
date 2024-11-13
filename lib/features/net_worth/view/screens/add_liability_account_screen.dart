@@ -100,7 +100,7 @@ class _AddLiabilityAccountScreenState extends State<AddLiabilityAccountScreen> {
 
                           if (value != null &&
                               _liabilityNameController.text.isNotEmpty) {
-                            final liabilityAmount = value.toDouble();
+                            final liabilityAmount = value;
                             final liabilityEntity = LiabilityEntity(
                               name: _liabilityNameController.text,
                               amount: liabilityAmount,
