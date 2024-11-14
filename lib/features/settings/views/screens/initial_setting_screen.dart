@@ -561,7 +561,7 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                       context.go(MyRoute.financialDashboardTracker);
                     },
                     child: AppText(
-                      text: 'Expense and Income Tracker',
+                      text: localize.startFinancialTracking,
                       style: StyleType.bodLg,
                       color: context.color.onSurface,
                     ),

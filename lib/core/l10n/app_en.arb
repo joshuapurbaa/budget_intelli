@@ -382,5 +382,6 @@
     "accountRequired": "Account is required",
     "amountRequired": "Amount is required",
     "at": "at",
-    "startBudgeting": "Start Budgeting"
+    "startBudgeting": "Start Budgeting",
+    "startFinancialTracking": "Start Financial Tracking"
 }
