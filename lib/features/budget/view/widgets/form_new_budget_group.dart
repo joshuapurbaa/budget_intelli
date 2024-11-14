@@ -360,8 +360,14 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                 if (!addNewGroup) ...[
                   Expanded(
                     child: DropdownSearch<String>(
-                      clearButtonProps: ClearButtonProps(
-                        color: context.color.primary,
+                      suffixProps: DropdownSuffixProps(
+                        clearButtonProps: ClearButtonProps(
+                          color: context.color.primary,
+                        ),
+                        dropdownButtonProps: DropdownButtonProps(
+                          color: context.color.primary,
+                          iconSize: 18,
+                        ),
                       ),
                       popupProps: PopupProps.menu(
                         showSelectedItems: true,
@@ -371,15 +377,15 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                               .contains(item);
                         },
                       ),
-                      items: List.generate(
+                      items: (f, cs) => List.generate(
                         groupCategories.length,
                         (index) {
                           return groupCategories[index].groupName;
                         },
                       ),
-                      dropdownDecoratorProps: DropDownDecoratorProps(
+                      decoratorProps: DropDownDecoratorProps(
                         baseStyle: groupNameBaseStyle,
-                        dropdownSearchDecoration: InputDecoration(
+                        decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           hintText: localize.selectGroup,
                           border: OutlineInputBorder(
@@ -419,13 +425,6 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                         }
                       },
                       selectedItem: groupName,
-                      dropdownButtonProps: DropdownButtonProps(
-                        icon: Icon(
-                          CupertinoIcons.chevron_down,
-                          color: context.color.primary,
-                          size: 18,
-                        ),
-                      ),
                     ),
                   ),
                 ],
@@ -644,9 +643,6 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                         child: Column(
                           children: [
                             DropdownSearch<String>(
-                              clearButtonProps: ClearButtonProps(
-                                color: context.color.primary,
-                              ),
                               popupProps: PopupProps.menu(
                                 containerBuilder: (context, popupWidget) {
                                   return SizedBox(
@@ -697,15 +693,15 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                       .contains(item);
                                 },
                               ),
-                              items: List.generate(
+                              items: (f, cs) => List.generate(
                                 itemCategories.length,
                                 (index) {
                                   return itemCategories[index].categoryName;
                                 },
                               ),
-                              dropdownDecoratorProps: DropDownDecoratorProps(
+                              decoratorProps: DropDownDecoratorProps(
                                 baseStyle: baseStyle,
-                                dropdownSearchDecoration: InputDecoration(
+                                decoration: InputDecoration(
                                   contentPadding: EdgeInsets.zero,
                                   hintText: localize.selectCategory,
                                   border: OutlineInputBorder(
@@ -744,11 +740,13 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                 }
                               },
                               selectedItem: item.name,
-                              dropdownButtonProps: DropdownButtonProps(
-                                icon: Icon(
-                                  CupertinoIcons.chevron_down,
+                              suffixProps: DropdownSuffixProps(
+                                clearButtonProps: ClearButtonProps(
                                   color: context.color.primary,
-                                  size: 18,
+                                ),
+                                dropdownButtonProps: DropdownButtonProps(
+                                  color: context.color.primary,
+                                  iconSize: 18,
                                 ),
                               ),
                             ),

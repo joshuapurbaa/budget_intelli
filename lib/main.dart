@@ -97,17 +97,6 @@ void main() async {
     requestAlertPermission: false,
     requestBadgePermission: false,
     requestSoundPermission: false,
-    onDidReceiveLocalNotification:
-        (int id, String? title, String? body, String? payload) async {
-      didReceiveLocalNotificationStream.add(
-        ReceivedNotification(
-          id: id,
-          title: title,
-          body: body,
-          payload: payload,
-        ),
-      );
-    },
     notificationCategories: darwinNotificationCategories,
   );
 

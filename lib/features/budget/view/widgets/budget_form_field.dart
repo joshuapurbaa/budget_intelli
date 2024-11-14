@@ -397,9 +397,6 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                 if (!addNewGroups[indexGroup])
                                   Expanded(
                                     child: DropdownSearch<String>(
-                                      clearButtonProps: ClearButtonProps(
-                                        color: context.color.primary,
-                                      ),
                                       popupProps: PopupProps.menu(
                                         showSelectedItems: true,
                                         disabledItemFn: (item) {
@@ -408,18 +405,16 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                               .contains(item);
                                         },
                                       ),
-                                      items: List.generate(
+                                      items: (f, cs) => List.generate(
                                         groupCategories.length,
                                         (index) {
                                           return groupCategories[index]
                                               .groupName;
                                         },
                                       ),
-                                      dropdownDecoratorProps:
-                                          DropDownDecoratorProps(
+                                      decoratorProps: DropDownDecoratorProps(
                                         baseStyle: groupNameBaseStyle,
-                                        dropdownSearchDecoration:
-                                            InputDecoration(
+                                        decoration: InputDecoration(
                                           contentPadding: EdgeInsets.zero,
                                           hintText: localize.selectGroup,
                                           hintStyle: textStyle(
@@ -502,11 +497,14 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                         }
                                       },
                                       selectedItem: groupName,
-                                      dropdownButtonProps: DropdownButtonProps(
-                                        icon: Icon(
-                                          CupertinoIcons.chevron_down,
+                                      suffixProps: DropdownSuffixProps(
+                                        clearButtonProps: ClearButtonProps(
                                           color: context.color.primary,
-                                          size: 18,
+                                        ),
+                                        dropdownButtonProps:
+                                            DropdownButtonProps(
+                                          color: context.color.primary,
+                                          iconSize: 18,
                                         ),
                                       ),
                                     ),
@@ -804,9 +802,16 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                         child: Column(
                                           children: [
                                             DropdownSearch<String>(
-                                              clearButtonProps:
-                                                  ClearButtonProps(
-                                                color: context.color.primary,
+                                              suffixProps: DropdownSuffixProps(
+                                                clearButtonProps:
+                                                    ClearButtonProps(
+                                                  color: context.color.primary,
+                                                ),
+                                                dropdownButtonProps:
+                                                    DropdownButtonProps(
+                                                  color: context.color.primary,
+                                                  iconSize: 18,
+                                                ),
                                               ),
                                               onBeforeChange:
                                                   (prevItem, nextItem) {
@@ -846,56 +851,15 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                           child:
                                                               AppButton.noWidth(
                                                             onPressed: () {
-                                                              setState(() {
-                                                                final prevsValue =
-                                                                    _addCategoryField[
-                                                                            indexGroup]
-                                                                        [
-                                                                        indexItem];
-
-                                                                _addCategoryField[
-                                                                            indexGroup]
-                                                                        [
-                                                                        indexItem] =
-                                                                    !prevsValue;
-
-                                                                _selectedItemCategories[
-                                                                            indexGroup]
-                                                                        [
-                                                                        indexItem] =
-                                                                    ItemCategory(
-                                                                  id: item.id,
-                                                                  categoryName:
-                                                                      item.name,
-                                                                  type:
-                                                                      item.type,
-                                                                  createdAt: item
-                                                                      .createdAt,
-                                                                  updatedAt: item
-                                                                      .updatedAt,
-                                                                  iconPath: item
-                                                                      .iconPath,
-                                                                  hexColor: item
-                                                                      .hexColor,
-                                                                );
-                                                              });
-
-                                                              context
-                                                                  .read<
-                                                                      BudgetFormBloc>()
-                                                                  .add(
-                                                                    UpdateItemCategoryHistoryEvent(
-                                                                      groupId:
-                                                                          groupId,
-                                                                      itemId:
-                                                                          item.id,
-                                                                      itemCategory:
-                                                                          item.copyWith(
-                                                                        name: localize
-                                                                            .typeCategoryName,
-                                                                      ),
-                                                                    ),
-                                                                  );
+                                                              _setNewCategory(
+                                                                item: item,
+                                                                indexGroup:
+                                                                    indexGroup,
+                                                                indexItem:
+                                                                    indexItem,
+                                                                groupId:
+                                                                    groupId,
+                                                              );
                                                               context.pop();
                                                             },
                                                             label: localize.add,
@@ -914,18 +878,17 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                       .contains(item);
                                                 },
                                               ),
-                                              items: List.generate(
+                                              items: (f, cs) => List.generate(
                                                 itemCategories.length,
                                                 (index) {
                                                   return itemCategories[index]
                                                       .categoryName;
                                                 },
                                               ),
-                                              dropdownDecoratorProps:
+                                              decoratorProps:
                                                   DropDownDecoratorProps(
                                                 baseStyle: baseStyle,
-                                                dropdownSearchDecoration:
-                                                    InputDecoration(
+                                                decoration: InputDecoration(
                                                   contentPadding:
                                                       EdgeInsets.zero,
                                                   hintText:
@@ -997,14 +960,6 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                 }
                                               },
                                               selectedItem: item.name,
-                                              dropdownButtonProps:
-                                                  DropdownButtonProps(
-                                                icon: Icon(
-                                                  CupertinoIcons.chevron_down,
-                                                  color: context.color.primary,
-                                                  size: 18,
-                                                ),
-                                              ),
                                             ),
                                             Divider(
                                               color: context
@@ -1294,6 +1249,42 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
         );
       },
     );
+  }
+
+  void _setNewCategory({
+    required ItemCategoryHistory item,
+    required int indexGroup,
+    required int indexItem,
+    required String groupId,
+  }) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final localize = textLocalizer(context);
+      setState(() {
+        final prevsValue = _addCategoryField[indexGroup][indexItem];
+
+        _addCategoryField[indexGroup][indexItem] = !prevsValue;
+
+        _selectedItemCategories[indexGroup][indexItem] = ItemCategory(
+          id: item.id,
+          categoryName: item.name,
+          type: item.type,
+          createdAt: item.createdAt,
+          updatedAt: item.updatedAt,
+          iconPath: item.iconPath,
+          hexColor: item.hexColor,
+        );
+      });
+
+      context.read<BudgetFormBloc>().add(
+            UpdateItemCategoryHistoryEvent(
+              groupId: groupId,
+              itemId: item.id,
+              itemCategory: item.copyWith(
+                name: localize.typeCategoryName,
+              ),
+            ),
+          );
+    });
   }
 
   final List<Color> _pickerColor = [];

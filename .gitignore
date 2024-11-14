@@ -52,3 +52,6 @@ lib/core/constants/firebase/firebase_constant.dart
 lib/core/constants/api_key.dart
 *.mason
 **/bricks
+
+# FVM Version Cache
+.fvm/

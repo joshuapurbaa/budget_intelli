@@ -569,25 +569,25 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                         delay: 300.ms,
                         duration: 600.ms,
                       ),
-                  Gap.vertical(20),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: context.color.surface,
-                      side: BorderSide(
-                        color: context.color.onSurface,
-                      ),
-                      minimumSize: Size(double.infinity, 58.h),
-                    ),
-                    onPressed: () {},
-                    child: AppText(
-                      text: localize.setPin,
-                      style: StyleType.bodLg,
-                      color: context.color.onSurface,
-                    ),
-                  ).animate().fadeIn().scale().move(
-                        delay: 300.ms,
-                        duration: 600.ms,
-                      ),
+                  // Gap.vertical(20),
+                  // OutlinedButton(
+                  //   style: OutlinedButton.styleFrom(
+                  //     backgroundColor: context.color.surface,
+                  //     side: BorderSide(
+                  //       color: context.color.onSurface,
+                  //     ),
+                  //     minimumSize: Size(double.infinity, 58.h),
+                  //   ),
+                  //   onPressed: () {},
+                  //   child: AppText(
+                  //     text: localize.setPin,
+                  //     style: StyleType.bodLg,
+                  //     color: context.color.onSurface,
+                  //   ),
+                  // ).animate().fadeIn().scale().move(
+                  //       delay: 300.ms,
+                  //       duration: 600.ms,
+                  //     ),
                 ],
               );
             },
