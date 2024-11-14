@@ -24,6 +24,7 @@ class _ButtonMemberState extends State<ButtonMember> {
   }
 
   void _getAllMember() {
+    print('Get all member');
     context.read<MemberDbBloc>().add(
           const GetAllMemberDbEvent(),
         );

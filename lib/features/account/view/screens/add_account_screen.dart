@@ -133,7 +133,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       top: 16,
     );
     return PopScope(
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           _reset();
         }
@@ -318,6 +318,42 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                   );
                           },
                         ),
+                        if (isEdit) ...[
+                          Gap.vertical(8),
+                          BlocListener<AccountBloc, AccountState>(
+                            listener: (context, state) {
+                              final deleteSuccess = state.deleteSuccess;
+                              if (deleteSuccess) {
+                                AppToast.showToastSuccess(
+                                  context,
+                                  localize.successfullyDeleted,
+                                );
+                                context.pop();
+                                _reset();
+                              }
+                            },
+                            child: OutlineButtonPrimary(
+                              label: localize.delete,
+                              onPressed: () async {
+                                final result =
+                                    await AppDialog.showConfirmationDelete(
+                                  context,
+                                  localize.delete,
+                                  localize.confirmDelete,
+                                );
+
+                                if (result != null) {
+                                  final acc = _selectedAccount;
+                                  if (acc != null) {
+                                    context.read<AccountBloc>().add(
+                                          DeleteAccountEvent(acc.id),
+                                        );
+                                  }
+                                }
+                              },
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),

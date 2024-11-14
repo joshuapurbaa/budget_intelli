@@ -74,7 +74,7 @@ class AccountDropdown extends StatelessWidget {
                 size: 20,
                 color: context.color.primary,
               ),
-              hintText: 'Balanced',
+              hintText: localize.account,
               textStyle: textStyle(
                 context,
                 StyleType.bodMd,

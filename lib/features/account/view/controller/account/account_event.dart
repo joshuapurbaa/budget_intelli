@@ -46,3 +46,9 @@ final class SetAccountBlocToInitial extends AccountEvent {}
 final class SetInitialAccountTypes extends AccountEvent {}
 
 final class ResetSelectedAccountStateEvent extends AccountEvent {}
+
+final class DeleteAccountEvent extends AccountEvent {
+  DeleteAccountEvent(this.id);
+
+  final String id;
+}

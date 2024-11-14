@@ -780,6 +780,11 @@ void _initAccount() {
         serviceLocator(),
       ),
     )
+    ..registerFactory<DeleteAccountUsecase>(
+      () => DeleteAccountUsecase(
+        serviceLocator(),
+      ),
+    )
     ..registerLazySingleton(
       () => AccountBloc(
         getAccountsUsecase: serviceLocator(),
@@ -789,6 +794,7 @@ void _initAccount() {
         getAccountHistoriesUsecase: serviceLocator(),
         getAllItemCategoryTransactions: serviceLocator(),
         getItemCategoryHistoriesUsecase: serviceLocator(),
+        deleteAccountUsecase: serviceLocator(),
       ),
     );
 }

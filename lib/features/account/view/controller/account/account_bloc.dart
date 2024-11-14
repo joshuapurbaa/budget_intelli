@@ -17,6 +17,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     required GetAccountHistoriesUsecase getAccountHistoriesUsecase,
     required GetAllItemCategoryTransactions getAllItemCategoryTransactions,
     required GetItemCategoryHistoriesUsecase getItemCategoryHistoriesUsecase,
+    required DeleteAccountUsecase deleteAccountUsecase,
   })  : _insertAccountUsecase = insertAccountUsecase,
         _getAccountsUsecase = getAccountsUsecase,
         _preferenceRepository = settingPreferenceRepo,
@@ -24,6 +25,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
         _getAccountHistoriesUsecase = getAccountHistoriesUsecase,
         _getAllItemCategoryTransactions = getAllItemCategoryTransactions,
         _getItemCategoryHistoriesUsecase = getItemCategoryHistoriesUsecase,
+        _deleteAccountUsecase = deleteAccountUsecase,
         super(
           const AccountState(
             accounts: [],
@@ -43,6 +45,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     );
     on<TransferAccountEvent>(_onTransferAccountEvent);
     on<ResetSelectedAccountStateEvent>(_onResetSelectedAccountStateEvent);
+    on<DeleteAccountEvent>(_onDeleteAccountEvent);
   }
 
   final InsertAccountUsecase _insertAccountUsecase;
@@ -52,6 +55,7 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
   final GetAccountHistoriesUsecase _getAccountHistoriesUsecase;
   final GetAllItemCategoryTransactions _getAllItemCategoryTransactions;
   final GetItemCategoryHistoriesUsecase _getItemCategoryHistoriesUsecase;
+  final DeleteAccountUsecase _deleteAccountUsecase;
 
   Future<void> _onInsertAccountEvent(
     InsertAccountEvent event,
@@ -265,8 +269,27 @@ class AccountBloc extends Bloc<AccountEvent, AccountState> {
     Emitter<AccountState> emit,
   ) async {
     emit(
-      state.copyWith(
-        
+      state.copyWith(),
+    );
+  }
+
+  Future<void> _onDeleteAccountEvent(
+    DeleteAccountEvent event,
+    Emitter<AccountState> emit,
+  ) async {
+    final result = await _deleteAccountUsecase(event.id);
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          error: failure.message,
+          deleteSuccess: false,
+        ),
+      ),
+      (_) => emit(
+        state.copyWith(
+          deleteSuccess: true,
+        ),
       ),
     );
   }

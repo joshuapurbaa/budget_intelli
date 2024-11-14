@@ -17,6 +17,7 @@ final class AccountState {
     this.updatedFirstAccountParam,
     this.updatedSecondAccountParam,
     this.totalBalance,
+    this.deleteSuccess = false,
   });
 
   factory AccountState.initial() {
@@ -40,6 +41,7 @@ final class AccountState {
   final Account? updatedFirstAccountParam;
   final Account? updatedSecondAccountParam;
   final double? totalBalance;
+  final bool deleteSuccess;
 
   AccountState copyWith({
     List<Account>? accounts,
@@ -57,6 +59,7 @@ final class AccountState {
     Account? updatedSecondAccountParam,
     bool? isEdit,
     double? totalBalance,
+    bool? deleteSuccess,
   }) {
     return AccountState(
       accounts: accounts ?? this.accounts,
@@ -77,6 +80,7 @@ final class AccountState {
       updatedSecondAccountParam:
           updatedSecondAccountParam ?? this.updatedSecondAccountParam,
       totalBalance: totalBalance ?? this.totalBalance,
+      deleteSuccess: deleteSuccess ?? this.deleteSuccess,
     );
   }
 
@@ -98,7 +102,8 @@ final class AccountState {
         other.newAccountParam == newAccountParam &&
         other.updatedFirstAccountParam == updatedFirstAccountParam &&
         other.updatedSecondAccountParam == updatedSecondAccountParam &&
-        other.totalBalance == totalBalance;
+        other.totalBalance == totalBalance &&
+        other.deleteSuccess == deleteSuccess;
   }
 
   @override
@@ -116,5 +121,6 @@ final class AccountState {
       newAccountParam.hashCode ^
       updatedFirstAccountParam.hashCode ^
       updatedSecondAccountParam.hashCode ^
-      totalBalance.hashCode;
+      totalBalance.hashCode ^
+      deleteSuccess.hashCode;
 }
