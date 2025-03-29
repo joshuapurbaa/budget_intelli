@@ -15,6 +15,8 @@ class SummaryDashboardItem extends StatelessWidget {
     final member = transaction.memberName;
     final expense = transaction.type == 'expense';
 
+    print('transaction to string ${transaction}');
+
     return Padding(
       padding: getEdgeInsets(bottom: 10),
       child: Row(

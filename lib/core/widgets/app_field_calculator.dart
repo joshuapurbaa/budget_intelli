@@ -114,7 +114,6 @@ class _AppFieldCalculatorState extends State<AppFieldCalculator>
     );
 
     if (result != null && result.isNotEmpty && result != ' ') {
-      print('result: $result');
       setState(() {
         label = result;
         context.read<BoxCalculatorCubit>().select(result);

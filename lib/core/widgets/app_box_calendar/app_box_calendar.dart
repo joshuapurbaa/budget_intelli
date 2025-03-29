@@ -95,7 +95,9 @@ class _AppBoxCalendarState extends State<AppBoxCalendar> {
         hour,
         minute,
       );
-      context.read<AppBoxCalendarCubit>().selectDate(_selectedDate!);
+      if (mounted) {
+        context.read<AppBoxCalendarCubit>().selectDate(_selectedDate!);
+      }
 
       setState(() {
         _calendarOpened = false;

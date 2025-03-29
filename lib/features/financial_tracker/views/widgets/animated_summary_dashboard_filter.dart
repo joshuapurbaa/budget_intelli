@@ -3,6 +3,7 @@ import 'package:budget_intelli/features/financial_tracker/financial_tracker_barr
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AnimatedSummaryDashboardFilter extends StatefulWidget {
   const AnimatedSummaryDashboardFilter({
@@ -71,47 +72,53 @@ class _AnimatedSummaryDashboardFilterState
               animation: _animation,
               builder: (context, child) {
                 return Container(
+                  height: 60.h,
                   padding: getEdgeInsetsAll(12),
                   decoration: BoxDecoration(
                     color: filterBy == SummaryFilterBy.day
                         ? context.color.primary.withOpacity(_animation.value)
                         : context.color.onInverseSurface,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: getRadius(16),
                   ),
-                  child: Column(
+                  child: Stack(
                     children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: context.color.primaryContainer,
+                          borderRadius: getRadius(30),
+                        ),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            AppText(
+                              text: currency.symbol,
+                              style: StyleType.bodMd,
+                              color: filterBy == SummaryFilterBy.day
+                                  ? context.color.primaryContainer
+                                  : null,
+                            ),
+                            AppText(
+                              text: NumberFormatter.formatToMoneyDouble(
+                                context,
+                                widget.state.dayTotalAmount,
+                                isSymbol: false,
+                              ),
+                              style: StyleType.headSm,
+                              color: filterBy == SummaryFilterBy.day
+                                  ? context.color.primaryContainer
+                                  : null,
+                            ),
+                          ],
+                        ),
+                      ),
                       AppText(
                         text: localize.day,
                         style: StyleType.bodLg,
                         color: filterBy == SummaryFilterBy.day
                             ? context.color.primaryContainer
                             : null,
-                      ),
-                      Gap.vertical(5),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        textBaseline: TextBaseline.alphabetic,
-                        children: [
-                          AppText(
-                            text: currency.symbol,
-                            style: StyleType.bodMd,
-                            color: filterBy == SummaryFilterBy.day
-                                ? context.color.primaryContainer
-                                : null,
-                          ),
-                          AppText(
-                            text: NumberFormatter.formatToMoneyDouble(
-                              context,
-                              widget.state.dayTotalAmount,
-                              isSymbol: false,
-                            ),
-                            style: StyleType.headSm,
-                            color: filterBy == SummaryFilterBy.day
-                                ? context.color.primaryContainer
-                                : null,
-                          ),
-                        ],
                       ),
                     ],
                   ),
@@ -137,7 +144,7 @@ class _AnimatedSummaryDashboardFilterState
                     color: filterBy == SummaryFilterBy.week
                         ? context.color.primary.withOpacity(_animation.value)
                         : context.color.onInverseSurface,
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: getRadius(30),
                   ),
                   child: Column(
                     children: [
