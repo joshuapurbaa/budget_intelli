@@ -149,10 +149,20 @@ class CalculatorNotifier extends ChangeNotifier {
   }
 
   String _getResult({bool showError = false}) {
+    // Handle empty or invalid expressions
+    if (_expression.isEmpty || _expression.trim() == '') {
+      return showError ? _error : result;
+    }
+
     var placeholder = _expression.replaceAll(',', '');
-    placeholder = placeholder.replaceAll('x', '*');
+    // Replace both 'x' and '×' with '*' for multiplication
+    placeholder = placeholder.replaceAll(RegExp(r'[x×]'), '*');
     placeholder = placeholder.replaceAll('÷', '/');
 
+    // Remove trailing operators to prevent parsing errors
+    placeholder = placeholder.replaceAll(RegExp(r'[+\-*/]$'), '');
+
+    // Handle implicit multiplication (e.g., 2(3) -> 2*(3))
     final regExp = RegExp(r'\d+\(');
     if (regExp.hasMatch(placeholder)) {
       placeholder = placeholder.replaceAllMapped(regExp, (match) {
@@ -161,10 +171,29 @@ class CalculatorNotifier extends ChangeNotifier {
       });
     }
 
+    // Validate parentheses balance
+    int openParens = placeholder.split('(').length - 1;
+    int closeParens = placeholder.split(')').length - 1;
+    if (openParens != closeParens) {
+      return showError ? _error : result;
+    }
+
+    // Additional validation for invalid sequences (e.g., consecutive operators)
+    final invalidPatterns = RegExp(r'[\+\-\*/]{2,}|[\+\-\*/]\s*$');
+    if (invalidPatterns.hasMatch(placeholder)) {
+      return showError ? _error : result;
+    }
+
     try {
       final exp = Parser().parse(placeholder);
       final context = ContextModel();
       final answer = exp.evaluate(EvaluationType.REAL, context) as double;
+
+      // Handle infinity or NaN results
+      if (answer.isInfinite || answer.isNaN) {
+        return showError ? _error : result;
+      }
+
       final length = _getDecimalLength(answer);
       return _formatOutput(answer.toStringAsFixed(length));
     } catch (e) {

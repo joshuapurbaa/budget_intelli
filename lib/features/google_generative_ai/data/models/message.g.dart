@@ -9,7 +9,7 @@ part of 'message.dart';
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
       text: json['text'] as String,
       role: json['role'] as String,
-      messageIndex: json['messageIndex'] as int,
+      messageIndex: (json['messageIndex'] as num).toInt(),
       chatId: json['chatId'] as String,
     );
 

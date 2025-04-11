@@ -170,9 +170,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   ),
                   onPressed: () {
                     final amount = _rightController.text;
-                    // final amountInt = int.parse(
-                    //   amount.replaceAll(RegExp('[^0-9]'), ''),
-                    // );
+
                     context.read<CategoryCubit>().updateItemCategoryHistory(
                           itemCategoryHistory: category.copyWith(
                             name: _leftController.text,

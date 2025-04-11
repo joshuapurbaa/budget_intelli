@@ -165,8 +165,8 @@ class _HomeContentState extends State<HomeContent>
                         pinned: true,
                         floating: true,
                         delegate: SliverAppBarDelegate(
-                          minHeight: 70.h,
-                          maxHeight: 70.h,
+                          minHeight: 75.h,
+                          maxHeight: 75.h,
                           child: ColoredBox(
                             color: context.color.surface,
                             child: Column(

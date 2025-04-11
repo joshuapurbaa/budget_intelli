@@ -13,6 +13,7 @@ class AppGlass extends StatelessWidget {
     this.margin,
     this.onTap,
     this.duration,
+    this.borderRadius,
   });
 
   final Widget child;
@@ -25,6 +26,7 @@ class AppGlass extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final void Function()? onTap;
   final Duration? duration;
+  final double? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -52,8 +54,8 @@ class AppGlass extends StatelessWidget {
                   end: Alignment.bottomRight,
                 )
               : null,
-          borderRadius: const BorderRadius.all(
-            Radius.circular(16),
+          borderRadius: BorderRadius.all(
+            Radius.circular(borderRadius ?? 16),
           ),
           boxShadow: [
             appBoxShadow(

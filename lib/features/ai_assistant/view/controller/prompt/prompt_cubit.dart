@@ -106,29 +106,39 @@ class PromptCubit extends Cubit<PromptState> {
     try {
       final content = await generateContentFromText(model);
 
-      if (content.text == null) {
+      if (content != null) {
+        if (content.text == null) {
+          emit(
+            state.copyWith(
+              loadingGenerateBudget: false,
+              generateBudgetFailure: true,
+            ),
+          );
+          return;
+        }
+
+        // final outputTokenCount =
+        //     await model.countTokens([Content.text(content.text!)]);
+
+        final budgetGenerate =
+            BudgetGenerateModel.fromGeneratedContent(content);
+
+        emit(
+          state.copyWith(
+            loadingGenerateBudget: false,
+            generateBudgetFailure: false,
+            budgetGenerate: budgetGenerate,
+            generateSuccess: true,
+          ),
+        );
+      } else {
         emit(
           state.copyWith(
             loadingGenerateBudget: false,
             generateBudgetFailure: true,
           ),
         );
-        return;
       }
-
-      // final outputTokenCount =
-      //     await model.countTokens([Content.text(content.text!)]);
-
-      final budgetGenerate = BudgetGenerateModel.fromGeneratedContent(content);
-
-      emit(
-        state.copyWith(
-          loadingGenerateBudget: false,
-          generateBudgetFailure: false,
-          budgetGenerate: budgetGenerate,
-          generateSuccess: true,
-        ),
-      );
     } catch (error) {
       emit(
         state.copyWith(
@@ -139,21 +149,21 @@ class PromptCubit extends Cubit<PromptState> {
     }
   }
 
-  Future<GenerateContentResponse> generateContentFromText(
+  Future<GenerateContentResponse?> generateContentFromText(
     GenerativeModel model,
   ) async {
-    final promptText = '${state.textPrompt}';
-    final mainText = TextPart(promptText);
+    try {
+      final promptText = '${state.textPrompt}';
+      final mainText = TextPart(promptText);
 
-    // print('prompt text :: $promptText');
+      final response =
+          await model.generateContent([Content.text(mainText.text)]);
 
-    // final tokenCount = await model.countTokens([Content.text(mainText.text)]);
-
-    // print('token count :: ${tokenCount.totalTokens}');
-
-    return model.generateContent(
-      [Content.text(mainText.text)],
-    );
+      return response;
+    } catch (error) {
+      print('error :: ${error}');
+      return null;
+    }
   }
 
 //   String get initialCreateBudgetPromptEnglish {

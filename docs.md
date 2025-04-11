@@ -1,4 +1,3 @@
-
 <!-- clean architecture -->
 
 View: screens (call event) --- BLOC ---> Domain: usecases --- repository (only interface) ---
@@ -29,12 +28,17 @@ View
 9. implementasi bloc di ui
 
 <!-- Build appbundle -->
+
 flutter build appbundle --obfuscate --split-debug-info --release --dart-define=env=prod
 
 <!-- create splash: run this command -->
-dart run flutter_native_splash:create 
+
+dart run flutter_native_splash:create
 
 <!-- get the SHA-1 -->
+
 ./gradlew signingReport
 
 flutter pub run build_runner build --delete-conflicting-outputs
+
+flutter clean && flutter pub get && dart run build_runner build --delete-conflicting-outputs && flutter build appbundle --obfuscate --split-debug-info --release --dart-define=env=prod

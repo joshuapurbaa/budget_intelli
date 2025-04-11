@@ -24,6 +24,7 @@ final class SettingState {
     this.useBiometrics = true,
     this.isAuthenticated = false,
     this.notificationEnable = true,
+    this.hideFinancialTracker = true,
   });
 
   final Language selectedLanguage;
@@ -47,6 +48,7 @@ final class SettingState {
   final bool useBiometrics;
   final bool isAuthenticated;
   final bool notificationEnable;
+  final bool hideFinancialTracker;
 
   SettingState copyWith({
     Language? selectedLanguage,
@@ -70,6 +72,7 @@ final class SettingState {
     bool? useBiometrics,
     bool? isAuthenticated,
     bool? notificationEnable,
+    bool? hideFinancialTracker,
   }) {
     return SettingState(
       selectedLanguage: selectedLanguage ?? this.selectedLanguage,
@@ -95,6 +98,7 @@ final class SettingState {
       useBiometrics: useBiometrics ?? this.useBiometrics,
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
       notificationEnable: notificationEnable ?? this.notificationEnable,
+      hideFinancialTracker: hideFinancialTracker ?? this.hideFinancialTracker,
     );
   }
 
@@ -122,7 +126,8 @@ final class SettingState {
         other.pdfBytes == pdfBytes &&
         other.useBiometrics == useBiometrics &&
         other.notificationEnable == notificationEnable &&
-        other.isAuthenticated == isAuthenticated;
+        other.isAuthenticated == isAuthenticated &&
+        other.hideFinancialTracker == hideFinancialTracker;
   }
 
   @override
@@ -146,5 +151,6 @@ final class SettingState {
       pdfBytes.hashCode ^
       useBiometrics.hashCode ^
       notificationEnable.hashCode ^
-      isAuthenticated.hashCode;
+      isAuthenticated.hashCode ^
+      hideFinancialTracker.hashCode;
 }

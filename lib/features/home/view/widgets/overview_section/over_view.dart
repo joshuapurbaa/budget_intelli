@@ -699,29 +699,84 @@ class _OverViewState extends State<OverView> {
                                             ),
                                             if (percent > 0) ...[
                                               Gap.vertical(5),
-                                              Row(
+                                              Column(
                                                 children: [
-                                                  Expanded(
-                                                    child:
-                                                        LinearPercentIndicator(
-                                                      animation: true,
-                                                      lineHeight: 8,
-                                                      animationDuration: 700,
-                                                      percent: percent,
-                                                      barRadius:
-                                                          const Radius.circular(
-                                                        8,
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child:
+                                                            LinearPercentIndicator(
+                                                          animation: true,
+                                                          lineHeight: 8,
+                                                          animationDuration:
+                                                              700,
+                                                          percent: percent,
+                                                          barRadius:
+                                                              const Radius
+                                                                  .circular(
+                                                            8,
+                                                          ),
+                                                          progressColor:
+                                                              barColor,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                        ),
                                                       ),
-                                                      progressColor: barColor,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                    ),
+                                                    ],
                                                   ),
-                                                  Gap.horizontal(5),
-                                                  AppText(
-                                                    text: percentStr,
-                                                    style: StyleType.bodSm,
-                                                    color: percentTextColor,
+                                                  Gap.vertical(5),
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: Row(
+                                                          children: [
+                                                            AppText(
+                                                              text: localize
+                                                                  .actual,
+                                                              style: StyleType
+                                                                  .bodSm,
+                                                              color:
+                                                                  percentTextColor,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic,
+                                                            ),
+                                                            Gap.horizontal(4),
+                                                            AppText(
+                                                              text: ':',
+                                                              style: StyleType
+                                                                  .bodSm,
+                                                              color:
+                                                                  percentTextColor,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic,
+                                                            ),
+                                                            Gap.horizontal(4),
+                                                            AppText(
+                                                              text: NumberFormatter
+                                                                  .formatToMoneyDouble(
+                                                                context,
+                                                                actualAmount,
+                                                              ),
+                                                              style: StyleType
+                                                                  .bodSm,
+                                                              color:
+                                                                  percentTextColor,
+                                                              fontStyle:
+                                                                  FontStyle
+                                                                      .italic,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      AppText(
+                                                        text: percentStr,
+                                                        style: StyleType.bodSm,
+                                                        color: percentTextColor,
+                                                      ),
+                                                    ],
                                                   ),
                                                 ],
                                               ),

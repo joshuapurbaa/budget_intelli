@@ -29,43 +29,18 @@ class _FinancialTrackerDashboardAppbarState
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Spacer(),
-        BlocBuilder<AccountBloc, AccountState>(
-          builder: (context, state) {
-            return Row(
-              children: [
-                Gap.vertical(10),
-                AppText(
-                  text: NumberFormatter.formatToMoneyDouble(
-                    context,
-                    state.totalBalance ?? 0.0,
-                  ),
-                  style: StyleType.bodLg,
-                ),
-                Gap.horizontal(5),
-                GestureDetector(
-                  onTap: () {
-                    context.pushNamed(
-                      MyRoute.accountScreenFinancialTracker.noSlashes(),
-                    );
-                  },
-                  child: Icon(
-                    CupertinoIcons.chevron_down,
-                    color: context.color.onSurface,
-                  ),
-                ),
-              ],
-            );
-          },
-        ),
-        const Spacer(),
-        GestureDetector(
-          onTap: _showCalculator,
-          child: getSvgAsset(
-            editSvg,
-            color: context.color.onSurface,
-          ),
-        ),
+        Row(
+          children: [
+            getSvgAsset(
+              chevronDown,
+            ),
+            AppText(
+              text: 'Buku Bawaan',
+              style: StyleType.bodMd,
+              color: context.color.onSurface,
+            ),
+          ],
+        )
       ],
     );
   }

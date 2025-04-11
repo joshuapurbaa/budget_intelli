@@ -16,6 +16,7 @@ class FrequencyView extends StatefulWidget {
 
 class _FrequencyViewState extends State<FrequencyView> {
   bool isIncome = false;
+  String? selectedCategoryId;
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +29,30 @@ class _FrequencyViewState extends State<FrequencyView> {
         final transactionsFrequency =
             transactions.isEmpty ? state.transactionsFrequency : transactions;
 
-        final transactionsFrequencyOnlyIncome = transactionsFrequency
+        // Filter berdasarkan kategori jika ada
+        var filteredTransactions = transactionsFrequency;
+        if (selectedCategoryId != null) {
+          filteredTransactions = transactionsFrequency
+              .where((element) => element.itemHistoId == selectedCategoryId)
+              .toList();
+        }
+
+        final transactionsFrequencyOnlyIncome = filteredTransactions
             .where((element) => element.type == AppStrings.incomeType)
             .toList();
 
-        final transactionsFrequencyOnlyExpense = transactionsFrequency
+        final transactionsFrequencyOnlyExpense = filteredTransactions
             .where((element) => element.type == AppStrings.expenseType)
             .toList();
 
         final itemCategoryHistories = state.itemCategoryHistoriesFrequency;
+
+        // Filter kategori berdasarkan tipe (income/expense)
+        final filteredCategories = itemCategoryHistories
+            .where((category) =>
+                category.type ==
+                (isIncome ? AppStrings.incomeType : AppStrings.expenseType))
+            .toList();
 
         final totalAmountTransactionsExpenses =
             transactionsFrequencyOnlyExpense.fold(
@@ -78,6 +94,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                           onTap: () {
                             setState(() {
                               isIncome = false;
+                              selectedCategoryId = null;
                             });
                           },
                           child: AppGlass(
@@ -118,6 +135,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                           onTap: () {
                             setState(() {
                               isIncome = true;
+                              selectedCategoryId = null;
                             });
                           },
                           child: AppGlass(
@@ -156,6 +174,82 @@ class _FrequencyViewState extends State<FrequencyView> {
               //   itemCategories: itemCategoriesExcludeIncome,
               //   transactions: transactionsFrequencyExcludeIncome,
               // ),
+
+              Gap.vertical(16),
+
+              Padding(
+                padding: getEdgeInsets(left: 16, right: 16),
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: List.generate(
+                      filteredCategories.length,
+                      (index) {
+                        if (index == 0) {
+                          return GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                selectedCategoryId = null;
+                              });
+                            },
+                            child: AppGlass(
+                              borderRadius: 8,
+                              margin: getEdgeInsets(right: 8),
+                              child: Center(
+                                child: AppText(
+                                  text: localize.all,
+                                  style: StyleType.bodMd,
+                                  fontWeight: selectedCategoryId == null
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: selectedCategoryId == null
+                                      ? context.color.primary
+                                      : context.color.onSurface,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+
+                        final category = filteredCategories[index - 1];
+                        final isSelected = selectedCategoryId == category.id;
+
+                        return AppGlass(
+                          borderRadius: 8,
+                          margin: getEdgeInsets(right: 8),
+                          onTap: () {
+                            setState(() {
+                              selectedCategoryId = category.id;
+                            });
+                          },
+                          child: Row(
+                            children: [
+                              if (category.iconPath != null)
+                                getPngAsset(
+                                  category.iconPath!,
+                                  color: isSelected
+                                      ? context.color.primary
+                                      : context.color.primaryContainer,
+                                ),
+                              Gap.horizontal(8),
+                              AppText(
+                                text: category.name,
+                                style: StyleType.bodMd,
+                                fontWeight: isSelected
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: isSelected
+                                    ? context.color.onPrimaryContainer
+                                    : context.color.onSurface,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
               Gap.vertical(16),
               ListView.separated(
                 shrinkWrap: true,

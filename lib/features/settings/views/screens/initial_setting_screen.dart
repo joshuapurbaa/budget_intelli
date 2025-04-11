@@ -533,42 +533,43 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                         duration: 600.ms,
                       ),
                   Gap.vertical(10),
-                  OutlinedButton(
-                    style: OutlinedButton.styleFrom(
-                      backgroundColor: context.color.surface,
-                      side: BorderSide(
+                  if (!state.hideFinancialTracker)
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: context.color.surface,
+                        side: BorderSide(
+                          color: context.color.onSurface,
+                        ),
+                        minimumSize: Size(double.infinity, 58.h),
+                      ),
+                      onPressed: () async {
+                        context.read<SettingBloc>()
+                          ..add(
+                            SetUserAlreadySetInitialSetting(
+                              alreadySetInitialSetting: true,
+                            ),
+                          )
+                          ..add(
+                            SetUserContinueWithoutLogin(
+                              continueWithoutLogin: true,
+                            ),
+                          )
+                          ..add(
+                            SetOnlyFinancialTrackerChange(
+                              value: true,
+                            ),
+                          );
+                        context.go(MyRoute.financialDashboardTracker);
+                      },
+                      child: AppText(
+                        text: localize.startFinancialTracking,
+                        style: StyleType.bodLg,
                         color: context.color.onSurface,
                       ),
-                      minimumSize: Size(double.infinity, 58.h),
-                    ),
-                    onPressed: () async {
-                      context.read<SettingBloc>()
-                        ..add(
-                          SetUserAlreadySetInitialSetting(
-                            alreadySetInitialSetting: true,
-                          ),
-                        )
-                        ..add(
-                          SetUserContinueWithoutLogin(
-                            continueWithoutLogin: true,
-                          ),
-                        )
-                        ..add(
-                          SetOnlyFinancialTrackerChange(
-                            value: true,
-                          ),
-                        );
-                      context.go(MyRoute.financialDashboardTracker);
-                    },
-                    child: AppText(
-                      text: localize.startFinancialTracking,
-                      style: StyleType.bodLg,
-                      color: context.color.onSurface,
-                    ),
-                  ).animate().fadeIn().scale().move(
-                        delay: 300.ms,
-                        duration: 600.ms,
-                      ),
+                    ).animate().fadeIn().scale().move(
+                          delay: 300.ms,
+                          duration: 600.ms,
+                        ),
                   // Gap.vertical(20),
                   // OutlinedButton(
                   //   style: OutlinedButton.styleFrom(

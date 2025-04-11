@@ -33,6 +33,14 @@ extension StringToDouble on String {
     // Hapus spasi putih di awal dan akhir string
     var input = trim();
 
+    // Bersihkan karakter yang tidak valid
+    input = input.replaceAll(RegExp('[^0-9,.]'), '');
+
+    // Jika string kosong setelah dibersihkan
+    if (input.isEmpty) {
+      throw const FormatException('Input kosong setelah dibersihkan');
+    }
+
     // Deteksi apakah terdapat lebih dari satu tanda koma atau titik
     if (input.contains(',') && input.contains('.')) {
       // Jika koma digunakan sebagai desimal, ganti koma dengan titik dan hilangkan titik sebagai pemisah ribuan
