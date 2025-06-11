@@ -1,10 +1,10 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:budget_intelli/core/l10n/app_localizations.dart';
 import 'package:budget_intelli/core/theme/material_theme.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BudgetIntelli extends StatefulWidget {

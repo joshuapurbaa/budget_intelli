@@ -368,7 +368,7 @@ class MaterialTheme {
         ),
         scaffoldBackgroundColor: colorScheme.surface,
         canvasColor: colorScheme.surface,
-        tabBarTheme: TabBarTheme(
+        tabBarTheme: TabBarThemeData(
           labelColor: colorScheme.primary,
           unselectedLabelColor: colorScheme.onSurface,
           dividerColor: colorScheme.surface,
