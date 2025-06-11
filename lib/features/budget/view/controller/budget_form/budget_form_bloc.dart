@@ -554,7 +554,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
           totalBalance: totalIncome - totalExpense,
         ),
       );
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         state.copyWith(
           insertBudgetSuccess: false,
@@ -583,7 +583,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
       );
 
       emit(newGroupCategory);
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         state.copyWith(
           insertBudgetSuccess: false,
@@ -668,7 +668,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
           totalBalance: total,
         ),
       );
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         state.copyWith(
           insertBudgetSuccess: false,
@@ -740,7 +740,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
       );
 
       emit(newGroupCategory);
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         state.copyWith(
           insertBudgetSuccess: false,
@@ -951,7 +951,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
           ),
         );
       }
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         state.copyWith(
           insertBudgetSuccess: false,

@@ -184,7 +184,7 @@ String? getBulanDariNama(String namaBulan, BuildContext context) {
     } else {
       return tanggal.month.toString();
     }
-  } catch (e) {
+  } on Exception catch (_) {
     // Return null jika nama bulan tidak dikenali
     return null;
   }

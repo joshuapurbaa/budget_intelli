@@ -197,7 +197,7 @@ class _MainNavigationState extends State<MainNavigation> {
         }
 
         if (state.useBiometrics && !state.isAuthenticated) {
-          return const BimetricAuth();
+          return const BiometricAuth();
         }
 
         return Scaffold(
@@ -233,7 +233,7 @@ class _MainNavigationState extends State<MainNavigation> {
               ),
               boxShadow: [
                 BoxShadow(
-                  color: context.color.onSurfaceVariant.withOpacity(0.1),
+                  color: context.color.onSurfaceVariant.withValues(alpha: 0.1),
                   blurRadius: 10,
                   spreadRadius: 1,
                 ),

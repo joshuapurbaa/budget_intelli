@@ -28,15 +28,16 @@ class AppDialog {
                 }
               },
               child: ColoredBox(
-                color: Colors.black
-                    .withOpacity(0.5), // warna background dengan opacity 50%
+                color: Colors.black.withValues(
+                  alpha: 0.5,
+                ), // warna background dengan opacity 50%
                 child: BackdropFilter(
                   filter:
                       ImageFilter.blur(sigmaX: 5, sigmaY: 5), // intensitas blur
                   child: blurBackground
                       ? ColoredBox(
-                          color: Colors.black.withOpacity(
-                            0,
+                          color: Colors.black.withValues(
+                            alpha: 0,
                           ), // opacity 0 agar tidak berpengaruh terhadap warna
                         )
                       : null,
@@ -55,15 +56,17 @@ class AppDialog {
     );
   }
 
-  static Future<void> showLoading(BuildContext context,
-      {String? message,}) async {
+  static Future<void> showLoading(
+    BuildContext context, {
+    String? message,
+  }) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         final colorScheme = Theme.of(context).colorScheme;
         return ColoredBox(
-          color: colorScheme.surface.withOpacity(0.2),
+          color: colorScheme.surface.withValues(alpha: 0.2),
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
             child: Container(

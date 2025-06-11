@@ -77,7 +77,7 @@ extension StringToDouble on String {
     // Coba konversi string yang telah dibersihkan menjadi double
     try {
       return double.parse(input);
-    } catch (e) {
+    } on Exception catch (_) {
       throw FormatException(
         'Input tidak valid untuk dikonversi ke double: $input',
       );

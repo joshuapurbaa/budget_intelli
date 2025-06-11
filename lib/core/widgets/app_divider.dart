@@ -18,7 +18,8 @@ class AppDivider extends StatelessWidget {
       padding: padding ?? EdgeInsets.zero,
       child: Divider(
         height: 1,
-        color: Theme.of(context).colorScheme.outlineVariant.withOpacity(0.3),
+        color:
+            Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.3),
         thickness: thickness ?? 1,
       ),
     );

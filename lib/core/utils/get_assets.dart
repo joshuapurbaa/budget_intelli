@@ -17,7 +17,12 @@ Widget getSvgAsset(
     height: height.h,
     child: SvgPicture.asset(
       path,
-      color: color,
+      colorFilter: color != null
+          ? ColorFilter.mode(
+              color,
+              BlendMode.srcIn,
+            )
+          : null,
     ),
   );
 }

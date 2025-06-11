@@ -48,7 +48,7 @@ class _LineGraphMonthlyState extends State<LineGraphMonthly> {
           gradient: LinearGradient(
             colors: AppColor.gradientPrimary
                 .map(
-                  (color) => color.withOpacity(0.2),
+                  (color) => color.withValues(alpha: 0.2),
                 )
                 .toList(),
           ),
@@ -73,7 +73,7 @@ class _LineGraphMonthlyState extends State<LineGraphMonthly> {
           gradient: LinearGradient(
             colors: AppColor.gradientOrange
                 .map(
-                  (color) => color.withOpacity(0.2),
+                  (color) => color.withValues(alpha: 0.2),
                 )
                 .toList(),
           ),
@@ -125,7 +125,7 @@ class _LineGraphMonthlyState extends State<LineGraphMonthly> {
         return const SizedBox();
     }
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       child: text,
     );
   }

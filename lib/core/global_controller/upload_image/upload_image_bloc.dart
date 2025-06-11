@@ -58,7 +58,7 @@ class UploadImageBloc extends Bloc<UploadImageEvent, UploadImageState> {
       } else {
         emit(UploadImageInitial());
       }
-    } catch (e, s) {
+    } on Exception catch (e, s) {
       appLogger(
         from: '_onPickImage',
         error: e,
@@ -87,7 +87,7 @@ class UploadImageBloc extends Bloc<UploadImageEvent, UploadImageState> {
         stackTrace: s,
       );
       emit(UploadImageFailure(e.message ?? 'Gagal upload gambar'));
-    } catch (e, s) {
+    } on Exception catch (e, s) {
       appLogger(
         from: '_onUploadImage',
         error: e,
@@ -127,7 +127,7 @@ class UploadImageBloc extends Bloc<UploadImageEvent, UploadImageState> {
       final storageReference = _storage.refFromURL(event.imageUrl);
       await storageReference.delete();
       emit(UploadImageInitial());
-    } catch (e) {
+    } on Exception catch (e) {
       throw Exception('Gagal menghapus gambar: $e');
     }
   }

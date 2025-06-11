@@ -84,7 +84,7 @@ class AppBoxFormField extends StatelessWidget {
                   StyleType.bodMd,
                 ).copyWith(
                   fontWeight: FontWeight.w400,
-                  color: context.color.onSurface.withOpacity(0.5),
+                  color: context.color.onSurface.withValues(alpha: 0.5),
                 ),
                 border: InputBorder.none,
                 // contentPadding: EdgeInsets.symmetric(

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:app_settings/app_settings.dart';
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
@@ -9,16 +11,16 @@ import 'package:local_auth/error_codes.dart' as auth_error;
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth_android/local_auth_android.dart';
 
-class BimetricAuth extends StatefulWidget {
-  const BimetricAuth({
+class BiometricAuth extends StatefulWidget {
+  const BiometricAuth({
     super.key,
   });
 
   @override
-  State<BimetricAuth> createState() => _BimetricAuthState();
+  State<BiometricAuth> createState() => _BiometricAuthState();
 }
 
-class _BimetricAuthState extends State<BimetricAuth> {
+class _BiometricAuthState extends State<BiometricAuth> {
   late LocalAuthentication auth;
 
   @override
@@ -92,7 +94,7 @@ class _BimetricAuthState extends State<BimetricAuth> {
             'An unspecified error occurred: ${e.message}',
           );
       }
-    } catch (e) {
+    } on Exception catch (e) {
       _showErrorDialog(context, 'An unexpected error occurred: $e');
     }
   }

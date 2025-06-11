@@ -107,7 +107,7 @@ class PromptAnalysisCubit extends Cubit<PromptAnalysisState> {
           analysisGenerateModel: analysisGenerated,
         ),
       );
-    } catch (e) {
+    } on Exception catch (_) {
       emit(
         state.copyWith(
           loadingAnalysis: false,

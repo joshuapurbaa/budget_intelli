@@ -1,10 +1,8 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/financial_tracker/financial_tracker_barrel.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class FinancialTrackerDashboardAppbar extends StatefulWidget {
   const FinancialTrackerDashboardAppbar({
@@ -40,7 +38,7 @@ class _FinancialTrackerDashboardAppbarState
               color: context.color.onSurface,
             ),
           ],
-        )
+        ),
       ],
     );
   }

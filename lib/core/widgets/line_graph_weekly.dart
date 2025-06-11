@@ -47,7 +47,7 @@ class _LineGraphWeeklyState extends State<LineGraphWeekly> {
           gradient: LinearGradient(
             colors: AppColor.gradientPrimary
                 .map(
-                  (color) => color.withOpacity(0.2),
+                  (color) => color.withValues(alpha: 0.2),
                 )
                 .toList(),
           ),
@@ -72,7 +72,7 @@ class _LineGraphWeeklyState extends State<LineGraphWeekly> {
           gradient: LinearGradient(
             colors: AppColor.gradientOrange
                 .map(
-                  (color) => color.withOpacity(0.2),
+                  (color) => color.withValues(alpha: 0.2),
                 )
                 .toList(),
           ),
@@ -111,7 +111,7 @@ class _LineGraphWeeklyState extends State<LineGraphWeekly> {
         return const SizedBox();
     }
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       child: text,
     );
   }

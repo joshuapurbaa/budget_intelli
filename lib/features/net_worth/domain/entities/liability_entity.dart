@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+
+@immutable
 class LiabilityEntity {
-  LiabilityEntity({
+  const LiabilityEntity({
     required this.id,
     required this.name,
     required this.amount,

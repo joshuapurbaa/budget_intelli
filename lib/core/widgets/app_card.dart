@@ -26,12 +26,12 @@ class AppCard extends StatelessWidget {
   Widget build(BuildContext context) {
     if (noSize != null) {
       return Card(
-        color: context.color.onPrimary.withOpacity(0.3),
+        color: context.color.onPrimary.withValues(alpha: 0.3),
         child: child,
       );
     } else {
       return Card(
-        color: context.color.onPrimary.withOpacity(0.3),
+        color: context.color.onPrimary.withValues(alpha: 0.3),
         child: SizedBox(
           height: height,
           width: width,

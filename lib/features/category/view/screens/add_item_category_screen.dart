@@ -230,7 +230,7 @@ class _AddItemCategoryScreenState extends State<AddItemCategoryScreen> {
                               ),
                               onPressed: () {
                                 final color =
-                                    pickerColor.value.toRadixString(16);
+                                    pickerColor.toARGB32().toRadixString(16);
                                 final hexColor = int.parse(color, radix: 16);
 
                                 setState(() {
@@ -359,7 +359,7 @@ class _AddItemCategoryScreenState extends State<AddItemCategoryScreen> {
                                               bottom: BorderSide(
                                                 color: context
                                                     .color.outlineVariant
-                                                    .withOpacity(0.3),
+                                                    .withValues(alpha: 0.3),
                                               ),
                                             ),
                                     ),

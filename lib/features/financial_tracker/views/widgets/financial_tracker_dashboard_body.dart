@@ -43,6 +43,7 @@ class FinancialTrackerDashboardBody extends StatelessWidget {
                     Gap.horizontal(10),
                     GestureDetector(
                       onTap: () async {
+                        final cubit = context.read<FinancialDashboardCubit>();
                         final result = await showModalBottomSheet<String>(
                           context: context,
                           builder: (context) {
@@ -73,23 +74,21 @@ class FinancialTrackerDashboardBody extends StatelessWidget {
                           },
                         );
 
-                        if (result != null) {
+                        if (result != null && context.mounted) {
                           final monthNumber = getBulanDariNama(
                             result,
                             context,
                           );
 
-                          context.read<FinancialDashboardCubit>().selectMonth(
-                                month: result,
-                                monthNumStr: monthNumber ?? '',
-                              );
+                          cubit.selectMonth(
+                            month: result,
+                            monthNumStr: monthNumber ?? '',
+                          );
 
-                          context
-                              .read<FinancialDashboardCubit>()
-                              .getAllFinancialTransactionByMonthAndYear(
-                                context,
-                                monthStr: monthNumber,
-                              );
+                          await cubit.getAllFinancialTransactionByMonthAndYear(
+                            context,
+                            monthStr: monthNumber,
+                          );
                         }
                       },
                       child: Container(

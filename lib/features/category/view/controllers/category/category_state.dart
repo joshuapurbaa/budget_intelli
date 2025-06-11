@@ -200,9 +200,13 @@ final class CategoryState {
         other.itemCategoryParam == itemCategoryParam &&
         other.itemCategoryHistoryParam == itemCategoryHistoryParam &&
         listEquals(
-            other.groupCategoryHistoriesParam, groupCategoryHistoriesParam) &&
+          other.groupCategoryHistoriesParam,
+          groupCategoryHistoriesParam,
+        ) &&
         listEquals(
-            other.itemCategoryHistoriesParam, itemCategoryHistoriesParam) &&
+          other.itemCategoryHistoriesParam,
+          itemCategoryHistoriesParam,
+        ) &&
         other.insertGroupCategoryHistorySuccess ==
             insertGroupCategoryHistorySuccess &&
         other.updateGroupCategoryHistorySuccess ==
@@ -210,7 +214,9 @@ final class CategoryState {
         listEquals(other.pickerColor, pickerColor) &&
         listEquals(other.currentColor, currentColor) &&
         listEquals(
-            other.searchResultGroupCategory, searchResultGroupCategory) &&
+          other.searchResultGroupCategory,
+          searchResultGroupCategory,
+        ) &&
         other.successUpdateBudget == successUpdateBudget &&
         other.leftToBudget == leftToBudget;
   }

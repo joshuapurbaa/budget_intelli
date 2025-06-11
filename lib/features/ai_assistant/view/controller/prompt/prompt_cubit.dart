@@ -139,7 +139,7 @@ class PromptCubit extends Cubit<PromptState> {
           ),
         );
       }
-    } catch (error) {
+    } on Exception catch (_) {
       emit(
         state.copyWith(
           loadingGenerateBudget: false,
@@ -160,8 +160,7 @@ class PromptCubit extends Cubit<PromptState> {
           await model.generateContent([Content.text(mainText.text)]);
 
       return response;
-    } catch (error) {
-      print('error :: ${error}');
+    } on Exception catch (_) {
       return null;
     }
   }

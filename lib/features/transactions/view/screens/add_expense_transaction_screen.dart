@@ -54,7 +54,7 @@ class _AddExpenseTransactionScreenState
       style: StyleType.bodMd,
       fontWeight: _selectedDate == null ? FontWeight.w400 : FontWeight.w700,
       color: _selectedDate == null
-          ? context.color.onSurface.withOpacity(0.5)
+          ? context.color.onSurface.withValues(alpha: 0.5)
           : context.color.onSurface,
     );
     return BlocBuilder<CategoryCubit, CategoryState>(
@@ -319,7 +319,7 @@ class _AddExpenseTransactionScreenState
                                       ).copyWith(
                                         fontWeight: FontWeight.w400,
                                         color: context.color.onSurface
-                                            .withOpacity(0.5),
+                                            .withValues(alpha: 0.5),
                                       ),
                                     ),
                                     trailingIcon: const Icon(
@@ -481,7 +481,7 @@ class _AddExpenseTransactionScreenState
     context.read<TransactionsCubit>().setToInitial();
   }
 
-  bool myInterceptor(_, RouteInfo info) {
+  bool myInterceptor(dynamic _, RouteInfo info) {
     context.pop();
     return true;
   }

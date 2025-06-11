@@ -20,7 +20,7 @@ class FinancialTransactionBloc
         _deleteFinancialTransactionDb = deleteFinancialTransactionDb,
         _getFinancialTransactionDb = getFinancialTransactionDb,
         _getAllFinancialTransactionDb = getAllFinancialTransactionDb,
-        super(FinancialTransactionState()) {
+        super(const FinancialTransactionState()) {
     on<InsertFinancialTransactionEvent>(_onInsertFinancialTransactionEvent);
     on<UpdateFinancialTransactionEvent>(_onUpdateFinancialTransactionEvent);
     on<DeleteFinancialTransactionEvent>(_onDeleteFinancialTransactionEvent);
@@ -146,6 +146,6 @@ class FinancialTransactionBloc
     ResetFinancialTransactionStateEvent event,
     Emitter<FinancialTransactionState> emit,
   ) async {
-    emit(FinancialTransactionState());
+    emit(const FinancialTransactionState());
   }
 }

@@ -26,7 +26,7 @@ class ControllerHelper {
       } else {
         return null;
       }
-    } catch (e) {
+    } on Exception catch (_) {
       return null;
     }
   }
@@ -35,7 +35,7 @@ class ControllerHelper {
     try {
       final stringReps = rawString.replaceAll('.', '');
       return int.parse(stringReps);
-    } catch (e) {
+    } on Exception catch (_) {
       return null;
     }
   }

@@ -184,8 +184,8 @@ class _InsightViewState extends State<InsightView> {
                     top: 10,
                   ),
                   child: ExpansionTile(
-                    expansionAnimationStyle: AnimationStyle(
-                      duration: const Duration(
+                    expansionAnimationStyle: const AnimationStyle(
+                      duration: Duration(
                         milliseconds: 100,
                       ),
                     ),
@@ -275,8 +275,8 @@ class _InsightViewState extends State<InsightView> {
                 child: AppGlass(
                   margin: paddingLRB,
                   child: ExpansionTile(
-                    expansionAnimationStyle: AnimationStyle(
-                      duration: const Duration(
+                    expansionAnimationStyle: const AnimationStyle(
+                      duration: Duration(
                         milliseconds: 100,
                       ),
                     ),

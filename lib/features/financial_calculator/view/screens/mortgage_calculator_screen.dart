@@ -172,7 +172,7 @@ class _MortgageCalculatorScreenState extends State<MortgageCalculatorScreen> {
                     margin: marginLTR,
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: context.color.onSurface.withOpacity(0.5),
+                        color: context.color.onSurface.withValues(alpha: 0.5),
                       ),
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -243,7 +243,7 @@ class _MortgageCalculatorScreenState extends State<MortgageCalculatorScreen> {
         StyleType.bodMd,
       ).copyWith(
         fontWeight: FontWeight.w400,
-        color: context.color.onSurface.withOpacity(0.5),
+        color: context.color.onSurface.withValues(alpha: 0.5),
       ),
     );
   }
@@ -278,7 +278,7 @@ class _MortgageCalculatorScreenState extends State<MortgageCalculatorScreen> {
           ''';
         });
         _automaticScroll();
-      } catch (e) {
+      } on Exception catch (_) {
         AppToast.showToastError(
           context,
           'Error calculating mortgage',
@@ -350,7 +350,7 @@ class _MortgageCalculatorScreenState extends State<MortgageCalculatorScreen> {
           _automaticScroll();
         }
       }
-    } catch (e) {
+    } on Exception catch (_) {
       AppToast.showToastError(
         context,
         'Error calculating mortgage',

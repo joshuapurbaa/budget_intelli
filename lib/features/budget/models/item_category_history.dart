@@ -1,7 +1,9 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:flutter/material.dart';
 
+@immutable
 class ItemCategoryHistory {
-  ItemCategoryHistory({
+  const ItemCategoryHistory({
     required this.id,
     required this.name,
     required this.type,

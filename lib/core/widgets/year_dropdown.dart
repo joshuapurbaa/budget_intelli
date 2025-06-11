@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class YearDropdown extends StatefulWidget {
   const YearDropdown({
-    required this.controller, super.key,
+    required this.controller,
+    super.key,
     this.onSelected,
   });
   final TextEditingController controller;
@@ -41,7 +42,7 @@ class _YearDropdownState extends State<YearDropdown> {
             StyleType.bodMd,
           ).copyWith(
             fontWeight: FontWeight.w400,
-            color: context.color.onSurface.withOpacity(0.5),
+            color: context.color.onSurface.withValues(alpha: 0.5),
           ),
         ),
         trailingIcon: const Icon(

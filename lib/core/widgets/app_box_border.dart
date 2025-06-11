@@ -22,8 +22,8 @@ class AppBoxBorder extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(
-            color: context.color.outline.withOpacity(
-              0.5,
+            color: context.color.outline.withValues(
+              alpha: 0.5,
             ),
           ),
           borderRadius: BorderRadius.circular(16),

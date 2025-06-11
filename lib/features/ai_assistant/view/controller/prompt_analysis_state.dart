@@ -60,8 +60,10 @@ class PromptAnalysisState {
 
     return other is PromptAnalysisState &&
         other.budget == budget &&
-        listEquals(other.itemCategoryTransactionsByBudgetId,
-            itemCategoryTransactionsByBudgetId) &&
+        listEquals(
+          other.itemCategoryTransactionsByBudgetId,
+          itemCategoryTransactionsByBudgetId,
+        ) &&
         other.totalActualIncome == totalActualIncome &&
         other.totalActualExpense == totalActualExpense &&
         other.loadingAnalysis == loadingAnalysis &&

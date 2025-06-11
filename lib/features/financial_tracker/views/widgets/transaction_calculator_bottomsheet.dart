@@ -99,7 +99,7 @@ class _TransactionCalculatorBottomSheetState
                   AppText(
                     text: notifier.expression,
                     style: StyleType.bodMd,
-                    color: context.color.onSurface.withOpacity(0.5),
+                    color: context.color.onSurface.withValues(alpha: 0.5),
                     fontWeight: FontWeight.w400,
                   ),
               ],

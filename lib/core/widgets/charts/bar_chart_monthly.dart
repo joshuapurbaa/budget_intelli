@@ -225,10 +225,9 @@ class BarChartMonthly extends StatelessWidget {
         text = 'Dec';
       default:
         text = '';
-        break;
     }
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       space: 1,
       child: Text(
         text,

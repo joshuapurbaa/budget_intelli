@@ -230,7 +230,9 @@ class _SignUpScreenFromProfileState extends State<SignUpScreenFromProfile> {
                                           .push(MyRoute.signInFromProfile);
 
                                       if (result != null && result == true) {
-                                        context.pop(true);
+                                        if (context.mounted) {
+                                          context.pop(true);
+                                        }
                                       }
                                     },
                                   style: textStyle(

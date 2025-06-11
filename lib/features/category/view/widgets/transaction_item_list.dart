@@ -60,12 +60,12 @@ class TransactionItemList extends StatelessWidget {
                     AppText(
                       text: '$categoryName, ',
                       style: StyleType.labLg,
-                      color: context.color.onSurface.withOpacity(0.5),
+                      color: context.color.onSurface.withValues(alpha: 0.5),
                     ),
                     AppText(
                       text: time,
                       style: StyleType.labLg,
-                      color: context.color.onSurface.withOpacity(0.5),
+                      color: context.color.onSurface.withValues(alpha: 0.5),
                     ),
                   ],
                 ),

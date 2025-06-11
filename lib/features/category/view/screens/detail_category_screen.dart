@@ -267,7 +267,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                               ),
                               onPressed: () {
                                 final color =
-                                    pickerColor.value.toRadixString(16);
+                                    pickerColor.toARGB32().toRadixString(16);
                                 final hexColor = int.parse(color, radix: 16);
 
                                 if (itemCategory != null) {
@@ -516,7 +516,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
     super.dispose();
   }
 
-  bool myInterceptor(_, RouteInfo info) {
+  bool myInterceptor(dynamic _, RouteInfo info) {
     context.pop();
     return true;
   }

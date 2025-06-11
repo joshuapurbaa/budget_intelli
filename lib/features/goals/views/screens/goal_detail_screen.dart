@@ -186,7 +186,7 @@ class GoalDetailScreen extends StatelessWidget {
                                             style: StyleType.bodSm,
                                             fontStyle: FontStyle.italic,
                                             color: context.color.onSurface
-                                                .withOpacity(0.5),
+                                                .withValues(alpha: 0.5),
                                           ),
                                         ],
                                       ),
@@ -254,10 +254,13 @@ class GoalDetailScreen extends StatelessWidget {
                                     );
                                     if (result != null) {
                                       final id = goal?.id;
-                                      _onDeleteGoal(
-                                        context,
-                                        id,
-                                      );
+
+                                      if (context.mounted) {
+                                        _onDeleteGoal(
+                                          context,
+                                          id,
+                                        );
+                                      }
                                     }
                                   },
                                 ),
@@ -341,9 +344,7 @@ class GoalDetailScreen extends StatelessWidget {
 
   void _onDeleteGoal(BuildContext context, String? id) {
     if (id != null) {
-      context.read<GoalDatabaseBloc>().add(
-            DeleteGoalByIdFromDbEvent(id),
-          );
+      context.read<GoalDatabaseBloc>().add(DeleteGoalByIdFromDbEvent(id));
     }
   }
 }

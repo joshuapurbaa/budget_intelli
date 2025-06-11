@@ -24,7 +24,7 @@ class GetSchedulePaymentsFromDb extends SchedulePaymentDbEvent {}
 class ResetStatePaymentDbBloc extends SchedulePaymentDbEvent {}
 
 class GetRepetitionListBySchedulePaymentIdEvent extends SchedulePaymentDbEvent {
-  GetRepetitionListBySchedulePaymentIdEvent(
+  const GetRepetitionListBySchedulePaymentIdEvent(
     this.schedulePaymentId,
   );
 

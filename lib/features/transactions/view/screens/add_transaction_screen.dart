@@ -51,7 +51,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     context.read<AccountBloc>().add(GetAccountsEvent());
   }
 
-  bool myInterceptor(_, RouteInfo info) {
+  bool myInterceptor(dynamic _, RouteInfo info) {
     context.pop();
     return true;
   }
@@ -121,7 +121,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       style: StyleType.bodMd,
       fontWeight: _selectedDate == null ? FontWeight.w400 : FontWeight.w700,
       color: _selectedDate == null
-          ? context.color.onSurface.withOpacity(0.5)
+          ? context.color.onSurface.withValues(alpha: 0.5)
           : context.color.onSurface,
     );
     if (transactionType == 'expense') {
@@ -695,7 +695,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         StyleType.bodMd,
       ).copyWith(
         fontWeight: FontWeight.w400,
-        color: context.color.onSurface.withOpacity(0.5),
+        color: context.color.onSurface.withValues(alpha: 0.5),
       ),
     );
   }

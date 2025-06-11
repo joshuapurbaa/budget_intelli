@@ -153,6 +153,7 @@ class BarChartDaily extends StatelessWidget {
       switch (value.toInt()) {
         case 0:
           text = 'Mon';
+
         case 1:
           text = 'Tue';
         case 2:
@@ -167,7 +168,6 @@ class BarChartDaily extends StatelessWidget {
           text = 'Sun';
         default:
           text = '';
-          break;
       }
     } else {
       switch (value.toInt()) {
@@ -187,12 +187,11 @@ class BarChartDaily extends StatelessWidget {
           text = 'Min';
         default:
           text = '';
-          break;
       }
     }
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       space: 4,
       child: Text(text, style: style),
     );

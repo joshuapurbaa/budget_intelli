@@ -345,9 +345,11 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                 if (result != null) {
                                   final acc = _selectedAccount;
                                   if (acc != null) {
-                                    context.read<AccountBloc>().add(
-                                          DeleteAccountEvent(acc.id),
-                                        );
+                                    if (context.mounted) {
+                                      context.read<AccountBloc>().add(
+                                            DeleteAccountEvent(acc.id),
+                                          );
+                                    }
                                   }
                                 }
                               },
@@ -387,7 +389,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
         StyleType.bodMd,
       ).copyWith(
         fontWeight: FontWeight.w400,
-        color: context.color.onSurface.withOpacity(0.5),
+        color: context.color.onSurface.withValues(alpha: 0.5),
       ),
     );
   }

@@ -9,7 +9,9 @@ import 'package:go_router/go_router.dart';
 
 class UpdateGroupCategoryContent extends StatefulWidget {
   const UpdateGroupCategoryContent({
-    required this.indexGroup, required this.groupCategoryHistories, super.key,
+    required this.indexGroup,
+    required this.groupCategoryHistories,
+    super.key,
     this.groupCategoryHistory,
   });
 
@@ -18,10 +20,12 @@ class UpdateGroupCategoryContent extends StatefulWidget {
   final List<GroupCategoryHistory> groupCategoryHistories;
 
   @override
-  State<UpdateGroupCategoryContent> createState() => _UpdateGroupCategoryContentState();
+  State<UpdateGroupCategoryContent> createState() =>
+      _UpdateGroupCategoryContentState();
 }
 
-class _UpdateGroupCategoryContentState extends State<UpdateGroupCategoryContent> {
+class _UpdateGroupCategoryContentState
+    extends State<UpdateGroupCategoryContent> {
   final _groupNameController = TextEditingController();
 
   @override
@@ -57,7 +61,8 @@ class _UpdateGroupCategoryContentState extends State<UpdateGroupCategoryContent>
 
                       if (widget.groupCategoryHistory != null) {
                         context.read<CategoryCubit>().getItemCategoryArgs(
-                              groupCategoryHistory: widget.groupCategoryHistory!.copyWith(
+                              groupCategoryHistory:
+                                  widget.groupCategoryHistory!.copyWith(
                                 groupName: value,
                               ),
                             );
@@ -137,7 +142,9 @@ class _UpdateGroupCategoryContentState extends State<UpdateGroupCategoryContent>
 
   void _changeColor(Color color, int index) {
     context.read<CategoryCubit>().getItemCategoryArgs(
-          pickerColor: List.from(context.read<CategoryCubit>().state.pickerColor)..[index] = color,
+          pickerColor:
+              List.from(context.read<CategoryCubit>().state.pickerColor)
+                ..[index] = color,
         );
   }
 
@@ -153,7 +160,8 @@ class _UpdateGroupCategoryContentState extends State<UpdateGroupCategoryContent>
           ),
           content: SingleChildScrollView(
             child: MaterialPicker(
-              pickerColor: context.read<CategoryCubit>().state.pickerColor[index],
+              pickerColor:
+                  context.read<CategoryCubit>().state.pickerColor[index],
               onColorChanged: (color) {
                 _changeColor(color, index);
               },
@@ -167,14 +175,18 @@ class _UpdateGroupCategoryContentState extends State<UpdateGroupCategoryContent>
               ),
               onPressed: () {
                 final categoryState = context.read<CategoryCubit>().state;
-                final color = categoryState.pickerColor[index].value.toRadixString(16);
+                final color = categoryState.pickerColor[index]
+                    .toARGB32()
+                    .toRadixString(16);
                 final hexColor = int.parse(color, radix: 16);
 
                 context.read<CategoryCubit>().getItemCategoryArgs(
-                      groupCategoryHistory: categoryState.groupCategoryHistory!.copyWith(
+                      groupCategoryHistory:
+                          categoryState.groupCategoryHistory!.copyWith(
                         hexColor: hexColor,
                       ),
-                      currentColor: List.from(categoryState.currentColor)..[index] = Color(hexColor),
+                      currentColor: List.from(categoryState.currentColor)
+                        ..[index] = Color(hexColor),
                     );
 
                 context.pop();

@@ -83,7 +83,7 @@ class _BoxCalculatorState extends State<BoxCalculator>
         label.contains(localize.startingBalance)) {
       return AppText(
         text: label,
-        color: context.color.onSurface.withOpacity(0.5),
+        color: context.color.onSurface.withValues(alpha: 0.5),
         fontWeight: FontWeight.w400,
         style: StyleType.bodMd,
       );

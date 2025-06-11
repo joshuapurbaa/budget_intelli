@@ -480,7 +480,7 @@ class CategoryCubit extends Cubit<CategoryState> {
           }
         }
       }
-    } catch (e) {
+    } on Exception catch (_) {
       emit(
         state.copyWith(
           successInsert: false,
@@ -557,13 +557,13 @@ class CategoryCubit extends Cubit<CategoryState> {
           itemCategories: [],
         ),
       ),
-      (itemCategories) {
+      (data) {
         emit(
           state.copyWith(
-            itemCategories: itemCategories,
+            itemCategories: data,
           ),
         );
-        itemCategories = itemCategories;
+        itemCategories.addAll(data);
       },
     );
 
@@ -635,13 +635,13 @@ class CategoryCubit extends Cubit<CategoryState> {
           groupCategories: [],
         ),
       ),
-      (groupCategories) {
+      (data) {
         emit(
           state.copyWith(
-            groupCategories: groupCategories,
+            groupCategories: data,
           ),
         );
-        groupCategories = groupCategories;
+        groupCategories.addAll(data);
       },
     );
 
@@ -721,13 +721,13 @@ class CategoryCubit extends Cubit<CategoryState> {
           groupCategoryHistoriesCurrentBudgetId: [],
         ),
       ),
-      (groupCategoryHistories) {
+      (data) {
         emit(
           state.copyWith(
-            groupCategoryHistoriesCurrentBudgetId: groupCategoryHistories,
+            groupCategoryHistoriesCurrentBudgetId: data,
           ),
         );
-        groupCategoryHistories = groupCategoryHistories;
+        groupCategoryHistories.addAll(data);
       },
     );
 

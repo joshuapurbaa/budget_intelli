@@ -5,8 +5,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
+
+  @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  void _whenCompleteAccountTransactionScreen() {
+    context.read<AccountBloc>()
+      ..add(
+        GetAccountsEvent(),
+      )
+      ..add(SelectAccountEvent(null));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -108,11 +121,7 @@ class AccountScreen extends StatelessWidget {
                         context
                             .push(MyRoute.accountTransactionScreen)
                             .whenComplete(
-                              () => context.read<AccountBloc>()
-                                ..add(
-                                  GetAccountsEvent(),
-                                )
-                                ..add(SelectAccountEvent(null)),
+                              _whenCompleteAccountTransactionScreen,
                             );
                       },
                       child: Stack(
@@ -128,11 +137,7 @@ class AccountScreen extends StatelessWidget {
                               context
                                   .push(MyRoute.addAccountScreen)
                                   .whenComplete(
-                                    () => context.read<AccountBloc>()
-                                      ..add(
-                                        GetAccountsEvent(),
-                                      )
-                                      ..add(SelectAccountEvent(null)),
+                                    _whenCompleteAccountTransactionScreen,
                                   );
                             },
                             child: const Align(

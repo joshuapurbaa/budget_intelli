@@ -50,7 +50,7 @@ class ChatCubit extends Cubit<ChatState> {
         ),
       );
       await insertMessageToDB(generatedMessage);
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         state.copyWith(
           messageError: e.toString(),

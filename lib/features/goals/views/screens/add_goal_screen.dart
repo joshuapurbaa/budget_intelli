@@ -73,7 +73,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
       );
     }
 
-    final onSurfaceColor = context.color.onSurface.withOpacity(0.5);
+    final onSurfaceColor = context.color.onSurface.withValues(alpha: 0.5);
 
     return Scaffold(
       body: CustomScrollView(

@@ -40,7 +40,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
     super.dispose();
   }
 
-  bool myInterceptor(_, RouteInfo info) {
+  bool myInterceptor(dynamic _, RouteInfo info) {
     context.pop();
     return true;
   }
@@ -49,7 +49,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
     return PopScope(
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           return;
         }

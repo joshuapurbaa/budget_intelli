@@ -13,7 +13,7 @@ class LiabilityRepositoryImpl implements LiabilityRepository {
     try {
       await netWorthLocalApi.deleteLiability(id);
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure(e.toString()));
     }
   }
@@ -36,14 +36,15 @@ class LiabilityRepositoryImpl implements LiabilityRepository {
         );
       }
       return right(liabilityList);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure(e.toString()));
     }
   }
 
   @override
   Future<Either<Failure, Unit>> insertLiability(
-      LiabilityEntity liabilities,) async {
+    LiabilityEntity liabilities,
+  ) async {
     try {
       await netWorthLocalApi.insertLiability(
         LiabilityModel(
@@ -56,14 +57,15 @@ class LiabilityRepositoryImpl implements LiabilityRepository {
         ),
       );
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure(e.toString()));
     }
   }
 
   @override
   Future<Either<Failure, Unit>> updateLiability(
-      LiabilityEntity liabilities,) async {
+    LiabilityEntity liabilities,
+  ) async {
     try {
       await netWorthLocalApi.updateLiability(
         LiabilityModel(
@@ -76,7 +78,7 @@ class LiabilityRepositoryImpl implements LiabilityRepository {
         ),
       );
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure(e.toString()));
     }
   }

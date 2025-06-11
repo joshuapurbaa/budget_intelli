@@ -96,7 +96,7 @@ class _AppBoxUploadImageState extends State<AppBoxUploadImage> {
                       AppText.reg12(
                         text:
                             '${localize.uploadReceiptLabel} (${localize.optional})',
-                        color: context.color.onSurface.withOpacity(0.5),
+                        color: context.color.onSurface.withValues(alpha: 0.5),
                       ),
                     ] else ...[
                       getLottieAsset(

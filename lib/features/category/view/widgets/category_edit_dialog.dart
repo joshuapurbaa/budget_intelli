@@ -138,7 +138,8 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide.none,
                         ),
-                        fillColor: context.color.onSurface.withOpacity(0.1),
+                        fillColor:
+                            context.color.onSurface.withValues(alpha: 0.1),
                         filled: true,
                       ),
                     );

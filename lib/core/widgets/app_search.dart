@@ -39,7 +39,7 @@ class AppSearch extends StatelessWidget {
             context,
             StyleType.bodSm,
           ).copyWith(
-            color: context.color.onSurface.withOpacity(0.5),
+            color: context.color.onSurface.withValues(alpha: 0.5),
           ),
           hintText: hintText,
         ),

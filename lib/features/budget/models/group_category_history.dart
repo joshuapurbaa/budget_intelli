@@ -2,8 +2,9 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:flutter/foundation.dart';
 
+@immutable
 class GroupCategoryHistory {
-  GroupCategoryHistory({
+  const GroupCategoryHistory({
     required this.id,
     required this.groupName,
     required this.type,
@@ -27,7 +28,8 @@ class GroupCategoryHistory {
         List<dynamic>.from(
           map['item_category_history'] as List<dynamic>,
         ).map(
-          (dynamic item) => ItemCategoryHistory.fromJson(item as Map<String, dynamic>),
+          (dynamic item) =>
+              ItemCategoryHistory.fromJson(item as Map<String, dynamic>),
         ),
       ),
       groupId: map['group_id'] as String,
@@ -53,7 +55,8 @@ class GroupCategoryHistory {
         List<dynamic>.from(
           data?['item_category_history'] as List<dynamic>,
         ).map(
-          (dynamic item) => ItemCategoryHistory.fromJson(item as Map<String, dynamic>),
+          (dynamic item) =>
+              ItemCategoryHistory.fromJson(item as Map<String, dynamic>),
         ),
       ),
       createdAt: data?['created_at'] as String,
@@ -98,7 +101,8 @@ class GroupCategoryHistory {
       'type': type,
       'budget_id': budgetId,
       'group_id': groupId,
-      'item_category_history': itemCategoryHistories.map((x) => x.toJson()).toList(),
+      'item_category_history':
+          itemCategoryHistories.map((x) => x.toJson()).toList(),
       'created_at': createdAt,
       'updated_at': updatedAt,
       'hex_color': hexColor,

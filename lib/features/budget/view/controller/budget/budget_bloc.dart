@@ -56,7 +56,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
           GetGroupBudgetLoaded(groupCategoryList: groupCategoryList),
         ),
       );
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         BudgetError(failure: DatabaseFailure('Db failure: $e')),
       );
@@ -113,7 +113,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
           });
         },
       );
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         BudgetError(failure: DatabaseFailure('Db failure: $e')),
       );
@@ -133,7 +133,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
           BudgetUpdated(),
         ),
       );
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         BudgetError(failure: DatabaseFailure('Db failure: $e')),
       );
@@ -152,7 +152,7 @@ class BudgetBloc extends Bloc<BudgetEvent, BudgetState> {
         (failure) => null,
         (_) => emit(SuccessUpdateGroupCategoryHistory()),
       );
-    } catch (e) {
+    } on Exception catch (e) {
       emit(
         BudgetError(
           failure: DatabaseFailure('Db failure: $e'),

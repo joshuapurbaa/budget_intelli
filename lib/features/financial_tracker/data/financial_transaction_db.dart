@@ -134,7 +134,7 @@ class FinancialTransactionDb {
         try {
           newMap['transaction_location'] =
               jsonDecode(newMap['transaction_location'] as String);
-        } catch (e) {
+        } on Exception catch (_) {
           debugPrint('Failed to parse transaction_location for map: $map');
         }
       }

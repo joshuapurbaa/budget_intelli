@@ -1,7 +1,9 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:flutter/material.dart';
 
+@immutable
 class GroupCategory {
-  GroupCategory({
+  const GroupCategory({
     required this.id,
     required this.groupName,
     required this.type,

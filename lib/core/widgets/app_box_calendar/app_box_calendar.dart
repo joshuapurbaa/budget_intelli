@@ -28,7 +28,7 @@ class _AppBoxCalendarState extends State<AppBoxCalendar> {
       style: StyleType.bodMd,
       fontWeight: _selectedDate == null ? FontWeight.w400 : FontWeight.w700,
       color: _selectedDate == null
-          ? context.color.onSurface.withOpacity(0.5)
+          ? context.color.onSurface.withValues(alpha: 0.5)
           : context.color.onSurface,
     );
 

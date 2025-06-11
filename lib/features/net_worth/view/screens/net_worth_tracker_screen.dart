@@ -98,8 +98,8 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                         margin: paddingLRB,
                         child: ExpansionTile(
                           tilePadding: EdgeInsets.zero,
-                          expansionAnimationStyle: AnimationStyle(
-                            duration: const Duration(
+                          expansionAnimationStyle: const AnimationStyle(
+                            duration: Duration(
                               milliseconds: 100,
                             ),
                           ),
@@ -167,8 +167,8 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                         margin: paddingLRB,
                         child: ExpansionTile(
                           tilePadding: EdgeInsets.zero,
-                          expansionAnimationStyle: AnimationStyle(
-                            duration: const Duration(
+                          expansionAnimationStyle: const AnimationStyle(
+                            duration: Duration(
                               milliseconds: 100,
                             ),
                           ),

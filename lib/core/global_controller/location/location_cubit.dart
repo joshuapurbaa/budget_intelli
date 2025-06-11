@@ -56,7 +56,7 @@ class LocationCubit extends Cubit<LocationState> {
           ),
         );
       }
-    } catch (e) {
+    } on Exception catch (_) {
       emit(
         state.copyWith(
           error: 'Terjadi kesalahan saat mendapatkan lokasi',

@@ -48,7 +48,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
-    final onSurfaceColor = context.color.onSurface.withOpacity(0.5);
+    final onSurfaceColor = context.color.onSurface.withValues(alpha: 0.5);
 
     final title = localize.editGoal;
 
@@ -135,7 +135,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                   borderRadius: BorderRadius.circular(10),
                   borderSide: BorderSide.none,
                 ),
-                fillColor: context.color.onSurface.withOpacity(0.1),
+                fillColor: context.color.onSurface.withValues(alpha: 0.1),
                 filled: true,
               ),
             ),

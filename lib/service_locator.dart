@@ -1,6 +1,6 @@
 part of 'init_dependencies.dart';
 
-final serviceLocator = GetIt.instance;
+final GetIt serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   await dotenv.load();
@@ -1213,9 +1213,11 @@ void _initMemberDb() {
         serviceLocator(),
       ),
     )
-    ..registerFactory<DeleteMemberDb>(() => DeleteMemberDb(
-          serviceLocator(),
-        ))
+    ..registerFactory<DeleteMemberDb>(
+      () => DeleteMemberDb(
+        serviceLocator(),
+      ),
+    )
     ..registerLazySingleton(
       () => MemberDbBloc(
         insertMemberDb: serviceLocator(),

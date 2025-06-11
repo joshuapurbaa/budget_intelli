@@ -26,7 +26,7 @@ class AssetRepositoryImpl implements AssetRepository {
         );
       }
       return right(assetList);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure(e.toString()));
     }
   }
@@ -36,7 +36,7 @@ class AssetRepositoryImpl implements AssetRepository {
     try {
       await netWorthLocalApi.deleteAsset(id);
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure(e.toString()));
     }
   }
@@ -55,7 +55,7 @@ class AssetRepositoryImpl implements AssetRepository {
         ),
       );
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure(e.toString()));
     }
   }
@@ -74,7 +74,7 @@ class AssetRepositoryImpl implements AssetRepository {
         ),
       );
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure(e.toString()));
     }
   }

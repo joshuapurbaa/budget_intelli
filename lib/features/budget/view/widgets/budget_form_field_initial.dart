@@ -41,9 +41,9 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   void didUpdateWidget(covariant BudgetFormFieldInitial oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    oldWidget.groupCategories.length != widget.groupCategories.length
-        ? _initControllers()
-        : null;
+    if (oldWidget.groupCategories.length != widget.groupCategories.length) {
+      _initControllers();
+    }
   }
 
   @override
@@ -171,7 +171,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
           }
 
           Color? hintColorGroupName;
-          final colorOnSurface = context.color.onSurface.withOpacity(0.5);
+          final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
 
           if (groupName.isEmpty ||
               groupName == groupNameInitialID ||
@@ -321,8 +321,8 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                   },
                                   child: Icon(
                                     Icons.delete,
-                                    color:
-                                        context.color.primary.withOpacity(0.5),
+                                    color: context.color.primary
+                                        .withValues(alpha: 0.5),
                                   ),
                                 ),
                             ],
@@ -400,7 +400,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                       ),
                                       Divider(
                                         color: context.color.primaryContainer
-                                            .withOpacity(0.4),
+                                            .withValues(alpha: 0.4),
                                         height: 0,
                                         thickness: 0.5,
                                       ),
@@ -504,7 +504,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                             borderSide: BorderSide.none,
                                           ),
                                           fillColor: context.color.onSurface
-                                              .withOpacity(0.1),
+                                              .withValues(alpha: 0.1),
                                           filled: true,
                                         ),
                                       );
@@ -531,8 +531,8 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                   },
                                   child: Icon(
                                     Icons.delete,
-                                    color:
-                                        context.color.primary.withOpacity(0.5),
+                                    color: context.color.primary
+                                        .withValues(alpha: 0.5),
                                   ),
                                 ),
                               ],
@@ -777,7 +777,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                 style: StyleType.bodLg,
               ),
               onPressed: () {
-                final color = _pickerColor[index].value.toRadixString(16);
+                final color = _pickerColor[index].toARGB32().toRadixString(16);
                 final hexColor = int.parse(color, radix: 16);
 
                 context.read<BudgetFormBloc>().add(

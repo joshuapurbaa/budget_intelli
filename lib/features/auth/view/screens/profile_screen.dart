@@ -107,21 +107,21 @@ class _ProfileScreenState extends State<ProfileScreen>
     }
   }
 
-  void _showPremiumModalBottom(UserIntelli? user) {
-    final statusBarHeight = MediaQuery.of(context).padding.top;
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.sizeOf(context).height - statusBarHeight,
-      ),
-      builder: (context) {
-        return PremiumModal(
-          user: user,
-        );
-      },
-    );
-  }
+  // void _showPremiumModalBottom(UserIntelli? user) {
+  //   final statusBarHeight = MediaQuery.of(context).padding.top;
+  //   showModalBottomSheet<void>(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     constraints: BoxConstraints(
+  //       maxHeight: MediaQuery.sizeOf(context).height - statusBarHeight,
+  //     ),
+  //     builder: (context) {
+  //       return PremiumModal(
+  //         user: user,
+  //       );
+  //     },
+  //   );
+  // }
 
   bool canAuthenticate = false;
 

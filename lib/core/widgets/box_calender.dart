@@ -141,10 +141,10 @@ class _BoxCalenderState extends State<BoxCalender> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16).r,
       ),
-      popUpAnimationStyle: AnimationStyle(
+      popUpAnimationStyle: const AnimationStyle(
         curve: Curves.ease,
         reverseCurve: Curves.ease,
-        duration: const Duration(milliseconds: 100),
+        duration: Duration(milliseconds: 100),
       ),
       color: Theme.of(context).colorScheme.onTertiary,
       items: [

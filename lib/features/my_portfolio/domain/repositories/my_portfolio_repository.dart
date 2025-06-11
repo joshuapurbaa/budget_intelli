@@ -19,7 +19,7 @@ class MyPortfolioRepositoryImpl implements MyPortfolioRepository {
     try {
       await api.deleteMyPortfolioById(id);
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure('DB Failure: $e'));
     }
   }
@@ -31,7 +31,7 @@ class MyPortfolioRepositoryImpl implements MyPortfolioRepository {
     try {
       final result = await api.getMyPortfolioById(id);
       return right(result);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure('DB Failure: $e'));
     }
   }
@@ -41,7 +41,7 @@ class MyPortfolioRepositoryImpl implements MyPortfolioRepository {
     try {
       final result = await api.getMyPortfolioList();
       return right(result);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure('DB Failure: $e'));
     }
   }
@@ -53,7 +53,7 @@ class MyPortfolioRepositoryImpl implements MyPortfolioRepository {
     try {
       await api.insertMyPortfolio(myPortfolio);
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure('DB Failure: $e'));
     }
   }
@@ -65,7 +65,7 @@ class MyPortfolioRepositoryImpl implements MyPortfolioRepository {
     try {
       await api.updateMyPortfolio(myPortfolio);
       return right(unit);
-    } catch (e) {
+    } on Exception catch (e) {
       return left(DatabaseFailure('DB Failure: $e'));
     }
   }

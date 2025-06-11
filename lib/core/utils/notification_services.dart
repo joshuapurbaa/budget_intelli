@@ -52,18 +52,7 @@ const String darwinNotificationCategoryText = 'textCategory';
 const String darwinNotificationCategoryPlain = 'plainCategory';
 
 @pragma('vm:entry-point')
-void notificationTapBackground(NotificationResponse notificationResponse) {
-  // ignore: avoid_print
-  print('notification(${notificationResponse.id}) action tapped: '
-      '${notificationResponse.actionId} with'
-      ' payload: ${notificationResponse.payload}');
-  if (notificationResponse.input?.isNotEmpty ?? false) {
-    // ignore: avoid_print
-    print(
-      'notification action tapped with input: ${notificationResponse.input}',
-    );
-  }
-}
+void notificationTapBackground(NotificationResponse notificationResponse) {}
 
 Future<void> configureLocalTimeZone() async {
   tz.initializeTimeZones();
@@ -102,8 +91,6 @@ Future<void> scheduleDailyNotification({
       ),
     ),
     androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-    uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
     matchDateTimeComponents: DateTimeComponents.time,
   );
 }

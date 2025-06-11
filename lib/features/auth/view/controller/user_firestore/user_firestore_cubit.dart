@@ -189,9 +189,9 @@ class UserFirestoreCubit extends Cubit<UserFirestoreState> {
       });
 
       return results.data;
-    } on FirebaseFunctionsException {
+    } on FirebaseFunctionsException catch (_) {
       return false;
-    } catch (e) {
+    } on Exception {
       return false;
     }
   }

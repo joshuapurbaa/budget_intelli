@@ -52,7 +52,7 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                         fontWeight: _assetNameController.text.isEmpty
                             ? FontWeight.normal
                             : FontWeight.bold,
-                        color: context.color.onSurface.withOpacity(0.5),
+                        color: context.color.onSurface.withValues(alpha: 0.5),
                       ),
                     ),
                   ),
@@ -78,7 +78,7 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                         fontWeight: _assetDescriptionController.text.isEmpty
                             ? FontWeight.normal
                             : FontWeight.bold,
-                        color: context.color.onSurface.withOpacity(0.5),
+                        color: context.color.onSurface.withValues(alpha: 0.5),
                       ),
                     ),
                   ),

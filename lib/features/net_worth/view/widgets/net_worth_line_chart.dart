@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 
 class NetWorthLineChart extends StatefulWidget {
   const NetWorthLineChart({
-    required this.assetList, required this.liabilityList, super.key,
+    required this.assetList,
+    required this.liabilityList,
+    super.key,
   });
 
   final List<AssetEntity> assetList;
@@ -267,10 +269,9 @@ class _NetWorthLineChartState extends State<NetWorthLineChart> {
         text = 'Dec';
       default:
         text = '';
-        break;
     }
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       space: 4,
       child: Text(text, style: style),
     );

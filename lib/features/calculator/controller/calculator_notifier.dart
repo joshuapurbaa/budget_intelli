@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:math_expressions/math_expressions.dart';
+import 'package:math_expressions/math_expressions.dart'
+    show ContextModel, EvaluationType, GrammarParser;
 
 const String _error = 'Syntax Error';
 
@@ -57,7 +58,6 @@ class CalculatorNotifier extends ChangeNotifier {
         _deleteLast();
       }
     } else {
-      print('expression is empty');
       if (regExp.hasMatch(buttonValue)) {
         _expression = '';
         notifyListeners();
@@ -156,7 +156,7 @@ class CalculatorNotifier extends ChangeNotifier {
 
     var placeholder = _expression.replaceAll(',', '');
     // Replace both 'x' and '×' with '*' for multiplication
-    placeholder = placeholder.replaceAll(RegExp(r'[x×]'), '*');
+    placeholder = placeholder.replaceAll(RegExp('[x×]'), '*');
     placeholder = placeholder.replaceAll('÷', '/');
 
     // Remove trailing operators to prevent parsing errors
@@ -172,8 +172,8 @@ class CalculatorNotifier extends ChangeNotifier {
     }
 
     // Validate parentheses balance
-    int openParens = placeholder.split('(').length - 1;
-    int closeParens = placeholder.split(')').length - 1;
+    final openParens = placeholder.split('(').length - 1;
+    final closeParens = placeholder.split(')').length - 1;
     if (openParens != closeParens) {
       return showError ? _error : result;
     }
@@ -185,7 +185,7 @@ class CalculatorNotifier extends ChangeNotifier {
     }
 
     try {
-      final exp = Parser().parse(placeholder);
+      final exp = GrammarParser().parse(placeholder);
       final context = ContextModel();
       final answer = exp.evaluate(EvaluationType.REAL, context) as double;
 
@@ -196,7 +196,7 @@ class CalculatorNotifier extends ChangeNotifier {
 
       final length = _getDecimalLength(answer);
       return _formatOutput(answer.toStringAsFixed(length));
-    } catch (e) {
+    } on Exception catch (_) {
       return showError ? _error : result;
     }
   }

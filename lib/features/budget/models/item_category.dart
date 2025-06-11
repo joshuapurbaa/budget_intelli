@@ -1,8 +1,9 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 class ItemCategory {
-  ItemCategory({
+  const ItemCategory({
     required this.id,
     required this.categoryName,
     required this.type,

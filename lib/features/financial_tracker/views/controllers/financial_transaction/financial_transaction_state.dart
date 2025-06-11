@@ -1,7 +1,7 @@
 part of 'financial_transaction_bloc.dart';
 
 final class FinancialTransactionState extends Equatable {
-  FinancialTransactionState({
+  const FinancialTransactionState({
     this.insertSuccess = false,
     this.updateSuccess = false,
     this.deleteSuccess = false,

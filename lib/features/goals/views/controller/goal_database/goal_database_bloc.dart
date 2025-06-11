@@ -73,7 +73,6 @@ class GoalDatabaseBloc extends Bloc<GoalDatabaseEvent, GoalDatabaseState> {
   ) async {
     final result = await _updateGoalFromDb(event.goal);
 
-    print('update result :: $result');
     result.fold(
       (fail) => emit(
         state.copyWith(

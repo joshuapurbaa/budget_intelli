@@ -108,7 +108,8 @@ class _InitialCreateBudgetPlanScreenState
             const groupNameInitialID = 'Nama Grup';
             const categoryNameInitialEN = 'Category Name';
             const categoryNameInitialID = 'Nama Kategori';
-            final onSurfaceColor = context.color.onSurface.withOpacity(0.5);
+            final onSurfaceColor =
+                context.color.onSurface.withValues(alpha: 0.5);
 
             return Scaffold(
               body: CustomScrollView(

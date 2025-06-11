@@ -230,11 +230,11 @@ class BudgetFirestoreCubit extends Cubit<BudgetFirestoreState> {
           }
         }
       }
-    } catch (e) {
+    } on Exception {
       emit(
         state.copyWith(
           insertBudgetToFirestoreSuccess: false,
-          errorMessage: e.toString(),
+          errorMessage: 'Failed to insert budget',
           initial: false,
           loadingFirestore: false,
         ),
@@ -339,11 +339,11 @@ class BudgetFirestoreCubit extends Cubit<BudgetFirestoreState> {
           }
         }
       }
-    } catch (e) {
+    } on Exception {
       emit(
         state.copyWith(
           insertGroupCategoryHistorySuccess: false,
-          errorMessage: e.toString(),
+          errorMessage: 'Failed to insert group category',
           loadingFirestore: false,
         ),
       );
@@ -469,11 +469,11 @@ class BudgetFirestoreCubit extends Cubit<BudgetFirestoreState> {
           ),
         );
       }
-    } catch (e) {
+    } on Exception {
       emit(
         state.copyWith(
           insertItemHistoryFireSuccess: false,
-          errorMessage: e.toString(),
+          errorMessage: 'Failed to insert item category',
           initial: false,
           loadingFirestore: false,
         ),

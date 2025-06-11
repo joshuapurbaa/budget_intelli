@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+
+@immutable
 class AssetEntity {
-  AssetEntity({
+  const AssetEntity({
     required this.id,
     required this.name,
     required this.amount,

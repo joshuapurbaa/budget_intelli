@@ -21,7 +21,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
   final _scrollController = ScrollController();
   final _budgetNameController = TextEditingController();
   final _budgetNameFocus = FocusNode();
-  final budgetID = const Uuid().v1();
+  final String budgetID = const Uuid().v1();
 
   @override
   void initState() {
@@ -197,7 +197,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                           StyleType.bodMd,
                         ).copyWith(
                           fontStyle: FontStyle.italic,
-                          color: context.color.onSurface.withOpacity(0.5),
+                          color: context.color.onSurface.withValues(alpha: 0.5),
                         ),
                       ),
                     ],
@@ -252,6 +252,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                       //       ],
                       //     ),
                       //   ),
+                      // ),
                       // ),
                       AppBoxFormField(
                         hintText: localize.budgetName,
@@ -325,7 +326,8 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                                     : FontWeight.w700,
                                 maxLines: 2,
                                 color: state.dateRange.isEmpty
-                                    ? context.color.onSurface.withOpacity(0.5)
+                                    ? context.color.onSurface
+                                        .withValues(alpha: 0.5)
                                     : context.color.onSurface,
                               ),
                               Gap.horizontal(16),

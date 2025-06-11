@@ -190,7 +190,7 @@ class _AddMyPortfolioScreenState extends State<AddMyPortfolioScreen> {
                                     ),
                                     decoration: BoxDecoration(
                                       color: context.color.primary
-                                          .withOpacity(0.4),
+                                          .withValues(alpha: 0.4),
                                       borderRadius: const BorderRadius.vertical(
                                         bottom: Radius.circular(10),
                                       ),

@@ -53,7 +53,7 @@ class _AddLiabilityAccountScreenState extends State<AddLiabilityAccountScreen> {
                         fontWeight: _liabilityNameController.text.isEmpty
                             ? FontWeight.normal
                             : FontWeight.bold,
-                        color: context.color.onSurface.withOpacity(0.5),
+                        color: context.color.onSurface.withValues(alpha: 0.5),
                       ),
                     ),
                   ),
@@ -79,7 +79,7 @@ class _AddLiabilityAccountScreenState extends State<AddLiabilityAccountScreen> {
                         fontWeight: _liabilityDescriptionController.text.isEmpty
                             ? FontWeight.normal
                             : FontWeight.bold,
-                        color: context.color.onSurface.withOpacity(0.5),
+                        color: context.color.onSurface.withValues(alpha: 0.5),
                       ),
                     ),
                   ),

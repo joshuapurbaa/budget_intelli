@@ -116,8 +116,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   boxShadow: [
                     // add shadow on the top side
                     BoxShadow(
-                      color:
-                          Theme.of(context).colorScheme.shadow.withOpacity(0.2),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .shadow
+                          .withValues(alpha: 0.2),
                       blurRadius: 10, // soften the shadow
                       offset: const Offset(
                         0, // Move to right 10  horizontally

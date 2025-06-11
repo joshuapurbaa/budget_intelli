@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 BoxShadow appBoxShadow(BuildContext context) {
   return BoxShadow(
-    color: context.color.shadow.withOpacity(0.1),
+    color: context.color.shadow.withValues(alpha: 0.1),
     blurRadius: 10,
     spreadRadius: 0.1,
     offset: const Offset(0, 1),

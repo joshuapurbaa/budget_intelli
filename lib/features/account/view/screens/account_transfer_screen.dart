@@ -29,7 +29,8 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
   }
 
   Future<void> _insertToFirestore(AccountState state) async {
-    if (state.updatedFirstAccountParam != null && state.updatedSecondAccountParam != null) {
+    if (state.updatedFirstAccountParam != null &&
+        state.updatedSecondAccountParam != null) {
       await context.read<BudgetFirestoreCubit>().transferAccountFirestore(
             updatedFirstAccount: state.updatedFirstAccountParam!,
             updatedSecondAccount: state.updatedSecondAccountParam!,
@@ -56,7 +57,7 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
     return PopScope(
-      onPopInvoked: (didPop) {
+      onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
           _reset();
         }
@@ -127,7 +128,8 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
                               });
                             },
                             menuStyle: _menuStyle(),
-                            dropdownMenuEntries: accounts.map<DropdownMenuEntry<Account>>(
+                            dropdownMenuEntries:
+                                accounts.map<DropdownMenuEntry<Account>>(
                               (Account account) {
                                 return DropdownMenuEntry<Account>(
                                   value: account,
@@ -151,7 +153,7 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
                         Gap.vertical(16),
                         Icon(
                           CupertinoIcons.arrow_down,
-                          color: context.color.onSurface.withOpacity(0.5),
+                          color: context.color.onSurface.withValues(alpha: 0.5),
                         ),
                         Gap.vertical(16),
                         AppGlass(
@@ -197,7 +199,8 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
                               });
                             },
                             menuStyle: _menuStyle(),
-                            dropdownMenuEntries: accounts.map<DropdownMenuEntry<Account>>(
+                            dropdownMenuEntries:
+                                accounts.map<DropdownMenuEntry<Account>>(
                               (Account account) {
                                 return DropdownMenuEntry<Account>(
                                   value: account,
@@ -239,7 +242,9 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
                 return;
               }
 
-              if (amount != null && _firstSelectedAccount != null && _secondSelectedAccount != null) {
+              if (amount != null &&
+                  _firstSelectedAccount != null &&
+                  _secondSelectedAccount != null) {
                 final firstAmount = _firstSelectedAccount?.amount;
                 final secondAmount = _secondSelectedAccount?.amount;
 
@@ -297,7 +302,7 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
         StyleType.bodMd,
       ).copyWith(
         fontWeight: FontWeight.w400,
-        color: context.color.onSurface.withOpacity(0.5),
+        color: context.color.onSurface.withValues(alpha: 0.5),
       ),
     );
   }

@@ -58,15 +58,8 @@ class _GoalListScreenState extends State<GoalListScreen> {
                   itemCount: goals.length,
                   itemBuilder: (context, index) {
                     final goal = goals[index];
-                    print('goal.goalAmount: ${goal.goalAmount}');
-                    print('goal.remainingAmount: ${goal.remainingAmount}');
-                    print(
-                        'goal.goalAmount.toDouble(): ${goal.goalAmount}',);
-                    print(
-                        'goal.remainingAmount.toDouble() ${goal.remainingAmount}',);
 
-                    final saved = goal.goalAmount -
-                        goal.remainingAmount;
+                    final saved = goal.goalAmount - goal.remainingAmount;
 
                     final savedStr = NumberFormatter.formatToMoneyDouble(
                       context,

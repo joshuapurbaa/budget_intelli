@@ -179,7 +179,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                 style: StyleType.bodLg,
               ),
               onPressed: () {
-                final color = _pickerColor!.value.toRadixString(16);
+                final color = _pickerColor!.toARGB32().toRadixString(16);
                 final hexColor = int.parse(color, radix: 16);
 
                 context.read<BudgetFormBloc>().add(
@@ -234,7 +234,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
             context,
             StyleType.bodMd,
           ).copyWith(
-            color: context.color.onSurface.withOpacity(0.3),
+            color: context.color.onSurface.withValues(alpha: 0.3),
             fontWeight: FontWeight.w400,
           );
         } else {
@@ -327,7 +327,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                       text:
                           widget.isIncome ? localize.income : localize.expenses,
                       style: StyleType.bodSm,
-                      color: context.color.onSurface.withOpacity(0.5),
+                      color: context.color.onSurface.withValues(alpha: 0.5),
                     ),
                   ),
                   Row(
@@ -412,10 +412,9 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                 ),
                               );
 
-                          final color = _pickerColor!.value
-                              .toRadixString(16)
-                              .substring(2);
-                          final hexColor = int.parse(color, radix: 16);
+                          final color =
+                              _pickerColor?.toARGB32().toRadixString(16);
+                          final hexColor = int.parse(color ?? '0', radix: 16);
 
                           setState(() {
                             _selectedGroupCategory = selectedGroup.copyWith(
@@ -476,7 +475,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                           context,
                           StyleType.bodMd,
                         ).copyWith(
-                          color: context.color.onSurface.withOpacity(0.3),
+                          color: context.color.onSurface.withValues(alpha: 0.3),
                           fontWeight: FontWeight.w400,
                         ),
                         enabledBorder: InputBorder.none,
@@ -534,7 +533,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                     context,
                     StyleType.bodMd,
                   ).copyWith(
-                    color: context.color.onSurface.withOpacity(0.3),
+                    color: context.color.onSurface.withValues(alpha: 0.3),
                     fontWeight: FontWeight.w400,
                   );
                 } else {
@@ -596,8 +595,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                   context,
                                   StyleType.bodMd,
                                 ).copyWith(
-                                  color:
-                                      context.color.onSurface.withOpacity(0.3),
+                                  color: context.color.onSurface
+                                      .withValues(alpha: 0.3),
                                   fontWeight: FontWeight.w400,
                                 ),
                                 enabledBorder: InputBorder.none,
@@ -805,7 +804,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                 context,
                                 StyleType.bodMd,
                               ).copyWith(
-                                color: context.color.onSurface.withOpacity(0.3),
+                                color: context.color.onSurface
+                                    .withValues(alpha: 0.3),
                                 fontWeight: FontWeight.w400,
                               ),
                               focusedBorder: const OutlineInputBorder(
@@ -824,8 +824,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                 ),
                                 borderSide: BorderSide.none,
                               ),
-                              fillColor:
-                                  context.color.onSurface.withOpacity(0.1),
+                              fillColor: context.color.onSurface
+                                  .withValues(alpha: 0.1),
                               filled: true,
                             ),
                           );
@@ -848,7 +848,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                       },
                       child: Icon(
                         Icons.delete,
-                        color: context.color.primary.withOpacity(0.5),
+                        color: context.color.primary.withValues(alpha: 0.5),
                       ),
                     ),
                   ],

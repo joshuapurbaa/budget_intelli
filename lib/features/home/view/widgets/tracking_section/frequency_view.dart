@@ -49,9 +49,11 @@ class _FrequencyViewState extends State<FrequencyView> {
 
         // Filter kategori berdasarkan tipe (income/expense)
         final filteredCategories = itemCategoryHistories
-            .where((category) =>
-                category.type ==
-                (isIncome ? AppStrings.incomeType : AppStrings.expenseType))
+            .where(
+              (category) =>
+                  category.type ==
+                  (isIncome ? AppStrings.incomeType : AppStrings.expenseType),
+            )
             .toList();
 
         final totalAmountTransactionsExpenses =

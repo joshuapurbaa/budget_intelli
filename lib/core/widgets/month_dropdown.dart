@@ -49,7 +49,7 @@ class _MonthDropdownState extends State<MonthDropdown> {
             StyleType.bodMd,
           ).copyWith(
             fontWeight: FontWeight.w400,
-            color: context.color.onSurface.withOpacity(0.5),
+            color: context.color.onSurface.withValues(alpha: 0.5),
           ),
         ),
         trailingIcon: const Icon(

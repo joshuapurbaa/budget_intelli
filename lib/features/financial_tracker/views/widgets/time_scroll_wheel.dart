@@ -47,7 +47,6 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
   Widget build(BuildContext context) {
     return BlocBuilder<TimeScrollWheelCubit, TimeScrollWheelState>(
       builder: (context, state) {
-        print('selected date: ${state.selectedDate}');
         return Row(
           children: [
             Expanded(
@@ -77,7 +76,7 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
                               isSelected ? FontWeight.bold : FontWeight.normal,
                           color: isSelected
                               ? context.color.primary
-                              : context.color.onSurface.withOpacity(0.2),
+                              : context.color.onSurface.withValues(alpha: 0.2),
                         ),
                       ),
                     );
@@ -117,7 +116,7 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
                               isSelected ? FontWeight.bold : FontWeight.normal,
                           color: isSelected
                               ? context.color.primary
-                              : context.color.onSurface.withOpacity(0.2),
+                              : context.color.onSurface.withValues(alpha: 0.2),
                         ),
                       ),
                     );

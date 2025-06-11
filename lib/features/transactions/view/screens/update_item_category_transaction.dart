@@ -360,10 +360,14 @@ class _UpdateItemCategoryTransactionScreenState
                                   context
                                       .push(MyRoute.addAccountScreen)
                                       .whenComplete(
-                                        () => context.read<AccountBloc>().add(
+                                    () {
+                                      if (context.mounted) {
+                                        context.read<AccountBloc>().add(
                                               GetAccountsEvent(),
-                                            ),
-                                      );
+                                            );
+                                      }
+                                    },
+                                  );
                                 },
                                 child: AppGlass(
                                   height: 70.h,

@@ -76,7 +76,8 @@ class _AnimatedSummaryDashboardFilterState
                   padding: getEdgeInsetsAll(12),
                   decoration: BoxDecoration(
                     color: filterBy == SummaryFilterBy.day
-                        ? context.color.primary.withOpacity(_animation.value)
+                        ? context.color.primary
+                            .withValues(alpha: _animation.value)
                         : context.color.onInverseSurface,
                     borderRadius: getRadius(16),
                   ),
@@ -142,7 +143,8 @@ class _AnimatedSummaryDashboardFilterState
                   padding: getEdgeInsetsAll(12),
                   decoration: BoxDecoration(
                     color: filterBy == SummaryFilterBy.week
-                        ? context.color.primary.withOpacity(_animation.value)
+                        ? context.color.primary
+                            .withValues(alpha: _animation.value)
                         : context.color.onInverseSurface,
                     borderRadius: getRadius(30),
                   ),
@@ -203,7 +205,8 @@ class _AnimatedSummaryDashboardFilterState
                   padding: getEdgeInsetsAll(12),
                   decoration: BoxDecoration(
                     color: filterBy == SummaryFilterBy.month
-                        ? context.color.primary.withOpacity(_animation.value)
+                        ? context.color.primary
+                            .withValues(alpha: _animation.value)
                         : context.color.onInverseSurface,
                     borderRadius: BorderRadius.circular(30),
                   ),

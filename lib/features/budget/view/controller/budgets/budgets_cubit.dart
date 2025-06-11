@@ -38,7 +38,7 @@ class BudgetsCubit extends Cubit<BudgetsState> {
       );
 
       return budgetList;
-    } catch (e) {
+    } on Exception catch (_) {
       emit(
         state.copyWith(
           budgets: [],

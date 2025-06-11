@@ -15,8 +15,6 @@ class SummaryDashboardItem extends StatelessWidget {
     final member = transaction.memberName;
     final expense = transaction.type == 'expense';
 
-    print('transaction to string ${transaction}');
-
     return Padding(
       padding: getEdgeInsets(bottom: 10),
       child: Row(
@@ -40,7 +38,7 @@ class SummaryDashboardItem extends StatelessWidget {
                 Gap.vertical(5),
                 MemberNameLocalization(
                   name: member,
-                  color: context.color.onSurface.withOpacity(0.7),
+                  color: context.color.onSurface.withValues(alpha: 0.7),
                 ),
               ],
             ),

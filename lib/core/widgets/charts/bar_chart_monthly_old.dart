@@ -36,8 +36,8 @@ class BarChartSample1 extends StatefulWidget {
 class BarChartSample1State extends State<BarChartSample1> {
   final Duration animDuration = const Duration(milliseconds: 250);
   // final Color barBackgroundColor = AppColor.grayscale300.withOpacity(0.3);
-  final barColor = AppColor.white;
-  final touchedBarColor = AppColor.green;
+  final Color barColor = AppColor.white;
+  final Color touchedBarColor = AppColor.green;
 
   int touchedIndex = -1;
 
@@ -47,7 +47,7 @@ class BarChartSample1State extends State<BarChartSample1> {
   Widget build(BuildContext context) {
     return BarChart(
       mainBarData(),
-      swapAnimationDuration: animDuration,
+      duration: animDuration,
     );
   }
 
@@ -245,10 +245,9 @@ class BarChartSample1State extends State<BarChartSample1> {
         text = bottomTitlesText('S');
       default:
         text = bottomTitlesText('');
-        break;
     }
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       space: 16,
       child: text,
     );

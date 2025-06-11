@@ -197,12 +197,19 @@ class _OverViewState extends State<OverView> {
       ],
     ).whenComplete(
       () async {
-        context.read<PromptAnalysisCubit>().resetAnalysisCompleteValue();
-        final prefsAi = AiAssistantPreferences();
-        final totalAnalyze = await prefsAi.getTotallAnalyzeBudget();
-        await prefsAi.setTotalAnalyzeBudget(totalAnalyze + 1);
+        await _resetAiAnalysis();
       },
     );
+  }
+
+  Future<void> _resetAiAnalysis() async {
+    final promptAnalysisCubit = context.read<PromptAnalysisCubit>();
+    final prefsAi = AiAssistantPreferences();
+    final totalAnalyze = await prefsAi.getTotallAnalyzeBudget();
+    await prefsAi.setTotalAnalyzeBudget(totalAnalyze + 1);
+    if (context.mounted) {
+      promptAnalysisCubit.resetAnalysisCompleteValue();
+    }
   }
 
   Future<void> _validateAiCreateBudgetFeature({required bool validated}) async {
@@ -614,7 +621,7 @@ class _OverViewState extends State<OverView> {
                                         percentStr = '${percents.truncate()}%';
                                         percentTextColor = context
                                             .color.onSurface
-                                            .withOpacity(0.5);
+                                            .withValues(alpha: 0.5);
 
                                         if (percent > 1) {
                                           percent = 1;
@@ -622,9 +629,10 @@ class _OverViewState extends State<OverView> {
                                               ? '$percentStr Overperformance'
                                               : '$percentStr Overspending';
                                           percentTextColor = isIncome
-                                              ? AppColor.green.withOpacity(0.5)
+                                              ? AppColor.green
+                                                  .withValues(alpha: 0.5)
                                               : context.color.error
-                                                  .withOpacity(0.5);
+                                                  .withValues(alpha: 0.5);
                                         }
                                       }
 

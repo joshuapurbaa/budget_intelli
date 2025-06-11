@@ -1,9 +1,11 @@
 import 'dart:typed_data';
 
 import 'package:budget_intelli/core/core.dart';
+import 'package:flutter/material.dart';
 
+@immutable
 class ItemCategoryTransaction {
-  ItemCategoryTransaction({
+  const ItemCategoryTransaction({
     required this.id,
     required this.itemHistoId,
     required this.categoryName,

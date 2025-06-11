@@ -42,10 +42,10 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
   void didUpdateWidget(covariant BudgetFormField oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    oldWidget.groupCategoryHistories.length !=
-            widget.groupCategoryHistories.length
-        ? _initControllers()
-        : null;
+    if (oldWidget.groupCategoryHistories.length !=
+        widget.groupCategoryHistories.length) {
+      _initControllers();
+    }
   }
 
   void _onChangeField(
@@ -301,7 +301,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                   context,
                   StyleType.bodMd,
                 ).copyWith(
-                  color: context.color.onSurface.withOpacity(0.3),
+                  color: context.color.onSurface.withValues(alpha: 0.3),
                   fontWeight: FontWeight.w400,
                 );
               } else {
@@ -348,14 +348,14 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                           text: title,
                                           style: StyleType.bodSm,
                                           color: context.color.onSurface
-                                              .withOpacity(0.5),
+                                              .withValues(alpha: 0.5),
                                         ),
                                         Gap.horizontal(5),
                                         Icon(
                                           CupertinoIcons.info_circle,
                                           size: 17,
                                           color: context.color.onSurface
-                                              .withOpacity(0.5),
+                                              .withValues(alpha: 0.5),
                                         ),
                                       ],
                                     ),
@@ -422,7 +422,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                             StyleType.bodMd,
                                           ).copyWith(
                                             color: context.color.onSurface
-                                                .withOpacity(0.3),
+                                                .withValues(alpha: 0.3),
                                             fontWeight: FontWeight.w400,
                                           ),
                                           border: OutlineInputBorder(
@@ -563,7 +563,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                           StyleType.bodMd,
                                         ).copyWith(
                                           color: context.color.onSurface
-                                              .withOpacity(0.3),
+                                              .withValues(alpha: 0.3),
                                           fontWeight: FontWeight.w400,
                                         ),
                                         enabledBorder: InputBorder.none,
@@ -601,7 +601,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                       child: Icon(
                                         Icons.delete,
                                         color: context.color.primary
-                                            .withOpacity(0.5),
+                                            .withValues(alpha: 0.5),
                                       ),
                                     ),
                                 ],
@@ -666,7 +666,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                     StyleType.bodMd,
                                   ).copyWith(
                                     color: context.color.onSurface
-                                        .withOpacity(0.5),
+                                        .withValues(alpha: 0.5),
                                     fontWeight: FontWeight.w400,
                                   );
                                 } else {
@@ -738,7 +738,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                   StyleType.bodMd,
                                                 ).copyWith(
                                                   color: context.color.onSurface
-                                                      .withOpacity(0.3),
+                                                      .withValues(alpha: 0.3),
                                                   fontWeight: FontWeight.w400,
                                                 ),
                                                 enabledBorder: InputBorder.none,
@@ -899,7 +899,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                   ).copyWith(
                                                     color: context
                                                         .color.onSurface
-                                                        .withOpacity(0.3),
+                                                        .withValues(alpha: 0.3),
                                                     fontWeight: FontWeight.w400,
                                                   ),
                                                   border: OutlineInputBorder(
@@ -964,7 +964,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                             Divider(
                                               color: context
                                                   .color.primaryContainer
-                                                  .withOpacity(0.4),
+                                                  .withValues(alpha: 0.4),
                                               height: 0,
                                               thickness: 0.5,
                                             ),
@@ -985,7 +985,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
 
                                           if (value == '0' || value.isEmpty) {
                                             colorText = context.color.onSurface
-                                                .withOpacity(0.5);
+                                                .withValues(alpha: 0.5);
                                           } else {
                                             colorText = context.color.onSurface;
                                           }
@@ -1067,7 +1067,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                 borderSide: BorderSide.none,
                                               ),
                                               fillColor: context.color.onSurface
-                                                  .withOpacity(0.1),
+                                                  .withValues(alpha: 0.1),
                                               filled: true,
                                             ),
                                           );
@@ -1095,7 +1095,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                       child: Icon(
                                         Icons.delete,
                                         color: context.color.primary
-                                            .withOpacity(0.5),
+                                            .withValues(alpha: 0.5),
                                       ),
                                     ),
                                   ],
@@ -1321,7 +1321,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                 style: StyleType.bodLg,
               ),
               onPressed: () {
-                final color = _pickerColor[index].value.toRadixString(16);
+                final color = _pickerColor[index].toARGB32().toRadixString(16);
                 final hexColor = int.parse(color, radix: 16);
 
                 context.read<BudgetFormBloc>().add(
