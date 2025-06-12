@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="ic_launcher_background">#39693b</color>
+    <string name="com.crashlytics.android.build_id" ns1:ignore="UnusedResources,TypographyDashes" translatable="false">00000000000000000000000000000000</string>
+    <string name="firebase_database_url" translatable="false">https://budget-intellie-default-rtdb.asia-southeast1.firebasedatabase.app</string>
+    <string name="gcm_defaultSenderId" translatable="false">957619161751</string>
+    <string name="google_api_key" translatable="false">AIzaSyBz2Tc2gTAEuW_mqKbTTVnxAHRtnaq6Bnk</string>
+    <string name="google_app_id" translatable="false">1:957619161751:android:7d9f6c95f55617af6937d2</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyBz2Tc2gTAEuW_mqKbTTVnxAHRtnaq6Bnk</string>
+    <string name="google_storage_bucket" translatable="false">budget-intellie.appspot.com</string>
+    <string name="project_id" translatable="false">budget-intellie</string>
+    <style name="LaunchTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        
+        <item name="android:windowBackground">@drawable/launch_background</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+    <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
+        <item name="android:windowBackground">?android:colorBackground</item>
+    </style>
+</resources>

@@ -34,16 +34,17 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "com.porseatechnology.budgetIntelli"
-    compileSdk 34
-    ndkVersion "25.1.8937393"
+    compileSdk 35
+    ndkVersion "26.1.10909125"
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     sourceSets {
@@ -53,7 +54,7 @@ android {
     defaultConfig {
         applicationId "com.porseatechnology.budgetIntelli"
         minSdkVersion 23
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         multiDexEnabled true
@@ -91,4 +92,5 @@ flutter {
 dependencies {
     def billing_version = "7.0.0"
     implementation "com.android.billingclient:billing:$billing_version"
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
 }

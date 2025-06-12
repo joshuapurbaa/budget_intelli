@@ -1,0 +1,26 @@
+CMake Error at /Users/admin/Library/Android/sdk/cmake/3.22.1/share/cmake-3.22/Modules/CMakeTestCXXCompiler.cmake:62 (message):
+  The C++ compiler
+
+    "/Users/admin/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: /Users/admin/myprojects/budget_intelli/android/app/.cxx/Debug/26c6w2u6/arm64-v8a/CMakeFiles/CMakeTmp
+    
+    Run Build Command(s):/Users/admin/Library/Android/sdk/cmake/3.22.1/bin/ninja cmTC_ef3d4 && [1/2] Building CXX object CMakeFiles/cmTC_ef3d4.dir/testCXXCompiler.cxx.o
+    FAILED: CMakeFiles/cmTC_ef3d4.dir/testCXXCompiler.cxx.o 
+    /Users/admin/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++ --target=aarch64-none-linux-android23 --sysroot=/Users/admin/Library/Android/sdk/ndk/26.1.10909125/toolchains/llvm/prebuilt/darwin-x86_64/sysroot   -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security  -fstackprotector-all -fpic -fstack-protector-strong  -fPIE -MD -MT CMakeFiles/cmTC_ef3d4.dir/testCXXCompiler.cxx.o -MF CMakeFiles/cmTC_ef3d4.dir/testCXXCompiler.cxx.o.d -o CMakeFiles/cmTC_ef3d4.dir/testCXXCompiler.cxx.o -c /Users/admin/myprojects/budget_intelli/android/app/.cxx/Debug/26c6w2u6/arm64-v8a/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+    clang++: error: unknown argument '-fstackprotector-all'; did you mean '-fstack-protector-all'?
+    ninja: build stopped: subcommand failed.
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt
+
+
