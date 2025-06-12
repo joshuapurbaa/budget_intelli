@@ -80,7 +80,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           text: 'Total: ',
                           style: textStyle(
                             context,
-                            StyleType.bodLg,
+                            style: StyleType.bodLg,
                           ),
                         ),
                         TextSpan(
@@ -90,7 +90,7 @@ class _AccountScreenState extends State<AccountScreen> {
                           ),
                           style: textStyle(
                             context,
-                            StyleType.bodLg,
+                            style: StyleType.bodLg,
                           ),
                         ),
                       ],

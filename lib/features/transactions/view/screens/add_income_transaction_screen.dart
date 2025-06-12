@@ -281,7 +281,7 @@ class _AddIncomeIncomeTransactionScreenState
                                       border: InputBorder.none,
                                       hintStyle: textStyle(
                                         context,
-                                        StyleType.bodMd,
+                                        style: StyleType.bodMd,
                                       ).copyWith(
                                         fontWeight: FontWeight.w400,
                                         color: context.color.onSurface
@@ -295,7 +295,7 @@ class _AddIncomeIncomeTransactionScreenState
                                     hintText: '${localize.selectAccount}*',
                                     textStyle: textStyle(
                                       context,
-                                      StyleType.bodMd,
+                                      style: StyleType.bodMd,
                                     ).copyWith(
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -326,7 +326,7 @@ class _AddIncomeIncomeTransactionScreenState
                                                 VisualDensity.comfortable,
                                             textStyle: textStyle(
                                               context,
-                                              StyleType.bodMd,
+                                              style: StyleType.bodMd,
                                             ),
                                           ),
                                         );

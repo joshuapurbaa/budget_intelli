@@ -299,7 +299,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                   groupName == localize.groupName) {
                 groupNameBaseStyle = textStyle(
                   context,
-                  StyleType.bodMd,
+                  style: StyleType.bodMd,
                 ).copyWith(
                   color: context.color.onSurface.withValues(alpha: 0.3),
                   fontWeight: FontWeight.w400,
@@ -307,7 +307,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
               } else {
                 groupNameBaseStyle = textStyle(
                   context,
-                  StyleType.bodMd,
+                  style: StyleType.bodMd,
                 );
               }
 
@@ -419,7 +419,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                           hintText: localize.selectGroup,
                                           hintStyle: textStyle(
                                             context,
-                                            StyleType.bodMd,
+                                            style: StyleType.bodMd,
                                           ).copyWith(
                                             color: context.color.onSurface
                                                 .withValues(alpha: 0.3),
@@ -553,14 +553,14 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                       },
                                       style: textStyle(
                                         context,
-                                        StyleType.bodMd,
+                                        style: StyleType.bodMd,
                                       ),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.zero,
                                         hintText: groupName,
                                         hintStyle: textStyle(
                                           context,
-                                          StyleType.bodMd,
+                                          style: StyleType.bodMd,
                                         ).copyWith(
                                           color: context.color.onSurface
                                               .withValues(alpha: 0.3),
@@ -663,7 +663,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                     itemName == localize.categoryName) {
                                   baseStyle = textStyle(
                                     context,
-                                    StyleType.bodMd,
+                                    style: StyleType.bodMd,
                                   ).copyWith(
                                     color: context.color.onSurface
                                         .withValues(alpha: 0.5),
@@ -672,7 +672,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                 } else {
                                   baseStyle = textStyle(
                                     context,
-                                    StyleType.bodMd,
+                                    style: StyleType.bodMd,
                                   );
                                 }
 
@@ -729,13 +729,13 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                               },
                                               style: textStyle(
                                                 context,
-                                                StyleType.bodMd,
+                                                style: StyleType.bodMd,
                                               ),
                                               decoration: InputDecoration(
                                                 hintText: item.name,
                                                 hintStyle: textStyle(
                                                   context,
-                                                  StyleType.bodMd,
+                                                  style: StyleType.bodMd,
                                                 ).copyWith(
                                                   color: context.color.onSurface
                                                       .withValues(alpha: 0.3),
@@ -895,7 +895,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                       localize.selectCategory,
                                                   hintStyle: textStyle(
                                                     context,
-                                                    StyleType.bodLg,
+                                                    style: StyleType.bodLg,
                                                   ).copyWith(
                                                     color: context
                                                         .color.onSurface
@@ -996,7 +996,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                             textAlign: TextAlign.end,
                                             style: textStyle(
                                               context,
-                                              StyleType.bodMd,
+                                              style: StyleType.bodMd,
                                             ).copyWith(
                                               color: colorText,
                                             ),
@@ -1043,7 +1043,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                               ),
                                               hintStyle: textStyle(
                                                 context,
-                                                StyleType.bodMd,
+                                                style: StyleType.bodMd,
                                               ).copyWith(
                                                 color: colorText,
                                               ),

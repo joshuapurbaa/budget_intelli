@@ -19,14 +19,14 @@ class MyMessageWidget extends StatelessWidget {
         painter: BubblePainter(
           tail: true,
           alignment: Alignment.topRight,
-          color: Theme.of(context).colorScheme.primary,
+          color: context.color.primary,
         ),
         child: Container(
           constraints: BoxConstraints(
-            maxWidth: MediaQuery.of(context).size.width * 0.7,
+            maxWidth: context.screenWidth * 0.7,
           ),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary,
+            color: context.color.primary,
             borderRadius: BorderRadius.circular(18),
           ),
           padding: getEdgeInsets(
@@ -47,9 +47,9 @@ class MyMessageWidget extends StatelessWidget {
                 styleSheet: MarkdownStyleSheet(
                   p: textStyle(
                     context,
-                    StyleType.bodMd,
+                    style: StyleType.bodMd,
                   ).copyWith(
-                    color: Theme.of(context).colorScheme.onPrimary,
+                    color: context.color.onPrimary,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

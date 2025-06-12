@@ -194,7 +194,7 @@ class _SignInScreenInitialState extends State<SignInScreenInitial> {
                                     text: localize.signInFooter,
                                     style: textStyle(
                                       context,
-                                      StyleType.titSm,
+                                      style: StyleType.titSm,
                                     ).copyWith(
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -207,7 +207,8 @@ class _SignInScreenInitialState extends State<SignInScreenInitial> {
                                         );
                                       },
                                     text: ' ${localize.signUpLabel}',
-                                    style: textStyle(context, StyleType.titSm)
+                                    style: textStyle(context,
+                                            style: StyleType.titSm)
                                         .copyWith(
                                       fontWeight: FontWeight.w600,
                                       color: context.color.primary,

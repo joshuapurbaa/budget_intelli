@@ -109,17 +109,14 @@ class _ChatScreenState extends State<ChatScreen> {
               Container(
                 height: 100,
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.surface,
+                  color: context.color.surface,
                   borderRadius: const BorderRadius.vertical(
                     top: Radius.circular(18),
                   ),
                   boxShadow: [
                     // add shadow on the top side
                     BoxShadow(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .shadow
-                          .withValues(alpha: 0.2),
+                      color: context.color.shadow.withValues(alpha: 0.2),
                       blurRadius: 10, // soften the shadow
                       offset: const Offset(
                         0, // Move to right 10  horizontally
@@ -139,16 +136,14 @@ class _ChatScreenState extends State<ChatScreen> {
                           maxLines: null,
                           expands: true,
                           decoration: InputDecoration(
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: getEdgeInsetsAll(16),
                             hintText: 'Enter a prompt',
                             border: InputBorder.none,
                             hintStyle: textStyle(
                               context,
-                              StyleType.bodLg,
+                              style: StyleType.bodLg,
                             ).copyWith(
-                              color: Theme.of(context)
-                                  .colorScheme
-                                  .onSurfaceVariant,
+                              color: context.color.onSurfaceVariant,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -180,7 +175,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         },
                         icon: getSvgAsset(
                           send,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: context.color.onSurface,
                         ),
                       ),
                     ],

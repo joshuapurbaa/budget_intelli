@@ -279,14 +279,14 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                       },
                                       style: textStyle(
                                         context,
-                                        StyleType.bodLg,
+                                        style: StyleType.bodLg,
                                       ),
                                       decoration: InputDecoration(
                                         contentPadding: EdgeInsets.zero,
                                         hintText: groupCategory.groupName,
                                         hintStyle: textStyle(
                                           context,
-                                          StyleType.bodLg,
+                                          style: StyleType.bodLg,
                                         ).copyWith(
                                           color: hintColorGroupName,
                                         ),
@@ -355,7 +355,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                 itemName == localize.categoryName) {
                               baseStyle = textStyle(
                                 context,
-                                StyleType.bodMd,
+                                style: StyleType.bodMd,
                               ).copyWith(
                                 color: colorOnSurface,
                                 fontWeight: FontWeight.w400,
@@ -363,7 +363,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                             } else {
                               baseStyle = textStyle(
                                 context,
-                                StyleType.bodMd,
+                                style: StyleType.bodMd,
                               );
                             }
 
@@ -438,7 +438,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                         textAlign: TextAlign.end,
                                         style: textStyle(
                                           context,
-                                          StyleType.bodMd,
+                                          style: StyleType.bodMd,
                                         ).copyWith(
                                           color: colorRightHintText,
                                         ),
@@ -482,7 +482,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                           ),
                                           hintStyle: textStyle(
                                             context,
-                                            StyleType.bodMd,
+                                            style: StyleType.bodMd,
                                           ).copyWith(
                                             color: colorRightHintText,
                                           ),

@@ -126,7 +126,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                               hintText: '${localize.budgetName}...',
                               hintStyle: textStyle(
                                 context,
-                                StyleType.bodSm,
+                                style: StyleType.bodSm,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -160,7 +160,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                               hintText: localize.myIncomeIs,
                               hintStyle: textStyle(
                                 context,
-                                StyleType.bodSm,
+                                style: StyleType.bodSm,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -189,7 +189,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                               hintText: hintText,
                               hintStyle: textStyle(
                                 context,
-                                StyleType.bodSm,
+                                style: StyleType.bodSm,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
@@ -223,7 +223,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                       method.methodName,
                                       style: textStyle(
                                         context,
-                                        StyleType.bodSm,
+                                        style: StyleType.bodSm,
                                       ),
                                     ),
                                     selected: state.budgetMethod == method,
@@ -274,14 +274,14 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                         localize.noMethodSelected,
                                     style: textStyle(
                                       context,
-                                      StyleType.bodSm,
+                                      style: StyleType.bodSm,
                                     ),
                                   ),
                                   TextSpan(
                                     text: '\n\n',
                                     style: textStyle(
                                       context,
-                                      StyleType.bodSm,
+                                      style: StyleType.bodSm,
                                     ),
                                   ),
                                   TextSpan(
@@ -290,7 +290,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                         '',
                                     style: textStyle(
                                       context,
-                                      StyleType.bodSm,
+                                      style: StyleType.bodSm,
                                     ),
                                   ),
                                 ],
@@ -366,7 +366,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
               state.budgetGenerate!.notes,
               style: textStyle(
                 context,
-                StyleType.bodMd,
+                style: StyleType.bodMd,
               ),
             ),
           ],

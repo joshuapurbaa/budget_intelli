@@ -35,7 +35,8 @@ class PromptAnalysisContent extends StatelessWidget {
             children: List.generate(
               state.analysisGenerateModel?.overSpendCategories.length ?? 0,
               (index) {
-                final overBudgetCategory = state.analysisGenerateModel?.overSpendCategories[index];
+                final overBudgetCategory =
+                    state.analysisGenerateModel?.overSpendCategories[index];
                 final categoryName = overBudgetCategory?.categoryName;
                 final actualAmount = overBudgetCategory?.actualAmount ?? 0;
                 final planAmount = overBudgetCategory?.totalPlan ?? 0;
@@ -61,7 +62,7 @@ class PromptAnalysisContent extends StatelessWidget {
                       '${localize.actual}: $actualAmountStr',
                       style: textStyle(
                         context,
-                        StyleType.bodMd,
+                        style: StyleType.bodMd,
                       ),
                     ),
                     Gap.vertical(5),
@@ -69,7 +70,7 @@ class PromptAnalysisContent extends StatelessWidget {
                       '${localize.planned}: $planAmountStr',
                       style: textStyle(
                         context,
-                        StyleType.bodMd,
+                        style: StyleType.bodMd,
                       ),
                     ),
                   ],
@@ -87,7 +88,8 @@ class PromptAnalysisContent extends StatelessWidget {
             children: List.generate(
               state.analysisGenerateModel?.overSpendCategories.length ?? 0,
               (index) {
-                final trendPrediction = state.analysisGenerateModel?.prediction[index];
+                final trendPrediction =
+                    state.analysisGenerateModel?.prediction[index];
 
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -101,7 +103,7 @@ class PromptAnalysisContent extends StatelessWidget {
                       '${localize.trend}: ${trendPrediction?.trend}',
                       style: textStyle(
                         context,
-                        StyleType.bodMd,
+                        style: StyleType.bodMd,
                       ).copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -121,7 +123,7 @@ class PromptAnalysisContent extends StatelessWidget {
             recommendation ?? '',
             style: textStyle(
               context,
-              StyleType.bodMd,
+              style: StyleType.bodMd,
             ),
           ),
         ],

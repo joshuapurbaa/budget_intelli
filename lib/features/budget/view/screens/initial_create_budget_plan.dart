@@ -125,14 +125,14 @@ class _InitialCreateBudgetPlanScreenState
                             text: firstTitle,
                             style: textStyle(
                               context,
-                              StyleType.headMed,
+                              style: StyleType.headMed,
                             ),
                           ),
                           TextSpan(
                             text: ' $secondTitle',
                             style: textStyle(
                               context,
-                              StyleType.bodMd,
+                              style: StyleType.bodMd,
                             ).copyWith(
                               fontStyle: FontStyle.italic,
                               color: onSurfaceColor,
@@ -230,7 +230,7 @@ class _InitialCreateBudgetPlanScreenState
                                   firstDate: now,
                                   controlsTextStyle: textStyle(
                                     context,
-                                    StyleType.bodLg,
+                                    style: StyleType.bodLg,
                                   ),
                                 ),
                                 dialogSize: Size(width, 400),

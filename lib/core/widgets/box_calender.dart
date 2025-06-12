@@ -181,7 +181,7 @@ class _BoxCalenderState extends State<BoxCalender> {
                     ),
                     controlsTextStyle: textStyle(
                       context,
-                      StyleType.bodSm,
+                      style: StyleType.bodSm,
                     ),
                     calendarViewMode: CalendarDatePicker2Mode.day,
                     centerAlignModePicker: false,

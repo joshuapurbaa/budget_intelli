@@ -15,7 +15,7 @@ class LabelWithDividerRight extends StatelessWidget {
       children: [
         Text(
           label,
-          style: textStyle(context, StyleType.bodSm).copyWith(
+          style: textStyle(context, style: StyleType.bodSm).copyWith(
             fontWeight: FontWeight.bold,
             color: Theme.of(context).colorScheme.onSurfaceVariant,
           ),

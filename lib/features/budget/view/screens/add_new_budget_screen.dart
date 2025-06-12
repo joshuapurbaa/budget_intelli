@@ -187,14 +187,14 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                         text: firstTitle,
                         style: textStyle(
                           context,
-                          StyleType.headMed,
+                          style: StyleType.headMed,
                         ),
                       ),
                       TextSpan(
                         text: ' $secondTitle',
                         style: textStyle(
                           context,
-                          StyleType.bodMd,
+                          style: StyleType.bodMd,
                         ).copyWith(
                           fontStyle: FontStyle.italic,
                           color: context.color.onSurface.withValues(alpha: 0.5),

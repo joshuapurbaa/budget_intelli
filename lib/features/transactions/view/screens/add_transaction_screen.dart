@@ -347,7 +347,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                   hintText: '${localize.selectCategory}*',
                                   textStyle: textStyle(
                                     context,
-                                    StyleType.bodMd,
+                                    style: StyleType.bodMd,
                                   ).copyWith(
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -382,7 +382,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                               VisualDensity.comfortable,
                                           textStyle: textStyle(
                                             context,
-                                            StyleType.bodMd,
+                                            style: StyleType.bodMd,
                                           ),
                                         ),
                                       );
@@ -400,14 +400,14 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                             text: '${localize.left2}: ',
                                             style: textStyle(
                                               context,
-                                              StyleType.bodSm,
+                                              style: StyleType.bodSm,
                                             ),
                                           ),
                                           TextSpan(
                                             text: _remainingStr ?? '',
                                             style: textStyle(
                                               context,
-                                              StyleType.bodSm,
+                                              style: StyleType.bodSm,
                                             ).copyWith(
                                               color: context.color.primary,
                                             ),
@@ -498,7 +498,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                     hintText: '${localize.selectAccount}*',
                                     textStyle: textStyle(
                                       context,
-                                      StyleType.bodMd,
+                                      style: StyleType.bodMd,
                                     ).copyWith(
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -520,7 +520,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                                 VisualDensity.comfortable,
                                             textStyle: textStyle(
                                               context,
-                                              StyleType.bodMd,
+                                              style: StyleType.bodMd,
                                             ),
                                           ),
                                         );
@@ -692,7 +692,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       border: InputBorder.none,
       hintStyle: textStyle(
         context,
-        StyleType.bodMd,
+        style: StyleType.bodMd,
       ).copyWith(
         fontWeight: FontWeight.w400,
         color: context.color.onSurface.withValues(alpha: 0.5),

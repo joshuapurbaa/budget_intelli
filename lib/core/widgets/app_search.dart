@@ -37,7 +37,7 @@ class AppSearch extends StatelessWidget {
           ),
           hintStyle: textStyle(
             context,
-            StyleType.bodSm,
+            style: StyleType.bodSm,
           ).copyWith(
             color: context.color.onSurface.withValues(alpha: 0.5),
           ),

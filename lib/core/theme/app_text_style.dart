@@ -48,9 +48,21 @@ class AppTextStyle {
     ),
 
     ///body Xlarge = xLarge
-    titleSmall: TextStyle(
+    titleLarge: TextStyle(
       fontSize: 18.sp,
       fontWeight: FontWeight.w700,
+      fontFamily: 'Urbanist',
+    ),
+
+    titleMedium: TextStyle(
+      fontSize: 16.sp,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Urbanist',
+    ),
+
+    titleSmall: TextStyle(
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w600,
       fontFamily: 'Urbanist',
     ),
 
@@ -77,6 +89,18 @@ class AppTextStyle {
 
     /// body xsmall = xSmall
     labelLarge: TextStyle(
+      fontSize: 10.sp,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Urbanist',
+    ),
+
+    labelMedium: TextStyle(
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w400,
+      fontFamily: 'Urbanist',
+    ),
+
+    labelSmall: TextStyle(
       fontSize: 10.sp,
       fontWeight: FontWeight.w400,
       fontFamily: 'Urbanist',
@@ -127,9 +151,21 @@ class AppTextStyle {
     ),
 
     ///body Xlarge
-    titleSmall: TextStyle(
+    titleLarge: TextStyle(
       fontSize: 18.sp,
       fontWeight: FontWeight.w700,
+      fontFamily: 'Urbanist',
+    ),
+
+    titleMedium: TextStyle(
+      fontSize: 16.sp,
+      fontWeight: FontWeight.w600,
+      fontFamily: 'Urbanist',
+    ),
+
+    titleSmall: TextStyle(
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w600,
       fontFamily: 'Urbanist',
     ),
 
@@ -160,12 +196,21 @@ class AppTextStyle {
       fontWeight: FontWeight.w700,
       fontFamily: 'Urbanist',
     ),
+
+    labelMedium: TextStyle(
+      fontSize: 12.sp,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Urbanist',
+    ),
+
+    labelSmall: TextStyle(
+      fontSize: 10.sp,
+      fontWeight: FontWeight.w700,
+      fontFamily: 'Urbanist',
+    ),
   );
 
-  static TextStyle style(
-    BuildContext context, {
-    required StyleType style,
-  }) {
+  static TextStyle style(BuildContext context, {required StyleType style}) {
     switch (style) {
       case StyleType.disLg:
         return Theme.of(context).textTheme.displayLarge!;
@@ -179,6 +224,10 @@ class AppTextStyle {
         return Theme.of(context).textTheme.headlineMedium!;
       case StyleType.headSm:
         return Theme.of(context).textTheme.headlineSmall!;
+      case StyleType.titLg:
+        return Theme.of(context).textTheme.titleLarge!;
+      case StyleType.titMd:
+        return Theme.of(context).textTheme.titleMedium!;
       case StyleType.titSm:
         return Theme.of(context).textTheme.titleSmall!;
       case StyleType.bodLg:
@@ -189,6 +238,10 @@ class AppTextStyle {
         return Theme.of(context).textTheme.bodySmall!;
       case StyleType.labLg:
         return Theme.of(context).textTheme.labelLarge!;
+      case StyleType.labMd:
+        return Theme.of(context).textTheme.labelMedium!;
+      case StyleType.labSm:
+        return Theme.of(context).textTheme.labelSmall!;
     }
   }
 }

@@ -217,8 +217,9 @@ class _SignUpScreenFromProfileState extends State<SignUpScreenFromProfile> {
                               children: [
                                 TextSpan(
                                   text: localize.signUpBody1,
-                                  style: textStyle(context, StyleType.titSm)
-                                      .copyWith(
+                                  style:
+                                      textStyle(context, style: StyleType.titSm)
+                                          .copyWith(
                                     fontWeight: FontWeight.w500,
                                   ),
                                 ),
@@ -237,7 +238,7 @@ class _SignUpScreenFromProfileState extends State<SignUpScreenFromProfile> {
                                     },
                                   style: textStyle(
                                     context,
-                                    StyleType.titSm,
+                                    style: StyleType.titSm,
                                   ).copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: context.color.primary,

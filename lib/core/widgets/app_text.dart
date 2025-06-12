@@ -1,4 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart' show AutoSizeText;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -6,7 +6,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 class AppText extends StatelessWidget {
   const AppText({
     required this.text,
-    required this.style,
+    this.style,
     super.key,
     this.textAlign,
     this.fontWeight,
@@ -22,7 +22,7 @@ class AppText extends StatelessWidget {
   const AppText.color({
     required this.text,
     required this.color,
-    required this.style,
+    this.style,
     super.key,
     this.textAlign,
     this.fontWeight,
@@ -191,7 +191,7 @@ class AppText extends StatelessWidget {
   // create a new constructor for italic text
   const AppText.italic({
     required this.text,
-    required this.style,
+    this.style,
     super.key,
     this.textAlign,
     this.fontWeight,
@@ -205,7 +205,7 @@ class AppText extends StatelessWidget {
 
   const AppText.autoSize({
     required this.text,
-    required this.style,
+    this.style,
     super.key,
     this.textAlign,
     this.fontWeight,
@@ -219,7 +219,7 @@ class AppText extends StatelessWidget {
 
   const AppText.noMaxLines({
     required this.text,
-    required this.style,
+    this.style,
     super.key,
     this.textAlign,
     this.fontWeight,
@@ -233,7 +233,7 @@ class AppText extends StatelessWidget {
 
   const AppText.animate({
     required this.text,
-    required this.style,
+    this.style,
     super.key,
     this.textAlign,
     this.fontWeight,
@@ -246,7 +246,7 @@ class AppText extends StatelessWidget {
   }) : animation = true;
 
   final String text;
-  final StyleType style;
+  final StyleType? style;
   final TextAlign? textAlign;
   final FontWeight? fontWeight;
   final Color? color;
@@ -263,10 +263,7 @@ class AppText extends StatelessWidget {
       return AutoSizeText(
         minFontSize: minFontSize ?? 12,
         text,
-        style: textStyle(
-          context,
-          style,
-        ).copyWith(
+        style: textStyle(context, style: style).copyWith(
           fontWeight: fontWeight,
           color: color ?? context.color.onSurface,
           fontStyle: fontStyle,
@@ -277,12 +274,9 @@ class AppText extends StatelessWidget {
     }
 
     if (noMaxLines != null) {
-      return Text(
+      return AutoSizeText(
         text,
-        style: textStyle(
-          context,
-          style,
-        ).copyWith(
+        style: textStyle(context, style: style).copyWith(
           fontWeight: fontWeight,
           color: color ?? context.color.onSurface,
           fontStyle: fontStyle,
@@ -292,12 +286,9 @@ class AppText extends StatelessWidget {
     }
 
     if (animation != null) {
-      return Text(
+      return AutoSizeText(
         text,
-        style: textStyle(
-          context,
-          style,
-        ).copyWith(
+        style: textStyle(context, style: style).copyWith(
           fontWeight: fontWeight,
           color: color ?? context.color.onSurface,
           fontStyle: fontStyle,
@@ -305,18 +296,12 @@ class AppText extends StatelessWidget {
         textAlign: textAlign,
         maxLines: maxLines ?? 2,
         overflow: TextOverflow.ellipsis,
-      ).animate().fadeIn().scale().move(
-            delay: 300.ms,
-            duration: 600.ms,
-          );
+      ).animate().fadeIn().scale().move(delay: 300.ms, duration: 600.ms);
     }
 
-    return Text(
+    return AutoSizeText(
       text,
-      style: textStyle(
-        context,
-        style,
-      ).copyWith(
+      style: textStyle(context, style: style).copyWith(
         fontWeight: fontWeight,
         color: color ?? context.color.onSurface,
         fontStyle: fontStyle,

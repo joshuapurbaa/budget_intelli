@@ -21,14 +21,14 @@ class AssistantMessageWidget extends StatelessWidget {
           painter: BubblePainter(
             tail: true,
             alignment: Alignment.topLeft,
-            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            color: context.color.surfaceContainerHighest,
           ),
           child: Container(
             constraints: BoxConstraints(
-              maxWidth: MediaQuery.of(context).size.width * 0.9,
+              maxWidth: context.screenWidth * 0.9,
             ),
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
+              color: context.color.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(18),
             ),
             padding: getEdgeInsets(
@@ -49,9 +49,9 @@ class AssistantMessageWidget extends StatelessWidget {
                     styleSheet: MarkdownStyleSheet(
                       p: textStyle(
                         context,
-                        StyleType.bodMd,
+                        style: StyleType.bodMd,
                       ).copyWith(
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        color: context.color.onSurfaceVariant,
                         fontWeight: FontWeight.w500,
                       ),
                     ),

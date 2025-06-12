@@ -62,20 +62,20 @@ class ButtonDateTime extends StatelessWidget {
                           activeDayStyle: DayStyle(
                             dayNumStyle: textStyle(
                               context,
-                              StyleType.disMd,
+                              style: StyleType.disMd,
                             ).copyWith(
                               color: context.color.onPrimary,
                             ),
                             monthStrStyle: textStyle(
                               context,
-                              StyleType.bodSm,
+                              style: StyleType.bodSm,
                             ).copyWith(
                               color: context.color.onPrimary,
                               fontWeight: FontWeight.bold,
                             ),
                             dayStrStyle: textStyle(
                               context,
-                              StyleType.bodSm,
+                              style: StyleType.bodSm,
                             ).copyWith(
                               color: context.color.onPrimary,
                               fontWeight: FontWeight.bold,
@@ -84,13 +84,13 @@ class ButtonDateTime extends StatelessWidget {
                           inactiveDayStyle: DayStyle(
                             dayNumStyle: textStyle(
                               context,
-                              StyleType.bodLg,
+                              style: StyleType.bodLg,
                             ),
                           ),
                           todayStyle: DayStyle(
                             dayNumStyle: textStyle(
                               context,
-                              StyleType.bodLg,
+                              style: StyleType.bodLg,
                             ).copyWith(
                               color: Colors.grey,
                             ),

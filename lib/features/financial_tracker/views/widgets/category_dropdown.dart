@@ -55,7 +55,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
               border: InputBorder.none,
               hintStyle: textStyle(
                 context,
-                StyleType.bodMd,
+                style: StyleType.bodMd,
               ).copyWith(
                 color: context.color.primary,
               ),
@@ -73,7 +73,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
                 localize.category,
             textStyle: textStyle(
               context,
-              StyleType.bodMd,
+              style: StyleType.bodMd,
             ).copyWith(
               fontWeight: FontWeight.w700,
             ),
@@ -102,7 +102,7 @@ class _CategoryDropdownState extends State<CategoryDropdown> {
                     visualDensity: VisualDensity.comfortable,
                     textStyle: textStyle(
                       context,
-                      StyleType.bodMd,
+                      style: StyleType.bodMd,
                     ),
                   ),
                 );

@@ -224,14 +224,14 @@ class _AddExpenseTransactionScreenState
                                         text: '${localize.left2}: ',
                                         style: textStyle(
                                           context,
-                                          StyleType.bodSm,
+                                          style: StyleType.bodSm,
                                         ),
                                       ),
                                       TextSpan(
                                         text: remainingStr,
                                         style: textStyle(
                                           context,
-                                          StyleType.bodSm,
+                                          style: StyleType.bodSm,
                                         ).copyWith(
                                           color: context.color.primary,
                                         ),
@@ -315,7 +315,7 @@ class _AddExpenseTransactionScreenState
                                       border: InputBorder.none,
                                       hintStyle: textStyle(
                                         context,
-                                        StyleType.bodMd,
+                                        style: StyleType.bodMd,
                                       ).copyWith(
                                         fontWeight: FontWeight.w400,
                                         color: context.color.onSurface
@@ -329,7 +329,7 @@ class _AddExpenseTransactionScreenState
                                     hintText: '${localize.selectAccount}*',
                                     textStyle: textStyle(
                                       context,
-                                      StyleType.bodMd,
+                                      style: StyleType.bodMd,
                                     ).copyWith(
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -360,7 +360,7 @@ class _AddExpenseTransactionScreenState
                                                 VisualDensity.comfortable,
                                             textStyle: textStyle(
                                               context,
-                                              StyleType.bodMd,
+                                              style: StyleType.bodMd,
                                             ),
                                           ),
                                         );

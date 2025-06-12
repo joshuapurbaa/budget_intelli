@@ -197,7 +197,7 @@ class _SignInScreenFromProfileState extends State<SignInScreenFromProfile> {
                                   text: localize.signInFooter,
                                   style: textStyle(
                                     context,
-                                    StyleType.titSm,
+                                    style: StyleType.titSm,
                                   ).copyWith(
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -208,8 +208,9 @@ class _SignInScreenFromProfileState extends State<SignInScreenFromProfile> {
                                       context.pop();
                                     },
                                   text: ' ${localize.signUpLabel}',
-                                  style: textStyle(context, StyleType.titSm)
-                                      .copyWith(
+                                  style:
+                                      textStyle(context, style: StyleType.titSm)
+                                          .copyWith(
                                     fontWeight: FontWeight.w600,
                                     color: context.color.primary,
                                   ),

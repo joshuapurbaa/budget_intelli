@@ -70,13 +70,13 @@ class _UpdateGroupCategoryContentState
                     },
                     style: textStyle(
                       context,
-                      StyleType.bodMd,
+                      style: StyleType.bodMd,
                     ),
                     decoration: InputDecoration(
                       hintText: textLocalizer(context).categoryName,
                       hintStyle: textStyle(
                         context,
-                        StyleType.bodMd,
+                        style: StyleType.bodMd,
                       ),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,

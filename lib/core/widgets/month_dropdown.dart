@@ -46,7 +46,7 @@ class _MonthDropdownState extends State<MonthDropdown> {
           border: InputBorder.none,
           hintStyle: textStyle(
             context,
-            StyleType.bodMd,
+            style: StyleType.bodMd,
           ).copyWith(
             fontWeight: FontWeight.w400,
             color: context.color.onSurface.withValues(alpha: 0.5),
@@ -59,7 +59,7 @@ class _MonthDropdownState extends State<MonthDropdown> {
         hintText: '${localize.month}*',
         textStyle: textStyle(
           context,
-          StyleType.bodMd,
+          style: StyleType.bodMd,
         ).copyWith(
           fontWeight: FontWeight.w700,
         ),
@@ -82,7 +82,7 @@ class _MonthDropdownState extends State<MonthDropdown> {
                 visualDensity: VisualDensity.comfortable,
                 textStyle: textStyle(
                   context,
-                  StyleType.bodMd,
+                  style: StyleType.bodMd,
                 ),
               ),
             );

@@ -92,7 +92,7 @@ class _AddSchedulePaymentsScreenState extends State<AddSchedulePaymentsScreen> {
           },
           titleTextStyle: textStyle(
             context,
-            StyleType.bodMd,
+            style: StyleType.bodMd,
           ),
           children: [
             AppBoxFormField(

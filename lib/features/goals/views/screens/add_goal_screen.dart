@@ -127,8 +127,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                         GestureDetector(
                           onTap: () async {
                             final now = DateTime.now();
-                            final width =
-                                MediaQuery.sizeOf(context).width * 0.9;
+                            final width = context.screenWidth * 0.9;
 
                             final results = await showCalendarDatePicker2Dialog(
                               context: context,
@@ -138,7 +137,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                                 firstDate: now,
                                 controlsTextStyle: textStyle(
                                   context,
-                                  StyleType.bodLg,
+                                  style: StyleType.bodLg,
                                 ),
                               ),
                               dialogSize: Size(width, 400),

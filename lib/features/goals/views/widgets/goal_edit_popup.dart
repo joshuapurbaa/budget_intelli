@@ -117,7 +117,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
               textInputAction: TextInputAction.next,
               style: textStyle(
                 context,
-                StyleType.bodMd,
+                style: StyleType.bodMd,
               ),
               decoration: InputDecoration(
                 labelText: localize.goalName,
@@ -125,7 +125,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                 contentPadding: const EdgeInsets.all(10),
                 hintStyle: textStyle(
                   context,
-                  StyleType.bodMd,
+                  style: StyleType.bodMd,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -175,7 +175,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                           firstDate: sixtyDayBefore,
                           controlsTextStyle: textStyle(
                             context,
-                            StyleType.bodLg,
+                            style: StyleType.bodLg,
                           ),
                         ),
                         dialogSize: Size(width, 400),

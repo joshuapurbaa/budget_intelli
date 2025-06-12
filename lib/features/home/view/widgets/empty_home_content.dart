@@ -61,7 +61,7 @@ class _EmptyHomeContentState extends State<EmptyHomeContent>
                       controller: _tabController,
                       labelStyle: textStyle(
                         context,
-                        StyleType.bodMd,
+                        style: StyleType.bodMd,
                       ).copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -183,7 +183,7 @@ class _EmptyHomeContentWithAddBudgetButtonState
                       controller: _tabController,
                       labelStyle: textStyle(
                         context,
-                        StyleType.bodMd,
+                        style: StyleType.bodMd,
                       ).copyWith(
                         fontWeight: FontWeight.bold,
                       ),
