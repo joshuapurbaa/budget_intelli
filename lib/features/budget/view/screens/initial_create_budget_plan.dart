@@ -28,8 +28,9 @@ class _InitialCreateBudgetPlanScreenState
   final _scrollController = ScrollController();
   final _budgetNameController = TextEditingController();
   final _budgetNameFocus = FocusNode();
-  final budgetID = const Uuid().v1();
-  final users = FirebaseFirestore.instance.collection('users');
+  final String budgetID = const Uuid().v1();
+  final CollectionReference<Map<String, dynamic>> users =
+      FirebaseFirestore.instance.collection('users');
   StreamSubscription<DocumentSnapshot>? userSubscription;
 
   // late StreamSubscription<List<PurchaseDetails>> _iapSubscription;
@@ -218,8 +219,7 @@ class _InitialCreateBudgetPlanScreenState
                             onTap: () async {
                               _budgetNameFocus.unfocus();
                               final now = DateTime.now();
-                              final width =
-                                  MediaQuery.sizeOf(context).width * 0.9;
+                              final width = context.screenWidth * 0.9;
 
                               final results =
                                   await showCalendarDatePicker2Dialog(

@@ -1,9 +1,21 @@
+import 'package:budget_intelli/core/l10n/app_localizations.dart';
+import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 extension ContextExtensions on BuildContext {
   ColorScheme get color => Theme.of(this).colorScheme;
   bool get isLightMode => Theme.of(this).brightness == Brightness.light;
   bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
+
+  double get screenWidth => MediaQuery.of(this).size.width;
+  double get screenHeight => MediaQuery.of(this).size.height;
+
+  // Add new extension for SettingBloc theme mode
+  bool get isDarkModeSetting => watch<SettingBloc>().state.isDarkMode;
+
+  // localizer
+  AppLocalizations get l10n => AppLocalizations.of(this)!;
 }
 
 extension StringExtensions on String {
