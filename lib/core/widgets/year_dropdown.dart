@@ -39,7 +39,7 @@ class _YearDropdownState extends State<YearDropdown> {
           border: InputBorder.none,
           hintStyle: textStyle(
             context,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           ).copyWith(
             fontWeight: FontWeight.w400,
             color: context.color.onSurface.withValues(alpha: 0.5),
@@ -52,7 +52,7 @@ class _YearDropdownState extends State<YearDropdown> {
         hintText: '${localize.year}*',
         textStyle: textStyle(
           context,
-          style: StyleType.bodMd,
+          style: StyleType.bodMed,
         ).copyWith(
           fontWeight: FontWeight.w700,
         ),
@@ -75,7 +75,7 @@ class _YearDropdownState extends State<YearDropdown> {
                 visualDensity: VisualDensity.comfortable,
                 textStyle: textStyle(
                   context,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ),
               ),
             );

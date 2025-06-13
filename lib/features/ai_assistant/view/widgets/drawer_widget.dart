@@ -42,7 +42,7 @@ class DrawerWidget extends StatelessWidget {
             ),
             label: const AppText(
               text: 'Create New Chat',
-              style: StyleType.bodMd,
+              style: StyleType.bodMed,
             ),
           ),
           // Gap.vertical(16),
@@ -53,7 +53,7 @@ class DrawerWidget extends StatelessWidget {
           AppText.color(
             text: 'Today',
             color: Theme.of(context).colorScheme.onSurfaceVariant,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           ),
           Gap.vertical(16),
           ...messagesGroupByChatId.map(
@@ -68,7 +68,7 @@ class DrawerWidget extends StatelessWidget {
                 },
                 title: AppText(
                   text: lastMessage,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ),
               );
             },

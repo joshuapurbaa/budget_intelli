@@ -223,7 +223,7 @@ class GoalDetailScreen extends StatelessWidget {
                                               AppText(
                                                 text:
                                                     '${localize.suggested} 💡',
-                                                style: StyleType.bodMd,
+                                                style: StyleType.bodMed,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               Gap.vertical(10),

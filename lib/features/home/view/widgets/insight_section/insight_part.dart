@@ -26,7 +26,7 @@ class InsightPart extends StatelessWidget {
           children: [
             AppText(
               text: title,
-              style: StyleType.bodMd,
+              style: StyleType.bodMed,
               fontWeight: FontWeight.bold,
             ),
             Gap.vertical(16),

@@ -232,7 +232,7 @@ class AppTextStyle {
         return Theme.of(context).textTheme.titleSmall!;
       case StyleType.bodLg:
         return Theme.of(context).textTheme.bodyLarge!;
-      case StyleType.bodMd:
+      case StyleType.bodMed:
         return Theme.of(context).textTheme.bodyMedium!;
       case StyleType.bodSm:
         return Theme.of(context).textTheme.bodySmall!;

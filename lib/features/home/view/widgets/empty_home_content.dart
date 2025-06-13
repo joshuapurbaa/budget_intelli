@@ -61,7 +61,7 @@ class _EmptyHomeContentState extends State<EmptyHomeContent>
                       controller: _tabController,
                       labelStyle: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ).copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -183,7 +183,7 @@ class _EmptyHomeContentWithAddBudgetButtonState
                       controller: _tabController,
                       labelStyle: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ).copyWith(
                         fontWeight: FontWeight.bold,
                       ),
@@ -266,7 +266,7 @@ class _AddBudget extends StatelessWidget {
                   flex: 2,
                   child: AppText(
                     text: localize.newBudget,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ),
                 ),
               ],

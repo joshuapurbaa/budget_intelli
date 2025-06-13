@@ -48,7 +48,7 @@ class _AddLiabilityAccountScreenState extends State<AddLiabilityAccountScreen> {
                       onChanged: (value) {},
                       hintStyle: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ).copyWith(
                         fontWeight: _liabilityNameController.text.isEmpty
                             ? FontWeight.normal
@@ -74,7 +74,7 @@ class _AddLiabilityAccountScreenState extends State<AddLiabilityAccountScreen> {
                       onChanged: (value) {},
                       hintStyle: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ).copyWith(
                         fontWeight: _liabilityDescriptionController.text.isEmpty
                             ? FontWeight.normal

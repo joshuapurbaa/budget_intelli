@@ -79,7 +79,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                           children: [
                             AppText(
                               text: localize.netWorth,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               fontWeight: FontWeight.bold,
                             ),
                             AppText(
@@ -87,7 +87,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                 context,
                                 totalNetWorth,
                               ),
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               fontWeight: FontWeight.bold,
                               color: color,
                             ),
@@ -112,7 +112,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                           ),
                           title: AppText(
                             text: localize.totalAsset,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             fontWeight: FontWeight.bold,
                           ),
                           leading: Icon(
@@ -125,7 +125,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                               context,
                               totalAsset,
                             ),
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             fontWeight: FontWeight.bold,
                           ),
                           onExpansionChanged: (value) {
@@ -146,7 +146,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                     Expanded(
                                       child: AppText(
                                         text: category,
-                                        style: StyleType.bodMd,
+                                        style: StyleType.bodMed,
                                       ),
                                     ),
                                     AppText(
@@ -154,7 +154,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                         context,
                                         amount,
                                       ),
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ),
                                   ],
                                 ),
@@ -181,7 +181,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                           ),
                           title: AppText(
                             text: localize.totalLiability,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             fontWeight: FontWeight.bold,
                           ),
                           leading: Icon(
@@ -194,7 +194,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                               context,
                               totalLiability,
                             ),
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             fontWeight: FontWeight.bold,
                           ),
                           onExpansionChanged: (value) {
@@ -215,7 +215,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                     Expanded(
                                       child: AppText(
                                         text: category,
-                                        style: StyleType.bodMd,
+                                        style: StyleType.bodMed,
                                       ),
                                     ),
                                     AppText(
@@ -223,7 +223,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                         context,
                                         amount,
                                       ),
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ),
                                   ],
                                 ),
@@ -268,7 +268,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                 flex: 2,
                                 child: AppText(
                                   text: localize.addAsset,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                 ),
                               ),
                             ],
@@ -297,7 +297,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                 flex: 2,
                                 child: AppText(
                                   text: localize.addLiability,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                 ),
                               ),
                             ],

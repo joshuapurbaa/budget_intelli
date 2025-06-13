@@ -144,7 +144,7 @@ class _AddGroupCategoryScreenState extends State<AddGroupCategoryScreen> {
                                 text: '${localize.leftToBudget2}: ',
                                 style: textStyle(
                                   context,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                 ).copyWith(
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -182,7 +182,7 @@ class _AddGroupCategoryScreenState extends State<AddGroupCategoryScreen> {
                             Gap.horizontal(16),
                             AppText(
                               text: budgetName,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                           ],
                         ),

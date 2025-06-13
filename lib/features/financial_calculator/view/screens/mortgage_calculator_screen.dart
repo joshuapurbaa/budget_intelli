@@ -94,7 +94,7 @@ class _MortgageCalculatorScreenState extends State<MortgageCalculatorScreen> {
                     hintText: localize.interestRate,
                     textStyle: textStyle(
                       context,
-                      style: StyleType.bodMd,
+                      style: StyleType.bodMed,
                     ).copyWith(
                       fontWeight: FontWeight.w700,
                     ),
@@ -117,7 +117,7 @@ class _MortgageCalculatorScreenState extends State<MortgageCalculatorScreen> {
                             visualDensity: VisualDensity.comfortable,
                             textStyle: textStyle(
                               context,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                           ),
                         );
@@ -186,7 +186,7 @@ class _MortgageCalculatorScreenState extends State<MortgageCalculatorScreen> {
                         Gap.vertical(10),
                         AppText.noMaxLines(
                           text: _calculationResult ?? '',
-                          style: StyleType.bodMd,
+                          style: StyleType.bodMed,
                         ),
                       ],
                     ),
@@ -240,7 +240,7 @@ class _MortgageCalculatorScreenState extends State<MortgageCalculatorScreen> {
       border: InputBorder.none,
       hintStyle: textStyle(
         context,
-        style: StyleType.bodMd,
+        style: StyleType.bodMed,
       ).copyWith(
         fontWeight: FontWeight.w400,
         color: context.color.onSurface.withValues(alpha: 0.5),

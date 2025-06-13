@@ -302,7 +302,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                               children: [
                                 AppText(
                                   text: title1,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   maxLines: 1,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -328,7 +328,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                               children: [
                                 AppText(
                                   text: title2,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   maxLines: 1,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -356,7 +356,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                               text: title3,
                               style: textStyle(
                                 context,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                               ).copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
@@ -382,7 +382,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                           AppText(
                             text:
                                 '${localize.transactions} ($totalTransactions)',
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             fontWeight: FontWeight.bold,
                           ),
                           ListView.separated(

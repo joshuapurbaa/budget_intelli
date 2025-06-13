@@ -88,7 +88,7 @@ class _AppCalculatorBottomSheetState extends State<AppCalculatorBottomSheet> {
                     if (!zeroExpression)
                       AppText(
                         text: notifier.expression,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                         color: context.color.onSurface.withValues(alpha: 0.5),
                         fontWeight: FontWeight.w400,
                       ),

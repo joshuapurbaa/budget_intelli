@@ -56,7 +56,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   Gap.horizontal(10),
                   const AppText(
                     text: 'Goals',
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ),
                   Container(
                     padding:
@@ -97,7 +97,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   Gap.horizontal(10),
                   const AppText(
                     text: 'Scheduled Payments',
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ),
                   Container(
                     padding:

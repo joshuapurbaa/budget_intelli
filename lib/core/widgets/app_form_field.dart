@@ -42,7 +42,7 @@ class _AppFormFieldState extends State<AppFormField> {
           hintStyle: widget.hintStyle ??
               textStyle(
                 context,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ),
           hintText: widget.hintText,
         ),

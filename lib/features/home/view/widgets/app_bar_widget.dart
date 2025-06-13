@@ -65,7 +65,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                           },
                           child: AppText(
                             text: budgets[index].budgetName,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                           ),
                         );
                       },
@@ -84,7 +84,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                         },
                         child: AppText(
                           text: localize.noBudgetCreatedYet,
-                          style: StyleType.bodMd,
+                          style: StyleType.bodMed,
                         ),
                       );
                     }),

@@ -81,7 +81,7 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
         text: label,
         color: context.color.onSurface.withValues(alpha: 0.5),
         fontWeight: FontWeight.w400,
-        style: StyleType.bodMd,
+        style: StyleType.bodMed,
       );
     } else {
       String? amount;
@@ -93,7 +93,7 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
       return AppText(
         text: '${currency.symbol} $amount',
         fontWeight: FontWeight.w700,
-        style: StyleType.bodMd,
+        style: StyleType.bodMed,
         color: colorScheme.onSurface,
       );
     }

@@ -56,7 +56,7 @@ class _AccountScreenState extends State<AccountScreen> {
                   Gap.horizontal(16),
                   AppText(
                     text: '${localize.add} ${localize.accountBalance}',
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                     fontWeight: FontWeight.bold,
                   ),
                 ],

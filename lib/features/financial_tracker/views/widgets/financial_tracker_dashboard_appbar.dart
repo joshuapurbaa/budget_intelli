@@ -34,7 +34,7 @@ class _FinancialTrackerDashboardAppbarState
             ),
             AppText(
               text: 'Buku Bawaan',
-              style: StyleType.bodMd,
+              style: StyleType.bodMed,
               color: context.color.onSurface,
             ),
           ],

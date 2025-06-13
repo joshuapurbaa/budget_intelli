@@ -30,13 +30,13 @@ class RowText extends StatelessWidget {
           child: AppText(
             text: left,
             fontWeight: fontWeightLeft ?? FontWeight.w600,
-            style: styleTypeLeft ?? StyleType.bodMd,
+            style: styleTypeLeft ?? StyleType.bodMed,
             fontStyle: fontStyleLeft ?? FontStyle.normal,
           ),
         ),
         AppText(
           text: right,
-          style: styleTypeRight ?? StyleType.bodMd,
+          style: styleTypeRight ?? StyleType.bodMed,
           fontWeight: fontWeightRight ?? FontWeight.w400,
         ),
       ],

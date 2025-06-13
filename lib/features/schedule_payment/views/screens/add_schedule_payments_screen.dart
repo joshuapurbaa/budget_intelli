@@ -53,7 +53,7 @@ class _AddSchedulePaymentsScreenState extends State<AddSchedulePaymentsScreen> {
       text: _selectedDate == null
           ? '${localize.dueDateFieldLabel}*'
           : formatDateDDMMYYYY(_selectedDate!, context),
-      style: StyleType.bodMd,
+      style: StyleType.bodMed,
       fontWeight: _selectedDate == null ? FontWeight.w400 : FontWeight.w700,
       color: _selectedDate == null
           ? context.color.onSurface.withValues(alpha: 0.5)
@@ -92,7 +92,7 @@ class _AddSchedulePaymentsScreenState extends State<AddSchedulePaymentsScreen> {
           },
           titleTextStyle: textStyle(
             context,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           ),
           children: [
             AppBoxFormField(

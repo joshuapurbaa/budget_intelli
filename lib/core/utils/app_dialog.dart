@@ -86,7 +86,7 @@ class AppDialog {
                   const SizedBox(height: 16),
                   AppText(
                     text: message ?? textLocalizer(context).pleaseWait,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ),
                 ],
               ),
@@ -153,7 +153,7 @@ class AppDialog {
           ),
           content: AppText(
             text: textContent,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           ),
           actions: [
             TextButton(
@@ -162,7 +162,7 @@ class AppDialog {
               },
               child: AppText(
                 text: localize.cencel,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ),
             ),
             TextButton(
@@ -171,7 +171,7 @@ class AppDialog {
               },
               child: AppText(
                 text: localize.delete,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
                 color: context.color.error,
               ),
             ),

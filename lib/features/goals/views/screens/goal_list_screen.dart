@@ -45,7 +45,7 @@ class _GoalListScreenState extends State<GoalListScreen> {
                         Gap.horizontal(16),
                         AppText(
                           text: localize.addGoal,
-                          style: StyleType.bodMd,
+                          style: StyleType.bodMed,
                           fontWeight: FontWeight.bold,
                         ),
                       ],
@@ -122,7 +122,7 @@ class _GoalListScreenState extends State<GoalListScreen> {
                                       Gap.horizontal(10),
                                       AppText(
                                         text: remainingDays,
-                                        style: StyleType.bodMd,
+                                        style: StyleType.bodMed,
                                         fontWeight: FontWeight.bold,
                                         color: context.color.error,
                                       ),
@@ -131,7 +131,7 @@ class _GoalListScreenState extends State<GoalListScreen> {
                                   AppText(
                                     text:
                                         '$savedStr ${localize.ofLocalize} $goalAmountStr ${localize.saved}',
-                                    style: StyleType.bodMd,
+                                    style: StyleType.bodMed,
                                   ),
                                 ],
                               ),

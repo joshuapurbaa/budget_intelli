@@ -98,7 +98,7 @@ class _TransactionCalculatorBottomSheetState
                 if (!zeroExpression)
                   AppText(
                     text: notifier.expression,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                     color: context.color.onSurface.withValues(alpha: 0.5),
                     fontWeight: FontWeight.w400,
                   ),

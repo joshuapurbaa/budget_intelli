@@ -63,7 +63,7 @@ class SummaryDashboardItem extends StatelessWidget {
               ],
               AppText(
                 text: transaction.accountName,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ),
             ],
           ),

@@ -266,7 +266,7 @@ class _AddItemCategoryScreenState extends State<AddItemCategoryScreen> {
                             Gap.horizontal(16),
                             AppText(
                               text: groupName,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                           ],
                         ),
@@ -369,7 +369,7 @@ class _AddItemCategoryScreenState extends State<AddItemCategoryScreen> {
                                       children: [
                                         AppText(
                                           text: item.categoryName,
-                                          style: StyleType.bodMd,
+                                          style: StyleType.bodMed,
                                         ),
                                         if (alreadyUsed)
                                           const Icon(

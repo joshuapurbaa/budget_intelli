@@ -258,7 +258,7 @@ class _UpdateItemCategoryTransactionScreenState
                             Gap.horizontal(16),
                             AppText(
                               text: categoryName ?? localize.category,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                           ],
                         ),
@@ -299,7 +299,7 @@ class _UpdateItemCategoryTransactionScreenState
                                       border: InputBorder.none,
                                       hintStyle: textStyle(
                                         context,
-                                        style: StyleType.bodMd,
+                                        style: StyleType.bodMed,
                                       ).copyWith(
                                         fontWeight: FontWeight.w400,
                                         color: context.color.onSurfaceVariant,
@@ -312,7 +312,7 @@ class _UpdateItemCategoryTransactionScreenState
                                     hintText: '${localize.selectAccount}*',
                                     textStyle: textStyle(
                                       context,
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ).copyWith(
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -343,7 +343,7 @@ class _UpdateItemCategoryTransactionScreenState
                                                 VisualDensity.comfortable,
                                             textStyle: textStyle(
                                               context,
-                                              style: StyleType.bodMd,
+                                              style: StyleType.bodMed,
                                             ),
                                           ),
                                         );

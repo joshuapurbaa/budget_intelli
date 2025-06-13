@@ -154,7 +154,7 @@ class _TransactionItemList extends StatelessWidget {
                 children: [
                   AppText(
                     text: spendOn ?? '-',
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ),
                   Row(
                     children: [
@@ -176,7 +176,7 @@ class _TransactionItemList extends StatelessWidget {
                 context,
                 amount,
               ),
-              style: StyleType.bodMd,
+              style: StyleType.bodMed,
             ),
           ],
         ),

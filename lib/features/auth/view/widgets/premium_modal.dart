@@ -342,7 +342,7 @@ class _Feature extends StatelessWidget {
         const SizedBox(width: 8),
         AppText(
           text: title,
-          style: StyleType.bodMd,
+          style: StyleType.bodMed,
         ),
       ],
     );

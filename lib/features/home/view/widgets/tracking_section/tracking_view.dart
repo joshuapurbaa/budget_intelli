@@ -153,7 +153,7 @@ class _TrackingViewState extends State<TrackingView> {
                               ListTile(
                                 title: AppText(
                                   text: localize.daily,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   textAlign: TextAlign.center,
                                 ),
                                 onTap: () {
@@ -174,7 +174,7 @@ class _TrackingViewState extends State<TrackingView> {
                               ListTile(
                                 title: AppText(
                                   text: localize.weekly,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   textAlign: TextAlign.center,
                                 ),
                                 onTap: () {
@@ -195,7 +195,7 @@ class _TrackingViewState extends State<TrackingView> {
                               ListTile(
                                 title: AppText(
                                   text: localize.monthly,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   textAlign: TextAlign.center,
                                 ),
                                 onTap: () {
@@ -216,7 +216,7 @@ class _TrackingViewState extends State<TrackingView> {
                               ListTile(
                                 title: AppText(
                                   text: localize.yearly,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   textAlign: TextAlign.center,
                                 ),
                                 onTap: () {

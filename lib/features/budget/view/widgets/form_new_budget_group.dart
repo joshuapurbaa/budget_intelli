@@ -232,7 +232,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
             groupName == localize.groupName) {
           groupNameBaseStyle = textStyle(
             context,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           ).copyWith(
             color: context.color.onSurface.withValues(alpha: 0.3),
             fontWeight: FontWeight.w400,
@@ -240,7 +240,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
         } else {
           groupNameBaseStyle = textStyle(
             context,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           );
         }
 
@@ -271,7 +271,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                           Gap.horizontal(8),
                           AppText(
                             text: localize.expenses,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                           ),
                         ],
                       ),
@@ -293,7 +293,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                           Gap.horizontal(8),
                           AppText(
                             text: localize.income,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                           ),
                         ],
                       ),
@@ -466,14 +466,14 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                       },
                       style: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         hintText: groupName,
                         hintStyle: textStyle(
                           context,
-                          style: StyleType.bodMd,
+                          style: StyleType.bodMed,
                         ).copyWith(
                           color: context.color.onSurface.withValues(alpha: 0.3),
                           fontWeight: FontWeight.w400,
@@ -504,7 +504,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                   },
                   child: AppText(
                     text: addNewGroup ? localize.select : localize.add,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                     color: context.color.primary,
                   ),
                 ),
@@ -531,7 +531,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                     itemName == localize.categoryName) {
                   baseStyle = textStyle(
                     context,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ).copyWith(
                     color: context.color.onSurface.withValues(alpha: 0.3),
                     fontWeight: FontWeight.w400,
@@ -539,7 +539,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                 } else {
                   baseStyle = textStyle(
                     context,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   );
                 }
 
@@ -587,13 +587,13 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                               },
                               style: textStyle(
                                 context,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                               ),
                               decoration: InputDecoration(
                                 hintText: item.name,
                                 hintStyle: textStyle(
                                   context,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                 ).copyWith(
                                   color: context.color.onSurface
                                       .withValues(alpha: 0.3),
@@ -767,7 +767,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                             textAlign: TextAlign.end,
                             style: textStyle(
                               context,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                             onChanged: (value) {
                               final cleanVal =
@@ -802,7 +802,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                               ),
                               hintStyle: textStyle(
                                 context,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                               ).copyWith(
                                 color: context.color.onSurface
                                     .withValues(alpha: 0.3),
@@ -889,7 +889,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
               },
               child: AppText(
                 text: '+ ${localize.add} $groupName',
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
                 color: context.color.primary,
               ),
             ),

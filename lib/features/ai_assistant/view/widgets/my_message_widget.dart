@@ -47,7 +47,7 @@ class MyMessageWidget extends StatelessWidget {
                 styleSheet: MarkdownStyleSheet(
                   p: textStyle(
                     context,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ).copyWith(
                     color: context.color.onPrimary,
                     fontWeight: FontWeight.w500,

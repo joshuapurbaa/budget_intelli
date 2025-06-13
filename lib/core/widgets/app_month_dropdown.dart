@@ -53,7 +53,7 @@ class _AppMonthDropdownState extends State<AppMonthDropdown> {
           border: InputBorder.none,
           hintStyle: textStyle(
             context,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           ),
         ),
         trailingIcon: const Icon(
@@ -63,7 +63,7 @@ class _AppMonthDropdownState extends State<AppMonthDropdown> {
         hintText: localize.month,
         textStyle: textStyle(
           context,
-          style: StyleType.bodMd,
+          style: StyleType.bodMed,
         ).copyWith(
           fontWeight: FontWeight.w700,
         ),
@@ -86,7 +86,7 @@ class _AppMonthDropdownState extends State<AppMonthDropdown> {
                 visualDensity: VisualDensity.comfortable,
                 textStyle: textStyle(
                   context,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ),
               ),
             );

@@ -198,7 +198,7 @@ class _AddMyPortfolioScreenState extends State<AddMyPortfolioScreen> {
                                     child: AppText(
                                       text:
                                           'Stop Loss at price: $stopLossPriceString',
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ),
                                   ),
                                 ),

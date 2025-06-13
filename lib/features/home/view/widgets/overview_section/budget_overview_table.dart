@@ -44,20 +44,20 @@ class BudgetOverviewTable extends StatelessWidget {
           const DataColumn(
             label: AppText(
               text: '',
-              style: StyleType.bodMd,
+              style: StyleType.bodMed,
             ),
           ),
           DataColumn(
             label: AppText(
               text: localize.planned,
-              style: StyleType.bodMd,
+              style: StyleType.bodMed,
               fontWeight: FontWeight.w700,
             ),
           ),
           DataColumn(
             label: AppText(
               text: localize.actual,
-              style: StyleType.bodMd,
+              style: StyleType.bodMed,
               fontWeight: FontWeight.w700,
             ),
           ),

@@ -54,7 +54,7 @@ class PromptAnalysisContent extends StatelessWidget {
                   children: [
                     AppText(
                       text: '$categoryName',
-                      style: StyleType.bodMd,
+                      style: StyleType.bodMed,
                       fontWeight: FontWeight.w500,
                     ),
                     Gap.vertical(5),
@@ -62,7 +62,7 @@ class PromptAnalysisContent extends StatelessWidget {
                       '${localize.actual}: $actualAmountStr',
                       style: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ),
                     ),
                     Gap.vertical(5),
@@ -70,7 +70,7 @@ class PromptAnalysisContent extends StatelessWidget {
                       '${localize.planned}: $planAmountStr',
                       style: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ),
                     ),
                   ],
@@ -96,14 +96,14 @@ class PromptAnalysisContent extends StatelessWidget {
                   children: [
                     AppText(
                       text: '${trendPrediction?.categoryName}',
-                      style: StyleType.bodMd,
+                      style: StyleType.bodMed,
                       fontWeight: FontWeight.w500,
                     ),
                     Text(
                       '${localize.trend}: ${trendPrediction?.trend}',
                       style: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ).copyWith(
                         fontWeight: FontWeight.w500,
                       ),
@@ -123,7 +123,7 @@ class PromptAnalysisContent extends StatelessWidget {
             recommendation ?? '',
             style: textStyle(
               context,
-              style: StyleType.bodMd,
+              style: StyleType.bodMed,
             ),
           ),
         ],

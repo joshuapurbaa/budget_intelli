@@ -225,7 +225,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                               children: [
                                 AppText(
                                   text: portionStr ?? '',
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                 ),
                                 Gap.horizontal(10),
                                 GestureDetector(
@@ -355,7 +355,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                 itemName == localize.categoryName) {
                               baseStyle = textStyle(
                                 context,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                               ).copyWith(
                                 color: colorOnSurface,
                                 fontWeight: FontWeight.w400,
@@ -363,7 +363,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                             } else {
                               baseStyle = textStyle(
                                 context,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                               );
                             }
 
@@ -438,7 +438,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                         textAlign: TextAlign.end,
                                         style: textStyle(
                                           context,
-                                          style: StyleType.bodMd,
+                                          style: StyleType.bodMed,
                                         ).copyWith(
                                           color: colorRightHintText,
                                         ),
@@ -482,7 +482,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                                           ),
                                           hintStyle: textStyle(
                                             context,
-                                            style: StyleType.bodMd,
+                                            style: StyleType.bodMed,
                                           ).copyWith(
                                             color: colorRightHintText,
                                           ),
@@ -581,7 +581,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                           child: AppText(
                             text:
                                 '+ ${localize.add} ${groupCategory.groupName}',
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             color: context.color.primary,
                           ),
                         ),
@@ -640,7 +640,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                             Gap.horizontal(10),
                             AppText(
                               text: localize.addGroupCategory,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               color: context.color.primary,
                             ),
                           ],

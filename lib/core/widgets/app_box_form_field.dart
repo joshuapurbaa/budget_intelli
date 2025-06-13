@@ -72,7 +72,7 @@ class AppBoxFormField extends StatelessWidget {
                   : null,
               style: textStyle(
                 context,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ).copyWith(
                 color: labelColor,
                 fontWeight: FontWeight.w700,
@@ -81,7 +81,7 @@ class AppBoxFormField extends StatelessWidget {
                 hintText: hintText,
                 hintStyle: textStyle(
                   context,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ).copyWith(
                   fontWeight: FontWeight.w400,
                   color: context.color.onSurface.withValues(alpha: 0.5),

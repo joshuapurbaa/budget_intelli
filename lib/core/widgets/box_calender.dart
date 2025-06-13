@@ -91,7 +91,7 @@ class _BoxCalenderState extends State<BoxCalender> {
         } else {
           text = AppText.color(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
             fontWeight: FontWeight.w500,
             text: _boxLabel(null, context),
           );

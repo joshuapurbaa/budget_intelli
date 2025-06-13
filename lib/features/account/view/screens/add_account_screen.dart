@@ -222,7 +222,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                             hintText: '${localize.selectCategory}*',
                             textStyle: textStyle(
                               context,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ).copyWith(
                               fontWeight: FontWeight.w700,
                             ),
@@ -243,7 +243,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                     visualDensity: VisualDensity.comfortable,
                                     textStyle: textStyle(
                                       context,
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ),
                                   ),
                                 );
@@ -386,7 +386,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
       border: InputBorder.none,
       hintStyle: textStyle(
         context,
-        style: StyleType.bodMd,
+        style: StyleType.bodMed,
       ).copyWith(
         fontWeight: FontWeight.w400,
         color: context.color.onSurface.withValues(alpha: 0.5),

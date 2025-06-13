@@ -117,7 +117,7 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
                             hintText: '${localize.account} 1',
                             textStyle: textStyle(
                               context,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ).copyWith(
                               fontWeight: FontWeight.w700,
                             ),
@@ -138,7 +138,7 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
                                     visualDensity: VisualDensity.comfortable,
                                     textStyle: textStyle(
                                       context,
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ),
                                   ),
                                 );
@@ -188,7 +188,7 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
                             hintText: '${localize.account} 2',
                             textStyle: textStyle(
                               context,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ).copyWith(
                               fontWeight: FontWeight.w700,
                             ),
@@ -209,7 +209,7 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
                                     visualDensity: VisualDensity.comfortable,
                                     textStyle: textStyle(
                                       context,
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ),
                                   ),
                                 );
@@ -299,7 +299,7 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
       border: InputBorder.none,
       hintStyle: textStyle(
         context,
-        style: StyleType.bodMd,
+        style: StyleType.bodMed,
       ).copyWith(
         fontWeight: FontWeight.w400,
         color: context.color.onSurface.withValues(alpha: 0.5),

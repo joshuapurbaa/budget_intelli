@@ -163,7 +163,7 @@ class _PieChartOverviewState extends State<PieChartOverview> {
           showTitle: false,
           titleStyle: textStyle(
             context,
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           ).copyWith(
             fontWeight: FontWeight.w700,
           ),

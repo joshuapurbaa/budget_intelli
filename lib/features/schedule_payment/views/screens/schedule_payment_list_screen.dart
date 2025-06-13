@@ -47,7 +47,7 @@ class _SchedulePaymentListScreenState extends State<SchedulePaymentListScreen> {
                         Gap.horizontal(16),
                         const AppText(
                           text: 'Add Schedule Payment',
-                          style: StyleType.bodMd,
+                          style: StyleType.bodMed,
                           fontWeight: FontWeight.bold,
                         ),
                       ],
@@ -104,7 +104,7 @@ class _SchedulePaymentListScreenState extends State<SchedulePaymentListScreen> {
                                 Gap.vertical(5),
                                 AppText(
                                   text: 'Total Repetition ${item.repitition}x',
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   fontStyle: FontStyle.italic,
                                 ),
                                 if (item.description != null) ...[

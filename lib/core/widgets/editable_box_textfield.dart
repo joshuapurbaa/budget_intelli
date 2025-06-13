@@ -81,7 +81,7 @@ class _EditableBoxTextFieldState extends State<EditableBoxTextField> {
               },
               style: AppTextStyle.style(
                 context,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ).copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -92,7 +92,7 @@ class _EditableBoxTextFieldState extends State<EditableBoxTextField> {
                 hintText: widget.hintText,
                 hintStyle: AppTextStyle.style(
                   context,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ).copyWith(
                   fontWeight: isEditing ? FontWeight.w400 : FontWeight.w700,
                   color: isEditing

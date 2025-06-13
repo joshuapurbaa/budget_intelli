@@ -382,7 +382,7 @@ class _OverViewState extends State<OverView> {
                                         Expanded(
                                           child: AppText(
                                             text: groupName,
-                                            style: StyleType.bodMd,
+                                            style: StyleType.bodMed,
                                             maxLines: 2,
                                             fontWeight: FontWeight.w700,
                                           ),
@@ -396,7 +396,7 @@ class _OverViewState extends State<OverView> {
                                       context,
                                       totalAmount,
                                     ),
-                                    style: StyleType.bodMd,
+                                    style: StyleType.bodMed,
                                     fontWeight: FontWeight.w700,
                                   ),
                                   Gap.horizontal(10),
@@ -756,7 +756,7 @@ class _OverViewState extends State<OverView> {
                                         Gap.horizontal(10),
                                         AppText(
                                           text: localize.addCategory,
-                                          style: StyleType.bodMd,
+                                          style: StyleType.bodMed,
                                         ),
                                       ],
                                     ),
@@ -827,7 +827,7 @@ class _OverViewState extends State<OverView> {
                           flex: 2,
                           child: AppText(
                             text: localize.newGroup,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                           ),
                         ),
                       ],
@@ -861,7 +861,7 @@ class _OverViewState extends State<OverView> {
                           flex: 2,
                           child: AppText(
                             text: localize.newBudget,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                           ),
                         ),
                       ],

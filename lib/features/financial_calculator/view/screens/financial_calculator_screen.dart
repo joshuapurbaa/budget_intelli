@@ -37,7 +37,7 @@ class FinancialCalculatorScreen extends StatelessWidget {
                         children: [
                           const AppText(
                             text: 'Kalkulator Hipotek (Mortgage Calculator)',
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             fontWeight: FontWeight.w700,
                           ),
                           Gap.vertical(5),

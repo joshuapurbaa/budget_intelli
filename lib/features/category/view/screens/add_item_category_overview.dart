@@ -378,7 +378,7 @@ class _AddItemCategoryOverviewScreenState
                             Gap.horizontal(16),
                             AppText(
                               text: groupName,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                           ],
                         ),
@@ -482,7 +482,7 @@ class _AddItemCategoryOverviewScreenState
                                       children: [
                                         AppText(
                                           text: item.categoryName,
-                                          style: StyleType.bodMd,
+                                          style: StyleType.bodMed,
                                         ),
                                         if (alreadyUsed)
                                           const Icon(

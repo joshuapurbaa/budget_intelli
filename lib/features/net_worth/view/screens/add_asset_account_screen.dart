@@ -47,7 +47,7 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                       onChanged: (value) {},
                       hintStyle: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ).copyWith(
                         fontWeight: _assetNameController.text.isEmpty
                             ? FontWeight.normal
@@ -73,7 +73,7 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                       onChanged: (value) {},
                       hintStyle: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ).copyWith(
                         fontWeight: _assetDescriptionController.text.isEmpty
                             ? FontWeight.normal

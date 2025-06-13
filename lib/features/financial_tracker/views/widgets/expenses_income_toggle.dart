@@ -34,7 +34,7 @@ class ExpensesIncomeToggle extends StatelessWidget {
                   ),
                   child: AppText(
                     text: localize.expenses,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                     color: state.isIncome
                         ? context.color.onSurface
                         : context.color.onPrimary,
@@ -64,7 +64,7 @@ class ExpensesIncomeToggle extends StatelessWidget {
                   ),
                   child: AppText(
                     text: localize.income,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                     maxLines: 1,
                     color: state.isIncome
                         ? context.color.onPrimary

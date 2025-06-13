@@ -1,79 +1,75 @@
-import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/features/ai_assistant/ai_assistant_barrel.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'dart:ui';
 
-class CreateBudgetOptionDialog extends StatefulWidget {
+import 'package:budget_intelli/core/core.dart';
+import 'package:flutter/material.dart';
+
+class CreateBudgetOptionDialog extends StatelessWidget {
   const CreateBudgetOptionDialog({
+    required this.onManualPressed,
+    required this.onAiPressed,
     super.key,
   });
 
-  @override
-  State<CreateBudgetOptionDialog> createState() =>
-      _CreateBudgetOptionDialogState();
-}
-
-class _CreateBudgetOptionDialogState extends State<CreateBudgetOptionDialog> {
-  Future<void> _validateAiCreateBudgetFeature({
-    required bool validated,
-  }) async {
-    if (validated) {
-      final result = await context.pushNamed<String>(
-        MyRoute.budgetAiGenerateScreen.noSlashes(),
-      );
-
-      if (result != null) {
-        context.pop(result);
-      }
-    } else {
-      AppToast.showToastError(
-        context,
-        textLocalizer(context).requestLimitExceeded,
-      );
-    }
-  }
+  final VoidCallback onManualPressed;
+  final VoidCallback onAiPressed;
 
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
-    return AlertDialog(
-      title: Text(
-        localize.createBudgetPlan,
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            localize.youCanCreateYourBudgetWithAIOrManuallyWhichOneDoYouPrefer,
+    return BackdropFilter(
+      filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+      child: Dialog(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          padding: getEdgeInsetsAll(16),
+          width: context.screenWidth * 0.9,
+          decoration: BoxDecoration(
+            color: context.color.surface.withValues(alpha: 0.85),
+            borderRadius: BorderRadius.circular(16),
           ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          onPressed: () {
-            context.pop();
-          },
-          child: AppText(
-            text: localize.manual,
-            style: StyleType.bodLg,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AppText(
+                text: localize.createBudgetPlan,
+                style: StyleType.headMed,
+              ),
+              Gap.vertical(16),
+              AppText(
+                text: localize
+                    .youCanCreateYourBudgetWithAIOrManuallyWhichOneDoYouPrefer,
+                style: StyleType.bodMed,
+                textAlign: TextAlign.center,
+              ),
+              Gap.vertical(24),
+              Row(
+                children: [
+                  Expanded(
+                    child: OutlinedButton(
+                      onPressed: onManualPressed,
+                      child: AppText(
+                        text: localize.manual,
+                        style: StyleType.bodLg,
+                      ),
+                    ),
+                  ),
+                  Gap.horizontal(16),
+                  Expanded(
+                    child: ElevatedButton(
+                      onPressed: onAiPressed,
+                      child: AppText(
+                        text: localize.generateWithAI,
+                        style: StyleType.bodLg,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
-        TextButton(
-          onPressed: () async {
-            final prefsAi = AiAssistantPreferences();
-            final totalGenerateBudget = await prefsAi.getTotalGenerateBudget();
-
-            await _validateAiCreateBudgetFeature(
-              validated: totalGenerateBudget <= 2,
-            );
-          },
-          child: AppText(
-            text: localize.generateWithAI,
-            style: StyleType.bodLg,
-            color: context.color.primary,
-          ),
-        ),
-      ],
+      ),
     );
   }
 }

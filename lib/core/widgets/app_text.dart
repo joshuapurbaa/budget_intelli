@@ -59,7 +59,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
-  })  : style = StyleType.bodMd,
+  })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w700;
 
   const AppText.reg14({
@@ -73,7 +73,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
-  })  : style = StyleType.bodMd,
+  })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w400;
 
   const AppText.light14({
@@ -87,7 +87,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
-  })  : style = StyleType.bodMd,
+  })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w300;
 
   const AppText.medium14({
@@ -101,7 +101,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
-  })  : style = StyleType.bodMd,
+  })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w500;
 
   const AppText.medium16({
@@ -185,7 +185,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
-  })  : style = StyleType.bodMd,
+  })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w400;
 
   // create a new constructor for italic text

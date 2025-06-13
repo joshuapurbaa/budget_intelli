@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 class MemberItem extends StatelessWidget {
   const MemberItem({
-    required this.title, required this.onTap, super.key,
+    required this.title,
+    required this.onTap,
+    super.key,
     this.iconPath,
     this.icon,
   });
@@ -46,7 +48,7 @@ class MemberItem extends StatelessWidget {
             Expanded(
               child: AppText(
                 text: title,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ),
             ),
             Icon(

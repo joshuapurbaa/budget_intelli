@@ -17,7 +17,7 @@ InputDecoration appInputDecoration(
     hintText: hintText,
     hintStyle: AppTextStyle.style(
       context,
-      style: StyleType.bodMd,
+      style: StyleType.bodMed,
     ).copyWith(
       color: colorScheme.onSurfaceVariant,
     ),

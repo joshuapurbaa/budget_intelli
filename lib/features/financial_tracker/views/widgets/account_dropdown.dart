@@ -31,7 +31,7 @@ class AccountDropdown extends StatelessWidget {
                   children: [
                     AppText(
                       text: localize.addAccountFIeldLabel,
-                      style: StyleType.bodMd,
+                      style: StyleType.bodMed,
                       color: context.color.primary,
                       textAlign: TextAlign.center,
                     ),
@@ -55,7 +55,7 @@ class AccountDropdown extends StatelessWidget {
                 border: InputBorder.none,
                 hintStyle: textStyle(
                   context,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ).copyWith(
                   color: context.color.primary,
                 ),
@@ -77,7 +77,7 @@ class AccountDropdown extends StatelessWidget {
               hintText: localize.account,
               textStyle: textStyle(
                 context,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ).copyWith(
                 fontWeight: FontWeight.w700,
               ),
@@ -106,7 +106,7 @@ class AccountDropdown extends StatelessWidget {
                       visualDensity: VisualDensity.comfortable,
                       textStyle: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ),
                     ),
                   );

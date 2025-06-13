@@ -49,7 +49,7 @@ class IncomeExpenseDialog {
               children: [
                 AppText.noMaxLines(
                   text: textInfo!,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ),
               ],
             ),

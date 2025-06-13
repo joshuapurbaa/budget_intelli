@@ -118,7 +118,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       text: _selectedDate == null
           ? '${localize.dateFieldLabel}*'
           : formatDateDDMMYYYY(_selectedDate!, context),
-      style: StyleType.bodMd,
+      style: StyleType.bodMed,
       fontWeight: _selectedDate == null ? FontWeight.w400 : FontWeight.w700,
       color: _selectedDate == null
           ? context.color.onSurface.withValues(alpha: 0.5)
@@ -268,7 +268,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                               Gap.horizontal(8),
                               AppText(
                                 text: localize.expenses,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                               ),
                             ],
                           ),
@@ -289,7 +289,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                               Gap.horizontal(8),
                               AppText(
                                 text: localize.income,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                               ),
                             ],
                           ),
@@ -347,7 +347,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                   hintText: '${localize.selectCategory}*',
                                   textStyle: textStyle(
                                     context,
-                                    style: StyleType.bodMd,
+                                    style: StyleType.bodMed,
                                   ).copyWith(
                                     fontWeight: FontWeight.w700,
                                   ),
@@ -382,7 +382,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                               VisualDensity.comfortable,
                                           textStyle: textStyle(
                                             context,
-                                            style: StyleType.bodMd,
+                                            style: StyleType.bodMed,
                                           ),
                                         ),
                                       );
@@ -498,7 +498,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                     hintText: '${localize.selectAccount}*',
                                     textStyle: textStyle(
                                       context,
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ).copyWith(
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -520,7 +520,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                                 VisualDensity.comfortable,
                                             textStyle: textStyle(
                                               context,
-                                              style: StyleType.bodMd,
+                                              style: StyleType.bodMed,
                                             ),
                                           ),
                                         );
@@ -692,7 +692,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
       border: InputBorder.none,
       hintStyle: textStyle(
         context,
-        style: StyleType.bodMd,
+        style: StyleType.bodMed,
       ).copyWith(
         fontWeight: FontWeight.w400,
         color: context.color.onSurface.withValues(alpha: 0.5),

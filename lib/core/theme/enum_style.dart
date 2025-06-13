@@ -25,7 +25,7 @@ enum StyleType {
   bodLg,
 
   /// Body Medium, Font Size: 14, Weight: 400/700
-  bodMd,
+  bodMed,
 
   /// Body Small, Font Size: 12, Weight: 400/700
   bodSm,

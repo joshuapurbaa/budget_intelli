@@ -85,23 +85,23 @@ class _SchedulePaymentsDetailScreenState
                           children: [
                             const AppText(
                               text: 'Status',
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                             AppText(
                               text: localize.description,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                             AppText(
                               text: localize.amountFieldLabel,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                             AppText(
                               text: localize.repetition,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                             const AppText(
                               text: 'Paid/remaining',
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                           ],
                         ),
@@ -113,27 +113,27 @@ class _SchedulePaymentsDetailScreenState
                           children: [
                             AppText(
                               text: ':  ${schedulePayment?.status ?? '-'}',
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               fontWeight: FontWeight.w600,
                             ),
                             AppText(
                               text: ':  $description',
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               fontWeight: FontWeight.w600,
                             ),
                             AppText(
                               text: ':  $amountFormatted',
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               fontWeight: FontWeight.w600,
                             ),
                             AppText(
                               text: ':  ${repetitionLen}x',
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               fontWeight: FontWeight.w600,
                             ),
                             AppText(
                               text: ':  $totalPaid/$remaining',
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               fontWeight: FontWeight.w600,
                             ),
                           ],
@@ -144,7 +144,7 @@ class _SchedulePaymentsDetailScreenState
                         children: [
                           const AppText(
                             text: 'Notification',
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             fontWeight: FontWeight.w600,
                           ),
                           Switch.adaptive(
@@ -214,7 +214,7 @@ class _SchedulePaymentsDetailScreenState
                                 DateTime.parse(rep.dueDate),
                                 context,
                               ),
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                             ),
                           ],
                         ),
@@ -301,13 +301,13 @@ class _SchedulePaymentsDetailScreenState
                             if (overdue)
                               AppText(
                                 text: localize.overdue,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                                 color: context.color.error,
                               ),
                             if (paid)
                               AppText(
                                 text: localize.paid,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                                 color: AppColor.green,
                               ),
                           ],

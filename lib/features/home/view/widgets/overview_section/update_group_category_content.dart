@@ -70,13 +70,13 @@ class _UpdateGroupCategoryContentState
                     },
                     style: textStyle(
                       context,
-                      style: StyleType.bodMd,
+                      style: StyleType.bodMed,
                     ),
                     decoration: InputDecoration(
                       hintText: textLocalizer(context).categoryName,
                       hintStyle: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
@@ -125,7 +125,7 @@ class _UpdateGroupCategoryContentState
                         Expanded(
                           child: AppText(
                             text: groupCategory.groupName,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                           ),
                         ),
                       ],

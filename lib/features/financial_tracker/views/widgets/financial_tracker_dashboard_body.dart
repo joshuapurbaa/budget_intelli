@@ -59,7 +59,7 @@ class FinancialTrackerDashboardBody extends StatelessWidget {
                                   return ListTile(
                                     title: AppText(
                                       text: AppStrings.monthListFullEn[index],
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                       color: context.color.onSurface,
                                     ),
                                     onTap: () {
@@ -109,7 +109,7 @@ class FinancialTrackerDashboardBody extends StatelessWidget {
                             Expanded(
                               child: AppText(
                                 text: state.selectedMonth,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                                 color: context.color.onSurface,
                                 maxLines: 1,
                               ),

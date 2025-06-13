@@ -110,7 +110,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 Gap.vertical(4),
                                 AppText(
                                   text: '$title ${localize.expenses}',
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   maxLines: 1,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -120,7 +120,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                     context,
                                     totalAmountTransactionsExpenses,
                                   ),
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   maxLines: 1,
                                 ),
                               ],
@@ -151,7 +151,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 Gap.vertical(4),
                                 AppText(
                                   text: '$title ${localize.income}',
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   maxLines: 1,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -160,7 +160,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                     context,
                                     totalAmountTransactionsIncome,
                                   ),
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   maxLines: 1,
                                 ),
                               ],
@@ -200,7 +200,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                               child: Center(
                                 child: AppText(
                                   text: localize.all,
-                                  style: StyleType.bodMd,
+                                  style: StyleType.bodMed,
                                   fontWeight: selectedCategoryId == null
                                       ? FontWeight.bold
                                       : FontWeight.normal,
@@ -236,7 +236,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                               Gap.horizontal(8),
                               AppText(
                                 text: category.name,
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                                 fontWeight: isSelected
                                     ? FontWeight.bold
                                     : FontWeight.normal,

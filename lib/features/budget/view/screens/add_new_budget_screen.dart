@@ -194,7 +194,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                         text: ' $secondTitle',
                         style: textStyle(
                           context,
-                          style: StyleType.bodMd,
+                          style: StyleType.bodMed,
                         ).copyWith(
                           fontStyle: FontStyle.italic,
                           color: context.color.onSurface.withValues(alpha: 0.5),
@@ -319,7 +319,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                                   state.dateRange,
                                   context,
                                 ),
-                                style: StyleType.bodMd,
+                                style: StyleType.bodMed,
                                 textAlign: TextAlign.center,
                                 fontWeight: state.dateRange.isEmpty
                                     ? null

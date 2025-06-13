@@ -117,7 +117,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
               textInputAction: TextInputAction.next,
               style: textStyle(
                 context,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ),
               decoration: InputDecoration(
                 labelText: localize.goalName,
@@ -125,7 +125,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                 contentPadding: const EdgeInsets.all(10),
                 hintStyle: textStyle(
                   context,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -158,7 +158,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                 children: [
                   AppText(
                     text: '${localize.goalDate} (${localize.selectGoalPeriod})',
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                     fontWeight: FontWeight.bold,
                   ),
                   Gap.vertical(10),
@@ -199,7 +199,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                                 _daterange,
                                 context,
                               ),
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               textAlign: TextAlign.center,
                               fontWeight:
                                   _daterange.isEmpty ? null : FontWeight.w700,
@@ -246,7 +246,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                       },
                       child: AppText(
                         text: textLocalizer(context).cancel,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ),
                     ),
                   ),
@@ -283,7 +283,7 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
                       },
                       child: AppText(
                         text: textLocalizer(context).save,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                         color: context.color.onPrimary,
                       ),
                     ),

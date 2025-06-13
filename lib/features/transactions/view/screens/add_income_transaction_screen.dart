@@ -51,7 +51,7 @@ class _AddIncomeIncomeTransactionScreenState
       text: _selectedDate == null
           ? '${localize.dateFieldLabel}*'
           : formatDateDDMMYYYY(_selectedDate!, context),
-      style: StyleType.bodMd,
+      style: StyleType.bodMed,
       fontWeight: _selectedDate == null ? FontWeight.w400 : FontWeight.w700,
       color: _selectedDate == null
           ? context.color.onSurface.withValues(alpha: 0.5)
@@ -204,7 +204,7 @@ class _AddIncomeIncomeTransactionScreenState
                             Gap.horizontal(16),
                             AppText(
                               text: categoryName ?? localize.category,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               fontWeight: FontWeight.w700,
                             ),
                           ],
@@ -281,7 +281,7 @@ class _AddIncomeIncomeTransactionScreenState
                                       border: InputBorder.none,
                                       hintStyle: textStyle(
                                         context,
-                                        style: StyleType.bodMd,
+                                        style: StyleType.bodMed,
                                       ).copyWith(
                                         fontWeight: FontWeight.w400,
                                         color: context.color.onSurface
@@ -295,7 +295,7 @@ class _AddIncomeIncomeTransactionScreenState
                                     hintText: '${localize.selectAccount}*',
                                     textStyle: textStyle(
                                       context,
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ).copyWith(
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -326,7 +326,7 @@ class _AddIncomeIncomeTransactionScreenState
                                                 VisualDensity.comfortable,
                                             textStyle: textStyle(
                                               context,
-                                              style: StyleType.bodMd,
+                                              style: StyleType.bodMed,
                                             ),
                                           ),
                                         );

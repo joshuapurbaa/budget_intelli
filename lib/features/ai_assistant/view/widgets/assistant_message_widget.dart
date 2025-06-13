@@ -49,7 +49,7 @@ class AssistantMessageWidget extends StatelessWidget {
                     styleSheet: MarkdownStyleSheet(
                       p: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ).copyWith(
                         color: context.color.onSurfaceVariant,
                         fontWeight: FontWeight.w500,

@@ -53,7 +53,7 @@ class TransactionItemList extends StatelessWidget {
               children: [
                 AppText(
                   text: spendOn ?? '-',
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ),
                 Row(
                   children: [
@@ -77,7 +77,7 @@ class TransactionItemList extends StatelessWidget {
               context,
               amount,
             ),
-            style: StyleType.bodMd,
+            style: StyleType.bodMed,
           ),
           if (!noChevron) ...[
             Gap.horizontal(10),

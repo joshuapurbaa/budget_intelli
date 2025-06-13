@@ -366,7 +366,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
               state.budgetGenerate!.notes,
               style: textStyle(
                 context,
-                style: StyleType.bodMd,
+                style: StyleType.bodMed,
               ),
             ),
           ],

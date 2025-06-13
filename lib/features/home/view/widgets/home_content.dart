@@ -184,7 +184,7 @@ class _HomeContentState extends State<HomeContent>
                                     controller: _tabController,
                                     labelStyle: textStyle(
                                       context,
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ).copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),

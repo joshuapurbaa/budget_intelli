@@ -95,7 +95,7 @@ class _AnimatedSummaryDashboardFilterState
                           children: [
                             AppText(
                               text: currency.symbol,
-                              style: StyleType.bodMd,
+                              style: StyleType.bodMed,
                               color: filterBy == SummaryFilterBy.day
                                   ? context.color.primaryContainer
                                   : null,
@@ -165,7 +165,7 @@ class _AnimatedSummaryDashboardFilterState
                         children: [
                           AppText(
                             text: currency.symbol,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             color: filterBy == SummaryFilterBy.week
                                 ? context.color.primaryContainer
                                 : null,
@@ -227,7 +227,7 @@ class _AnimatedSummaryDashboardFilterState
                         children: [
                           AppText(
                             text: currency.symbol,
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             color: filterBy == SummaryFilterBy.month
                                 ? context.color.primaryContainer
                                 : null,

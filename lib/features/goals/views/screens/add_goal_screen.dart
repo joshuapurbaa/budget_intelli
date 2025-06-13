@@ -120,7 +120,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                         AppText(
                           text:
                               '${localize.goalDate} (${localize.selectGoalPeriod})',
-                          style: StyleType.bodMd,
+                          style: StyleType.bodMed,
                           fontWeight: FontWeight.bold,
                         ),
                         Gap.vertical(10),
@@ -161,7 +161,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                                       dateRange,
                                       context,
                                     ),
-                                    style: StyleType.bodMd,
+                                    style: StyleType.bodMed,
                                     textAlign: TextAlign.center,
                                     fontWeight: dateRange.isEmpty
                                         ? null
@@ -191,7 +191,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                         children: [
                           AppText(
                             text: '${localize.suggested} 💡',
-                            style: StyleType.bodMd,
+                            style: StyleType.bodMed,
                             fontWeight: FontWeight.bold,
                           ),
                           Gap.vertical(10),

@@ -199,7 +199,7 @@ class _InsightViewState extends State<InsightView> {
                     ),
                     title: AppText(
                       text: localize.incomeCategoryTotals,
-                      style: StyleType.bodMd,
+                      style: StyleType.bodMed,
                       fontWeight: FontWeight.bold,
                     ),
                     trailing: Icon(
@@ -251,7 +251,7 @@ class _InsightViewState extends State<InsightView> {
                                     Expanded(
                                       child: AppText(
                                         text: name,
-                                        style: StyleType.bodMd,
+                                        style: StyleType.bodMed,
                                       ),
                                     ),
                                     AppText(
@@ -259,7 +259,7 @@ class _InsightViewState extends State<InsightView> {
                                         context,
                                         total,
                                       ),
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ),
                                   ],
                                 ),
@@ -290,7 +290,7 @@ class _InsightViewState extends State<InsightView> {
                     ),
                     title: AppText(
                       text: localize.spendingCategoryTotals,
-                      style: StyleType.bodMd,
+                      style: StyleType.bodMed,
                       fontWeight: FontWeight.bold,
                     ),
                     trailing: Icon(
@@ -342,7 +342,7 @@ class _InsightViewState extends State<InsightView> {
                                     Expanded(
                                       child: AppText(
                                         text: name,
-                                        style: StyleType.bodMd,
+                                        style: StyleType.bodMed,
                                       ),
                                     ),
                                     AppText(
@@ -350,7 +350,7 @@ class _InsightViewState extends State<InsightView> {
                                         context,
                                         total,
                                       ),
-                                      style: StyleType.bodMd,
+                                      style: StyleType.bodMed,
                                     ),
                                   ],
                                 ),

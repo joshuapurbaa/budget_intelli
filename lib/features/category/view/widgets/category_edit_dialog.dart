@@ -60,7 +60,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   text: '${textLocalizer(context).leftToBudget2}: ',
                   style: textStyle(
                     context,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ),
                 ),
                 TextSpan(
@@ -70,7 +70,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   ),
                   style: textStyle(
                     context,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ).copyWith(
                     color: context.color.primary,
                   ),
@@ -87,13 +87,13 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   textInputAction: TextInputAction.next,
                   style: textStyle(
                     context,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ),
                   decoration: InputDecoration(
                     hintText: textLocalizer(context).categoryName,
                     hintStyle: textStyle(
                       context,
-                      style: StyleType.bodMd,
+                      style: StyleType.bodMed,
                     ),
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
@@ -110,7 +110,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                       textInputAction: TextInputAction.done,
                       style: textStyle(
                         context,
-                        style: StyleType.bodMd,
+                        style: StyleType.bodMed,
                       ),
                       keyboardType: TextInputType.number,
                       inputFormatters: [
@@ -128,7 +128,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                         ),
                         hintStyle: textStyle(
                           context,
-                          style: StyleType.bodMd,
+                          style: StyleType.bodMed,
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
@@ -159,7 +159,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   },
                   child: AppText(
                     text: textLocalizer(context).cancel,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                   ),
                 ),
               ),
@@ -183,7 +183,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   },
                   child: AppText(
                     text: textLocalizer(context).save,
-                    style: StyleType.bodMd,
+                    style: StyleType.bodMed,
                     color: context.color.onPrimary,
                   ),
                 ),

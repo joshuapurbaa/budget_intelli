@@ -38,7 +38,7 @@ class ButtonAddBudget extends StatelessWidget {
                 flex: 2,
                 child: AppText(
                   text: localize.newBudget,
-                  style: StyleType.bodMd,
+                  style: StyleType.bodMed,
                 ),
               ),
             ],

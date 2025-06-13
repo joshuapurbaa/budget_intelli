@@ -25,7 +25,7 @@ class _AppBoxCalendarState extends State<AppBoxCalendar> {
       text: _selectedDate == null
           ? widget.label
           : formatDateDDMMYYYY(_selectedDate!, context),
-      style: StyleType.bodMd,
+      style: StyleType.bodMed,
       fontWeight: _selectedDate == null ? FontWeight.w400 : FontWeight.w700,
       color: _selectedDate == null
           ? context.color.onSurface.withValues(alpha: 0.5)
