@@ -43,26 +43,19 @@ class CreateBudgetOptionDialog extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               Gap.vertical(24),
-              Row(
+              Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: onManualPressed,
-                      child: AppText(
-                        text: localize.manual,
-                        style: StyleType.bodLg,
-                      ),
-                    ),
+                  AppButton.outlined(
+                    onPressed: onManualPressed,
+                    label: localize.manual,
+                    height: getHeight(45),
                   ),
-                  Gap.horizontal(16),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: onAiPressed,
-                      child: AppText(
-                        text: localize.generateWithAI,
-                        style: StyleType.bodLg,
-                      ),
-                    ),
+                  Gap.vertical(16),
+                  AppButton(
+                    onPressed: onAiPressed,
+                    label: localize.generateWithAI,
+                    height: getHeight(45),
                   ),
                 ],
               ),

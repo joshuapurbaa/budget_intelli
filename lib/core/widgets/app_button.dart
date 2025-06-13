@@ -17,6 +17,7 @@ class AppButton extends StatelessWidget {
     this.success,
     this.back,
     this.noWidth,
+    this.outlined = false,
   });
 
   const AppButton.darkLabel({
@@ -32,6 +33,7 @@ class AppButton extends StatelessWidget {
     this.back,
     this.labelColor,
     this.noWidth,
+    this.outlined = false,
   });
 
   const AppButton.success({
@@ -46,6 +48,7 @@ class AppButton extends StatelessWidget {
     this.labelColor,
     this.back,
     this.noWidth,
+    this.outlined = false,
   }) : success = true;
 
   // AppButton.noWidth
@@ -62,6 +65,23 @@ class AppButton extends StatelessWidget {
     this.success,
     this.width,
     this.noWidth = true,
+    this.outlined = false,
+  });
+
+  const AppButton.outlined({
+    required this.label,
+    required this.onPressed,
+    this.height,
+    this.isActive,
+    this.width,
+    super.key,
+    this.backgroundColor,
+    this.side,
+    this.labelColor,
+    this.back,
+    this.success,
+    this.noWidth,
+    this.outlined = true,
   });
 
   final String label;
@@ -75,15 +95,44 @@ class AppButton extends StatelessWidget {
   final bool? success;
   final bool? back;
   final bool? noWidth;
+  final bool? outlined;
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = context.color;
+    if (outlined == true) {
+      return SizedBox(
+        height: height ?? 58.h,
+        width: width ?? 382.w,
+        child: OutlinedButton(
+          onPressed: isActive == false ? null : onPressed,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              AppText.color(
+                text: label,
+                color: colorScheme.onSurface,
+                style: StyleType.bodLg,
+              ),
+            ],
+          ),
+        )
+            .animate()
+            .fadeIn() // uses `Animate.defaultDuration`
+            .scale() // inherits duration from fadeIn
+            .move(
+              delay: 300.ms,
+              duration: 600.ms,
+            ),
+      );
+    }
+
     if (noWidth != null) {
       return SizedBox(
         height: height ?? 58.h,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.primary,
+            backgroundColor: colorScheme.primary,
             side: side ?? BorderSide.none,
           ),
           onPressed: isActive == false ? null : onPressed,
@@ -92,7 +141,7 @@ class AppButton extends StatelessWidget {
             children: [
               AppText.color(
                 text: label,
-                color: Theme.of(context).colorScheme.onPrimary,
+                color: colorScheme.onPrimary,
                 style: StyleType.bodLg,
               ),
             ],
@@ -112,7 +161,7 @@ class AppButton extends StatelessWidget {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
           fixedSize: Size(width ?? 382.w, height ?? 58.h),
-          backgroundColor: Theme.of(context).colorScheme.inverseSurface,
+          backgroundColor: colorScheme.inverseSurface,
           side: side ?? BorderSide.none,
         ),
         onPressed: isActive == false ? null : onPressed,
@@ -121,7 +170,7 @@ class AppButton extends StatelessWidget {
           children: [
             AppText.color(
               text: label,
-              color: Theme.of(context).colorScheme.onInverseSurface,
+              color: colorScheme.onInverseSurface,
               style: StyleType.bodLg,
             ),
             Gap.horizontal(8),
@@ -144,8 +193,7 @@ class AppButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         fixedSize: Size(width ?? 382.w, height ?? 58.h),
-        backgroundColor:
-            backgroundColor ?? Theme.of(context).colorScheme.primary,
+        backgroundColor: backgroundColor ?? colorScheme.primary,
         side: side ?? BorderSide.none,
       ),
       onPressed: isActive == false ? null : onPressed,
@@ -158,7 +206,7 @@ class AppButton extends StatelessWidget {
               context,
               style: StyleType.bodLg,
             ).copyWith(
-              color: Theme.of(context).colorScheme.onPrimary,
+              color: colorScheme.onPrimary,
             ),
           ),
         ],
