@@ -43,6 +43,10 @@ android {
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
+        
+        // Add this to handle Google Ads atomic field updater issues
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        
         externalNativeBuild {
             cmake {
                 cppFlags("-fstack-protector-all", "-fpic", "-fstack-protector-strong")
@@ -68,6 +72,7 @@ android {
             signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = true
             isShrinkResources = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
 
         debug {
@@ -79,6 +84,10 @@ android {
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
+    
+    // Google Play Services dependencies with explicit versions
+    implementation("com.google.android.gms:play-services-ads:24.4.0")
+    implementation("com.google.android.gms:play-services-base:18.7.0")
 }
 
 flutter {
