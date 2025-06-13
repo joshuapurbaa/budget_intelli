@@ -1,6 +1,5 @@
 part of 'budget_form_bloc.dart';
 
-@immutable
 final class BudgetFormState {
   const BudgetFormState({
     required this.groupCategoryHistories,
@@ -118,67 +117,4 @@ final class BudgetFormState {
       itemCategoriesParams: itemCategoriesParams ?? this.itemCategoriesParams,
     );
   }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is BudgetFormState &&
-        listEquals(other.groupCategoryHistories, groupCategoryHistories) &&
-        other.totalPlanIncome == totalPlanIncome &&
-        other.totalPlanExpense == totalPlanExpense &&
-        other.insertBudgetSuccess == insertBudgetSuccess &&
-        other.insertItemSuccess == insertItemSuccess &&
-        other.insertGroupSuccess == insertGroupSuccess &&
-        other.initial == initial &&
-        other.message == message &&
-        other.startDate == startDate &&
-        other.endDate == endDate &&
-        other.dateRange == dateRange &&
-        other.totalBalance == totalBalance &&
-        other.loading == loading &&
-        listEquals(other.selectedGroupCategories, selectedGroupCategories) &&
-        listEquals(other.allItemCategoryHistories, allItemCategoryHistories) &&
-        listEquals(other.portions, portions) &&
-        listEquals(
-          other.selectedItemCategoryHistories,
-          selectedItemCategoryHistories,
-        ) &&
-        listEquals(
-          other.groupCategoryHistoriesParams,
-          groupCategoryHistoriesParams,
-        ) &&
-        listEquals(
-          other.itemCategoryHistoriesParams,
-          itemCategoryHistoriesParams,
-        ) &&
-        other.budgetParams == budgetParams &&
-        listEquals(other.groupCategoriesParams, groupCategoriesParams) &&
-        listEquals(other.itemCategoriesParams, itemCategoriesParams);
-  }
-
-  @override
-  int get hashCode =>
-      groupCategoryHistories.hashCode ^
-      totalPlanIncome.hashCode ^
-      totalPlanExpense.hashCode ^
-      insertBudgetSuccess.hashCode ^
-      insertItemSuccess.hashCode ^
-      insertGroupSuccess.hashCode ^
-      initial.hashCode ^
-      message.hashCode ^
-      startDate.hashCode ^
-      endDate.hashCode ^
-      dateRange.hashCode ^
-      totalBalance.hashCode ^
-      loading.hashCode ^
-      selectedGroupCategories.hashCode ^
-      allItemCategoryHistories.hashCode ^
-      portions.hashCode ^
-      selectedItemCategoryHistories.hashCode ^
-      groupCategoryHistoriesParams.hashCode ^
-      itemCategoryHistoriesParams.hashCode ^
-      budgetParams.hashCode ^
-      groupCategoriesParams.hashCode ^
-      itemCategoriesParams.hashCode;
 }

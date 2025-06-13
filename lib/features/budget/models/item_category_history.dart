@@ -18,7 +18,7 @@ class ItemCategoryHistory extends Equatable {
     this.endDate,
     this.isFavorite = false,
     this.carryOverAmount,
-    this.amount = 0,
+    this.amount = 0.0,
     this.iconPath,
     this.remaining,
     this.totalTransactions,

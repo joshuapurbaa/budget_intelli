@@ -1,9 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:budget_intelli/core/core.dart';
-import 'package:equatable/equatable.dart';
 
-class ItemCategoryTransaction extends Equatable {
+class ItemCategoryTransaction {
   const ItemCategoryTransaction({
     required this.id,
     required this.itemHistoId,
@@ -144,20 +143,4 @@ class ItemCategoryTransaction extends Equatable {
       accountId: accountId ?? this.accountId,
     );
   }
-
-  @override
-  List<Object?> get props => [
-        id,
-        itemHistoId,
-        categoryName,
-        amount,
-        createdAt,
-        type,
-        updatedAt,
-        spendOn,
-        picture,
-        budgetId,
-        groupId,
-        accountId,
-      ];
 }

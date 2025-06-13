@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
@@ -42,13 +44,17 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   final List<List<FocusNode>> _rightFocusNodes = [];
   final List<FocusNode> _groupNameFocusNodes = [];
   final List<Color> _pickerColor = [];
+  final Map<String, Timer?> _debounceTimers = {};
 
   bool _controllersInitialized = false;
 
   @override
   void didUpdateWidget(covariant BudgetFormFieldInitial oldWidget) {
     super.didUpdateWidget(oldWidget);
+    debugPrint('didUpdateWidget');
     if (oldWidget.groupCategories.length != widget.groupCategories.length) {
+      debugPrint(
+          'didUpdateWidget: ${oldWidget.groupCategories.length} != ${widget.groupCategories.length}');
       _controllersInitialized = false;
       _initControllers();
     }
@@ -62,13 +68,16 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    debugPrint('didChangeDependencies');
     if (!_controllersInitialized) {
+      debugPrint('didChangeDependencies: _controllersInitialized = false');
       _initControllers();
       _controllersInitialized = true;
     }
   }
 
   void _initControllers() {
+    debugPrint('initControllers: _controllersInitialized = false');
     setState(() {
       _clearAllControllers();
       _createControllersForGroups();
@@ -76,6 +85,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _clearAllControllers() {
+    debugPrint('clearAllControllers');
     _groupNameTextEditingControllers.clear();
     _leftTextEditingControllers.clear();
     _rightTextEditingControllers.clear();
@@ -86,6 +96,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _createControllersForGroups() {
+    debugPrint('createControllersForGroups');
     for (var i = 0; i < widget.groupCategories.length; i++) {
       final groupCategory = widget.groupCategories[i];
       _createGroupController(groupCategory);
@@ -95,6 +106,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _createGroupController(GroupCategoryHistory groupCategory) {
+    debugPrint('createGroupController');
     final groupName = groupCategory.groupName;
     final isInitialName = _isInitialGroupName(groupName);
 
@@ -105,12 +117,14 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _createItemControllers(List<ItemCategoryHistory> itemCategories) {
+    debugPrint('createItemControllers :: ${itemCategories.length}');
     final leftControllers = <TextEditingController>[];
     final rightControllers = <TextEditingController>[];
     final leftFocusNodes = <FocusNode>[];
     final rightFocusNodes = <FocusNode>[];
 
     for (final item in itemCategories) {
+      debugPrint('createItemControllers :: ${item.name}');
       final isInitialName = _isInitialCategoryName(item.name);
 
       leftControllers.add(
@@ -341,6 +355,8 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
     GroupCategoryHistory groupCategory,
     int indexGroup,
   ) {
+    debugPrint(
+        'buildItemsList: ${_leftTextEditingControllers[indexGroup].length}');
     return ListView.separated(
       padding: EdgeInsets.zero,
       itemCount: _leftTextEditingControllers[indexGroup].length,
@@ -362,6 +378,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
     int indexGroup,
     int indexItem,
   ) {
+    final currency = context.read<SettingBloc>().state.currency;
     final item = groupCategory.itemCategoryHistories[indexItem];
     final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
     final baseStyle = _isInitialCategoryName(item.name)
@@ -370,6 +387,18 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
             fontWeight: FontWeight.w400,
           )
         : textStyle(context, style: StyleType.bodMed);
+
+    final colorRightHintText = context.color.onSurface;
+
+    final currencyFormatter = CurrencyTextInputFormatter.currency(
+      locale: context.l10n.localeName,
+      symbol: currency.symbol,
+      decimalDigits: 0,
+    );
+
+    const radiusCircular = Radius.circular(10);
+    debugPrint(
+        'buildItemRow: $indexGroup, $indexItem, ${item.name} ${item.amount}');
 
     return Row(
       children: [
@@ -402,8 +431,42 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
         ),
         Expanded(
           flex: 2,
-          child: _buildAmountField(
-              context, item, groupCategory.id, indexGroup, indexItem),
+          child: TextField(
+            controller: _rightTextEditingControllers[indexGroup][indexItem],
+            focusNode: _rightFocusNodes[indexGroup][indexItem],
+            textAlign: TextAlign.end,
+            style: textStyle(context, style: StyleType.bodMed)
+                .copyWith(color: colorRightHintText),
+            keyboardType: TextInputType.number,
+            inputFormatters: [currencyFormatter],
+            onChanged: (value) =>
+                _updateItemAmount(item, groupCategory.id, value),
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(10),
+              hintText:
+                  NumberFormatter.formatToMoneyDouble(context, item.amount),
+              hintStyle: textStyle(context, style: StyleType.bodMed)
+                  .copyWith(color: colorRightHintText),
+              focusedBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: radiusCircular,
+                  bottomRight: radiusCircular,
+                  topRight: radiusCircular,
+                ),
+                borderSide: BorderSide.none,
+              ),
+              border: const OutlineInputBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: radiusCircular,
+                  bottomRight: radiusCircular,
+                  topRight: radiusCircular,
+                ),
+                borderSide: BorderSide.none,
+              ),
+              fillColor: context.color.onSurface.withValues(alpha: 0.1),
+              filled: true,
+            ),
+          ),
         ),
         GestureDetector(
           onTap: () => _removeItemCategory(
@@ -414,81 +477,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildAmountField(
-    BuildContext context,
-    ItemCategoryHistory item,
-    String groupId,
-    int indexGroup,
-    int indexItem,
-  ) {
-    const radiusCircular = Radius.circular(10);
-
-    return BlocBuilder<SettingBloc, SettingState>(
-      builder: (context, state) {
-        final currencyFormatter = CurrencyTextInputFormatter.currency(
-          locale: state.currency.locale,
-          symbol: '${state.currency.symbol} ',
-          decimalDigits: 0,
-        );
-
-        final value = _rightTextEditingControllers[indexGroup][indexItem].text;
-        final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
-        final colorRightHintText =
-            (value == 'Rp 0' || value == r'$ 0' || value.isEmpty)
-                ? colorOnSurface
-                : context.color.onSurface;
-
-        return TextField(
-          controller: _rightTextEditingControllers[indexGroup][indexItem],
-          focusNode: _rightFocusNodes[indexGroup][indexItem],
-          onSubmitted: (_) => _unfocusAll(),
-          textAlign: TextAlign.end,
-          style: textStyle(context, style: StyleType.bodMed)
-              .copyWith(color: colorRightHintText),
-          keyboardType: TextInputType.number,
-          inputFormatters: [currencyFormatter],
-          onChanged: (value) {
-            print('onChanged: $value');
-            // Simple debounced update without Timer to avoid interference
-            final cleanVal = value.replaceAll(RegExp('[^0-9]'), '');
-
-            if (cleanVal.isNotEmpty) {
-              final unformattedValue = double.tryParse(cleanVal) ?? 0.0;
-              final newCategory = item.copyWith(amount: unformattedValue);
-              _onChangeField(newCategory, groupId);
-            } else {
-              _onChangeValueEmpty(item, groupId);
-            }
-          },
-          decoration: InputDecoration(
-            contentPadding: const EdgeInsets.all(10),
-            hintText: NumberFormatter.formatToMoneyDouble(context, item.amount),
-            hintStyle: textStyle(context, style: StyleType.bodMed)
-                .copyWith(color: colorRightHintText),
-            focusedBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: radiusCircular,
-                bottomRight: radiusCircular,
-                topRight: radiusCircular,
-              ),
-              borderSide: BorderSide.none,
-            ),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.only(
-                topLeft: radiusCircular,
-                bottomRight: radiusCircular,
-                topRight: radiusCircular,
-              ),
-              borderSide: BorderSide.none,
-            ),
-            fillColor: context.color.onSurface.withValues(alpha: 0.1),
-            filled: true,
-          ),
-        );
-      },
     );
   }
 
@@ -540,6 +528,13 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
 
   void _updateItemName(ItemCategoryHistory item, String groupId, String value) {
     final newCategory = item.copyWith(name: value);
+    _onChangeField(newCategory, groupId);
+  }
+
+  void _updateItemAmount(
+      ItemCategoryHistory item, String groupId, String value) {
+    final amount = double.tryParse(value) ?? 0.0;
+    final newCategory = item.copyWith(amount: amount);
     _onChangeField(newCategory, groupId);
   }
 
@@ -655,7 +650,8 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
         );
   }
 
-  void _onChangeValueEmpty(ItemCategoryHistory newCategory, String groupId) {
+  void _onChangeValueEmpty(
+      ItemCategoryHistory newCategory, String groupId, String value) {
     context.read<BudgetFormBloc>().add(
           UpdateItemCategoryEventInitialCreate(
             groupHistoId: groupId,
@@ -765,6 +761,12 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
 
   @override
   void dispose() {
+    // Cancel all debounce timers
+    for (final timer in _debounceTimers.values) {
+      timer?.cancel();
+    }
+    _debounceTimers.clear();
+
     // Dispose all controllers and focus nodes
     for (final controller in _groupNameTextEditingControllers) {
       controller.dispose();

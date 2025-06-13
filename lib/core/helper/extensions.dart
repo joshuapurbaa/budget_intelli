@@ -16,6 +16,8 @@ extension ContextExtensions on BuildContext {
 
   // localizer
   AppLocalizations get l10n => AppLocalizations.of(this)!;
+
+  // currency
 }
 
 extension StringExtensions on String {

@@ -109,6 +109,7 @@ class _InitialCreateBudgetPlanScreenState
                       _buildHeader(state),
                       if (state.groupCategoryHistories.isNotEmpty)
                         BudgetFormFieldInitial(
+                          key: const ValueKey('budget_form_field_initial'),
                           fromInitial: true,
                           budgetId: budgetID,
                           groupCategories: state.groupCategoryHistories,
