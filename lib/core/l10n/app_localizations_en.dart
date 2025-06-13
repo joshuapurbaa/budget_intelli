@@ -1190,4 +1190,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get startFinancialTracking => 'Start Financial Tracking';
+
+  @override
+  String get systemMode => 'System Mode';
 }

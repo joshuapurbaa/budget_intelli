@@ -2407,6 +2407,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Mulai Pelacakan Keuangan'**
   String get startFinancialTracking;
+
+  /// No description provided for @systemMode.
+  ///
+  /// In id, this message translates to:
+  /// **'Mode Sistem'**
+  String get systemMode;
 }
 
 class _AppLocalizationsDelegate

@@ -50,32 +50,6 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
     // _initializeIAP();
   }
 
-  Future<void> _getUserData() async {
-    final userId = await context.read<PreferenceCubit>().getUserUid();
-    if (userId != null) {
-      if (!mounted) return;
-
-      await context.read<UserFirestoreCubit>().getUserFirestore();
-    } else {
-      if (!mounted) return;
-      context.read<SettingBloc>().add(GetUserSettingEvent());
-    }
-  }
-
-  void _onSuccessAuth(UserIntelli? user) {
-    if (user != null) {
-      context.read<SettingBloc>()
-        ..add(SetUserIsLoggedIn(isLoggedIn: true))
-        ..add(SetUserName(user.name))
-        ..add(SetUserEmail(user.email))
-        ..add(SetUserUidEvent(user.uid))
-        ..add(SetUserIsPremiumUser(isPremiumUser: user.premium ?? false))
-        ..add(GetUserSettingEvent());
-    } else {
-      context.read<SettingBloc>().add(GetUserSettingEvent());
-    }
-  }
-
   Future<void> _checkAuth() async {
     final auth = LocalAuthentication();
     final canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
@@ -189,43 +163,6 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
     }
   }
 
-  // void _initializeIAP() {
-  //   print('hit iap init');
-  //   final purchaseUpdated = InAppPurchase.instance.purchaseStream;
-  //
-  //   _iapSubscription = purchaseUpdated.listen(
-  //     (purchaseDetailsList) {
-  //       context.read<UserFirestoreCubit>().listenToPurchaseUpdated(
-  //             purchaseDetailsList,
-  //           );
-  //     },
-  //     onDone: () {
-  //       print('on done iap');
-  //       _iapSubscription.cancel();
-  //     },
-  //     onError: (error) {
-  //       print('on error iap');
-  //       _iapSubscription.cancel();
-  //     },
-  //   );
-  // }
-
-  // void _showPremiumModalBottom(UserIntelli? user) {
-  //   final statusBarHeight = MediaQuery.of(context).padding.top;
-  //   showModalBottomSheet<void>(
-  //     context: context,
-  //     isScrollControlled: true,
-  //     constraints: BoxConstraints(
-  //       maxHeight: MediaQuery.sizeOf(context).height - statusBarHeight,
-  //     ),
-  //     builder: (context) {
-  //       return PremiumModal(
-  //         user: user,
-  //       );
-  //     },
-  //   );
-  // }
-
   Future<void> _setScheduleNotification() async {
     final localize = textLocalizer(context);
 
@@ -270,6 +207,8 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                 themeMode = localize.darkMode;
               } else if (state.themeMode == ThemeMode.light) {
                 themeMode = localize.lightMode;
+              } else if (state.themeMode == ThemeMode.system) {
+                themeMode = localize.systemMode;
               }
 
               final bloc = context.read<SettingBloc>();
@@ -598,6 +537,32 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
     );
   }
 
+  Future<void> _getUserData() async {
+    final userId = await context.read<PreferenceCubit>().getUserUid();
+    if (userId != null) {
+      if (!mounted) return;
+
+      await context.read<UserFirestoreCubit>().getUserFirestore();
+    } else {
+      if (!mounted) return;
+      context.read<SettingBloc>().add(GetUserSettingEvent());
+    }
+  }
+
+  void _onSuccessAuth(UserIntelli? user) {
+    if (user != null) {
+      context.read<SettingBloc>()
+        ..add(SetUserIsLoggedIn(isLoggedIn: true))
+        ..add(SetUserName(user.name))
+        ..add(SetUserEmail(user.email))
+        ..add(SetUserUidEvent(user.uid))
+        ..add(SetUserIsPremiumUser(isPremiumUser: user.premium ?? false))
+        ..add(GetUserSettingEvent());
+    } else {
+      context.read<SettingBloc>().add(GetUserSettingEvent());
+    }
+  }
+
 // void _setData() {
 //   final name = _nameController.text;
 //   if (name.isNotEmpty) {
@@ -617,4 +582,41 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
 //     );
 //   }
 // }
+
+// void _initializeIAP() {
+  //   print('hit iap init');
+  //   final purchaseUpdated = InAppPurchase.instance.purchaseStream;
+  //
+  //   _iapSubscription = purchaseUpdated.listen(
+  //     (purchaseDetailsList) {
+  //       context.read<UserFirestoreCubit>().listenToPurchaseUpdated(
+  //             purchaseDetailsList,
+  //           );
+  //     },
+  //     onDone: () {
+  //       print('on done iap');
+  //       _iapSubscription.cancel();
+  //     },
+  //     onError: (error) {
+  //       print('on error iap');
+  //       _iapSubscription.cancel();
+  //     },
+  //   );
+  // }
+
+  // void _showPremiumModalBottom(UserIntelli? user) {
+  //   final statusBarHeight = MediaQuery.of(context).padding.top;
+  //   showModalBottomSheet<void>(
+  //     context: context,
+  //     isScrollControlled: true,
+  //     constraints: BoxConstraints(
+  //       maxHeight: MediaQuery.sizeOf(context).height - statusBarHeight,
+  //     ),
+  //     builder: (context) {
+  //       return PremiumModal(
+  //         user: user,
+  //       );
+  //     },
+  //   );
+  // }
 }

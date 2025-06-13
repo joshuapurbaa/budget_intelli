@@ -1192,4 +1192,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get startFinancialTracking => 'Mulai Pelacakan Keuangan';
+
+  @override
+  String get systemMode => 'Mode Sistem';
 }

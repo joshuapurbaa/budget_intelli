@@ -5,8 +5,8 @@ final class SettingState {
   const SettingState({
     required this.currency,
     this.selectedLanguage = Language.english,
-    this.themeMode = ThemeMode.dark,
-    this.isDarkMode = true,
+    this.themeMode = ThemeMode.system,
+    this.isDarkMode = false,
     this.name,
     this.email,
     this.isLoggedIn = false,

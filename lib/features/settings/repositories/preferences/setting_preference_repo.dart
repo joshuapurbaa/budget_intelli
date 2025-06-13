@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingPreferenceRepo {
@@ -48,7 +49,7 @@ class SettingPreferenceRepo {
 
   Future<String> getThemeMode() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_themeMode) ?? 'Dark Mode';
+    return prefs.getString(_themeMode) ?? ThemeMode.system.name;
   }
 
   // Setters and Getters for currency code

@@ -98,7 +98,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
 
     final selectedThemeMode = IntelliThemeMode.values.firstWhere(
       (element) => element.name == themeMode,
-      orElse: () => IntelliThemeMode.dark,
+      orElse: () => IntelliThemeMode.system,
     );
 
     final useBiometrics = await _settingRepository.getUseBiometrics();
