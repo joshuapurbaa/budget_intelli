@@ -28,6 +28,13 @@ class BudgetFormFieldInitial extends StatefulWidget {
 }
 
 class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
+  // Constants
+  static const _groupNameInitialEN = 'Group Name';
+  static const _groupNameInitialID = 'Nama Grup';
+  static const _categoryNameInitialEN = 'Category Name';
+  static const _categoryNameInitialID = 'Nama Kategori';
+
+  // Controllers and Focus Nodes
   final List<List<TextEditingController>> _leftTextEditingControllers = [];
   final List<List<TextEditingController>> _rightTextEditingControllers = [];
   final List<TextEditingController> _groupNameTextEditingControllers = [];
@@ -35,13 +42,14 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   final List<List<FocusNode>> _rightFocusNodes = [];
   final List<FocusNode> _groupNameFocusNodes = [];
   final List<Color> _pickerColor = [];
-  final List<Color> _currentColor = [];
+
+  bool _controllersInitialized = false;
 
   @override
   void didUpdateWidget(covariant BudgetFormFieldInitial oldWidget) {
     super.didUpdateWidget(oldWidget);
-
     if (oldWidget.groupCategories.length != widget.groupCategories.length) {
+      _controllersInitialized = false;
       _initControllers();
     }
   }
@@ -49,615 +57,612 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   @override
   void initState() {
     super.initState();
-    _initControllers();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_controllersInitialized) {
+      _initControllers();
+      _controllersInitialized = true;
+    }
   }
 
   void _initControllers() {
-    const groupNameInitialEN = 'Group Name';
-    const groupNameInitialID = 'Nama Grup';
-    const categoryNameInitialEN = 'Category Name';
-    const categoryNameInitialID = 'Nama Kategori';
     setState(() {
-      _groupNameTextEditingControllers.clear();
-      _leftTextEditingControllers.clear();
-      _rightTextEditingControllers.clear();
-      _groupNameFocusNodes.clear();
-      _leftFocusNodes.clear();
-      _rightFocusNodes.clear();
-      _pickerColor.clear();
-      _currentColor.clear();
-
-      for (var i = 0; i < widget.groupCategories.length; i++) {
-        final groupName = widget.groupCategories[i].groupName;
-
-        if (groupName.isEmpty ||
-            groupName == groupNameInitialID ||
-            groupName == groupNameInitialEN) {
-          _groupNameTextEditingControllers.add(TextEditingController());
-        } else {
-          _groupNameTextEditingControllers
-              .add(TextEditingController(text: groupName));
-        }
-        _groupNameFocusNodes.add(FocusNode());
-
-        final itemCategories = widget.groupCategories[i].itemCategoryHistories;
-
-        final leftControllers = <TextEditingController>[];
-        final rightControllers = <TextEditingController>[];
-        final leftFocusNodes = <FocusNode>[];
-        final rightFocusNodes = <FocusNode>[];
-
-        for (var j = 0; j < itemCategories.length; j++) {
-          TextEditingController? rightController;
-          TextEditingController? leftController;
-          FocusNode? leftFocusNode;
-          FocusNode? rightFocusNode;
-          final amount = itemCategories[j].amount;
-
-          if (itemCategories[j].name.isEmpty ||
-              itemCategories[j].name == categoryNameInitialID ||
-              itemCategories[j].name == categoryNameInitialEN) {
-            leftController = TextEditingController();
-          } else {
-            leftController =
-                TextEditingController(text: itemCategories[j].name);
-          }
-
-          leftFocusNode = FocusNode();
-
-          if (amount > 0) {
-            rightController = TextEditingController(
-              text: NumberFormatter.formatToMoneyDouble(context, amount),
-            );
-          } else {
-            rightController = TextEditingController();
-          }
-
-          rightFocusNode = FocusNode();
-
-          leftControllers.add(leftController);
-          rightControllers.add(rightController);
-          leftFocusNodes.add(leftFocusNode);
-          rightFocusNodes.add(rightFocusNode);
-        }
-
-        _leftTextEditingControllers.add(leftControllers);
-        _rightTextEditingControllers.add(rightControllers);
-        _leftFocusNodes.add(leftFocusNodes);
-        _rightFocusNodes.add(rightFocusNodes);
-
-        _pickerColor.add(Color(widget.groupCategories[i].hexColor));
-        _currentColor.add(Color(widget.groupCategories[i].hexColor));
-      }
+      _clearAllControllers();
+      _createControllersForGroups();
     });
+  }
+
+  void _clearAllControllers() {
+    _groupNameTextEditingControllers.clear();
+    _leftTextEditingControllers.clear();
+    _rightTextEditingControllers.clear();
+    _groupNameFocusNodes.clear();
+    _leftFocusNodes.clear();
+    _rightFocusNodes.clear();
+    _pickerColor.clear();
+  }
+
+  void _createControllersForGroups() {
+    for (var i = 0; i < widget.groupCategories.length; i++) {
+      final groupCategory = widget.groupCategories[i];
+      _createGroupController(groupCategory);
+      _createItemControllers(groupCategory.itemCategoryHistories);
+      _pickerColor.add(Color(groupCategory.hexColor));
+    }
+  }
+
+  void _createGroupController(GroupCategoryHistory groupCategory) {
+    final groupName = groupCategory.groupName;
+    final isInitialName = _isInitialGroupName(groupName);
+
+    _groupNameTextEditingControllers.add(
+      TextEditingController(text: isInitialName ? '' : groupName),
+    );
+    _groupNameFocusNodes.add(FocusNode());
+  }
+
+  void _createItemControllers(List<ItemCategoryHistory> itemCategories) {
+    final leftControllers = <TextEditingController>[];
+    final rightControllers = <TextEditingController>[];
+    final leftFocusNodes = <FocusNode>[];
+    final rightFocusNodes = <FocusNode>[];
+
+    for (final item in itemCategories) {
+      final isInitialName = _isInitialCategoryName(item.name);
+
+      leftControllers.add(
+        TextEditingController(text: isInitialName ? '' : item.name),
+      );
+      leftFocusNodes.add(FocusNode());
+
+      rightControllers.add(
+        TextEditingController(
+          text: item.amount > 0
+              ? NumberFormatter.formatToMoneyDouble(context, item.amount)
+              : '',
+        ),
+      );
+      rightFocusNodes.add(FocusNode());
+    }
+
+    _leftTextEditingControllers.add(leftControllers);
+    _rightTextEditingControllers.add(rightControllers);
+    _leftFocusNodes.add(leftFocusNodes);
+    _rightFocusNodes.add(rightFocusNodes);
+  }
+
+  bool _isInitialGroupName(String name) {
+    return name.isEmpty ||
+        name == _groupNameInitialID ||
+        name == _groupNameInitialEN;
+  }
+
+  bool _isInitialCategoryName(String name) {
+    if (name.isEmpty ||
+        name == _categoryNameInitialID ||
+        name == _categoryNameInitialEN) {
+      return true;
+    }
+
+    // Only check localized strings if context is available
+    try {
+      final localize = textLocalizer(context);
+      return name == localize.selectCategory ||
+          name == localize.typeCategoryName ||
+          name == localize.categoryName;
+    } on Exception catch (_) {
+      // If localization isn't available yet, just return false
+      return false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final localize = textLocalizer(context);
-
     return SliverPadding(
-      padding: getEdgeInsets(
-        left: 16,
-        right: 16,
-      ),
+      padding: getEdgeInsets(left: 16, right: 16),
       sliver: SliverList.separated(
         itemCount: widget.groupCategories.length,
-        itemBuilder: (context, indexGroup) {
-          final groupCategory = widget.groupCategories[indexGroup];
-          final itemCategories = groupCategory.itemCategoryHistories;
-          final groupType = groupCategory.type;
-          final groupName = groupCategory.groupName;
-          final groupId = groupCategory.id;
-
-          final isIncome = groupType == 'income';
-          final isExpense = groupType == 'expense';
-          final lastIndex = widget.groupCategories.length - 1;
-          final isLast = indexGroup == lastIndex;
-
-          const groupNameInitialEN = 'Group Name';
-          const groupNameInitialID = 'Nama Grup';
-          const categoryNameInitialEN = 'Category Name';
-          const categoryNameInitialID = 'Nama Kategori';
-          final title = isIncome ? localize.income : localize.expenses;
-          final portions =
-              widget.portions.where((element) => !element.isNaN).toList();
-
-          String? portionStr;
-
-          if (portions.isNotEmpty && isExpense && portions.length != 1) {
-            portionStr = '${portions[indexGroup].toStringAsFixed(2)}%'
-                .replaceAll('.00', '');
-          }
-
-          Color? hintColorGroupName;
-          final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
-
-          if (groupName.isEmpty ||
-              groupName == groupNameInitialID ||
-              groupName == groupNameInitialEN) {
-            hintColorGroupName = colorOnSurface;
-          } else {
-            hintColorGroupName = context.color.onSurface;
-          }
-
-          final onlyTwoGroup = widget.groupCategories.length == 2;
-
-          return LayoutBuilder(
-            builder: (context, constraints) {
-              return Column(
-                children: [
-                  AppGlass(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Stack(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                IncomeExpenseDialog.showInfoDialog(
-                                  context,
-                                  isIncome: isIncome,
-                                  isExpense: isExpense,
-                                );
-                              },
-                              child: Align(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    AppText(
-                                      text: title,
-                                      style: StyleType.bodSm,
-                                      color: colorOnSurface,
-                                    ),
-                                    Gap.horizontal(5),
-                                    Icon(
-                                      CupertinoIcons.info_circle,
-                                      size: 17,
-                                      color: colorOnSurface,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                AppText(
-                                  text: portionStr ?? '',
-                                  style: StyleType.bodMed,
-                                ),
-                                Gap.horizontal(10),
-                                GestureDetector(
-                                  onTap: () {
-                                    _onPaintBrushTap(indexGroup);
-                                  },
-                                  child: CircleAvatar(
-                                    radius: 14,
-                                    backgroundColor:
-                                        Color(groupCategory.hexColor),
-                                    child: Icon(
-                                      CupertinoIcons.paintbrush,
-                                      color: context.color.onSurface,
-                                      size: 12,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Gap.vertical(10),
-                        const AppDivider(),
-                        Gap.vertical(5),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: isIncome
-                                  ? AppText(
-                                      text: groupCategory.groupName,
-                                      style: StyleType.bodLg,
-                                    )
-                                  : TextField(
-                                      controller:
-                                          _groupNameTextEditingControllers[
-                                              indexGroup],
-                                      focusNode:
-                                          _groupNameFocusNodes[indexGroup],
-                                      onSubmitted: (value) {
-                                        _unfocusAll();
-                                      },
-                                      onChanged: (value) {
-                                        context.read<BudgetFormBloc>().add(
-                                              UpdateGroupCategoryHistory(
-                                                groupCategoryHistory:
-                                                    groupCategory.copyWith(
-                                                  groupName: value,
-                                                ),
-                                              ),
-                                            );
-                                      },
-                                      style: textStyle(
-                                        context,
-                                        style: StyleType.bodLg,
-                                      ),
-                                      decoration: InputDecoration(
-                                        contentPadding: EdgeInsets.zero,
-                                        hintText: groupCategory.groupName,
-                                        hintStyle: textStyle(
-                                          context,
-                                          style: StyleType.bodLg,
-                                        ).copyWith(
-                                          color: hintColorGroupName,
-                                        ),
-                                        enabledBorder: InputBorder.none,
-                                        focusedBorder: InputBorder.none,
-                                      ),
-                                    ),
-                            ),
-                            if (!isIncome) ...[
-                              if (!onlyTwoGroup)
-                                GestureDetector(
-                                  onTap: () {
-                                    _unfocusAll();
-                                    _onRemoveGroupCategory(
-                                      groupCategory.id,
-                                      itemCategories,
-                                    );
-
-                                    setState(() {
-                                      _groupNameTextEditingControllers
-                                          .removeAt(indexGroup);
-                                      _leftTextEditingControllers
-                                          .removeAt(indexGroup);
-                                      _rightTextEditingControllers
-                                          .removeAt(indexGroup);
-                                      _groupNameFocusNodes.removeAt(indexGroup);
-                                      _leftFocusNodes.removeAt(indexGroup);
-                                      _rightFocusNodes.removeAt(indexGroup);
-                                      _pickerColor.removeAt(indexGroup);
-                                      _currentColor.removeAt(indexGroup);
-                                    });
-                                  },
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: context.color.primary
-                                        .withValues(alpha: 0.5),
-                                  ),
-                                ),
-                            ],
-                            Gap.horizontal(20),
-                            AppText(
-                              text: localize.planned,
-                              style: StyleType.bodSm,
-                            ),
-                          ],
-                        ),
-                        Gap.vertical(10),
-                        ListView.separated(
-                          padding: EdgeInsets.zero,
-                          itemCount:
-                              _leftTextEditingControllers[indexGroup].length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, indexItem) {
-                            final item = itemCategories[indexItem];
-
-                            TextStyle? baseStyle;
-
-                            final itemName = item.name;
-
-                            if (itemName.isEmpty ||
-                                itemName == categoryNameInitialID ||
-                                itemName == categoryNameInitialEN ||
-                                itemName == localize.selectCategory ||
-                                itemName == localize.typeCategoryName ||
-                                itemName == localize.categoryName) {
-                              baseStyle = textStyle(
-                                context,
-                                style: StyleType.bodMed,
-                              ).copyWith(
-                                color: colorOnSurface,
-                                fontWeight: FontWeight.w400,
-                              );
-                            } else {
-                              baseStyle = textStyle(
-                                context,
-                                style: StyleType.bodMed,
-                              );
-                            }
-
-                            return Row(
-                              children: [
-                                Expanded(
-                                  flex: 3,
-                                  child: Column(
-                                    children: [
-                                      TextField(
-                                        controller: _leftTextEditingControllers[
-                                            indexGroup][indexItem],
-                                        focusNode: _leftFocusNodes[indexGroup]
-                                            [indexItem],
-                                        onSubmitted: (value) {
-                                          _unfocusAll();
-                                        },
-                                        onChanged: (value) {
-                                          final newCategory = item.copyWith(
-                                            name: value,
-                                          );
-                                          _onChangeField(
-                                            newCategory,
-                                            groupCategory.id,
-                                          );
-                                        },
-                                        style: baseStyle,
-                                        decoration: InputDecoration(
-                                          hintText: item.name,
-                                          hintStyle: baseStyle,
-                                          enabledBorder: InputBorder.none,
-                                          focusedBorder: InputBorder.none,
-                                        ),
-                                      ),
-                                      Divider(
-                                        color: context.color.primaryContainer
-                                            .withValues(alpha: 0.4),
-                                        height: 0,
-                                        thickness: 0.5,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: BlocBuilder<SettingBloc, SettingState>(
-                                    builder: (context, state) {
-                                      Color? colorRightHintText;
-
-                                      final value =
-                                          _rightTextEditingControllers[
-                                                  indexGroup][indexItem]
-                                              .text;
-
-                                      if (value == 'Rp 0' ||
-                                          value == r'$ 0' ||
-                                          value.isEmpty) {
-                                        colorRightHintText = colorOnSurface;
-                                      } else {
-                                        colorRightHintText =
-                                            context.color.onSurface;
-                                      }
-                                      return TextField(
-                                        controller:
-                                            _rightTextEditingControllers[
-                                                indexGroup][indexItem],
-                                        focusNode: _rightFocusNodes[indexGroup]
-                                            [indexItem],
-                                        onSubmitted: (value) {
-                                          _unfocusAll();
-                                        },
-                                        textAlign: TextAlign.end,
-                                        style: textStyle(
-                                          context,
-                                          style: StyleType.bodMed,
-                                        ).copyWith(
-                                          color: colorRightHintText,
-                                        ),
-                                        onChanged: (value) {
-                                          final cleanVal = value.replaceAll(
-                                            RegExp('[^0-9]'),
-                                            '',
-                                          );
-
-                                          if (cleanVal.isNotEmpty) {
-                                            final newCategory = item.copyWith(
-                                              amount: cleanVal.toDouble(),
-                                            );
-
-                                            _onChangeField(
-                                              newCategory,
-                                              groupCategory.id,
-                                            );
-                                          } else {
-                                            _onChangeValueEmpty(
-                                              item,
-                                              groupCategory.id,
-                                            );
-                                          }
-                                        },
-                                        keyboardType: TextInputType.number,
-                                        inputFormatters: [
-                                          CurrencyTextInputFormatter.currency(
-                                            locale: state.currency.locale,
-                                            symbol: '${state.currency.symbol} ',
-                                            decimalDigits: 0,
-                                          ),
-                                        ],
-                                        decoration: InputDecoration(
-                                          contentPadding:
-                                              const EdgeInsets.all(10),
-                                          hintText: NumberFormatter
-                                              .formatToMoneyDouble(
-                                            context,
-                                            item.amount,
-                                          ),
-                                          hintStyle: textStyle(
-                                            context,
-                                            style: StyleType.bodMed,
-                                          ).copyWith(
-                                            color: colorRightHintText,
-                                          ),
-                                          focusedBorder:
-                                              const OutlineInputBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          border: const OutlineInputBorder(
-                                            borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(10),
-                                              bottomRight: Radius.circular(10),
-                                              topRight: Radius.circular(10),
-                                            ),
-                                            borderSide: BorderSide.none,
-                                          ),
-                                          fillColor: context.color.onSurface
-                                              .withValues(alpha: 0.1),
-                                          filled: true,
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    _unfocusAll();
-                                    _onRemoveItemCategory(
-                                      item,
-                                      groupCategory.id,
-                                    );
-                                    setState(() {
-                                      _leftTextEditingControllers[indexGroup]
-                                          .removeAt(indexItem);
-                                      _rightTextEditingControllers[indexGroup]
-                                          .removeAt(indexItem);
-                                      _leftFocusNodes[indexGroup]
-                                          .removeAt(indexItem);
-                                      _rightFocusNodes[indexGroup]
-                                          .removeAt(indexItem);
-                                    });
-                                  },
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: context.color.primary
-                                        .withValues(alpha: 0.5),
-                                  ),
-                                ),
-                              ],
-                            );
-                          },
-                          separatorBuilder: (context, index) => Gap.vertical(5),
-                        ),
-                        Gap.vertical(10),
-                        GestureDetector(
-                          onTap: () {
-                            _unfocusAll();
-                            final itemId = const Uuid().v1();
-                            final newItem = ItemCategoryHistory(
-                              id: itemId,
-                              type: groupType,
-                              name: localize.categoryName,
-                              groupHistoryId: groupId,
-                              itemId: const Uuid().v1(),
-                              budgetId: widget.budgetId,
-                              createdAt: DateTime.now().toString(),
-                              isExpense: isExpense,
-                              groupName: groupName,
-                            );
-                            context.read<BudgetFormBloc>().add(
-                                  AddItemCategoryHistory(
-                                    groupId: groupCategory.id,
-                                    itemCategory: newItem,
-                                  ),
-                                );
-
-                            setState(() {
-                              _leftTextEditingControllers[indexGroup].add(
-                                TextEditingController(),
-                              );
-                              _rightTextEditingControllers[indexGroup].add(
-                                TextEditingController(),
-                              );
-                              _leftFocusNodes[indexGroup].add(
-                                FocusNode(),
-                              );
-                              _rightFocusNodes[indexGroup].add(
-                                FocusNode(),
-                              );
-                            });
-                          },
-                          child: AppText(
-                            text:
-                                '+ ${localize.add} ${groupCategory.groupName}',
-                            style: StyleType.bodMed,
-                            color: context.color.primary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  if (isLast && widget.fromInitial) ...[
-                    Gap.vertical(8),
-                    GestureDetector(
-                      onTap: () async {
-                        _unfocusAll();
-                        final newGroupId = const Uuid().v1();
-                        final newItemId = const Uuid().v1();
-                        final language =
-                            await SettingPreferenceRepo().getLanguage();
-                        final isIndonesia = language == AppStrings.indonesia;
-
-                        final newGroup = GroupCategoryHistory(
-                          id: newGroupId,
-                          groupName: isIndonesia
-                              ? groupNameInitialID
-                              : groupNameInitialEN,
-                          type: AppStrings.expenseType,
-                          groupId: const Uuid().v1(),
-                          createdAt: DateTime.now().toString(),
-                          hexColor: 0xFFF44336,
-                          itemCategoryHistories: [
-                            ItemCategoryHistory(
-                              id: newItemId,
-                              groupHistoryId: newGroupId,
-                              budgetId: widget.budgetId,
-                              itemId: const Uuid().v1(),
-                              name: isIndonesia
-                                  ? categoryNameInitialID
-                                  : categoryNameInitialEN,
-                              type: AppStrings.expenseType,
-                              createdAt: DateTime.now().toString(),
-                              isExpense: true,
-                              groupName: isIndonesia
-                                  ? groupNameInitialID
-                                  : groupNameInitialEN,
-                            ),
-                          ],
-                        );
-
-                        _onNewGroup(newGroup);
-                      },
-                      child: AppGlass(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(
-                              Icons.add,
-                              color: context.color.primary,
-                            ),
-                            Gap.horizontal(10),
-                            AppText(
-                              text: localize.addGroupCategory,
-                              style: StyleType.bodMed,
-                              color: context.color.primary,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ],
-              );
-            },
-          );
-        },
+        itemBuilder: _buildGroupItem,
         separatorBuilder: (context, index) => Gap.vertical(8),
       ),
     );
   }
 
+  Widget _buildGroupItem(BuildContext context, int indexGroup) {
+    final groupCategory = widget.groupCategories[indexGroup];
+    final isLast = indexGroup == widget.groupCategories.length - 1;
+
+    return Column(
+      children: [
+        AppGlass(
+          child: _buildGroupContent(context, groupCategory, indexGroup),
+        ),
+        if (isLast && widget.fromInitial) ...[
+          Gap.vertical(8),
+          _buildAddGroupButton(context),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildGroupContent(
+    BuildContext context,
+    GroupCategoryHistory groupCategory,
+    int indexGroup,
+  ) {
+    final localize = textLocalizer(context);
+    final isIncome = groupCategory.type == 'income';
+    final title = isIncome ? localize.income : localize.expenses;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildGroupHeader(context, groupCategory, indexGroup, title),
+        Gap.vertical(10),
+        const AppDivider(),
+        Gap.vertical(5),
+        _buildGroupNameRow(context, groupCategory, indexGroup, isIncome),
+        Gap.vertical(10),
+        _buildItemsList(context, groupCategory, indexGroup),
+        Gap.vertical(10),
+        _buildAddItemButton(context, groupCategory, indexGroup),
+      ],
+    );
+  }
+
+  Widget _buildGroupHeader(
+    BuildContext context,
+    GroupCategoryHistory groupCategory,
+    int indexGroup,
+    String title,
+  ) {
+    final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
+    final isExpense = groupCategory.type == 'expense';
+    final portions =
+        widget.portions.where((element) => !element.isNaN).toList();
+
+    String? portionStr;
+    if (portions.isNotEmpty && isExpense && portions.length != 1) {
+      portionStr =
+          '${portions[indexGroup].toStringAsFixed(2)}%'.replaceAll('.00', '');
+    }
+
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () => IncomeExpenseDialog.showInfoDialog(
+            context,
+            isIncome: groupCategory.type == 'income',
+            isExpense: isExpense,
+          ),
+          child: Align(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppText(
+                  text: title,
+                  style: StyleType.bodSm,
+                  color: colorOnSurface,
+                ),
+                Gap.horizontal(5),
+                Icon(
+                  CupertinoIcons.info_circle,
+                  size: 17,
+                  color: colorOnSurface,
+                ),
+              ],
+            ),
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            AppText(
+              text: portionStr ?? '',
+              style: StyleType.bodMed,
+            ),
+            Gap.horizontal(10),
+            GestureDetector(
+              onTap: () => _onPaintBrushTap(indexGroup),
+              child: CircleAvatar(
+                radius: 14,
+                backgroundColor: Color(groupCategory.hexColor),
+                child: Icon(
+                  CupertinoIcons.paintbrush,
+                  color: context.color.onSurface,
+                  size: 12,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGroupNameRow(
+    BuildContext context,
+    GroupCategoryHistory groupCategory,
+    int indexGroup,
+    bool isIncome,
+  ) {
+    final localize = textLocalizer(context);
+    final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
+    final hintColorGroupName = _isInitialGroupName(groupCategory.groupName)
+        ? colorOnSurface
+        : context.color.onSurface;
+
+    return Row(
+      children: [
+        Expanded(
+          child: isIncome
+              ? AppText(
+                  text: groupCategory.groupName,
+                  style: StyleType.bodLg,
+                )
+              : TextField(
+                  controller: _groupNameTextEditingControllers[indexGroup],
+                  focusNode: _groupNameFocusNodes[indexGroup],
+                  onSubmitted: (_) => _unfocusAll(),
+                  onChanged: (value) => _updateGroupName(groupCategory, value),
+                  style: textStyle(context, style: StyleType.bodLg),
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.zero,
+                    hintText: groupCategory.groupName,
+                    hintStyle: textStyle(context, style: StyleType.bodLg)
+                        .copyWith(color: hintColorGroupName),
+                    enabledBorder: InputBorder.none,
+                    focusedBorder: InputBorder.none,
+                  ),
+                ),
+        ),
+        if (!isIncome && widget.groupCategories.length > 2)
+          GestureDetector(
+            onTap: () => _removeGroupCategory(groupCategory, indexGroup),
+            child: Icon(
+              Icons.delete,
+              color: context.color.primary.withValues(alpha: 0.5),
+            ),
+          ),
+        Gap.horizontal(20),
+        AppText(
+          text: localize.planned,
+          style: StyleType.bodSm,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildItemsList(
+    BuildContext context,
+    GroupCategoryHistory groupCategory,
+    int indexGroup,
+  ) {
+    return ListView.separated(
+      padding: EdgeInsets.zero,
+      itemCount: _leftTextEditingControllers[indexGroup].length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, indexItem) => _buildItemRow(
+        context,
+        groupCategory,
+        indexGroup,
+        indexItem,
+      ),
+      separatorBuilder: (context, index) => Gap.vertical(5),
+    );
+  }
+
+  Widget _buildItemRow(
+    BuildContext context,
+    GroupCategoryHistory groupCategory,
+    int indexGroup,
+    int indexItem,
+  ) {
+    final item = groupCategory.itemCategoryHistories[indexItem];
+    final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
+    final baseStyle = _isInitialCategoryName(item.name)
+        ? textStyle(context, style: StyleType.bodMed).copyWith(
+            color: colorOnSurface,
+            fontWeight: FontWeight.w400,
+          )
+        : textStyle(context, style: StyleType.bodMed);
+
+    return Row(
+      children: [
+        Expanded(
+          flex: 3,
+          child: Column(
+            children: [
+              TextField(
+                controller: _leftTextEditingControllers[indexGroup][indexItem],
+                focusNode: _leftFocusNodes[indexGroup][indexItem],
+                onSubmitted: (_) => _unfocusAll(),
+                onChanged: (value) {
+                  _updateItemName(item, groupCategory.id, value);
+                },
+                style: baseStyle,
+                decoration: InputDecoration(
+                  hintText: item.name,
+                  hintStyle: baseStyle,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                ),
+              ),
+              Divider(
+                color: context.color.primaryContainer.withValues(alpha: 0.4),
+                height: 0,
+                thickness: 0.5,
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          flex: 2,
+          child: _buildAmountField(
+              context, item, groupCategory.id, indexGroup, indexItem),
+        ),
+        GestureDetector(
+          onTap: () => _removeItemCategory(
+              item, groupCategory.id, indexGroup, indexItem),
+          child: Icon(
+            Icons.delete,
+            color: context.color.primary.withValues(alpha: 0.5),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildAmountField(
+    BuildContext context,
+    ItemCategoryHistory item,
+    String groupId,
+    int indexGroup,
+    int indexItem,
+  ) {
+    const radiusCircular = Radius.circular(10);
+
+    return BlocBuilder<SettingBloc, SettingState>(
+      builder: (context, state) {
+        final currencyFormatter = CurrencyTextInputFormatter.currency(
+          locale: state.currency.locale,
+          symbol: '${state.currency.symbol} ',
+          decimalDigits: 0,
+        );
+
+        final value = _rightTextEditingControllers[indexGroup][indexItem].text;
+        final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
+        final colorRightHintText =
+            (value == 'Rp 0' || value == r'$ 0' || value.isEmpty)
+                ? colorOnSurface
+                : context.color.onSurface;
+
+        return Focus(
+          onFocusChange: (hasFocus) => _handleAmountFocusChange(
+            hasFocus,
+            item,
+            groupId,
+            indexGroup,
+            indexItem,
+          ),
+          child: TextField(
+            controller: _rightTextEditingControllers[indexGroup][indexItem],
+            focusNode: _rightFocusNodes[indexGroup][indexItem],
+            onSubmitted: (_) => _unfocusAll(),
+            textAlign: TextAlign.end,
+            style: textStyle(context, style: StyleType.bodMed)
+                .copyWith(color: colorRightHintText),
+            keyboardType: TextInputType.number,
+            inputFormatters: [currencyFormatter],
+            decoration: InputDecoration(
+              contentPadding: const EdgeInsets.all(10),
+              hintText:
+                  NumberFormatter.formatToMoneyDouble(context, item.amount),
+              hintStyle: textStyle(context, style: StyleType.bodMed)
+                  .copyWith(color: colorRightHintText),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: radiusCircular,
+                  bottomRight: radiusCircular,
+                  topRight: radiusCircular,
+                ),
+                borderSide: BorderSide.none,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: radiusCircular,
+                  bottomRight: radiusCircular,
+                  topRight: radiusCircular,
+                ),
+                borderSide: BorderSide.none,
+              ),
+              fillColor: context.color.onSurface.withValues(alpha: 0.1),
+              filled: true,
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildAddItemButton(
+    BuildContext context,
+    GroupCategoryHistory groupCategory,
+    int indexGroup,
+  ) {
+    final localize = textLocalizer(context);
+    return GestureDetector(
+      onTap: () => _addNewItem(groupCategory, indexGroup),
+      child: AppText(
+        text: '+ ${localize.add} ${groupCategory.groupName}',
+        style: StyleType.bodMed,
+        color: context.color.primary,
+      ),
+    );
+  }
+
+  Widget _buildAddGroupButton(BuildContext context) {
+    final localize = textLocalizer(context);
+    return GestureDetector(
+      onTap: _addNewGroup,
+      child: AppGlass(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.add, color: context.color.primary),
+            Gap.horizontal(10),
+            AppText(
+              text: localize.addGroupCategory,
+              style: StyleType.bodMed,
+              color: context.color.primary,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  // Event Handlers
+  void _updateGroupName(GroupCategoryHistory groupCategory, String value) {
+    context.read<BudgetFormBloc>().add(
+          UpdateGroupCategoryHistory(
+            groupCategoryHistory: groupCategory.copyWith(groupName: value),
+          ),
+        );
+  }
+
+  void _updateItemName(ItemCategoryHistory item, String groupId, String value) {
+    final newCategory = item.copyWith(name: value);
+    _onChangeField(newCategory, groupId);
+  }
+
+  void _handleAmountFocusChange(
+    bool hasFocus,
+    ItemCategoryHistory item,
+    String groupId,
+    int indexGroup,
+    int indexItem,
+  ) {
+    if (!hasFocus) {
+      final text = _rightTextEditingControllers[indexGroup][indexItem].text;
+      final cleanVal = text.replaceAll(RegExp('[^0-9]'), '');
+
+      if (cleanVal.isNotEmpty) {
+        final unformattedValue = double.parse(cleanVal);
+        final newCategory = item.copyWith(amount: unformattedValue);
+        _onChangeField(newCategory, groupId);
+      } else {
+        _onChangeValueEmpty(item, groupId);
+      }
+    }
+  }
+
+  void _removeGroupCategory(
+      GroupCategoryHistory groupCategory, int indexGroup) {
+    _unfocusAll();
+    _onRemoveGroupCategory(
+        groupCategory.id, groupCategory.itemCategoryHistories);
+
+    setState(() {
+      _removeControllersAtIndex(indexGroup);
+    });
+  }
+
+  void _removeItemCategory(
+    ItemCategoryHistory item,
+    String groupId,
+    int indexGroup,
+    int indexItem,
+  ) {
+    _unfocusAll();
+    _onRemoveItemCategory(item, groupId);
+
+    setState(() {
+      _leftTextEditingControllers[indexGroup].removeAt(indexItem);
+      _rightTextEditingControllers[indexGroup].removeAt(indexItem);
+      _leftFocusNodes[indexGroup].removeAt(indexItem);
+      _rightFocusNodes[indexGroup].removeAt(indexItem);
+    });
+  }
+
+  void _addNewItem(GroupCategoryHistory groupCategory, int indexGroup) {
+    _unfocusAll();
+    final localize = textLocalizer(context);
+    final itemId = const Uuid().v1();
+    final newItem = ItemCategoryHistory(
+      id: itemId,
+      type: groupCategory.type,
+      name: localize.categoryName,
+      groupHistoryId: groupCategory.id,
+      itemId: const Uuid().v1(),
+      budgetId: widget.budgetId,
+      createdAt: DateTime.now().toString(),
+      isExpense: groupCategory.type == 'expense',
+      groupName: groupCategory.groupName,
+    );
+
+    context.read<BudgetFormBloc>().add(
+          AddItemCategoryHistory(
+            groupId: groupCategory.id,
+            itemCategory: newItem,
+          ),
+        );
+
+    setState(() {
+      _leftTextEditingControllers[indexGroup].add(TextEditingController());
+      _rightTextEditingControllers[indexGroup].add(TextEditingController());
+      _leftFocusNodes[indexGroup].add(FocusNode());
+      _rightFocusNodes[indexGroup].add(FocusNode());
+    });
+  }
+
+  Future<void> _addNewGroup() async {
+    _unfocusAll();
+    final newGroupId = const Uuid().v1();
+    final newItemId = const Uuid().v1();
+    final language = await SettingPreferenceRepo().getLanguage();
+    final isIndonesia = language == AppStrings.indonesia;
+
+    final newGroup = GroupCategoryHistory(
+      id: newGroupId,
+      groupName: isIndonesia ? _groupNameInitialID : _groupNameInitialEN,
+      type: AppStrings.expenseType,
+      groupId: const Uuid().v1(),
+      createdAt: DateTime.now().toString(),
+      hexColor: 0xFFF44336,
+      itemCategoryHistories: [
+        ItemCategoryHistory(
+          id: newItemId,
+          groupHistoryId: newGroupId,
+          budgetId: widget.budgetId,
+          itemId: const Uuid().v1(),
+          name: isIndonesia ? _categoryNameInitialID : _categoryNameInitialEN,
+          type: AppStrings.expenseType,
+          createdAt: DateTime.now().toString(),
+          isExpense: true,
+          groupName: isIndonesia ? _groupNameInitialID : _groupNameInitialEN,
+        ),
+      ],
+    );
+
+    _onNewGroup(newGroup);
+  }
+
+  void _removeControllersAtIndex(int index) {
+    _groupNameTextEditingControllers.removeAt(index);
+    _leftTextEditingControllers.removeAt(index);
+    _rightTextEditingControllers.removeAt(index);
+    _groupNameFocusNodes.removeAt(index);
+    _leftFocusNodes.removeAt(index);
+    _rightFocusNodes.removeAt(index);
+    _pickerColor.removeAt(index);
+  }
+
+  // BLoC Event Methods
   void _onChangeField(ItemCategoryHistory newCategory, String groupId) {
     context.read<BudgetFormBloc>().add(
           UpdateItemCategoryEventInitialCreate(
@@ -673,9 +678,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
           UpdateItemCategoryEventInitialCreate(
             groupHistoId: groupId,
             itemHistoId: newCategory.id,
-            itemCategoryHistory: newCategory.copyWith(
-              amount: 0,
-            ),
+            itemCategoryHistory: newCategory.copyWith(amount: 0),
           ),
         );
   }
@@ -694,17 +697,14 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
     List<ItemCategoryHistory> itemCategories,
   ) {
     context.read<BudgetFormBloc>().add(
-          RemoveGroupCategoryHistory(
-            groupHistoId: groupId,
-          ),
+          RemoveGroupCategoryHistory(groupHistoId: groupId),
         );
 
-    for (var i = 0; i < itemCategories.length; i++) {
-      final itemId = itemCategories[i].id;
+    for (final item in itemCategories) {
       context.read<BudgetFormBloc>().add(
             RemoveItemCategoryFromInitial(
               groupHistoId: groupId,
-              itemHistoId: itemId,
+              itemHistoId: item.id,
             ),
           );
     }
@@ -712,43 +712,17 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
 
   void _onNewGroup(GroupCategoryHistory newGroup) {
     context.read<BudgetFormBloc>().add(
-          AddGroupCategoryHistory(
-            groupCategoryHisto: newGroup,
-          ),
+          AddGroupCategoryHistory(groupCategoryHisto: newGroup),
         );
 
     setState(() {
-      final leftControllers = <TextEditingController>[];
-      final rightControllers = <TextEditingController>[];
-      final leftFocusNodes = <FocusNode>[];
-      final rightFocusNodes = <FocusNode>[];
-
-      for (var i = 0; i < newGroup.itemCategoryHistories.length; i++) {
-        final leftController = TextEditingController();
-        final rightController = TextEditingController();
-        final leftFocusNode = FocusNode();
-        final rightFocusNode = FocusNode();
-
-        leftControllers.add(leftController);
-        rightControllers.add(rightController);
-        leftFocusNodes.add(leftFocusNode);
-        rightFocusNodes.add(rightFocusNode);
-      }
-
       _groupNameTextEditingControllers.add(TextEditingController());
-      _leftTextEditingControllers.add(leftControllers);
-      _rightTextEditingControllers.add(rightControllers);
-      _leftFocusNodes.add(leftFocusNodes);
-      _rightFocusNodes.add(rightFocusNodes);
+      _leftTextEditingControllers.add([TextEditingController()]);
+      _rightTextEditingControllers.add([TextEditingController()]);
+      _leftFocusNodes.add([FocusNode()]);
+      _rightFocusNodes.add([FocusNode()]);
       _groupNameFocusNodes.add(FocusNode());
       _pickerColor.add(Color(newGroup.hexColor));
-      _currentColor.add(Color(newGroup.hexColor));
-    });
-  }
-
-  void _changeColor(Color color, int index) {
-    setState(() {
-      _pickerColor[index] = color;
     });
   }
 
@@ -756,100 +730,86 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
     final localize = textLocalizer(context);
     showDialog<void>(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: AppText(
-            text: localize.pickAColor,
-            style: StyleType.headMed,
+      builder: (context) => AlertDialog(
+        title: AppText(
+          text: localize.pickAColor,
+          style: StyleType.headMed,
+        ),
+        content: SingleChildScrollView(
+          child: MaterialPicker(
+            pickerColor: _pickerColor[index],
+            onColorChanged: (color) =>
+                setState(() => _pickerColor[index] = color),
           ),
-          content: SingleChildScrollView(
-            child: MaterialPicker(
-              pickerColor: _pickerColor[index],
-              onColorChanged: (color) {
-                _changeColor(color, index);
-              },
-            ),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              child: AppText(
-                text: localize.save,
-                style: StyleType.bodLg,
-              ),
-              onPressed: () {
-                final color = _pickerColor[index].toARGB32().toRadixString(16);
-                final hexColor = int.parse(color, radix: 16);
+        ),
+        actions: [
+          ElevatedButton(
+            onPressed: () {
+              final color = _pickerColor[index].toARGB32().toRadixString(16);
+              final hexColor = int.parse(color, radix: 16);
 
-                context.read<BudgetFormBloc>().add(
-                      UpdateGroupCategoryHistory(
-                        groupCategoryHistory:
-                            widget.groupCategories[index].copyWith(
-                          hexColor: hexColor,
-                        ),
+              context.read<BudgetFormBloc>().add(
+                    UpdateGroupCategoryHistory(
+                      groupCategoryHistory:
+                          widget.groupCategories[index].copyWith(
+                        hexColor: hexColor,
                       ),
-                    );
-
-                context.pop();
-              },
-            ),
-          ],
-        );
-      },
+                    ),
+                  );
+              context.pop();
+            },
+            child: AppText(text: localize.save, style: StyleType.bodLg),
+          ),
+        ],
+      ),
     );
   }
 
   void _unfocusAll() {
-    for (var i = 0; i < _groupNameFocusNodes.length; i++) {
-      _groupNameFocusNodes[i].unfocus();
+    for (final focusNode in _groupNameFocusNodes) {
+      focusNode.unfocus();
     }
-
-    for (var i = 0; i < _leftFocusNodes.length; i++) {
-      for (var j = 0; j < _leftFocusNodes[i].length; j++) {
-        _leftFocusNodes[i][j].unfocus();
+    for (final focusNodeList in _leftFocusNodes) {
+      for (final focusNode in focusNodeList) {
+        focusNode.unfocus();
       }
     }
-
-    for (var i = 0; i < _rightFocusNodes.length; i++) {
-      for (var j = 0; j < _rightFocusNodes[i].length; j++) {
-        _rightFocusNodes[i][j].unfocus();
+    for (final focusNodeList in _rightFocusNodes) {
+      for (final focusNode in focusNodeList) {
+        focusNode.unfocus();
       }
     }
   }
 
   @override
   void dispose() {
-    for (var i = 0; i < _groupNameTextEditingControllers.length; i++) {
-      _groupNameTextEditingControllers[i].dispose();
+    // Dispose all controllers and focus nodes
+    for (final controller in _groupNameTextEditingControllers) {
+      controller.dispose();
     }
-
-    for (var i = 0; i < _leftTextEditingControllers.length; i++) {
-      for (var j = 0; j < _leftTextEditingControllers[i].length; j++) {
-        _leftTextEditingControllers[i][j].dispose();
+    for (final controllerList in _leftTextEditingControllers) {
+      for (final controller in controllerList) {
+        controller.dispose();
       }
     }
-
-    for (var i = 0; i < _rightTextEditingControllers.length; i++) {
-      for (var j = 0; j < _rightTextEditingControllers[i].length; j++) {
-        _rightTextEditingControllers[i][j].dispose();
+    for (final controllerList in _rightTextEditingControllers) {
+      for (final controller in controllerList) {
+        controller.dispose();
       }
     }
-
-    for (var i = 0; i < _groupNameFocusNodes.length; i++) {
-      _groupNameFocusNodes[i].dispose();
+    for (final focusNode in _groupNameFocusNodes) {
+      focusNode.dispose();
     }
-
-    for (var i = 0; i < _leftFocusNodes.length; i++) {
-      for (var j = 0; j < _leftFocusNodes[i].length; j++) {
-        _leftFocusNodes[i][j].dispose();
+    for (final focusNodeList in _leftFocusNodes) {
+      for (final focusNode in focusNodeList) {
+        focusNode.dispose();
       }
     }
-
-    for (var i = 0; i < _rightFocusNodes.length; i++) {
-      for (var j = 0; j < _rightFocusNodes[i].length; j++) {
-        _rightFocusNodes[i][j].dispose();
+    for (final focusNodeList in _rightFocusNodes) {
+      for (final focusNode in focusNodeList) {
+        focusNode.dispose();
       }
     }
-
     super.dispose();
   }
 }

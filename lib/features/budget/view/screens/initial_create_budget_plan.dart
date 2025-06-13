@@ -34,23 +34,21 @@ class _InitialCreateBudgetPlanScreenState
   StreamSubscription<DocumentSnapshot>? userSubscription;
   bool _showOptionCreateBudget = true;
 
-  // late StreamSubscription<List<PurchaseDetails>> _iapSubscription;
-
   @override
   void initState() {
     super.initState();
     _initData();
     _getUserData();
 
-    // _initializeIAP();
     _scrollController.addListener(() {
       setState(() {});
     });
   }
 
-  Future<void> _validateAiCreateBudgetFeature({
-    required bool validated,
-  }) async {
+  Future<void> _onAiCreateBudget() async {
+    final prefsAi = AiAssistantPreferences();
+    final totalGenerateBudget = await prefsAi.getTotalGenerateBudget();
+    final validated = totalGenerateBudget <= 2;
     if (validated) {
       final result = await context.pushNamed<String>(
         MyRoute.budgetAiGenerateScreen.noSlashes(),
@@ -83,11 +81,7 @@ class _InitialCreateBudgetPlanScreenState
           );
         }
 
-        var premium = false;
-
-        if (settingState.user != null) {
-          premium = settingState.user?.premium ?? false;
-        }
+        final premium = settingState.user?.premium ?? false;
 
         return BlocConsumer<BudgetFormBloc, BudgetFormState>(
           listenWhen: (previous, current) {
@@ -105,181 +99,14 @@ class _InitialCreateBudgetPlanScreenState
             }
           },
           builder: (context, state) {
-            final (firstTitle, secondTitle) = _setTitle(state);
-            const groupNameInitialEN = 'Group Name';
-            const groupNameInitialID = 'Nama Grup';
-            const categoryNameInitialEN = 'Category Name';
-            const categoryNameInitialID = 'Nama Kategori';
-            final onSurfaceColor =
-                context.color.onSurface.withValues(alpha: 0.5);
-
             return Scaffold(
               body: Stack(
                 children: [
                   CustomScrollView(
                     controller: _scrollController,
                     slivers: [
-                      SliverAppBar(
-                        centerTitle: true,
-                        title: RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: firstTitle,
-                                style: textStyle(
-                                  context,
-                                  style: StyleType.headMed,
-                                ),
-                              ),
-                              TextSpan(
-                                text: ' $secondTitle',
-                                style: textStyle(
-                                  context,
-                                  style: StyleType.bodMed,
-                                ).copyWith(
-                                  fontStyle: FontStyle.italic,
-                                  color: onSurfaceColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        floating: true,
-                        pinned: true,
-                      ),
-                      SliverPadding(
-                        padding: getEdgeInsets(
-                          left: 16,
-                          top: 16,
-                          right: 16,
-                          bottom: 8,
-                        ),
-                        sliver: SliverToBoxAdapter(
-                          child: Column(
-                            children: [
-                              GestureDetector(
-                                onTap: () async {
-                                  final prefsAi = AiAssistantPreferences();
-                                  final totalGenerateBudget =
-                                      await prefsAi.getTotalGenerateBudget();
-
-                                  await _validateAiCreateBudgetFeature(
-                                    validated: totalGenerateBudget <= 2,
-                                  );
-                                },
-                                child: AppGlass(
-                                  margin: getEdgeInsets(bottom: 8),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AppText(
-                                        text: localize.generateWithAI,
-                                        style: StyleType.bodLg,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Gap.horizontal(16),
-                                      const Icon(
-                                        CupertinoIcons.chevron_right,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              AppBoxFormField(
-                                hintText: localize.budgetName,
-                                prefixIcon: budgetPng,
-                                controller: _budgetNameController,
-                                focusNode: _budgetNameFocus,
-                                isPng: true,
-                              ),
-                              Gap.vertical(8),
-                              // AppGlass(
-                              //   child: Row(
-                              //     mainAxisAlignment: MainAxisAlignment.center,
-                              //     children: [
-                              //       AppText(
-                              //         text: '${localize.totalPlannedIncome}: ',
-                              //         style: StyleType.bodMd,
-                              //         fontWeight: FontWeight.w700,
-                              //       ),
-                              //       AutoSizeText(
-                              //         NumberFormatter.formatToMoneyInt(
-                              //           context,
-                              //           state.totalPlanIncome,
-                              //         ),
-                              //         style: textStyle(
-                              //           context,
-                              //           StyleType.bodLg,
-                              //         ),
-                              //         maxLines: 1,
-                              //         overflow: TextOverflow.ellipsis,
-                              //       ),
-                              //     ],
-                              //   ),
-                              // ),
-                              // Gap.vertical(10),
-                              GestureDetector(
-                                onTap: () async {
-                                  _budgetNameFocus.unfocus();
-                                  final now = DateTime.now();
-                                  final width = context.screenWidth * 0.9;
-
-                                  final results =
-                                      await showCalendarDatePicker2Dialog(
-                                    context: context,
-                                    config:
-                                        CalendarDatePicker2WithActionButtonsConfig(
-                                      calendarType:
-                                          CalendarDatePicker2Type.range,
-                                      firstDate: now,
-                                      controlsTextStyle: textStyle(
-                                        context,
-                                        style: StyleType.bodLg,
-                                      ),
-                                    ),
-                                    dialogSize: Size(width, 400),
-                                    value: state.dateRange,
-                                    borderRadius: BorderRadius.circular(15),
-                                  );
-
-                                  if (results != null && results.length == 2) {
-                                    _selectDateRange(results);
-                                  }
-                                  _budgetNameFocus.unfocus();
-                                },
-                                child: AppGlass(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AppText(
-                                        text: formatDateRangeDateList(
-                                          state.dateRange,
-                                          context,
-                                        ),
-                                        style: StyleType.bodMed,
-                                        textAlign: TextAlign.center,
-                                        fontWeight: state.dateRange.isEmpty
-                                            ? null
-                                            : FontWeight.w700,
-                                        maxLines: 2,
-                                        color: state.dateRange.isEmpty
-                                            ? onSurfaceColor
-                                            : context.color.onSurface,
-                                      ),
-                                      Gap.horizontal(16),
-                                      getPngAsset(
-                                        chevronDownPng,
-                                        color: context.color.primary,
-                                        width: 20,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
+                      _buildSliverAppBar(state),
+                      _buildHeader(state),
                       if (state.groupCategoryHistories.isNotEmpty)
                         BudgetFormFieldInitial(
                           fromInitial: true,
@@ -287,230 +114,11 @@ class _InitialCreateBudgetPlanScreenState
                           groupCategories: state.groupCategoryHistories,
                           portions: state.portions,
                         ),
-                      SliverPadding(
-                        padding: getEdgeInsetsSymmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-                        sliver: SliverToBoxAdapter(
-                          child: Column(
-                            children: [
-                              BlocConsumer<BudgetFirestoreCubit,
-                                  BudgetFirestoreState>(
-                                listener: (context, fireState) {
-                                  if (fireState
-                                      .insertBudgetToFirestoreSuccess) {
-                                    AppToast.showToastSuccess(
-                                      context,
-                                      localize.saveSuccessfully,
-                                    );
-                                    _onGoToMain();
-                                  }
-                                },
-                                builder: (context, fireState) {
-                                  if (fireState.loadingFirestore) {
-                                    return const Center(
-                                      child:
-                                          CircularProgressIndicator.adaptive(),
-                                    );
-                                  }
-                                  return AppButton(
-                                    label: localize.save,
-                                    onPressed: () {
-                                      if (_budgetNameController.text.isEmpty) {
-                                        AppToast.showToastError(
-                                          context,
-                                          localize.budgetNameCannotBeEmpty,
-                                          gravity: ToastGravity.CENTER,
-                                        );
-                                        return;
-                                      }
-
-                                      final groupHistoLen =
-                                          state.groupCategoryHistories.length;
-                                      final groupCategoryHistory =
-                                          <GroupCategoryHistory>[];
-                                      final itemCategoriesParams =
-                                          <ItemCategoryHistory>[];
-
-                                      for (var i = 0; i < groupHistoLen; i++) {
-                                        final itemCategories = state
-                                            .groupCategoryHistories[i]
-                                            .itemCategoryHistories
-                                            .length;
-
-                                        final groupHistory =
-                                            state.groupCategoryHistories[i];
-
-                                        final groupName =
-                                            groupHistory.groupName;
-
-                                        if (groupName.isEmpty ||
-                                            groupName == groupNameInitialEN ||
-                                            groupName == groupNameInitialID) {
-                                          AppToast.showToastError(
-                                            context,
-                                            localize.groupNameCannotBeEmpty,
-                                            gravity: ToastGravity.CENTER,
-                                          );
-                                          return;
-                                        }
-
-                                        final params = GroupCategoryHistory(
-                                          id: groupHistory.id,
-                                          groupName: groupHistory.groupName,
-                                          method: groupHistory.method,
-                                          type: groupHistory.type,
-                                          budgetId: budgetID,
-                                          groupId: groupHistory.groupId,
-                                          createdAt: groupHistory.createdAt,
-                                          updatedAt: groupHistory.createdAt,
-                                          hexColor: groupHistory.hexColor,
-                                        );
-
-                                        groupCategoryHistory.add(params);
-
-                                        for (var j = 0;
-                                            j < itemCategories;
-                                            j++) {
-                                          final item = groupHistory
-                                              .itemCategoryHistories[j];
-                                          final itemName = item.name;
-
-                                          if (itemName.isEmpty ||
-                                              itemName ==
-                                                  categoryNameInitialID ||
-                                              itemName ==
-                                                  categoryNameInitialEN ||
-                                              item.amount == 0) {
-                                            AppToast.showToastError(
-                                              context,
-                                              localize
-                                                  .categoryNameAndAmountCannotBeEmpty,
-                                              gravity: ToastGravity.CENTER,
-                                            );
-                                            return;
-                                          }
-
-                                          final itemCategory =
-                                              ItemCategoryHistory(
-                                            id: item.id,
-                                            name: item.name,
-                                            groupHistoryId: groupHistory.id,
-                                            itemId: item.itemId,
-                                            amount: item.amount,
-                                            type: item.type,
-                                            createdAt: item.createdAt,
-                                            isExpense: item.isExpense,
-                                            budgetId: budgetID,
-                                            groupName: groupName,
-                                          );
-
-                                          itemCategoriesParams
-                                              .add(itemCategory);
-                                        }
-                                      }
-
-                                      final selectedRangeDate = state.dateRange;
-                                      if (selectedRangeDate.isEmpty) {
-                                        AppToast.showToastError(
-                                          context,
-                                          localize.pleaseSelectDateRange,
-                                          gravity: ToastGravity.CENTER,
-                                        );
-                                        return;
-                                      }
-
-                                      final startDate =
-                                          selectedRangeDate[0].toString();
-                                      final endDate = selectedRangeDate[1];
-
-                                      final endDateStr =
-                                          '${endDate!.year}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')} 23:59';
-
-                                      var isWeekly = false;
-                                      var isMonthly = false;
-
-                                      // check state.dateRange, if total day is less than 20, then it's weekly
-                                      if (selectedRangeDate.isNotEmpty) {
-                                        final startDate = selectedRangeDate[0];
-                                        final endDate = selectedRangeDate[1];
-                                        final totalDay = endDate!
-                                            .difference(startDate!)
-                                            .inDays;
-                                        if (totalDay < 25) {
-                                          isWeekly = true;
-                                        } else {
-                                          isMonthly = true;
-                                        }
-                                      }
-
-                                      final budget = Budget(
-                                        id: budgetID,
-                                        budgetName: _budgetNameController.text,
-                                        createdAt: DateTime.now().toString(),
-                                        startDate: startDate,
-                                        endDate: endDateStr,
-                                        isActive: true,
-                                        isMonthly: isMonthly,
-                                        isWeekly: isWeekly,
-                                        month: selectedRangeDate[0]!.month,
-                                        year: selectedRangeDate[0]!.year,
-                                        totalPlanExpense:
-                                            state.totalPlanExpense,
-                                        totalPlanIncome: state.totalPlanIncome,
-                                      );
-
-                                      context.read<PromptCubit>().resetPrompt();
-
-                                      context.read<BudgetFormBloc>().add(
-                                            InsertBudgetsToDatabase(
-                                              groupCategoryHistories:
-                                                  groupCategoryHistory,
-                                              itemCategoryHistories:
-                                                  itemCategoriesParams,
-                                              budget: budget,
-                                              fromInitial: true,
-                                            ),
-                                          );
-                                    },
-                                  );
-                                },
-                              ),
-                              // Gap.vertical(16),
-                              // if (!premium)
-                              //   AppButton(
-                              //     label: localize.buyPremium,
-                              //     onPressed: () {
-                              //       _showPremiumModalBottom(settingState.user);
-                              //     },
-                              //   ),
-                              if (!premium) ...[
-                                // Gap.vertical(32),
-                                // AppButton(
-                                //   label: localize.buyPremium,
-                                //   onPressed: () {
-                                //     _showPremiumModalBottom(userIntelli);
-                                //   },
-                                // ),
-                                Gap.vertical(8),
-                                AdWidgetRepository(
-                                  // user: userIntelli,
-                                  height: 50,
-                                  child: Container(
-                                    color: context.color.surface,
-                                  ),
-                                ),
-                              ],
-                            ],
-                          ),
-                        ),
-                      ),
+                      _buildSaveSection(state, premium),
                     ],
                   ),
                   if (_showOptionCreateBudget)
                     Align(
-                      alignment: Alignment.center,
                       child: CreateBudgetOptionDialog(
                         onManualPressed: () {
                           setState(() {
@@ -518,13 +126,7 @@ class _InitialCreateBudgetPlanScreenState
                           });
                         },
                         onAiPressed: () async {
-                          final prefsAi = AiAssistantPreferences();
-                          final totalGenerateBudget =
-                              await prefsAi.getTotalGenerateBudget();
-
-                          await _validateAiCreateBudgetFeature(
-                            validated: totalGenerateBudget <= 2,
-                          );
+                          await _onAiCreateBudget();
                           setState(() {
                             _showOptionCreateBudget = false;
                           });
@@ -537,6 +139,187 @@ class _InitialCreateBudgetPlanScreenState
           },
         );
       },
+    );
+  }
+
+  Widget _buildSaveSection(BudgetFormState state, bool premium) {
+    final localize = textLocalizer(context);
+    return SliverPadding(
+      padding: getEdgeInsetsSymmetric(
+        horizontal: 16,
+        vertical: 10,
+      ),
+      sliver: SliverToBoxAdapter(
+        child: Column(
+          children: [
+            BlocConsumer<BudgetFirestoreCubit, BudgetFirestoreState>(
+              listener: (context, fireState) {
+                if (fireState.insertBudgetToFirestoreSuccess) {
+                  AppToast.showToastSuccess(
+                    context,
+                    localize.saveSuccessfully,
+                  );
+                  _onGoToMain();
+                }
+              },
+              builder: (context, fireState) {
+                if (fireState.loadingFirestore) {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                }
+                return AppButton(
+                  label: localize.save,
+                  onPressed: () => _onSaveButtonPressed(state, context),
+                );
+              },
+            ),
+            if (!premium) ...[
+              Gap.vertical(8),
+              AdWidgetRepository(
+                height: 50,
+                child: Container(
+                  color: context.color.surface,
+                ),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+
+  SliverPadding _buildHeader(BudgetFormState state) {
+    final localize = textLocalizer(context);
+    final onSurfaceColor = context.color.onSurface.withValues(alpha: 0.5);
+    return SliverPadding(
+      padding: getEdgeInsets(
+        left: 16,
+        top: 16,
+        right: 16,
+        bottom: 8,
+      ),
+      sliver: SliverToBoxAdapter(
+        child: Column(
+          children: [
+            GestureDetector(
+              onTap: _onAiCreateBudget,
+              child: AppGlass(
+                margin: getEdgeInsets(bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      text: localize.generateWithAI,
+                      style: StyleType.bodLg,
+                      textAlign: TextAlign.center,
+                    ),
+                    Gap.horizontal(16),
+                    const Icon(
+                      CupertinoIcons.chevron_right,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            AppBoxFormField(
+              hintText: localize.budgetName,
+              prefixIcon: budgetPng,
+              controller: _budgetNameController,
+              focusNode: _budgetNameFocus,
+              isPng: true,
+            ),
+            Gap.vertical(8),
+            GestureDetector(
+              onTap: () async {
+                _budgetNameFocus.unfocus();
+                final now = DateTime.now();
+                final width = context.screenWidth * 0.9;
+
+                final results = await showCalendarDatePicker2Dialog(
+                  context: context,
+                  config: CalendarDatePicker2WithActionButtonsConfig(
+                    calendarType: CalendarDatePicker2Type.range,
+                    firstDate: now,
+                    controlsTextStyle: textStyle(
+                      context,
+                      style: StyleType.bodLg,
+                    ),
+                  ),
+                  dialogSize: Size(width, 400),
+                  value: state.dateRange,
+                  borderRadius: BorderRadius.circular(15),
+                );
+
+                if (results != null && results.length == 2) {
+                  _selectDateRange(results);
+                }
+                _budgetNameFocus.unfocus();
+              },
+              child: AppGlass(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppText(
+                      text: formatDateRangeDateList(
+                        state.dateRange,
+                        context,
+                      ),
+                      style: StyleType.bodMed,
+                      textAlign: TextAlign.center,
+                      fontWeight:
+                          state.dateRange.isEmpty ? null : FontWeight.w700,
+                      maxLines: 2,
+                      color: state.dateRange.isEmpty
+                          ? onSurfaceColor
+                          : context.color.onSurface,
+                    ),
+                    Gap.horizontal(16),
+                    getPngAsset(
+                      chevronDownPng,
+                      color: context.color.primary,
+                      width: 20,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SliverAppBar _buildSliverAppBar(BudgetFormState state) {
+    final (firstTitle, secondTitle) = _setTitle(state);
+    final onSurfaceColor = context.color.onSurface.withValues(alpha: 0.5);
+    return SliverAppBar(
+      centerTitle: true,
+      title: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: firstTitle,
+              style: textStyle(
+                context,
+                style: StyleType.headMed,
+              ),
+            ),
+            TextSpan(
+              text: ' $secondTitle',
+              style: textStyle(
+                context,
+                style: StyleType.bodMed,
+              ).copyWith(
+                fontStyle: FontStyle.italic,
+                color: onSurfaceColor,
+              ),
+            ),
+          ],
+        ),
+      ),
+      floating: true,
+      pinned: true,
     );
   }
 
@@ -628,50 +411,11 @@ class _InitialCreateBudgetPlanScreenState
     }
   }
 
-  // void _showOptionCreateBudget() {
-  //   if (enableAI) {
-  //     WidgetsBinding.instance.addPostFrameCallback((_) async {
-  //       final result = await showDialog<String?>(
-  //         context: context,
-  //         builder: (context) {
-  //           return const CreateBudgetOptionDialog();
-  //         },
-  //       );
-
-  //       if (result != null) {
-  //         setState(() {
-  //           _budgetNameController.text = result;
-  //         });
-  //       }
-  //     });
-  //   }
-  // }
-
   void _onGoToMain() {
     context.read<BudgetBloc>().add(GetBudgetsByIdEvent(id: budgetID));
 
     context.go(MyRoute.main);
   }
-
-  // void _initializeIAP() {
-  //   final purchaseUpdated = InAppPurchase.instance.purchaseStream;
-  //
-  //   _iapSubscription = purchaseUpdated.listen(
-  //     (purchaseDetailsList) {
-  //       context.read<UserFirestoreCubit>().listenToPurchaseUpdated(
-  //             purchaseDetailsList,
-  //           );
-  //     },
-  //     onDone: () {
-  //       print('on done iap');
-  //       _iapSubscription.cancel();
-  //     },
-  //     onError: (error) {
-  //       print('on error iap');
-  //       _iapSubscription.cancel();
-  //     },
-  //   );
-  // }
 
   (String, String) _setTitle(BudgetFormState state) {
     final localize = textLocalizer(context);
@@ -732,12 +476,155 @@ class _InitialCreateBudgetPlanScreenState
     );
   }
 
+  void _onSaveButtonPressed(BudgetFormState state, BuildContext context) {
+    final localize = textLocalizer(context);
+    const groupNameInitialEN = 'Group Name';
+    const groupNameInitialID = 'Nama Grup';
+    const categoryNameInitialEN = 'Category Name';
+    const categoryNameInitialID = 'Nama Kategori';
+
+    if (_budgetNameController.text.isEmpty) {
+      AppToast.showToastError(
+        context,
+        localize.budgetNameCannotBeEmpty,
+        gravity: ToastGravity.CENTER,
+      );
+      return;
+    }
+
+    final groupHistoLen = state.groupCategoryHistories.length;
+    final groupCategoryHistory = <GroupCategoryHistory>[];
+    final itemCategoriesParams = <ItemCategoryHistory>[];
+
+    for (var i = 0; i < groupHistoLen; i++) {
+      final itemCategories =
+          state.groupCategoryHistories[i].itemCategoryHistories.length;
+
+      final groupHistory = state.groupCategoryHistories[i];
+
+      final groupName = groupHistory.groupName;
+
+      if (groupName.isEmpty ||
+          groupName == groupNameInitialEN ||
+          groupName == groupNameInitialID) {
+        AppToast.showToastError(
+          context,
+          localize.groupNameCannotBeEmpty,
+          gravity: ToastGravity.CENTER,
+        );
+        return;
+      }
+
+      final params = GroupCategoryHistory(
+        id: groupHistory.id,
+        groupName: groupHistory.groupName,
+        method: groupHistory.method,
+        type: groupHistory.type,
+        budgetId: budgetID,
+        groupId: groupHistory.groupId,
+        createdAt: groupHistory.createdAt,
+        updatedAt: groupHistory.createdAt,
+        hexColor: groupHistory.hexColor,
+      );
+
+      groupCategoryHistory.add(params);
+
+      for (var j = 0; j < itemCategories; j++) {
+        final item = groupHistory.itemCategoryHistories[j];
+        final itemName = item.name;
+
+        if (itemName.isEmpty ||
+            itemName == categoryNameInitialID ||
+            itemName == categoryNameInitialEN ||
+            item.amount == 0) {
+          AppToast.showToastError(
+            context,
+            localize.categoryNameAndAmountCannotBeEmpty,
+            gravity: ToastGravity.CENTER,
+          );
+          return;
+        }
+
+        final itemCategory = ItemCategoryHistory(
+          id: item.id,
+          name: item.name,
+          groupHistoryId: groupHistory.id,
+          itemId: item.itemId,
+          amount: item.amount,
+          type: item.type,
+          createdAt: item.createdAt,
+          isExpense: item.isExpense,
+          budgetId: budgetID,
+          groupName: groupName,
+        );
+
+        itemCategoriesParams.add(itemCategory);
+      }
+    }
+
+    final selectedRangeDate = state.dateRange;
+    if (selectedRangeDate.isEmpty) {
+      AppToast.showToastError(
+        context,
+        localize.pleaseSelectDateRange,
+        gravity: ToastGravity.CENTER,
+      );
+      return;
+    }
+
+    final startDate = selectedRangeDate[0].toString();
+    final endDate = selectedRangeDate[1];
+
+    final endDateStr =
+        '${endDate!.year}-${endDate.month.toString().padLeft(2, '0')}-${endDate.day.toString().padLeft(2, '0')} 23:59';
+
+    var isWeekly = false;
+    var isMonthly = false;
+
+    // check state.dateRange, if total day is less than 20, then it's weekly
+    if (selectedRangeDate.isNotEmpty) {
+      final startDate = selectedRangeDate[0];
+      final endDate = selectedRangeDate[1];
+      final totalDay = endDate!.difference(startDate!).inDays;
+      if (totalDay < 25) {
+        isWeekly = true;
+      } else {
+        isMonthly = true;
+      }
+    }
+
+    final budget = Budget(
+      id: budgetID,
+      budgetName: _budgetNameController.text,
+      createdAt: DateTime.now().toString(),
+      startDate: startDate,
+      endDate: endDateStr,
+      isActive: true,
+      isMonthly: isMonthly,
+      isWeekly: isWeekly,
+      month: selectedRangeDate[0]!.month,
+      year: selectedRangeDate[0]!.year,
+      totalPlanExpense: state.totalPlanExpense,
+      totalPlanIncome: state.totalPlanIncome,
+    );
+
+    context.read<PromptCubit>().resetPrompt();
+
+    context.read<BudgetFormBloc>().add(
+          InsertBudgetsToDatabase(
+            groupCategoryHistories: groupCategoryHistory,
+            itemCategoryHistories: itemCategoriesParams,
+            budget: budget,
+            fromInitial: true,
+          ),
+        );
+  }
+
   @override
   void dispose() {
     _scrollController.dispose();
     _budgetNameController.dispose();
     userSubscription?.cancel();
-    // _iapSubscription.cancel();
     _budgetNameFocus.dispose();
     super.dispose();
   }

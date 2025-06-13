@@ -669,6 +669,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
         ),
       );
     } on Exception catch (e) {
+      print('UpdateItemCategoryEventInitialCreate: $e');
       emit(
         state.copyWith(
           insertBudgetSuccess: false,
