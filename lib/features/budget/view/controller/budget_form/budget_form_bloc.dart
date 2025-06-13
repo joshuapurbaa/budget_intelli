@@ -615,6 +615,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
     UpdateItemCategoryEventInitialCreate event,
     Emitter<BudgetFormState> emit,
   ) {
+    print('UpdateItemCategoryEventInitialCreate: $event');
     try {
       final newGroupCategory = state.copyWith(
         groupCategoryHistories: state.groupCategoryHistories.map((e) {
@@ -669,7 +670,6 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
         ),
       );
     } on Exception catch (e) {
-      print('UpdateItemCategoryEventInitialCreate: $e');
       emit(
         state.copyWith(
           insertBudgetSuccess: false,

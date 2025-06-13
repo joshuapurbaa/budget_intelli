@@ -1,10 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:budget_intelli/core/core.dart';
-import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-class ItemCategoryTransaction {
+class ItemCategoryTransaction extends Equatable {
   const ItemCategoryTransaction({
     required this.id,
     required this.itemHistoId,
@@ -147,37 +146,18 @@ class ItemCategoryTransaction {
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is ItemCategoryTransaction &&
-        other.id == id &&
-        other.itemHistoId == itemHistoId &&
-        other.categoryName == categoryName &&
-        other.amount == amount &&
-        other.createdAt == createdAt &&
-        other.type == type &&
-        other.updatedAt == updatedAt &&
-        other.spendOn == spendOn &&
-        other.picture == picture &&
-        other.budgetId == budgetId &&
-        other.groupId == groupId &&
-        other.accountId == accountId;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        itemHistoId.hashCode ^
-        categoryName.hashCode ^
-        amount.hashCode ^
-        createdAt.hashCode ^
-        type.hashCode ^
-        updatedAt.hashCode ^
-        spendOn.hashCode ^
-        picture.hashCode ^
-        budgetId.hashCode ^
-        groupId.hashCode ^
-        accountId.hashCode;
-  }
+  List<Object?> get props => [
+        id,
+        itemHistoId,
+        categoryName,
+        amount,
+        createdAt,
+        type,
+        updatedAt,
+        spendOn,
+        picture,
+        budgetId,
+        groupId,
+        accountId,
+      ];
 }

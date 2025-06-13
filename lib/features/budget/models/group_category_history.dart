@@ -1,9 +1,8 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-class GroupCategoryHistory {
+class GroupCategoryHistory extends Equatable {
   const GroupCategoryHistory({
     required this.id,
     required this.groupName,
@@ -164,33 +163,16 @@ class GroupCategoryHistory {
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is GroupCategoryHistory &&
-        other.id == id &&
-        other.groupName == groupName &&
-        other.method == method &&
-        other.type == type &&
-        other.budgetId == budgetId &&
-        other.groupId == groupId &&
-        listEquals(other.itemCategoryHistories, itemCategoryHistories) &&
-        other.createdAt == createdAt &&
-        other.updatedAt == updatedAt &&
-        other.hexColor == hexColor;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        groupName.hashCode ^
-        method.hashCode ^
-        type.hashCode ^
-        budgetId.hashCode ^
-        groupId.hashCode ^
-        itemCategoryHistories.hashCode ^
-        createdAt.hashCode ^
-        updatedAt.hashCode ^
-        hexColor.hashCode;
-  }
+  List<Object?> get props => [
+        id,
+        groupName,
+        method,
+        type,
+        budgetId,
+        groupId,
+        itemCategoryHistories,
+        createdAt,
+        updatedAt,
+        hexColor,
+      ];
 }

@@ -1,8 +1,8 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-@immutable
-class ItemCategory {
+class ItemCategory extends Equatable {
   const ItemCategory({
     required this.id,
     required this.categoryName,
@@ -102,27 +102,13 @@ class ItemCategory {
   final int? hexColor;
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is ItemCategory &&
-        other.id == id &&
-        other.categoryName == categoryName &&
-        other.type == type &&
-        other.createdAt == createdAt &&
-        other.updatedAt == updatedAt &&
-        other.iconPath == iconPath &&
-        other.hexColor == hexColor;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        categoryName.hashCode ^
-        type.hashCode ^
-        createdAt.hashCode ^
-        updatedAt.hashCode ^
-        iconPath.hashCode ^
-        hexColor.hashCode;
-  }
+  List<Object?> get props => [
+        id,
+        categoryName,
+        type,
+        createdAt,
+        updatedAt,
+        iconPath,
+        hexColor,
+      ];
 }

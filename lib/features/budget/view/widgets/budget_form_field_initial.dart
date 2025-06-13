@@ -441,48 +441,51 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                 ? colorOnSurface
                 : context.color.onSurface;
 
-        return Focus(
-          onFocusChange: (hasFocus) => _handleAmountFocusChange(
-            hasFocus,
-            item,
-            groupId,
-            indexGroup,
-            indexItem,
-          ),
-          child: TextField(
-            controller: _rightTextEditingControllers[indexGroup][indexItem],
-            focusNode: _rightFocusNodes[indexGroup][indexItem],
-            onSubmitted: (_) => _unfocusAll(),
-            textAlign: TextAlign.end,
-            style: textStyle(context, style: StyleType.bodMed)
+        return TextField(
+          controller: _rightTextEditingControllers[indexGroup][indexItem],
+          focusNode: _rightFocusNodes[indexGroup][indexItem],
+          onSubmitted: (_) => _unfocusAll(),
+          textAlign: TextAlign.end,
+          style: textStyle(context, style: StyleType.bodMed)
+              .copyWith(color: colorRightHintText),
+          keyboardType: TextInputType.number,
+          inputFormatters: [currencyFormatter],
+          onChanged: (value) {
+            print('onChanged: $value');
+            // Simple debounced update without Timer to avoid interference
+            final cleanVal = value.replaceAll(RegExp('[^0-9]'), '');
+
+            if (cleanVal.isNotEmpty) {
+              final unformattedValue = double.tryParse(cleanVal) ?? 0.0;
+              final newCategory = item.copyWith(amount: unformattedValue);
+              _onChangeField(newCategory, groupId);
+            } else {
+              _onChangeValueEmpty(item, groupId);
+            }
+          },
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.all(10),
+            hintText: NumberFormatter.formatToMoneyDouble(context, item.amount),
+            hintStyle: textStyle(context, style: StyleType.bodMed)
                 .copyWith(color: colorRightHintText),
-            keyboardType: TextInputType.number,
-            inputFormatters: [currencyFormatter],
-            decoration: InputDecoration(
-              contentPadding: const EdgeInsets.all(10),
-              hintText:
-                  NumberFormatter.formatToMoneyDouble(context, item.amount),
-              hintStyle: textStyle(context, style: StyleType.bodMed)
-                  .copyWith(color: colorRightHintText),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: radiusCircular,
-                  bottomRight: radiusCircular,
-                  topRight: radiusCircular,
-                ),
-                borderSide: BorderSide.none,
+            focusedBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: radiusCircular,
+                bottomRight: radiusCircular,
+                topRight: radiusCircular,
               ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.only(
-                  topLeft: radiusCircular,
-                  bottomRight: radiusCircular,
-                  topRight: radiusCircular,
-                ),
-                borderSide: BorderSide.none,
-              ),
-              fillColor: context.color.onSurface.withValues(alpha: 0.1),
-              filled: true,
+              borderSide: BorderSide.none,
             ),
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: radiusCircular,
+                bottomRight: radiusCircular,
+                topRight: radiusCircular,
+              ),
+              borderSide: BorderSide.none,
+            ),
+            fillColor: context.color.onSurface.withValues(alpha: 0.1),
+            filled: true,
           ),
         );
       },
@@ -538,27 +541,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   void _updateItemName(ItemCategoryHistory item, String groupId, String value) {
     final newCategory = item.copyWith(name: value);
     _onChangeField(newCategory, groupId);
-  }
-
-  void _handleAmountFocusChange(
-    bool hasFocus,
-    ItemCategoryHistory item,
-    String groupId,
-    int indexGroup,
-    int indexItem,
-  ) {
-    if (!hasFocus) {
-      final text = _rightTextEditingControllers[indexGroup][indexItem].text;
-      final cleanVal = text.replaceAll(RegExp('[^0-9]'), '');
-
-      if (cleanVal.isNotEmpty) {
-        final unformattedValue = double.parse(cleanVal);
-        final newCategory = item.copyWith(amount: unformattedValue);
-        _onChangeField(newCategory, groupId);
-      } else {
-        _onChangeValueEmpty(item, groupId);
-      }
-    }
   }
 
   void _removeGroupCategory(

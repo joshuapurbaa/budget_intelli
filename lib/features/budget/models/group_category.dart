@@ -1,8 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-class GroupCategory {
+class GroupCategory extends Equatable {
   const GroupCategory({
     required this.id,
     required this.groupName,
@@ -96,27 +95,13 @@ class GroupCategory {
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is GroupCategory &&
-        other.id == id &&
-        other.groupName == groupName &&
-        other.type == type &&
-        other.createdAt == createdAt &&
-        other.updatedAt == updatedAt &&
-        other.iconPath == iconPath &&
-        other.hexColor == hexColor;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        groupName.hashCode ^
-        type.hashCode ^
-        createdAt.hashCode ^
-        updatedAt.hashCode ^
-        iconPath.hashCode ^
-        hexColor.hashCode;
-  }
+  List<Object?> get props => [
+        id,
+        groupName,
+        type,
+        createdAt,
+        updatedAt,
+        iconPath,
+        hexColor,
+      ];
 }

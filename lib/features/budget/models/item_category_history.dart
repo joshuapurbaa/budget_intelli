@@ -1,8 +1,7 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:flutter/material.dart';
+import 'package:equatable/equatable.dart';
 
-@immutable
-class ItemCategoryHistory {
+class ItemCategoryHistory extends Equatable {
   const ItemCategoryHistory({
     required this.id,
     required this.name,
@@ -191,51 +190,25 @@ class ItemCategoryHistory {
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is ItemCategoryHistory &&
-        other.id == id &&
-        other.name == name &&
-        other.amount == amount &&
-        other.groupHistoryId == groupHistoryId &&
-        other.budgetId == budgetId &&
-        other.type == type &&
-        other.iconPath == iconPath &&
-        other.createdAt == createdAt &&
-        other.hexColor == hexColor &&
-        other.updatedAt == updatedAt &&
-        other.isExpense == isExpense &&
-        other.startDate == startDate &&
-        other.endDate == endDate &&
-        other.isFavorite == isFavorite &&
-        other.carryOverAmount == carryOverAmount &&
-        other.remaining == remaining &&
-        other.totalTransactions == totalTransactions &&
-        other.itemId == itemId &&
-        other.groupName == groupName;
-  }
-
-  @override
-  int get hashCode {
-    return id.hashCode ^
-        name.hashCode ^
-        amount.hashCode ^
-        groupHistoryId.hashCode ^
-        budgetId.hashCode ^
-        type.hashCode ^
-        iconPath.hashCode ^
-        createdAt.hashCode ^
-        hexColor.hashCode ^
-        updatedAt.hashCode ^
-        isExpense.hashCode ^
-        startDate.hashCode ^
-        endDate.hashCode ^
-        isFavorite.hashCode ^
-        carryOverAmount.hashCode ^
-        remaining.hashCode ^
-        totalTransactions.hashCode ^
-        itemId.hashCode ^
-        groupName.hashCode;
-  }
+  List<Object?> get props => [
+        id,
+        name,
+        amount,
+        groupHistoryId,
+        budgetId,
+        type,
+        iconPath,
+        createdAt,
+        hexColor,
+        updatedAt,
+        isExpense,
+        startDate,
+        endDate,
+        isFavorite,
+        carryOverAmount,
+        remaining,
+        totalTransactions,
+        itemId,
+        groupName,
+      ];
 }
