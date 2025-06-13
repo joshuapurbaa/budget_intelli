@@ -1,0 +1,1 @@
+/Users/admin/myprojects/budget_intelli/android/app/build/intermediates/cxx/Debug/662k1y3x/obj/arm64-v8a

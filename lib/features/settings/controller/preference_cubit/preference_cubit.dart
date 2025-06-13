@@ -28,8 +28,11 @@ class PreferenceCubit extends Cubit<PreferenceState> {
   Future<bool> getAlreadySetInitialCreateBudget() async {
     final alreadySetInitialCreateBudget =
         await _settingRepository.getIntialCreateBudget();
-    emit(state.copyWith(
-        alreadySetInitialCreateBudget: alreadySetInitialCreateBudget,),);
+    emit(
+      state.copyWith(
+        alreadySetInitialCreateBudget: alreadySetInitialCreateBudget,
+      ),
+    );
     return alreadySetInitialCreateBudget;
   }
 

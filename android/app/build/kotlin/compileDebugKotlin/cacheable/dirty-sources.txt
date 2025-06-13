@@ -1,2 +1,0 @@
-/Users/admin/myprojects/budget_intelli/android/app/src/main/kotlin/com/example/intelli_budget/MainActivity.kt
-/Users/admin/myprojects/budget_intelli/android/app/src/main/kotlin/com/porseatechnology/budget_intelli/MainActivity.kt

@@ -1,5 +1,4 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/features/ai_assistant/ai_assistant_barrel.dart';
 import 'package:budget_intelli/features/auth/auth_barrel.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/category/category_barrel.dart';
@@ -183,46 +182,6 @@ class _OverViewState extends State<OverView> {
     });
   }
 
-  void _showDialogCompleteAnalysis(PromptAnalysisState state) {
-    AppDialog.showCustomDialog(
-      context,
-      content: PromptAnalysisContent(state: state),
-      actions: [
-        AppButton(
-          label: 'Ok',
-          onPressed: () {
-            context.pop();
-          },
-        ),
-      ],
-    ).whenComplete(
-      () async {
-        await _resetAiAnalysis();
-      },
-    );
-  }
-
-  Future<void> _resetAiAnalysis() async {
-    final promptAnalysisCubit = context.read<PromptAnalysisCubit>();
-    final prefsAi = AiAssistantPreferences();
-    final totalAnalyze = await prefsAi.getTotallAnalyzeBudget();
-    await prefsAi.setTotalAnalyzeBudget(totalAnalyze + 1);
-    if (context.mounted) {
-      promptAnalysisCubit.resetAnalysisCompleteValue();
-    }
-  }
-
-  Future<void> _validateAiCreateBudgetFeature({required bool validated}) async {
-    if (validated) {
-      await context.read<PromptAnalysisCubit>().analyzeBudget();
-    } else {
-      AppToast.showToastError(
-        context,
-        textLocalizer(context).requestLimitExceeded,
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final groupsEmpty = widget.groupCategoryHistories.isEmpty;
@@ -300,41 +259,7 @@ class _OverViewState extends State<OverView> {
               children: [
                 Gap.vertical(10),
                 const HeaderWidget(),
-                BlocListener<PromptAnalysisCubit, PromptAnalysisState>(
-                  listener: (context, state) {
-                    if (state.loadingAnalysis) {
-                      AppDialog.showLoading(context);
-                      return;
-                    }
-
-                    if (state.analysisError) {
-                      context.pop();
-                      AppToast.showToast(context, localize.analysisError);
-                      return;
-                    }
-
-                    if (state.analysisCompleted) {
-                      context.pop();
-                      _showDialogCompleteAnalysis(state);
-                    }
-                  },
-                  child: AppGlass(
-                    onTap: () async {
-                      final prefsAi = AiAssistantPreferences();
-                      final totalAnalyzeBudget =
-                          await prefsAi.getTotallAnalyzeBudget();
-
-                      await _validateAiCreateBudgetFeature(
-                        validated: totalAnalyzeBudget <= 2,
-                      );
-                    },
-                    margin: marginLRB,
-                    child: AppText(
-                      text: localize.analyzeYourBudgetWithAI,
-                      style: StyleType.bodLg,
-                    ),
-                  ),
-                ),
+                const AnalyzeBudgetButton(),
                 AppGlass(
                   duration: const Duration(milliseconds: 300),
                   margin: marginLRB,

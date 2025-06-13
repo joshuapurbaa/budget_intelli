@@ -46,6 +46,7 @@ export 'utils/date_formatter.dart';
 export 'utils/edge_insets.dart';
 export 'utils/gap.dart';
 export 'utils/get_assets.dart';
+export 'utils/get_size.dart';
 export 'utils/income_expense_dialog.dart';
 export 'utils/logger.dart';
 export 'utils/notification_services.dart';

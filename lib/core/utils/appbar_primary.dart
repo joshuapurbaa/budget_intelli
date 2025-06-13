@@ -12,7 +12,7 @@ AppBar appBarPrimary({
 }) {
   return AppBar(
     automaticallyImplyLeading: false,
-    backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,
+    backgroundColor: backgroundColor ?? context.color.surface,
     iconTheme: IconThemeData(
       color: context.color.onSurface,
     ),

@@ -4,6 +4,7 @@ import 'package:budget_intelli/core/widgets/charts/pair_chart_monthly.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/category/view/controllers/insight/insight_cubit.dart';
 import 'package:budget_intelli/features/home/data/models/category_total.dart';
+import 'package:budget_intelli/features/home/home_barrel.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -443,7 +444,7 @@ class _InsightViewState extends State<InsightView> {
               //     const LineChartMonthlyTotals(),
               //   ],
               // ),
-              _InsightPart(
+              InsightPart(
                 title: localize.categoryBreakdown,
                 children: [
                   Row(
@@ -615,7 +616,7 @@ class _InsightViewState extends State<InsightView> {
                   ),
                 ],
               ),
-              _InsightPart(
+              InsightPart(
                 title: localize.incomeVsSpending,
                 children: [
                   Gap.vertical(30),
@@ -628,42 +629,6 @@ class _InsightViewState extends State<InsightView> {
           ),
         );
       },
-    );
-  }
-}
-
-class _InsightPart extends StatelessWidget {
-  const _InsightPart({
-    required this.title,
-    required this.children,
-  });
-
-  final String title;
-  final List<Widget> children;
-
-  @override
-  Widget build(BuildContext context) {
-    final paddingLRB = getEdgeInsets(
-      left: 16,
-      right: 16,
-      bottom: 10,
-    );
-    return SliverToBoxAdapter(
-      child: AppGlass(
-        margin: paddingLRB,
-        height: 300,
-        child: Column(
-          children: [
-            AppText(
-              text: title,
-              style: StyleType.bodMd,
-              fontWeight: FontWeight.bold,
-            ),
-            Gap.vertical(16),
-            ...children,
-          ],
-        ),
-      ),
     );
   }
 }

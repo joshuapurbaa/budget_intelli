@@ -1,0 +1,2 @@
+/Users/admin/myprojects/budget_intelli/android/app/.cxx/Debug/662k1y3x/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/admin/myprojects/budget_intelli/android/app/.cxx/Debug/662k1y3x/armeabi-v7a/CMakeFiles/rebuild_cache.dir

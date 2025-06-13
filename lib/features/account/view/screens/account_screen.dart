@@ -104,8 +104,8 @@ class _AccountScreenState extends State<AccountScreen> {
                   itemCount: accounts.length,
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
-                    mainAxisSpacing: 16,
-                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 12,
+                    crossAxisSpacing: 12,
                   ),
                   itemBuilder: (context, index) {
                     final account = accounts[index];
@@ -176,6 +176,11 @@ class _AccountScreenState extends State<AccountScreen> {
                   },
                 ),
               ),
+              SliverToBoxAdapter(
+                child: SizedBox(
+                  height: getHeight(100),
+                ),
+              )
             ],
           );
         },
