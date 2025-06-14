@@ -111,7 +111,7 @@ class AppButton extends StatelessWidget {
             children: [
               AppText.color(
                 text: label,
-                color: colorScheme.onSurface,
+                color: labelColor ?? colorScheme.onSurface,
                 style: StyleType.bodLg,
               ),
             ],
@@ -141,7 +141,7 @@ class AppButton extends StatelessWidget {
             children: [
               AppText.color(
                 text: label,
-                color: colorScheme.onPrimary,
+                color: labelColor ?? colorScheme.onPrimary,
                 style: StyleType.bodLg,
               ),
             ],
@@ -170,7 +170,7 @@ class AppButton extends StatelessWidget {
           children: [
             AppText.color(
               text: label,
-              color: colorScheme.onInverseSurface,
+              color: labelColor ?? colorScheme.onInverseSurface,
               style: StyleType.bodLg,
             ),
             Gap.horizontal(8),
@@ -203,6 +203,7 @@ class AppButton extends StatelessWidget {
           AppText(
             text: label,
             style: StyleType.bodLg,
+            color: labelColor ?? colorScheme.onPrimary,
           ),
         ],
       ),
