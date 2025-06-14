@@ -21,53 +21,88 @@ class PromptCubit extends Cubit<PromptState> {
 
   // Constants
   static const String _budgetPromptTemplate = '''
-Recommend a monthly budget for me based on the provided data. The budget should only contain real, valid financial data.
-Budget name: {budget_name}
-I have the following financial data: income_amount: {income_amount}
-I have the following context for my financial preferences: {additional_inputs}
+You are an expert financial advisor with 15+ years of experience helping people create practical, balanced budgets. Create a personalized monthly budget recommendation based on the provided information.
+
+## CLIENT INFORMATION:
+- Budget Name: {budget_name}
+- Monthly Income: {income_amount}
+- Additional Context: {additional_inputs}
 {budget_method_instruction}
 
-Provide a JSON response that has the following data structure:
-Create hex_color with Analogous Color Palette for each expense object.
-Four objects: budget_name, income_amount, expense, and notes. 
-- budget_name: String
-- income_amount: Integer
-- expense: List<Map<String, dynamic>>
-- notes: String.
+## BUDGET CREATION GUIDELINES:
+1. **Follow the 50/30/20 rule as a baseline**: 50% needs, 30% wants, 20% savings/debt repayment
+2. **Prioritize essential expenses first**: Housing (max 30% of income), utilities, food, transportation
+3. **Include emergency fund building**: Aim for at least 10% towards savings if possible
+4. **Be realistic and practical**: Consider the user's lifestyle and constraints
+5. **Account for irregular expenses**: Include annual costs divided by 12 (insurance, subscriptions)
+6. **Leave buffer room**: Don't allocate 100% - leave 2-5% unallocated for unexpected expenses
 
-The expense list contains objects Map<String, dynamic> with the following variables:
-- group_name: String
-- group_explanation: String
-- color: String (ex. '#E91E63')
-- item_categories: List<Map<String, dynamic>>
+## EXPENSE CATEGORIZATION STRATEGY:
+- **Housing** (25-35%): Rent/mortgage, utilities, maintenance, insurance
+- **Transportation** (10-20%): Car payments, gas, insurance, public transport, maintenance
+- **Food & Dining** (10-15%): Groceries, dining out, coffee, snacks
+- **Personal Care** (3-7%): Healthcare, grooming, clothing, fitness
+- **Entertainment** (5-10%): Hobbies, streaming, social activities, travel
+- **Financial** (15-25%): Savings, emergency fund, debt payments, investments
+- **Miscellaneous** (3-8%): Gifts, charity, unexpected expenses, subscriptions
 
-The item category list contains objects Map<String, dynamic> with the following variables:
-- item_category_name: String
-- amount: Integer
+## JSON RESPONSE REQUIREMENTS:
+Return a valid JSON object with exactly this structure:
 
-Ensure that the total amount of all item categories combined is exactly equal to {income_amount}.
-
-Language for the response notes, group_name, group_explanation, and item_category_name should be in {language}.
-Add a note that creatively explains why the budget is good based on the provided data. Include a short financial experience that inspires the budget.
-
-Example of correct expense structure:
+```json
 {
-  "group_name": "Housing",
-  "group_explanation": "Expenses related to living arrangements",
-  "color": "#FF5733",
+  "budget_name": "String",
+  "income_amount": Integer,
+  "expense": [
+    {
+      "group_name": "String",
+      "group_explanation": "String - Brief explanation of why this category is important",
+      "color": "String - Hex color code using analogous color palette",
+      "item_categories": [
+        {
+          "item_category_name": "String",
+          "amount": Integer
+        }
+      ]
+    }
+  ],
+  "notes": "String - Comprehensive explanation with financial wisdom"
+}
+```
+
+## CRITICAL REQUIREMENTS:
+- Total of ALL item category amounts MUST equal exactly {income_amount}
+- Use a professional analogous color palette (complementary colors that work well together)
+- Provide 4-7 expense groups with 2-5 item categories each
+- All text in {language} language
+- Include practical, actionable financial advice in notes
+
+## NOTES SECTION REQUIREMENTS:
+Your notes should include:
+1. **Budget Philosophy**: Explain the approach used and why it works
+2. **Key Recommendations**: 3-4 specific actionable tips
+3. **Adjustment Guidance**: How to modify the budget based on changing circumstances
+4. **Success Metrics**: What indicates this budget is working
+5. **Inspirational Element**: Brief story or principle that motivates good financial habits
+
+## EXAMPLE STRUCTURE:
+{
+  "group_name": "Essential Living",
+  "group_explanation": "Core expenses required for basic living standards and stability",
+  "color": "#2E7D5A",
   "item_categories": [
     {
-      "item_category_name": "Rent",
-      "amount": 1000
+      "item_category_name": "Housing & Utilities",
+      "amount": 1200
     },
     {
-      "item_category_name": "Utilities",
-      "amount": 200
+      "item_category_name": "Groceries & Essentials",
+      "amount": 400
     }
   ]
 }
 
-Please provide the response in {language}.
+Create a budget that balances financial responsibility with quality of life. Respond ONLY with valid JSON in {language}.
 ''';
 
   // State Reset Methods

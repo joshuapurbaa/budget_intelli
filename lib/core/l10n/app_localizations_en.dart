@@ -1203,4 +1203,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get addAdditionalContextDesc =>
       'Add Additional context...\nExample: I have debt 10000, My goals are to save 1200, I have 3 dependents, I have 1 house, I have 1 pet, Maximum budget for food is 1000';
+
+  @override
+  String get selectBudgetMethod => 'Select Budget Method';
 }

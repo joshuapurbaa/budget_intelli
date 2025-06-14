@@ -2431,6 +2431,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tambahkan konteks tambahan...\nContoh: Saya memiliki hutang 10000, Tujuan saya adalah menyimpan 1200, Saya memiliki 3 anak, Saya memiliki 1 rumah, Saya memiliki 1 hewan peliharaan, Anggaran maksimum untuk makanan adalah 1000'**
   String get addAdditionalContextDesc;
+
+  /// No description provided for @selectBudgetMethod.
+  ///
+  /// In id, this message translates to:
+  /// **'Pilih Metode Anggaran'**
+  String get selectBudgetMethod;
 }
 
 class _AppLocalizationsDelegate

@@ -99,6 +99,10 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                               }
                               return null;
                             },
+                            style: textStyle(
+                              context,
+                              style: StyleType.bodMed,
+                            ),
                             decoration: InputDecoration(
                               hintText: '${localize.budgetName}...',
                               hintStyle: hintTextStyle,
@@ -109,13 +113,17 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                             onChanged: (value) {
                               context
                                   .read<PromptCubit>()
-                                  .setBudgetName(budgetName: value);
+                                  .updateBudgetName(value);
                             },
                           ),
                           Gap.vertical(16),
                           TextFormField(
                             focusNode: _incomeFocusNode,
                             controller: _incomeController,
+                            style: textStyle(
+                              context,
+                              style: StyleType.bodMed,
+                            ),
                             inputFormatters: [
                               CurrencyTextInputFormatter.currency(
                                 locale: state.currency?.locale,
@@ -140,13 +148,17 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                             onChanged: (value) {
                               context
                                   .read<PromptCubit>()
-                                  .setIncomeAmount(incomeAmount: value);
+                                  .updateIncomeAmount(value);
                             },
                           ),
                           Gap.vertical(16),
                           TextFormField(
                             focusNode: _additionalContextFocusNode,
                             controller: _additionalContextController,
+                            style: textStyle(
+                              context,
+                              style: StyleType.bodMed,
+                            ),
                             keyboardType: TextInputType.text,
                             maxLines: 4,
                             maxLength: 500,
@@ -166,8 +178,8 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                             onChanged: (value) {
                               context
                                   .read<PromptCubit>()
-                                  .setAdditionalTextInputs(
-                                    additionalTextInputs: value,
+                                  .updateAdditionalTextInputs(
+                                    value,
                                   );
                             },
                           ),
@@ -180,51 +192,64 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                 color: Colors.grey,
                               ),
                             ),
-                            child: Wrap(
-                              spacing: 8,
-                              children: List.generate(
-                                listBudgetMethod.length,
-                                (index) {
-                                  final method = listBudgetMethod![index];
-                                  return ChoiceChip(
-                                    label: Text(
-                                      method.methodName,
-                                      style: state.budgetMethod == method
-                                          ? textStyle(
-                                              context,
-                                              style: StyleType.bodSm,
-                                            )
-                                          : hintTextStyle,
-                                    ),
-                                    selected: state.budgetMethod == method,
-                                    onSelected: (selected) {
-                                      _incomeFocusNode.unfocus();
-                                      _additionalContextFocusNode.unfocus();
-                                      _budgetNameFocusNode.unfocus();
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                AppText(
+                                  text: localize.selectBudgetMethod,
+                                  style: StyleType.bodMed,
+                                ),
+                                Gap.vertical(8),
+                                const AppDivider(),
+                                Gap.vertical(8),
+                                Wrap(
+                                  spacing: 8,
+                                  children: List.generate(
+                                    listBudgetMethod.length,
+                                    (index) {
+                                      final method = listBudgetMethod![index];
+                                      return ChoiceChip(
+                                        label: Text(
+                                          method.methodName,
+                                          style: state.budgetMethod == method
+                                              ? textStyle(
+                                                  context,
+                                                  style: StyleType.bodSm,
+                                                )
+                                              : hintTextStyle,
+                                        ),
+                                        selected: state.budgetMethod == method,
+                                        onSelected: (selected) {
+                                          _incomeFocusNode.unfocus();
+                                          _additionalContextFocusNode.unfocus();
+                                          _budgetNameFocusNode.unfocus();
 
-                                      if (method.methodName == 'No method') {
-                                        context
-                                            .read<PromptCubit>()
-                                            .setBudgetMethod(
-                                              budgetMethod: null,
-                                            );
-                                        setState(() {
-                                          _selectedBudgetMethod = null;
-                                        });
-                                      } else {
-                                        context
-                                            .read<PromptCubit>()
-                                            .setBudgetMethod(
-                                              budgetMethod: method,
-                                            );
-                                        setState(() {
-                                          _selectedBudgetMethod = method;
-                                        });
-                                      }
+                                          if (method.methodName ==
+                                              'No method') {
+                                            context
+                                                .read<PromptCubit>()
+                                                .updateBudgetMethod(
+                                                  null,
+                                                );
+                                            setState(() {
+                                              _selectedBudgetMethod = null;
+                                            });
+                                          } else {
+                                            context
+                                                .read<PromptCubit>()
+                                                .updateBudgetMethod(
+                                                  method,
+                                                );
+                                            setState(() {
+                                              _selectedBudgetMethod = method;
+                                            });
+                                          }
+                                        },
+                                      );
                                     },
-                                  );
-                                },
-                              ),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                           Gap.vertical(10),
@@ -283,7 +308,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                 _incomeFocusNode.unfocus();
                                 _additionalContextFocusNode.unfocus();
                                 _budgetNameFocusNode.unfocus();
-                                context.read<PromptCubit>().submitPrompt();
+                                context.read<PromptCubit>().generateBudget();
                               } else {
                                 AppToast.showToastError(
                                   context,
@@ -336,11 +361,11 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
   }
 
   Future<void> _setLanguage() async {
-    await context.read<PromptCubit>().setLanguage();
+    await context.read<PromptCubit>().loadLanguageSettings();
   }
 
   Future<void> _setCurrency() async {
-    await context.read<PromptCubit>().setCurrency();
+    await context.read<PromptCubit>().loadCurrencySettings();
   }
 
   void _showSuccessDialog(PromptState state) {

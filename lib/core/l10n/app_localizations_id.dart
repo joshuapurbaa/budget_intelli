@@ -1205,4 +1205,7 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get addAdditionalContextDesc =>
       'Tambahkan konteks tambahan...\nContoh: Saya memiliki hutang 10000, Tujuan saya adalah menyimpan 1200, Saya memiliki 3 anak, Saya memiliki 1 rumah, Saya memiliki 1 hewan peliharaan, Anggaran maksimum untuk makanan adalah 1000';
+
+  @override
+  String get selectBudgetMethod => 'Pilih Metode Anggaran';
 }
