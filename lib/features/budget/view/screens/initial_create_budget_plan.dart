@@ -48,7 +48,11 @@ class _InitialCreateBudgetPlanScreenState
   Future<void> _onAiCreateBudget() async {
     final prefsAi = AiAssistantPreferences();
     final totalGenerateBudget = await prefsAi.getTotalGenerateBudget();
-    final validated = totalGenerateBudget <= 100;
+    final validated = totalGenerateBudget <= 3;
+    await _onValidateAiCreateBudget(validated);
+  }
+
+  Future<void> _onValidateAiCreateBudget(bool validated) async {
     if (validated) {
       setState(() {
         _showOptionCreateBudget = false;
@@ -59,13 +63,14 @@ class _InitialCreateBudgetPlanScreenState
       )
           .whenComplete(
         () {
-          final budgetName = context.read<BudgetFormBloc>().state.budgetName;
-          print('budgetName: $budgetName');
+          if (mounted) {
+            final budgetName = context.read<BudgetFormBloc>().state.budgetName;
 
-          if (budgetName != null && budgetName.isNotEmpty) {
-            setState(() {
-              _budgetNameController.text = budgetName;
-            });
+            if (budgetName != null && budgetName.isNotEmpty) {
+              setState(() {
+                _budgetNameController.text = budgetName;
+              });
+            }
           }
         },
       );
