@@ -1,7 +1,6 @@
 part of 'prompt_cubit.dart';
 
-@immutable
-class PromptState {
+class PromptState extends Equatable {
   const PromptState({
     this.loadingGenerateBudget = false,
     this.generateBudgetFailure = false,
@@ -59,34 +58,17 @@ class PromptState {
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is PromptState &&
-        other.loadingGenerateBudget == loadingGenerateBudget &&
-        other.generateBudgetFailure == generateBudgetFailure &&
-        other.budgetGenerate == budgetGenerate &&
-        other.textPrompt == textPrompt &&
-        other.incomeAmount == incomeAmount &&
-        other.additionalTextInputs == additionalTextInputs &&
-        other.generateSuccess == generateSuccess &&
-        other.language == language &&
-        other.budgetMethod == budgetMethod &&
-        other.currency == currency &&
-        other.budgetName == budgetName;
-  }
-
-  @override
-  int get hashCode =>
-      loadingGenerateBudget.hashCode ^
-      generateBudgetFailure.hashCode ^
-      budgetGenerate.hashCode ^
-      textPrompt.hashCode ^
-      incomeAmount.hashCode ^
-      additionalTextInputs.hashCode ^
-      generateSuccess.hashCode ^
-      language.hashCode ^
-      budgetMethod.hashCode ^
-      currency.hashCode ^
-      budgetName.hashCode;
+  List<Object?> get props => [
+        loadingGenerateBudget,
+        generateBudgetFailure,
+        budgetGenerate,
+        textPrompt,
+        incomeAmount,
+        additionalTextInputs,
+        generateSuccess,
+        language,
+        budgetMethod,
+        currency,
+        budgetName,
+      ];
 }

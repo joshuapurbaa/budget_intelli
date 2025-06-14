@@ -1,7 +1,8 @@
 import 'package:budget_intelli/features/ai_assistant/ai_assistant_barrel.dart';
 import 'package:budget_intelli/features/ai_assistant/models/budget_method_model.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
-import 'package:flutter/foundation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
@@ -160,7 +161,8 @@ class PromptCubit extends Cubit<PromptState> {
           await model.generateContent([Content.text(mainText.text)]);
 
       return response;
-    } on Exception catch (_) {
+    } on Exception catch (e) {
+      debugPrint('error generateContentFromText :: $e');
       return null;
     }
   }

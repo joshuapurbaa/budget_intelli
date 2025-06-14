@@ -62,35 +62,6 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
               title: localize.generateWithAI,
             ),
             BlocConsumer<PromptCubit, PromptState>(
-              listener: (context, state) {
-                if (state.loadingGenerateBudget) {
-                  AppDialog.showLoading(
-                    context,
-                    message: localize.generatingBudget,
-                  );
-                }
-
-                if (state.generateSuccess) {
-                  context.read<BudgetFormBloc>()
-                    ..add(BudgetFormToInitial())
-                    ..add(
-                      BudgetFormInitial(
-                        generateBudgetAI: true,
-                        budgetGenerate: state.budgetGenerate,
-                      ),
-                    );
-                  _showSuccessDialog(state);
-                  return;
-                }
-
-                if (state.generateBudgetFailure) {
-                  context.pop();
-                  AppToast.showToastError(
-                    context,
-                    localize.failedToGenerateBudgetPleaseTryAgain,
-                  );
-                }
-              },
               builder: (context, state) {
                 // final loading = state.loadingGenerateBudget;
                 final language = state.language;
@@ -327,6 +298,35 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                     ),
                   ),
                 );
+              },
+              listener: (context, state) {
+                if (state.loadingGenerateBudget) {
+                  AppDialog.showLoading(
+                    context,
+                    message: localize.generatingBudget,
+                  );
+                }
+
+                if (state.generateSuccess) {
+                  context.read<BudgetFormBloc>()
+                    ..add(BudgetFormToInitial())
+                    ..add(
+                      BudgetFormInitial(
+                        generateBudgetAI: true,
+                        budgetGenerate: state.budgetGenerate,
+                      ),
+                    );
+                  _showSuccessDialog(state);
+                  return;
+                }
+
+                if (state.generateBudgetFailure) {
+                  context.pop();
+                  AppToast.showToastError(
+                    context,
+                    localize.failedToGenerateBudgetPleaseTryAgain,
+                  );
+                }
               },
             ),
           ],

@@ -51,10 +51,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   @override
   void didUpdateWidget(covariant BudgetFormFieldInitial oldWidget) {
     super.didUpdateWidget(oldWidget);
-    debugPrint('didUpdateWidget');
     if (oldWidget.groupCategories.length != widget.groupCategories.length) {
-      debugPrint(
-          'didUpdateWidget: ${oldWidget.groupCategories.length} != ${widget.groupCategories.length}');
       _controllersInitialized = false;
       _initControllers();
     }
@@ -68,16 +65,14 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    debugPrint('didChangeDependencies');
+
     if (!_controllersInitialized) {
-      debugPrint('didChangeDependencies: _controllersInitialized = false');
       _initControllers();
       _controllersInitialized = true;
     }
   }
 
   void _initControllers() {
-    debugPrint('initControllers: _controllersInitialized = false');
     setState(() {
       _clearAllControllers();
       _createControllersForGroups();
@@ -85,7 +80,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _clearAllControllers() {
-    debugPrint('clearAllControllers');
     _groupNameTextEditingControllers.clear();
     _leftTextEditingControllers.clear();
     _rightTextEditingControllers.clear();
@@ -96,7 +90,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _createControllersForGroups() {
-    debugPrint('createControllersForGroups');
     for (var i = 0; i < widget.groupCategories.length; i++) {
       final groupCategory = widget.groupCategories[i];
       _createGroupController(groupCategory);
@@ -106,7 +99,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _createGroupController(GroupCategoryHistory groupCategory) {
-    debugPrint('createGroupController');
     final groupName = groupCategory.groupName;
     final isInitialName = _isInitialGroupName(groupName);
 
@@ -117,14 +109,12 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _createItemControllers(List<ItemCategoryHistory> itemCategories) {
-    debugPrint('createItemControllers :: ${itemCategories.length}');
     final leftControllers = <TextEditingController>[];
     final rightControllers = <TextEditingController>[];
     final leftFocusNodes = <FocusNode>[];
     final rightFocusNodes = <FocusNode>[];
 
     for (final item in itemCategories) {
-      debugPrint('createItemControllers :: ${item.name}');
       final isInitialName = _isInitialCategoryName(item.name);
 
       leftControllers.add(
@@ -355,8 +345,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
     GroupCategoryHistory groupCategory,
     int indexGroup,
   ) {
-    debugPrint(
-        'buildItemsList: ${_leftTextEditingControllers[indexGroup].length}');
     return ListView.separated(
       padding: EdgeInsets.zero,
       itemCount: _leftTextEditingControllers[indexGroup].length,
@@ -397,8 +385,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
     );
 
     const radiusCircular = Radius.circular(10);
-    debugPrint(
-        'buildItemRow: $indexGroup, $indexItem, ${item.name} ${item.amount}');
 
     return Row(
       children: [
