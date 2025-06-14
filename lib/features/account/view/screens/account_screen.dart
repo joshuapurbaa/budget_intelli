@@ -72,6 +72,7 @@ class _AccountScreenState extends State<AccountScreen> {
                     left: 16,
                     right: 16,
                     top: 10,
+                    bottom: 10,
                   ),
                   child: RichText(
                     text: TextSpan(
