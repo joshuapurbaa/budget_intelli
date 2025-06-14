@@ -914,7 +914,7 @@ class AppLocalizationsId extends AppLocalizations {
       'Anda dapat membuat anggaran dengan AI atau secara manual. Mana yang Anda pilih?';
 
   @override
-  String get manual => 'Manual';
+  String get createManually => 'Buat Secara Manual';
 
   @override
   String get failedToGenerateBudgetPleaseTryAgain =>

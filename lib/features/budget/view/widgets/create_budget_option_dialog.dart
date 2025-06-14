@@ -48,7 +48,7 @@ class CreateBudgetOptionDialog extends StatelessWidget {
                 children: [
                   AppButton.outlined(
                     onPressed: onManualPressed,
-                    label: localize.manual,
+                    label: localize.createManually,
                     height: getHeight(45),
                   ),
                   Gap.vertical(16),

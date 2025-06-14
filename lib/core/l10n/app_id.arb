@@ -294,7 +294,7 @@
   "generatingBudget": "Sedang membuat anggaran...",
   "createBudgetPlan": "Buat Rencana Anggaran",
   "youCanCreateYourBudgetWithAIOrManuallyWhichOneDoYouPrefer": "Anda dapat membuat anggaran dengan AI atau secara manual. Mana yang Anda pilih?",
-  "manual": "Manual",
+  "createManually": "Buat Secara Manual",
   "failedToGenerateBudgetPleaseTryAgain": "Gagal membuat anggaran. Harap coba lagi.",
   "analysisResult": "Hasil Analisis",
   "overSpendCategory": "Kategori Pengeluaran Berlebih",

@@ -1868,11 +1868,11 @@ abstract class AppLocalizations {
   /// **'Anda dapat membuat anggaran dengan AI atau secara manual. Mana yang Anda pilih?'**
   String get youCanCreateYourBudgetWithAIOrManuallyWhichOneDoYouPrefer;
 
-  /// No description provided for @manual.
+  /// No description provided for @createManually.
   ///
   /// In id, this message translates to:
-  /// **'Manual'**
-  String get manual;
+  /// **'Buat Secara Manual'**
+  String get createManually;
 
   /// No description provided for @failedToGenerateBudgetPleaseTryAgain.
   ///

@@ -912,7 +912,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'You can create your budget with AI or manually. Which one do you prefer?';
 
   @override
-  String get manual => 'Manual';
+  String get createManually => 'Create Manually';
 
   @override
   String get failedToGenerateBudgetPleaseTryAgain =>

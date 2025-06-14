@@ -294,7 +294,7 @@
   "generatingBudget": "Generating budget...",
   "createBudgetPlan": "Create Budget Plan",
   "youCanCreateYourBudgetWithAIOrManuallyWhichOneDoYouPrefer": "You can create your budget with AI or manually. Which one do you prefer?",
-  "manual": "Manual",
+  "createManually": "Create Manually",
   "failedToGenerateBudgetPleaseTryAgain": "Failed to generate budget. Please try again.",
   "analysisResult": "Analysis Result",
   "overSpendCategory": "Over spend category",
