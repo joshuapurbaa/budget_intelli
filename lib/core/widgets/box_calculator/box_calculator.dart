@@ -74,8 +74,6 @@ class _BoxCalculatorState extends State<BoxCalculator>
     BuildContext context,
   ) {
     final localize = textLocalizer(context);
-    final colorScheme = Theme.of(context).colorScheme;
-    final currency = context.watch<SettingBloc>().state.currency;
 
     if (label.contains(localize.amountFieldLabel) ||
         label.contains(localize.totalAmountFieldLabel) ||
@@ -88,18 +86,28 @@ class _BoxCalculatorState extends State<BoxCalculator>
         style: StyleType.bodMed,
       );
     } else {
-      String? amount;
-      if (label.isNotEmpty) {
-        amount = label;
+      // Try to parse the label as a double
+      final parsedValue = double.tryParse(label);
+      if (parsedValue != null) {
+        final currencyFormatter = NumberFormatter.formatToMoneyDouble(
+          context,
+          parsedValue,
+        );
+        return AppText(
+          text: currencyFormatter,
+          fontWeight: FontWeight.w700,
+          style: StyleType.bodMed,
+          color: context.color.onSurface,
+        );
       } else {
-        amount = widget.label;
+        // If parsing fails, display the label as is
+        return AppText(
+          text: label,
+          color: context.color.onSurface.withValues(alpha: 0.5),
+          fontWeight: FontWeight.w400,
+          style: StyleType.bodMed,
+        );
       }
-      return AppText(
-        text: '${currency.symbol} $amount',
-        fontWeight: FontWeight.w700,
-        style: StyleType.bodMed,
-        color: colorScheme.onSurface,
-      );
     }
   }
 
