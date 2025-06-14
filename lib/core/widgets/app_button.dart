@@ -102,7 +102,7 @@ class AppButton extends StatelessWidget {
     final colorScheme = context.color;
     if (outlined == true) {
       return SizedBox(
-        height: height ?? 58.h,
+        height: height ?? 50.h,
         width: width ?? 382.w,
         child: OutlinedButton(
           onPressed: isActive == false ? null : onPressed,
@@ -129,7 +129,7 @@ class AppButton extends StatelessWidget {
 
     if (noWidth != null) {
       return SizedBox(
-        height: height ?? 58.h,
+        height: height ?? 50.h,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
             backgroundColor: colorScheme.primary,
@@ -160,7 +160,7 @@ class AppButton extends StatelessWidget {
     if (success != null) {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
-          fixedSize: Size(width ?? 382.w, height ?? 58.h),
+          fixedSize: Size(width ?? 382.w, height ?? 50.h),
           backgroundColor: colorScheme.inverseSurface,
           side: side ?? BorderSide.none,
         ),
@@ -192,7 +192,7 @@ class AppButton extends StatelessWidget {
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        fixedSize: Size(width ?? 382.w, height ?? 58.h),
+        fixedSize: Size(width ?? 382.w, height ?? 50.h),
         backgroundColor: backgroundColor ?? colorScheme.primary,
         side: side ?? BorderSide.none,
       ),

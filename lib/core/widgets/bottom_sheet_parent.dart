@@ -36,14 +36,11 @@ class BottomSheetParent extends StatelessWidget {
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
+        color: context.color.surface,
         border: isWithBorderTop
             ? Border(
                 top: BorderSide(
-                  color: Theme.of(context)
-                      .colorScheme
-                      .outlineVariant
-                      .withValues(alpha: 0.5),
+                  color: context.color.outlineVariant.withValues(alpha: 0.5),
                 ),
               )
             : null,

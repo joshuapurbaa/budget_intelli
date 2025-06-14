@@ -872,7 +872,7 @@ class _OverViewState extends State<OverView> {
                   padding: getEdgeInsets(left: 16, right: 16, bottom: 10),
                   child: Column(
                     children: [
-                      OutlineButtonPrimary(
+                      AppButton.outlined(
                         label: localize.deleteBudget,
                         onPressed: () async {
                           final title = localize.deleteBudget;

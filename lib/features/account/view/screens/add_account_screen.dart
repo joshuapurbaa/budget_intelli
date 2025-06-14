@@ -332,7 +332,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                                 _reset();
                               }
                             },
-                            child: OutlineButtonPrimary(
+                            child: AppButton.outlined(
                               label: localize.delete,
                               onPressed: () async {
                                 final result =

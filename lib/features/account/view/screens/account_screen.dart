@@ -99,34 +99,22 @@ class _AccountScreenState extends State<AccountScreen> {
                 ),
               ),
               SliverFillRemaining(
-                child: GridView.builder(
-                  padding: getEdgeInsetsAll(16),
-                  itemCount: accounts.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 12,
-                    crossAxisSpacing: 12,
-                  ),
-                  itemBuilder: (context, index) {
-                    final account = accounts[index];
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: GridView.builder(
+                        padding: getEdgeInsetsAll(12),
+                        itemCount: accounts.length,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                        ),
+                        itemBuilder: (context, index) {
+                          final account = accounts[index];
 
-                    return AppGlass(
-                      onTap: () {
-                        context.read<AccountBloc>().add(
-                              SelectAccountEvent(
-                                account,
-                              ),
-                            );
-
-                        context
-                            .push(MyRoute.accountTransactionScreen)
-                            .whenComplete(
-                              _whenCompleteAccountTransactionScreen,
-                            );
-                      },
-                      child: Stack(
-                        children: [
-                          GestureDetector(
+                          return AppGlass(
                             onTap: () {
                               context.read<AccountBloc>().add(
                                     SelectAccountEvent(
@@ -135,78 +123,98 @@ class _AccountScreenState extends State<AccountScreen> {
                                   );
 
                               context
-                                  .push(MyRoute.addAccountScreen)
+                                  .push(MyRoute.accountTransactionScreen)
                                   .whenComplete(
                                     _whenCompleteAccountTransactionScreen,
                                   );
                             },
-                            child: const Align(
-                              alignment: Alignment.topRight,
-                              child: Icon(
-                                Icons.edit,
-                              ),
-                            ),
-                          ),
-                          Align(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child: Stack(
                               children: [
-                                AppText(
-                                  text: NumberFormatter.formatToMoneyDouble(
-                                    context,
-                                    account.amount,
+                                GestureDetector(
+                                  onTap: () {
+                                    context.read<AccountBloc>().add(
+                                          SelectAccountEvent(
+                                            account,
+                                          ),
+                                        );
+
+                                    context
+                                        .push(MyRoute.addAccountScreen)
+                                        .whenComplete(
+                                          _whenCompleteAccountTransactionScreen,
+                                        );
+                                  },
+                                  child: const Align(
+                                    alignment: Alignment.topRight,
+                                    child: Icon(
+                                      Icons.edit,
+                                      size: 20,
+                                    ),
                                   ),
-                                  style: StyleType.bodLg,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
                                 ),
-                                Gap.vertical(22),
-                                AppText(
-                                  text: account.name,
-                                  style: StyleType.bodLg,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
+                                Align(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      AppText(
+                                        text: account.name,
+                                        style: StyleType.bodMed,
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                      ),
+                                      Gap.vertical(16),
+                                      const AppDivider(),
+                                      Gap.vertical(16),
+                                      AppText(
+                                        text:
+                                            NumberFormatter.formatToMoneyDouble(
+                                          context,
+                                          account.amount,
+                                        ),
+                                        style: StyleType.bodMed,
+                                        textAlign: TextAlign.center,
+                                        maxLines: 2,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
+                          );
+                        },
+                      ),
+                    ),
+                    BottomSheetParent(
+                      isWithBorderTop: true,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          AppButton.darkLabel(
+                            label: localize.add,
+                            isActive: true,
+                            onPressed: () {
+                              context
+                                  .read<AccountBloc>()
+                                  .add(SelectAccountEvent(null));
+                              context.push(MyRoute.addAccountScreen);
+                            },
+                          ),
+                          Gap.vertical(10),
+                          AppButton.outlined(
+                            label: localize.accountTransfer,
+                            onPressed: () {
+                              context.push(MyRoute.accountTransferScreen);
+                            },
                           ),
                         ],
                       ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ),
-              SliverToBoxAdapter(
-                child: SizedBox(
-                  height: getHeight(100),
-                ),
-              )
             ],
           );
         },
-      ),
-      bottomSheet: BottomSheetParent(
-        isWithBorderTop: true,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AppButton.darkLabel(
-              label: localize.add,
-              isActive: true,
-              onPressed: () {
-                context.read<AccountBloc>().add(SelectAccountEvent(null));
-                context.push(MyRoute.addAccountScreen);
-              },
-            ),
-            Gap.vertical(10),
-            OutlineButtonPrimary(
-              label: localize.accountTransfer,
-              onPressed: () {
-                context.push(MyRoute.accountTransferScreen);
-              },
-            ),
-          ],
-        ),
       ),
     );
   }

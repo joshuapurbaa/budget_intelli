@@ -108,7 +108,6 @@ export 'widgets/line_graph_monthly.dart';
 export 'widgets/line_graph_weekly.dart';
 export 'widgets/member_name_localization.dart';
 export 'widgets/month_dropdown.dart';
-export 'widgets/outline_button_primary.dart';
 export 'widgets/row_icon_and_text.dart';
 export 'widgets/row_info_label_color.dart';
 export 'widgets/scheduled_payments_card.dart';

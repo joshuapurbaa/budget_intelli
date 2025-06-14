@@ -392,7 +392,7 @@ class _UpdateItemCategoryTransactionScreenState
                         },
                       ),
                       Gap.vertical(16),
-                      OutlineButtonPrimary(
+                      AppButton.outlined(
                         label: localize.delete,
                         onPressed: () async {
                           final id = transaction?.id;

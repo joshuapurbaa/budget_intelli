@@ -450,7 +450,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                     if (!itemIncomeLenOnlyOne)
                       Padding(
                         padding: getEdgeInsets(top: 16, right: 16, left: 16),
-                        child: OutlineButtonPrimary(
+                        child: AppButton.outlined(
                           onPressed: () async {
                             final title = localize.deleteCategory;
                             final contentText = localize.confirmDelete;
@@ -469,7 +469,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                       ),
                     Padding(
                       padding: getEdgeInsets(top: 16, right: 16, left: 16),
-                      child: OutlineButtonPrimary(
+                      child: AppButton.outlined(
                         onPressed: () {
                           _showEditAmountDialog(
                             context: context,
