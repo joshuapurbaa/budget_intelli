@@ -48,6 +48,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
+
     return PopScope(
       onPopInvokedWithResult: (didPop, _) {
         if (didPop) {
@@ -95,15 +96,20 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                 final language = state.language;
                 String hintText;
 
+                final hintTextStyle = textStyle(
+                  context,
+                  style: StyleType.bodSm,
+                ).copyWith(
+                  color: context.color.onSurface.withValues(alpha: 0.5),
+                );
+
                 List<BudgetMethodModel>? listBudgetMethod;
                 if (language == 'English') {
                   listBudgetMethod = listBudgetMethodEnglish;
-                  hintText =
-                      'Add Additional context...\nExample: I have debt 10000, My goals are to save 1200, I have 3 dependents, I have 1 house, I have 1 pet, Maximum budget for food is 1000';
+                  hintText = localize.addAdditionalContextDesc;
                 } else {
                   listBudgetMethod = listBudgetMethodIndonesia;
-                  hintText =
-                      'Tambah konteks tambahan...\nContoh: Saya memiliki hutang 1200000, Tujuan saya adalah menyimpan 500000, Saya memiliki 1 rumah, Anggaran maksimum untuk makanan adalah 1200000';
+                  hintText = localize.addAdditionalContextDesc;
                 }
                 return SliverPadding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -124,10 +130,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                             },
                             decoration: InputDecoration(
                               hintText: '${localize.budgetName}...',
-                              hintStyle: textStyle(
-                                context,
-                                style: StyleType.bodSm,
-                              ),
+                              hintStyle: hintTextStyle,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -145,7 +148,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                             inputFormatters: [
                               CurrencyTextInputFormatter.currency(
                                 locale: state.currency?.locale,
-                                symbol: '${state.currency?.symbol} ',
+                                symbol: state.currency?.symbol,
                                 decimalDigits: 0,
                               ),
                             ],
@@ -158,10 +161,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               hintText: localize.myIncomeIs,
-                              hintStyle: textStyle(
-                                context,
-                                style: StyleType.bodSm,
-                              ),
+                              hintStyle: hintTextStyle,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -187,10 +187,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                             },
                             decoration: InputDecoration(
                               hintText: hintText,
-                              hintStyle: textStyle(
-                                context,
-                                style: StyleType.bodSm,
-                              ),
+                              hintStyle: hintTextStyle,
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                               ),
@@ -221,10 +218,12 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                   return ChoiceChip(
                                     label: Text(
                                       method.methodName,
-                                      style: textStyle(
-                                        context,
-                                        style: StyleType.bodSm,
-                                      ),
+                                      style: state.budgetMethod == method
+                                          ? textStyle(
+                                              context,
+                                              style: StyleType.bodSm,
+                                            )
+                                          : hintTextStyle,
                                     ),
                                     selected: state.budgetMethod == method,
                                     onSelected: (selected) {
@@ -266,35 +265,32 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                 color: Colors.grey,
                               ),
                             ),
-                            child: RichText(
-                              text: TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: _selectedBudgetMethod?.methodName ??
-                                        localize.noMethodSelected,
-                                    style: textStyle(
-                                      context,
-                                      style: StyleType.bodSm,
-                                    ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _selectedBudgetMethod?.methodName ??
+                                      localize.noMethodSelected,
+                                  style: textStyle(
+                                    context,
+                                    style: StyleType.bodSm,
                                   ),
-                                  TextSpan(
-                                    text: '\n\n',
-                                    style: textStyle(
-                                      context,
-                                      style: StyleType.bodSm,
-                                    ),
-                                  ),
-                                  TextSpan(
-                                    text: _selectedBudgetMethod
-                                            ?.methodDescription ??
+                                ),
+                                Gap.vertical(8),
+                                const AppDivider(),
+                                Gap.vertical(8),
+                                if (_selectedBudgetMethod?.methodDescription !=
+                                    null) ...[
+                                  Text(
+                                    _selectedBudgetMethod?.methodDescription ??
                                         '',
                                     style: textStyle(
                                       context,
                                       style: StyleType.bodSm,
                                     ),
                                   ),
-                                ],
-                              ),
+                                ]
+                              ],
                             ),
                           ),
                           Gap.vertical(16),

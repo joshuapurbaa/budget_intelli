@@ -2413,6 +2413,24 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Mode Sistem'**
   String get systemMode;
+
+  /// No description provided for @addAdditionalContext.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambahkan Konteks Tambahan'**
+  String get addAdditionalContext;
+
+  /// No description provided for @example.
+  ///
+  /// In id, this message translates to:
+  /// **'Contoh'**
+  String get example;
+
+  /// No description provided for @addAdditionalContextDesc.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambahkan konteks tambahan...\nContoh: Saya memiliki hutang 10000, Tujuan saya adalah menyimpan 1200, Saya memiliki 3 anak, Saya memiliki 1 rumah, Saya memiliki 1 hewan peliharaan, Anggaran maksimum untuk makanan adalah 1000'**
+  String get addAdditionalContextDesc;
 }
 
 class _AppLocalizationsDelegate

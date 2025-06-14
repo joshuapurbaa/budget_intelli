@@ -1193,4 +1193,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get systemMode => 'System Mode';
+
+  @override
+  String get addAdditionalContext => 'Add Additional Context';
+
+  @override
+  String get example => 'Example';
+
+  @override
+  String get addAdditionalContextDesc =>
+      'Add Additional context...\nExample: I have debt 10000, My goals are to save 1200, I have 3 dependents, I have 1 house, I have 1 pet, Maximum budget for food is 1000';
 }

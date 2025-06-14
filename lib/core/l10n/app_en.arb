@@ -384,5 +384,8 @@
   "at": "at",
   "startBudgeting": "Start Budgeting",
   "startFinancialTracking": "Start Financial Tracking",
-  "systemMode": "System Mode"
+  "systemMode": "System Mode",
+  "addAdditionalContext": "Add Additional Context",
+  "example": "Example",
+  "addAdditionalContextDesc": "Add Additional context...\nExample: I have debt 10000, My goals are to save 1200, I have 3 dependents, I have 1 house, I have 1 pet, Maximum budget for food is 1000"
 }
