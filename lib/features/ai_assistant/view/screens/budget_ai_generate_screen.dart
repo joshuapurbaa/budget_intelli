@@ -308,7 +308,9 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                 _incomeFocusNode.unfocus();
                                 _additionalContextFocusNode.unfocus();
                                 _budgetNameFocusNode.unfocus();
-                                context.read<PromptCubit>().generateBudget();
+                                context
+                                    .read<PromptCubit>()
+                                    .retryGenerateBudget();
                               } else {
                                 AppToast.showToastError(
                                   context,
@@ -347,10 +349,19 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
 
                 if (state.generateBudgetFailure) {
                   context.pop();
-                  AppToast.showToastError(
-                    context,
-                    localize.failedToGenerateBudgetPleaseTryAgain,
-                  );
+
+                  // Show different error messages based on error type
+                  if (state.networkError) {
+                    AppToast.showToastError(
+                      context,
+                      localize.networkError,
+                    );
+                  } else {
+                    AppToast.showToastError(
+                      context,
+                      localize.failedToGenerateBudgetPleaseTryAgain,
+                    );
+                  }
                 }
               },
             ),

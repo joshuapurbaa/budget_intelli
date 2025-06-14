@@ -1208,4 +1208,8 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get selectBudgetMethod => 'Pilih Metode Anggaran';
+
+  @override
+  String get networkError =>
+      'Kesalahan jaringan. Silakan periksa koneksi internet Anda dan coba lagi.';
 }

@@ -1206,4 +1206,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get selectBudgetMethod => 'Select Budget Method';
+
+  @override
+  String get networkError =>
+      'Network error. Please check your internet connection and try again.';
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:budget_intelli/features/ai_assistant/ai_assistant_barrel.dart';
 import 'package:budget_intelli/features/ai_assistant/models/budget_method_model.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
@@ -110,6 +112,7 @@ Create a budget that balances financial responsibility with quality of life. Res
     emit(state.copyWith(
       generateSuccess: false,
       generateBudgetFailure: false,
+      networkError: false,
     ));
   }
 
@@ -173,9 +176,61 @@ Create a budget that balances financial responsibility with quality of life. Res
       } else {
         _emitFailureState();
       }
+    } on SocketException catch (e) {
+      debugPrint('Network error generating budget: $e');
+      _emitNetworkErrorState();
+    } on HttpException catch (e) {
+      debugPrint('HTTP error generating budget: $e');
+      _emitNetworkErrorState();
     } on Exception catch (e) {
       debugPrint('Error generating budget: $e');
       _emitFailureState();
+    }
+  }
+
+  // Helper method to retry budget generation with exponential backoff
+  Future<void> retryGenerateBudget({int maxRetries = 3}) async {
+    for (var attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        debugPrint('Retry attempt $attempt/$maxRetries for budget generation');
+
+        // Check connectivity before attempting
+        if (!await _checkConnectivity()) {
+          debugPrint('No connectivity detected on attempt $attempt');
+          if (attempt == maxRetries) {
+            _emitNetworkErrorState();
+            return;
+          }
+          await Future<void>.delayed(Duration(seconds: attempt * 2));
+          continue;
+        }
+
+        await generateBudget();
+        return; // Success, exit retry loop
+      } on SocketException catch (e) {
+        debugPrint('Network error on attempt $attempt: $e');
+        if (attempt == maxRetries) {
+          // Final attempt failed, emit network error
+          _emitNetworkErrorState();
+          return;
+        }
+        // Wait before retrying (exponential backoff)
+        await Future<void>.delayed(Duration(seconds: attempt * 2));
+      } on Exception catch (e) {
+        debugPrint('Non-network error on attempt $attempt: $e');
+        _emitFailureState();
+        return; // Don't retry on non-network errors
+      }
+    }
+  }
+
+  // Helper method to check basic connectivity
+  Future<bool> _checkConnectivity() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      return result.isNotEmpty && result[0].rawAddress.isNotEmpty;
+    } on SocketException catch (_) {
+      return false;
     }
   }
 
@@ -212,6 +267,15 @@ Create a budget that balances financial responsibility with quality of life. Res
     emit(state.copyWith(
       loadingGenerateBudget: false,
       generateBudgetFailure: true,
+      networkError: false,
+    ));
+  }
+
+  void _emitNetworkErrorState() {
+    emit(state.copyWith(
+      loadingGenerateBudget: false,
+      generateBudgetFailure: true,
+      networkError: true,
     ));
   }
 
@@ -223,6 +287,9 @@ Create a budget that balances financial responsibility with quality of life. Res
       final response =
           await model.generateContent([Content.text(mainText.text)]);
       return response;
+    } on SocketException catch (e) {
+      debugPrint('Network error generating content from text: $e');
+      rethrow; // Re-throw to be caught by the calling method
     } on Exception catch (e) {
       debugPrint('Error generating content from text: $e');
       return null;

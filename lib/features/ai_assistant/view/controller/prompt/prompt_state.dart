@@ -5,6 +5,7 @@ class PromptState extends Equatable {
     this.loadingGenerateBudget = false,
     this.generateBudgetFailure = false,
     this.generateSuccess = false,
+    this.networkError = false,
     this.budgetGenerate,
     this.textPrompt,
     this.incomeAmount,
@@ -17,6 +18,7 @@ class PromptState extends Equatable {
 
   final bool loadingGenerateBudget;
   final bool generateBudgetFailure;
+  final bool networkError;
   final BudgetGenerateModel? budgetGenerate;
   final String? textPrompt;
   final String? additionalTextInputs;
@@ -30,6 +32,7 @@ class PromptState extends Equatable {
   PromptState copyWith({
     bool? loadingGenerateBudget,
     bool? generateBudgetFailure,
+    bool? networkError,
     BudgetGenerateModel? budgetGenerate,
     String? textPrompt,
     String? incomeAmount,
@@ -45,6 +48,7 @@ class PromptState extends Equatable {
           loadingGenerateBudget ?? this.loadingGenerateBudget,
       generateBudgetFailure:
           generateBudgetFailure ?? this.generateBudgetFailure,
+      networkError: networkError ?? this.networkError,
       budgetGenerate: budgetGenerate ?? this.budgetGenerate,
       textPrompt: textPrompt ?? this.textPrompt,
       incomeAmount: incomeAmount ?? this.incomeAmount,
@@ -61,6 +65,7 @@ class PromptState extends Equatable {
   List<Object?> get props => [
         loadingGenerateBudget,
         generateBudgetFailure,
+        networkError,
         budgetGenerate,
         textPrompt,
         incomeAmount,

@@ -2437,6 +2437,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Pilih Metode Anggaran'**
   String get selectBudgetMethod;
+
+  /// No description provided for @networkError.
+  ///
+  /// In id, this message translates to:
+  /// **'Kesalahan jaringan. Silakan periksa koneksi internet Anda dan coba lagi.'**
+  String get networkError;
 }
 
 class _AppLocalizationsDelegate

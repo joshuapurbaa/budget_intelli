@@ -202,28 +202,11 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                 );
               }
 
-              var themeMode = '';
-              if (state.themeMode == ThemeMode.dark) {
-                themeMode = localize.darkMode;
-              } else if (state.themeMode == ThemeMode.light) {
-                themeMode = localize.lightMode;
-              } else if (state.themeMode == ThemeMode.system) {
-                themeMode = localize.systemMode;
-              }
-
               final bloc = context.read<SettingBloc>();
 
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // AppText(
-                  //   text: localize.welcomeToBudgetIntelli,
-                  //   style: StyleType.headLg,
-                  //   textAlign: TextAlign.center,
-                  // ).animate().fadeIn().scale().move(
-                  //       delay: 300.ms,
-                  //       duration: 600.ms,
-                  //     ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: getPngAsset(
@@ -241,10 +224,8 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                     text: localize.welcomeToBudgetIntelli,
                     style: StyleType.headMed,
                     textAlign: TextAlign.center,
-                  ).animate().fadeIn().scale().move(
-                        delay: 300.ms,
-                        duration: 600.ms,
-                      ),
+                    animation: true,
+                  ),
                   Gap.vertical(32),
                   AppGlass(
                     child: Column(
@@ -254,7 +235,7 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             AppText.medium16(
-                              text: themeMode,
+                              text: localize.darkMode,
                             ),
                             Switch(
                               value: state.themeMode == ThemeMode.dark,
