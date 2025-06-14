@@ -186,7 +186,6 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                           Gap.vertical(16),
                           Container(
                             padding: const EdgeInsets.all(10),
-                            height: getHeight(100),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8),
                               border: Border.all(
@@ -203,56 +202,70 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                 Gap.vertical(8),
                                 const AppDivider(),
                                 Gap.vertical(8),
-                                Expanded(
-                                  child: Wrap(
-                                    spacing: 8,
-                                    children: List.generate(
-                                      listBudgetMethod.length,
-                                      (index) {
-                                        final method = listBudgetMethod![index];
-                                        return ChoiceChip(
-                                          shape: RoundedRectangleBorder(
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 8,
+                                  children: List.generate(
+                                    listBudgetMethod.length,
+                                    (index) {
+                                      final method = listBudgetMethod![index];
+                                      return GestureDetector(
+                                        onTap: () {
+                                          _incomeFocusNode.unfocus();
+                                          _additionalContextFocusNode.unfocus();
+                                          _budgetNameFocusNode.unfocus();
+
+                                          if (method.methodName ==
+                                              'No method') {
+                                            context
+                                                .read<PromptCubit>()
+                                                .updateBudgetMethod(
+                                                  null,
+                                                );
+                                            setState(() {
+                                              _selectedBudgetMethod = null;
+                                            });
+                                          } else {
+                                            context
+                                                .read<PromptCubit>()
+                                                .updateBudgetMethod(
+                                                  method,
+                                                );
+                                            setState(() {
+                                              _selectedBudgetMethod = method;
+                                            });
+                                          }
+                                        },
+                                        child: Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 8,
+                                          ),
+                                          decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(8),
+                                            color: state.budgetMethod == method
+                                                ? context.color.primary
+                                                : Colors.transparent,
+                                            border: Border.all(
+                                              color:
+                                                  state.budgetMethod == method
+                                                      ? context.color.primary
+                                                      : context.color.outline,
+                                            ),
                                           ),
-                                          label: AppText(
+                                          child: AppText(
                                             text: method.methodName,
                                             style: state.budgetMethod == method
                                                 ? StyleType.bodMed
                                                 : StyleType.bodSm,
+                                            color: state.budgetMethod == method
+                                                ? context.color.onPrimary
+                                                : context.color.onSurface,
                                           ),
-                                          selected:
-                                              state.budgetMethod == method,
-                                          onSelected: (selected) {
-                                            _incomeFocusNode.unfocus();
-                                            _additionalContextFocusNode
-                                                .unfocus();
-                                            _budgetNameFocusNode.unfocus();
-
-                                            if (method.methodName ==
-                                                'No method') {
-                                              context
-                                                  .read<PromptCubit>()
-                                                  .updateBudgetMethod(
-                                                    null,
-                                                  );
-                                              setState(() {
-                                                _selectedBudgetMethod = null;
-                                              });
-                                            } else {
-                                              context
-                                                  .read<PromptCubit>()
-                                                  .updateBudgetMethod(
-                                                    method,
-                                                  );
-                                              setState(() {
-                                                _selectedBudgetMethod = method;
-                                              });
-                                            }
-                                          },
-                                        );
-                                      },
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                               ],
@@ -275,11 +288,11 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                       localize.noMethodSelected,
                                   style: StyleType.bodMed,
                                 ),
-                                Gap.vertical(8),
-                                const AppDivider(),
-                                Gap.vertical(8),
                                 if (_selectedBudgetMethod?.methodDescription !=
                                     null) ...[
+                                  Gap.vertical(8),
+                                  const AppDivider(),
+                                  Gap.vertical(8),
                                   AppText(
                                     text: _selectedBudgetMethod
                                             ?.methodDescription ??
