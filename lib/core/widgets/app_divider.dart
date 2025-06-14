@@ -22,7 +22,9 @@ class AppDivider extends StatelessWidget {
         height: 1,
         color: color ??
             (isDarkMode
-                ? context.color.outlineVariant
+                ? context.color.onPrimary.withValues(
+                    alpha: 0.1,
+                  )
                 : context.color.outlineVariant.withValues(alpha: 0.3)),
         thickness: thickness ?? 1,
       ),

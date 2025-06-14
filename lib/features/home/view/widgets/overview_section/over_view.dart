@@ -275,7 +275,11 @@ class _OverViewState extends State<OverView> {
                         style: StyleType.bodLg,
                       ),
                       Gap.vertical(10),
-                      const AppDivider(),
+                      AppDivider(
+                        color: context.color.onSurface.withValues(
+                          alpha: 0.3,
+                        ),
+                      ),
                       Gap.vertical(10),
                       if (groupsEmpty)
                         const CircularProgressIndicator.adaptive()

@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BudgetOverviewTable extends StatelessWidget {
   const BudgetOverviewTable({
@@ -23,7 +24,8 @@ class BudgetOverviewTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
     return Container(
-      width: double.infinity,
+      height: 200.h,
+      width: 300.w,
       padding: const EdgeInsets.all(
         16,
       ),
