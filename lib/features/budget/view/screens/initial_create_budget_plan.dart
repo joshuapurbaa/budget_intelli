@@ -653,15 +653,6 @@ class _InitialCreateBudgetPlanScreenState
         );
   }
 
-  void _initializeBudgetNameController(String? budgetName) {
-    print('budgetName: $budgetName');
-    if (budgetName != null &&
-        budgetName.isNotEmpty &&
-        _budgetNameController.text.isEmpty) {
-      _budgetNameController.text = budgetName;
-    }
-  }
-
   @override
   void dispose() {
     _scrollController.dispose();

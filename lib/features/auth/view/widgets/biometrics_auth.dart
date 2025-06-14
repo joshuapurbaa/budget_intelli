@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:app_settings/app_settings.dart';
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
@@ -59,6 +57,8 @@ class _BiometricAuthState extends State<BiometricAuth> {
         }
       }
     } on PlatformException catch (e) {
+      if (!mounted) return;
+
       switch (e.code) {
         case auth_error.notEnrolled:
           _showEnrollmentPrompt(context);
@@ -95,6 +95,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
           );
       }
     } on Exception catch (e) {
+      if (!mounted) return;
       _showErrorDialog(context, 'An unexpected error occurred: $e');
     }
   }

@@ -7,18 +7,10 @@ class Failure {
 }
 
 class DatabaseFailure extends Failure {
-  // ignore: use_super_parameters
-  DatabaseFailure([this.message = 'Database Failure']) : super(message);
-  @override
-  // ignore: overridden_fields
-  final String message;
+  DatabaseFailure([super.message = 'Database Failure']);
 }
 
 // firebase failure
 class FirebaseFailure extends Failure {
-  // ignore: use_super_parameters
-  FirebaseFailure([this.message = 'Firebase Failure']) : super(message);
-  @override
-  // ignore: overridden_fields
-  final String message;
+  FirebaseFailure([super.message = 'Firebase Failure']);
 }
