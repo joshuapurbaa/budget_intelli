@@ -45,7 +45,9 @@ class AppDialog {
                         style: Theme.of(context).textTheme.headlineSmall!,
                         child: title,
                       ),
-                      const SizedBox(height: 16),
+                      Gap.vertical(16),
+                      const AppDivider(),
+                      Gap.vertical(16),
                     ],
                     if (content != null)
                       Flexible(

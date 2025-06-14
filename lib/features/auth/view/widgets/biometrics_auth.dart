@@ -108,9 +108,11 @@ class _BiometricAuthState extends State<BiometricAuth> {
         return AlertDialog(
           title: AppText(
             text: localize.setUpBiometrics,
+            textAlign: TextAlign.center,
           ),
           content: AppText(
             text: localize.biometricNotSetUp,
+            textAlign: TextAlign.center,
           ),
           actions: <Widget>[
             TextButton(
@@ -165,28 +167,24 @@ class _BiometricAuthState extends State<BiometricAuth> {
   }
 
   void _showNotSetupDialog(BuildContext context, String message) {
-    showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: AppText(
-            text: textLocalizer(context).authenticationFailed,
-          ),
-          content: AppText(text: message),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                _openBiometricSettings();
-                Navigator.of(context).pop();
-              },
-              child: AppText(
-                text: textLocalizer(context).setUp,
-                style: StyleType.bodMed,
-              ),
-            ),
-          ],
-        );
-      },
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: textLocalizer(context).authenticationFailed,
+        style: StyleType.headMed,
+        textAlign: TextAlign.center,
+      ),
+      content: AppText(text: message),
+      actions: <Widget>[
+        AppButton(
+          height: 48,
+          label: textLocalizer(context).setUp,
+          onPressed: () {
+            _openBiometricSettings();
+            context.pop();
+          },
+        ),
+      ],
     );
   }
 
