@@ -26,9 +26,10 @@ class AppSearch extends StatelessWidget {
         controller: controller,
         focusNode: focusNode,
         decoration: InputDecoration(
-          prefixIcon: const Icon(
+          prefixIcon: Icon(
             CupertinoIcons.search,
             size: 20,
+            color: context.color.onSurface.withValues(alpha: 0.5),
           ),
           suffixIcon: suffixIcon,
           border: OutlineInputBorder(
@@ -40,6 +41,7 @@ class AppSearch extends StatelessWidget {
             style: StyleType.bodSm,
           ).copyWith(
             color: context.color.onSurface.withValues(alpha: 0.5),
+            fontWeight: FontWeight.w400,
           ),
           hintText: hintText,
         ),

@@ -70,7 +70,6 @@ class ScheduledPaymentsCard extends StatelessWidget {
                 AppText.reg12(
                   text: date,
                   color: colorScheme.onSurfaceVariant,
-                  fontWeight: FontWeight.w400,
                 ),
               ],
             ),

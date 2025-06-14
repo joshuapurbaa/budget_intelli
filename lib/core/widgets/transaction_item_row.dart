@@ -66,13 +66,11 @@ class TransactionItemRow extends StatelessWidget {
                 AppText.reg12(
                   text: time,
                   color: colorScheme.onSurfaceVariant,
-                  fontWeight: FontWeight.w400,
                 ),
                 Gap.horizontal(8),
                 AppText.reg12(
                   text: whenTime,
                   color: colorScheme.onSurfaceVariant,
-                  fontWeight: FontWeight.w500,
                 ),
               ],
             ),

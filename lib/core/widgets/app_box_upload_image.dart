@@ -88,7 +88,7 @@ class _AppBoxUploadImageState extends State<AppBoxUploadImage> {
                     if (!isLoading) ...[
                       getSvgAsset(
                         cameraReceipt,
-                        color: Theme.of(context).colorScheme.onSurface,
+                        color: context.color.onSurface,
                         width: 50,
                         height: 50,
                       ),
@@ -97,7 +97,6 @@ class _AppBoxUploadImageState extends State<AppBoxUploadImage> {
                         text:
                             '${localize.uploadReceiptLabel} (${localize.optional})',
                         color: context.color.onSurface.withValues(alpha: 0.5),
-                        fontWeight: FontWeight.w400,
                       ),
                     ] else ...[
                       getLottieAsset(
