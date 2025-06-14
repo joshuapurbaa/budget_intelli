@@ -209,14 +209,11 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                                     (index) {
                                       final method = listBudgetMethod![index];
                                       return ChoiceChip(
-                                        label: Text(
-                                          method.methodName,
+                                        label: AppText(
+                                          text: method.methodName,
                                           style: state.budgetMethod == method
-                                              ? textStyle(
-                                                  context,
-                                                  style: StyleType.bodSm,
-                                                )
-                                              : hintTextStyle,
+                                              ? StyleType.bodMed
+                                              : StyleType.bodSm,
                                         ),
                                         selected: state.budgetMethod == method,
                                         onSelected: (selected) {
@@ -264,26 +261,21 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  _selectedBudgetMethod?.methodName ??
+                                AppText(
+                                  text: _selectedBudgetMethod?.methodName ??
                                       localize.noMethodSelected,
-                                  style: textStyle(
-                                    context,
-                                    style: StyleType.bodSm,
-                                  ),
+                                  style: StyleType.bodMed,
                                 ),
                                 Gap.vertical(8),
                                 const AppDivider(),
                                 Gap.vertical(8),
                                 if (_selectedBudgetMethod?.methodDescription !=
                                     null) ...[
-                                  Text(
-                                    _selectedBudgetMethod?.methodDescription ??
+                                  AppText(
+                                    text: _selectedBudgetMethod
+                                            ?.methodDescription ??
                                         '',
-                                    style: textStyle(
-                                      context,
-                                      style: StyleType.bodSm,
-                                    ),
+                                    style: StyleType.bodSm,
                                   ),
                                 ]
                               ],

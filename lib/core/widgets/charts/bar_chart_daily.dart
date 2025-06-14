@@ -142,11 +142,6 @@ class BarChartDaily extends StatelessWidget {
   }
 
   Widget getTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: AppColor.blue,
-      fontWeight: FontWeight.bold,
-      fontSize: 14,
-    );
     String text;
 
     if (selectedLanguage == Language.english) {
@@ -193,7 +188,7 @@ class BarChartDaily extends StatelessWidget {
     return SideTitleWidget(
       meta: meta,
       space: 4,
-      child: Text(text, style: style),
+      child: AppText(text: text, style: StyleType.bodSm),
     );
   }
 

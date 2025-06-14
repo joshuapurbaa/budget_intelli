@@ -13,12 +13,9 @@ class LabelWithDividerRight extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
-          label,
-          style: textStyle(context, style: StyleType.bodSm).copyWith(
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).colorScheme.onSurfaceVariant,
-          ),
+        AppText(
+          text: label,
+          style: StyleType.bodSm,
         ),
         Gap.horizontal(8),
         Expanded(

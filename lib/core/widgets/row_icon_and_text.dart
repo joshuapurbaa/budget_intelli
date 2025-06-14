@@ -19,14 +19,10 @@ class RowIconAndText extends StatelessWidget {
         icon,
         Gap.horizontal(12),
         Expanded(
-          child: Text(
-            text,
-            style: AppTextStyle.style(
-              context,
-              style: StyleType.titSm,
-            ).copyWith(
-              fontWeight: FontWeight.w500,
-            ),
+          child: AppText(
+            text: text,
+            style: StyleType.titSm,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],

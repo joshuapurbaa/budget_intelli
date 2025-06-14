@@ -17,7 +17,7 @@ class IconTextButton extends StatelessWidget {
   });
 
   final String label;
-  final TextStyle? style;
+  final StyleType? style;
   final VoidCallback onPressed;
   final bool? isActive;
   final double? width;
@@ -46,13 +46,9 @@ class IconTextButton extends StatelessWidget {
             ),
           ),
           Center(
-            child: Text(
-              label,
-              style: style ??
-                  AppTextStyle.style(
-                    context,
-                    style: StyleType.bodLg,
-                  ),
+            child: AppText(
+              text: label,
+              style: style ?? StyleType.bodLg,
             ),
           ),
         ],

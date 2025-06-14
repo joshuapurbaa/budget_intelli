@@ -31,7 +31,7 @@ class OutlineButtonPrimary extends StatelessWidget {
   }) : noWidth = true;
 
   final String label;
-  final TextStyle? style;
+  final StyleType? style;
   final VoidCallback onPressed;
   final bool? isActive;
   final double? width;
@@ -45,16 +45,13 @@ class OutlineButtonPrimary extends StatelessWidget {
     if (noWidth != null) {
       return OutlinedButton(
         style: OutlinedButton.styleFrom(
-          backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,
+          backgroundColor:
+              backgroundColor ?? Theme.of(context).colorScheme.surface,
         ),
         onPressed: isActive == false ? null : onPressed,
-        child: Text(
-          label,
-          style: style ??
-              AppTextStyle.style(
-                context,
-                style: StyleType.bodLg,
-              ),
+        child: AppText(
+          text: label,
+          style: style ?? StyleType.bodLg,
         ),
       )
           .animate()
@@ -66,16 +63,13 @@ class OutlineButtonPrimary extends StatelessWidget {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         fixedSize: Size(width ?? 382.w, height ?? 58.h),
-        backgroundColor: backgroundColor ?? Theme.of(context).colorScheme.surface,
+        backgroundColor:
+            backgroundColor ?? Theme.of(context).colorScheme.surface,
       ),
       onPressed: isActive == false ? null : onPressed,
-      child: Text(
-        label,
-        style: style ??
-            AppTextStyle.style(
-              context,
-              style: StyleType.bodLg,
-            ),
+      child: AppText(
+        text: label,
+        style: style ?? StyleType.bodLg,
       ),
     )
         .animate()

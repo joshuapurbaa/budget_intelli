@@ -292,11 +292,6 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
   }
 
   Widget getTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: AppColor.blue,
-      fontWeight: FontWeight.bold,
-      fontSize: 12,
-    );
     String text;
     switch (value.toInt()) {
       case 0:
@@ -329,7 +324,7 @@ class _PairChartMonthlyState extends State<PairChartMonthly> {
     return SideTitleWidget(
       meta: meta,
       space: 4,
-      child: Text(text, style: style),
+      child: AppText(text: text, style: StyleType.bodSm, color: AppColor.blue),
     );
   }
 }

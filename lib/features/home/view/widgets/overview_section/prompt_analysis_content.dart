@@ -58,20 +58,14 @@ class PromptAnalysisContent extends StatelessWidget {
                       fontWeight: FontWeight.w500,
                     ),
                     Gap.vertical(5),
-                    Text(
-                      '${localize.actual}: $actualAmountStr',
-                      style: textStyle(
-                        context,
-                        style: StyleType.bodMed,
-                      ),
+                    AppText(
+                      text: '${localize.actual}: $actualAmountStr',
+                      style: StyleType.bodMed,
                     ),
                     Gap.vertical(5),
-                    Text(
-                      '${localize.planned}: $planAmountStr',
-                      style: textStyle(
-                        context,
-                        style: StyleType.bodMed,
-                      ),
+                    AppText(
+                      text: '${localize.planned}: $planAmountStr',
+                      style: StyleType.bodMed,
                     ),
                   ],
                 );
@@ -99,14 +93,10 @@ class PromptAnalysisContent extends StatelessWidget {
                       style: StyleType.bodMed,
                       fontWeight: FontWeight.w500,
                     ),
-                    Text(
-                      '${localize.trend}: ${trendPrediction?.trend}',
-                      style: textStyle(
-                        context,
-                        style: StyleType.bodMed,
-                      ).copyWith(
-                        fontWeight: FontWeight.w500,
-                      ),
+                    AppText(
+                      text: '${localize.trend}: ${trendPrediction?.trend}',
+                      style: StyleType.bodMed,
+                      fontWeight: FontWeight.w500,
                     ),
                   ],
                 );
@@ -119,12 +109,9 @@ class PromptAnalysisContent extends StatelessWidget {
             style: StyleType.bodLg,
           ),
           Gap.vertical(10),
-          Text(
-            recommendation ?? '',
-            style: textStyle(
-              context,
-              style: StyleType.bodMed,
-            ),
+          AppText(
+            text: recommendation ?? '',
+            style: StyleType.bodMed,
           ),
         ],
       ),

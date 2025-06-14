@@ -105,25 +105,25 @@ class _BiometricAuthState extends State<BiometricAuth> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            localize.setUpBiometrics,
+          title: AppText(
+            text: localize.setUpBiometrics,
           ),
-          content: Text(
-            localize.biometricNotSetUp,
+          content: AppText(
+            text: localize.biometricNotSetUp,
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text(localize.cancel),
+              child: AppText(text: localize.cancel),
             ),
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
                 _openBiometricSettings();
               },
-              child: Text(localize.openSettings),
+              child: AppText(text: localize.openSettings),
             ),
           ],
         );
@@ -142,22 +142,19 @@ class _BiometricAuthState extends State<BiometricAuth> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            textLocalizer(context).authenticationError,
+          title: AppText(
+            text: textLocalizer(context).authenticationError,
           ),
-          content: Text(message),
+          content: AppText(text: message),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 // _openBiometricSettings();
                 Navigator.of(context).pop();
               },
-              child: const Text(
-                'OK',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
+              child: const AppText(
+                text: 'Ok',
+                style: StyleType.bodMed,
               ),
             ),
           ],
@@ -171,22 +168,19 @@ class _BiometricAuthState extends State<BiometricAuth> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(
-            textLocalizer(context).authenticationFailed,
+          title: AppText(
+            text: textLocalizer(context).authenticationFailed,
           ),
-          content: Text(message),
+          content: AppText(text: message),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 _openBiometricSettings();
                 Navigator.of(context).pop();
               },
-              child: Text(
-                textLocalizer(context).setUp,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
+              child: AppText(
+                text: textLocalizer(context).setUp,
+                style: StyleType.bodMed,
               ),
             ),
           ],

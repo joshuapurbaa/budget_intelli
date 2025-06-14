@@ -66,14 +66,10 @@ class WelcomeScreen extends StatelessWidget {
                           const Expanded(child: AppDivider()),
                           Padding(
                             padding: getEdgeInsetsSymmetric(horizontal: 16),
-                            child: Text(
-                              localize.textDividerSignUpSignInScreen,
-                              style: AppTextStyle.style(
-                                context,
-                                style: StyleType.headSm,
-                              ).copyWith(
-                                fontWeight: FontWeight.w500,
-                              ),
+                            child: AppText(
+                              text: localize.textDividerSignUpSignInScreen,
+                              style: StyleType.headSm,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                           const Expanded(

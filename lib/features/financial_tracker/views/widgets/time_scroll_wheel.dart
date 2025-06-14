@@ -68,16 +68,13 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
                   builder: (context, index) {
                     final isSelected = index == selectedHourIndex;
                     return Center(
-                      child: Text(
-                        hourList[index],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.normal,
-                          color: isSelected
-                              ? context.color.primary
-                              : context.color.onSurface.withValues(alpha: 0.2),
-                        ),
+                      child: AppText(
+                        text: hourList[index],
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal,
+                        color: isSelected
+                            ? context.color.primary
+                            : context.color.onSurface.withValues(alpha: 0.2),
                       ),
                     );
                   },
@@ -108,16 +105,13 @@ class _TimeScrollWheelState extends State<TimeScrollWheel> {
                   builder: (context, index) {
                     final isSelected = index == selectedMinuteIndex;
                     return Center(
-                      child: Text(
-                        minuteList[index],
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight:
-                              isSelected ? FontWeight.bold : FontWeight.normal,
-                          color: isSelected
-                              ? context.color.primary
-                              : context.color.onSurface.withValues(alpha: 0.2),
-                        ),
+                      child: AppText(
+                        text: minuteList[index],
+                        fontWeight:
+                            isSelected ? FontWeight.bold : FontWeight.normal,
+                        color: isSelected
+                            ? context.color.primary
+                            : context.color.onSurface.withValues(alpha: 0.2),
                       ),
                     );
                   },

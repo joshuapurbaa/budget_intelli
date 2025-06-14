@@ -192,11 +192,6 @@ class BarChartMonthly extends StatelessWidget {
   }
 
   Widget getTitles(double value, TitleMeta meta) {
-    const style = TextStyle(
-      color: AppColor.blue,
-      fontWeight: FontWeight.bold,
-      fontSize: 12,
-    );
     String text;
     switch (value.toInt()) {
       case 0:
@@ -229,9 +224,9 @@ class BarChartMonthly extends StatelessWidget {
     return SideTitleWidget(
       meta: meta,
       space: 1,
-      child: Text(
-        text,
-        style: style,
+      child: AppText(
+        text: text,
+        style: StyleType.bodSm,
       ),
     );
   }

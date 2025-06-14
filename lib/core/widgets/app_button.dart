@@ -200,14 +200,9 @@ class AppButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            label,
-            style: AppTextStyle.style(
-              context,
-              style: StyleType.bodLg,
-            ).copyWith(
-              color: colorScheme.onPrimary,
-            ),
+          AppText(
+            text: label,
+            style: StyleType.bodLg,
           ),
         ],
       ),
