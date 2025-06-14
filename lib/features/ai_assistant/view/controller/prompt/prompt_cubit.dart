@@ -29,15 +29,11 @@ You are an expert financial advisor with 15+ years of experience helping people 
 - Budget Name: {budget_name}
 - Monthly Income: {income_amount}
 - Additional Context: {additional_inputs}
+
 {budget_method_instruction}
 
 ## BUDGET CREATION GUIDELINES:
-1. **Follow the 50/30/20 rule as a baseline**: 50% needs, 30% wants, 20% savings/debt repayment
-2. **Prioritize essential expenses first**: Housing (max 30% of income), utilities, food, transportation
-3. **Include emergency fund building**: Aim for at least 10% towards savings if possible
-4. **Be realistic and practical**: Consider the user's lifestyle and constraints
-5. **Account for irregular expenses**: Include annual costs divided by 12 (insurance, subscriptions)
-6. **Leave buffer room**: Don't allocate 100% - leave 2-5% unallocated for unexpected expenses
+{budget_guidelines}
 
 ## EXPENSE CATEGORIZATION STRATEGY:
 - **Housing** (25-35%): Rent/mortgage, utilities, maintenance, insurance
@@ -305,14 +301,136 @@ Create a budget that balances financial responsibility with quality of life. Res
         .replaceAll('{additional_inputs}', state.additionalTextInputs ?? '')
         .replaceAll(
             '{budget_method_instruction}', _getBudgetMethodInstruction())
+        .replaceAll('{budget_guidelines}', _getBudgetGuidelines())
         .replaceAll('{language}', state.language ?? 'English');
   }
 
   String _getBudgetMethodInstruction() {
-    if (state.budgetMethod != null) {
-      return 'Create a budget using the method ${state.budgetMethod?.methodName}';
+    if (state.budgetMethod?.methodName == null ||
+        state.budgetMethod?.methodName == 'No method') {
+      return '''
+## SELECTED BUDGET METHOD:
+**No Specific Method Selected**
+- Use general best practices for budgeting
+- Focus on balanced allocation between needs, wants, and savings''';
     }
-    return '';
+
+    final methodName = state.budgetMethod!.methodName;
+    final methodDescription = state.budgetMethod!.methodDescription;
+
+    return '''
+## SELECTED BUDGET METHOD:
+**$methodName**
+$methodDescription
+
+**IMPORTANT**: Strictly follow the allocation percentages and principles of this method when creating the budget.''';
+  }
+
+  String _getBudgetGuidelines() {
+    if (state.budgetMethod?.methodName == null ||
+        state.budgetMethod?.methodName == 'No method') {
+      return '''
+1. **Follow the 50/30/20 rule as a baseline**: 50% needs, 30% wants, 20% savings/debt repayment
+2. **Prioritize essential expenses first**: Housing (max 30% of income), utilities, food, transportation
+3. **Include emergency fund building**: Aim for at least 10% towards savings if possible
+4. **Be realistic and practical**: Consider the user's lifestyle and constraints
+5. **Account for irregular expenses**: Include annual costs divided by 12 (insurance, subscriptions)
+6. **Leave buffer room**: Don't allocate 100% - leave 2-5% unallocated for unexpected expenses''';
+    }
+
+    final methodName = state.budgetMethod!.methodName;
+
+    switch (methodName) {
+      case '50/30/20':
+        return '''
+1. **Allocate exactly 50% for Needs**: Essential expenses like housing, utilities, food, transportation, minimum debt payments
+2. **Allocate exactly 30% for Wants**: Entertainment, dining out, hobbies, non-essential shopping, lifestyle choices
+3. **Allocate exactly 20% for Savings & Debt Repayment**: Emergency fund, retirement savings, extra debt payments, investments
+4. **Categorize expenses carefully**: Be strict about what counts as "needs" vs "wants"
+5. **Prioritize high-impact needs**: Housing should not exceed 30% of total income
+6. **Build emergency fund first**: Within the 20% savings allocation, prioritize emergency fund until you have 3-6 months expenses''';
+
+      case '60/20/20':
+        return '''
+1. **Allocate exactly 60% for Needs**: Essential expenses with more room for necessities
+2. **Allocate exactly 20% for Wants**: More conservative approach to discretionary spending
+3. **Allocate exactly 20% for Savings & Debt Repayment**: Same as 50/30/20 but with more focus on essentials
+4. **Perfect for higher cost-of-living areas**: Extra 10% for needs helps cover expensive housing/utilities
+5. **Maintain discipline on wants**: Smaller wants budget requires more careful planning
+6. **Focus on quality needs**: Use the larger needs allocation for higher-quality essentials that last longer''';
+
+      case '70/20/10':
+        return '''
+1. **Allocate exactly 70% for Needs**: Maximum focus on essential expenses
+2. **Allocate exactly 20% for Wants**: Moderate discretionary spending
+3. **Allocate exactly 10% for Savings & Debt Repayment**: Minimum recommended savings rate
+4. **Ideal for tight budgets**: When income barely covers necessities
+5. **Maximize essential quality**: Use the large needs allocation efficiently
+6. **Gradually increase savings**: Work toward increasing the 10% savings rate over time''';
+
+      case '80/10/10':
+        return '''
+1. **Allocate exactly 80% for Needs**: Survival-focused budgeting approach
+2. **Allocate exactly 10% for Wants**: Minimal discretionary spending
+3. **Allocate exactly 10% for Savings & Debt Repayment**: Emergency-only savings approach
+4. **Crisis or low-income budgeting**: For those in financial difficulty
+5. **Prioritize absolute essentials**: Focus only on survival needs within the 80%
+6. **Plan for income increase**: This is a temporary approach while building financial stability''';
+
+      case 'Zero-Based Budgeting (ZBB)':
+        return '''
+1. **Every dollar must have a purpose**: Income minus expenses must equal exactly zero
+2. **Start from zero each month**: Don't carry over previous month's allocations
+3. **Justify every expense**: Each category must be consciously decided upon
+4. **Assign categories in priority order**: Needs first, then wants, then savings
+5. **Track every transaction**: This method requires detailed monitoring
+6. **Adjust monthly**: Recalculate the entire budget each month based on actual income and changing priorities''';
+
+      case 'Pay Yourself First':
+        return '''
+1. **Savings comes first**: Allocate savings/investments before any other expenses
+2. **Automate savings transfers**: Set up automatic transfers on payday
+3. **Live on the remainder**: Use what's left after savings for all other expenses
+4. **Recommended savings rate**: Aim for 20-30% if possible, minimum 10%
+5. **Emergency fund priority**: Build 3-6 months expenses before other investments
+6. **Increase savings over time**: Gradually increase the "pay yourself first" percentage''';
+
+      case 'Priority-Based Budgeting':
+        return '''
+1. **Define clear priorities**: List your top 3-5 financial priorities
+2. **Allocate to priorities first**: Fund your most important goals before discretionary spending
+3. **Examples of priorities**: Children's education, healthcare, debt payoff, home purchase
+4. **Flexible allocation**: Adjust percentages based on priority importance
+5. **Review priorities regularly**: Reassess and adjust as life circumstances change
+6. **Balance present and future**: Don't sacrifice all current enjoyment for future goals''';
+
+      case 'Reverse Budgeting':
+        return '''
+1. **Savings and investments first**: Similar to "Pay Yourself First"
+2. **Aggressive savings rate**: Typically 30-50% of income toward savings/investments
+3. **Minimize lifestyle inflation**: Keep expenses low to maximize savings
+4. **Focus on financial independence**: Build wealth for early retirement or financial freedom
+5. **Automate everything**: Set up automatic transfers for savings and investments
+6. **Track net worth**: Monitor progress toward financial independence goals''';
+
+      case 'Flexible Budgeting':
+        return '''
+1. **Set broad category limits**: Create ranges rather than fixed amounts
+2. **Allow monthly adjustments**: Modify allocations based on changing needs
+3. **Maintain core priorities**: Keep essential categories stable while allowing flexibility in others
+4. **Use percentage-based targets**: Work with percentages that can adjust with income changes
+5. **Regular budget reviews**: Monthly check-ins to adjust allocations
+6. **Emergency adaptability**: Easy to modify when unexpected expenses arise''';
+
+      default:
+        return '''
+1. **Follow general budgeting principles**: Balance needs, wants, and savings appropriately
+2. **Prioritize essential expenses**: Housing, utilities, food, transportation come first
+3. **Include savings component**: Aim for at least 10-20% toward savings and debt repayment
+4. **Be realistic and sustainable**: Create a budget you can actually follow
+5. **Account for irregular expenses**: Include annual costs divided by 12
+6. **Leave some buffer**: Don't allocate 100% - keep 2-5% for unexpected expenses''';
+    }
   }
 
   // Legacy method names for backward compatibility

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class AppDialog {
-  static Future<void> showCustomDialog(
+  static Future<dynamic> showCustomDialog(
     BuildContext context, {
     Widget? title,
     Widget? content,
@@ -15,7 +15,7 @@ class AppDialog {
     EdgeInsetsGeometry? contentPadding,
     bool blurBackground = true,
   }) async {
-    return showGeneralDialog<void>(
+    return showGeneralDialog<dynamic>(
       context: context,
       barrierDismissible: barrierDismissible ?? true,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,

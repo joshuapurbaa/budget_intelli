@@ -4,7 +4,7 @@ export 'models/analysis_generate_model.dart';
 export 'models/budget_generate_model.dart';
 export 'view/controller/prompt/prompt_cubit.dart';
 export 'view/controller/prompt_analysis_cubit.dart';
-export 'view/screens/budget_ai_generate_screen.dart';
+export 'view/screens/ai_budget_generate_screen.dart';
 export 'view/screens/chat_screen.dart';
 export 'view/widgets/ai_assistant_explore.dart';
 export 'view/widgets/assistant_message_widget.dart';

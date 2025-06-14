@@ -258,7 +258,7 @@ class AppRoute {
             path: MyRoute.budgetAiGenerateScreen.noSlashes(),
             name: MyRoute.budgetAiGenerateScreen.noSlashes(),
             pageBuilder: (context, state) => _customTransitionPage(
-              const BudgetAiGenerateScreen(),
+              const AiBudgetGenerateScreen(),
               rightToLeft: true,
             ),
           ),

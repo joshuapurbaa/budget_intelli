@@ -34,7 +34,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
           ),
         ) {
     on<BudgetFormInitial>(_onBudgetFormInitial);
-    on<BudgetFormToInitial>(_onBudgetFormToInitial);
+    on<BudgetFormDefaultValues>(_onBudgetFormToInitial);
     on<BudgetFormInitialNew>(_onBudgetFormInitialNew);
     on<RemoveItemCategoryFromInitial>(_onRemoveItemCategoryFromInitial);
     on<RemoveItemCategoryFromInside>(_onRemoveItemCategoryFromInside);
@@ -70,7 +70,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
   final GetItemCategoryHistoriesUsecase _getItemCategoryHistoriesUsecase;
 
   Future<void> _onBudgetFormToInitial(
-    BudgetFormToInitial event,
+    BudgetFormDefaultValues event,
     Emitter<BudgetFormState> emit,
   ) async {
     emit(BudgetFormState.initial());
@@ -183,6 +183,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
         totalBalance: totalBalance,
         totalPlanIncome: totalIncome,
         totalPlanExpense: totalExpense,
+        budgetName: event.budgetGenerate?.budgetName ?? '',
       ),
     );
   }

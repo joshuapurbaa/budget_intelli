@@ -23,7 +23,7 @@ final class BudgetFormNew extends BudgetFormEvent {
   final BudgetGenerateModel? budgetGenerate;
 }
 
-final class BudgetFormToInitial extends BudgetFormEvent {}
+final class BudgetFormDefaultValues extends BudgetFormEvent {}
 
 final class BudgetFormInitialNew extends BudgetFormEvent {
   BudgetFormInitialNew({

@@ -8,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-class BudgetAiGenerateScreen extends StatefulWidget {
-  const BudgetAiGenerateScreen({super.key});
+class AiBudgetGenerateScreen extends StatefulWidget {
+  const AiBudgetGenerateScreen({super.key});
 
   @override
-  State<BudgetAiGenerateScreen> createState() => _BudgetAiGenerateScreenState();
+  State<AiBudgetGenerateScreen> createState() => _AiBudgetGenerateScreenState();
 }
 
-class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
+class _AiBudgetGenerateScreenState extends State<AiBudgetGenerateScreen> {
   final _incomeController = TextEditingController();
   final _additionalContextController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -351,7 +351,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
 
                 if (state.generateSuccess) {
                   context.read<BudgetFormBloc>()
-                    ..add(BudgetFormToInitial())
+                    ..add(BudgetFormDefaultValues())
                     ..add(
                       BudgetFormInitial(
                         generateBudgetAI: true,
@@ -405,13 +405,17 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
           children: [
             AppText(
               text: '${localize.budgetGeneratedSuccessfully} 🎉',
-              style: StyleType.headMed,
+              style: StyleType.headSm,
               textAlign: TextAlign.center,
             ),
+            Gap.vertical(16),
+            const AppDivider(),
             Gap.vertical(16),
             AppText(
               text: state.budgetGenerate?.notes ?? '',
               style: StyleType.bodMed,
+              noMaxLines: true,
+              fontWeight: FontWeight.w400,
             ),
           ],
         ),
@@ -421,22 +425,20 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
           label: localize.back,
           height: getHeight(45),
           onPressed: () {
-            final budgetName = _budgetNameController.text;
-            context.pop(budgetName);
+            context.pop();
           },
         ),
       ],
-    ).whenComplete(
-      () async {
-        final prefsAi = AiAssistantPreferences();
-        final totalGenerateBudget = await prefsAi.getTotalGenerateBudget();
+    ).then((value) async {
+      final prefsAi = AiAssistantPreferences();
+      final totalGenerateBudget = await prefsAi.getTotalGenerateBudget();
 
-        await prefsAi.setTotalGenerateBudget(totalGenerateBudget + 1);
-        final budgetName = _budgetNameController.text;
-        context
-          ..pop(budgetName)
-          ..pop(budgetName);
-      },
-    );
+      await prefsAi.setTotalGenerateBudget(totalGenerateBudget + 1);
+
+      // Check if widget is still mounted before navigating
+      if (mounted) {
+        context.go(MyRoute.initialCreateBudgetPlan);
+      }
+    });
   }
 }

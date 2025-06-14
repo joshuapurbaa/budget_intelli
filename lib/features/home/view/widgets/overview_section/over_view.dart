@@ -837,7 +837,7 @@ class _OverViewState extends State<OverView> {
                 GestureDetector(
                   onTap: () {
                     context.read<BudgetFormBloc>().add(
-                          BudgetFormToInitial(),
+                          BudgetFormDefaultValues(),
                         );
 
                     context.pushNamed(

@@ -242,7 +242,7 @@ class _AddBudget extends StatelessWidget {
         child: GestureDetector(
           onTap: () {
             context.read<BudgetFormBloc>().add(
-                  BudgetFormToInitial(),
+                  BudgetFormDefaultValues(),
                 );
 
             context.pushNamed(

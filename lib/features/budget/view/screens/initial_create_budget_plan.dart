@@ -48,17 +48,27 @@ class _InitialCreateBudgetPlanScreenState
   Future<void> _onAiCreateBudget() async {
     final prefsAi = AiAssistantPreferences();
     final totalGenerateBudget = await prefsAi.getTotalGenerateBudget();
-    final validated = totalGenerateBudget <= 4;
+    final validated = totalGenerateBudget <= 100;
     if (validated) {
-      final result = await context.pushNamed<String>(
+      setState(() {
+        _showOptionCreateBudget = false;
+      });
+      await context
+          .pushNamed<String>(
         MyRoute.budgetAiGenerateScreen.noSlashes(),
-      );
+      )
+          .whenComplete(
+        () {
+          final budgetName = context.read<BudgetFormBloc>().state.budgetName;
+          print('budgetName: $budgetName');
 
-      if (result != null) {
-        setState(() {
-          _budgetNameController.text = result;
-        });
-      }
+          if (budgetName != null && budgetName.isNotEmpty) {
+            setState(() {
+              _budgetNameController.text = budgetName;
+            });
+          }
+        },
+      );
     } else {
       AppToast.showToastError(
         context,
@@ -85,17 +95,21 @@ class _InitialCreateBudgetPlanScreenState
 
         return BlocConsumer<BudgetFormBloc, BudgetFormState>(
           listenWhen: (previous, current) {
-            return previous.insertBudgetSuccess != current.insertBudgetSuccess;
+            return previous.insertBudgetSuccess !=
+                    current.insertBudgetSuccess ||
+                previous.budgetName != current.budgetName;
           },
           listener: (context, state) {
-            if (state.insertBudgetSuccess) {
-              _onSuccessInsertBudget(state, context);
-            } else {
-              AppToast.showToastError(
-                context,
-                localize.failedToSave,
-              );
-              _budgetNameFocus.unfocus();
+            if (state.insertBudgetSuccess != null) {
+              if (state.insertBudgetSuccess == true) {
+                _onSuccessInsertBudget(state, context);
+              } else {
+                AppToast.showToastError(
+                  context,
+                  localize.failedToSave,
+                );
+                _budgetNameFocus.unfocus();
+              }
             }
           },
           builder: (context, state) {
@@ -632,6 +646,15 @@ class _InitialCreateBudgetPlanScreenState
             fromInitial: true,
           ),
         );
+  }
+
+  void _initializeBudgetNameController(String? budgetName) {
+    print('budgetName: $budgetName');
+    if (budgetName != null &&
+        budgetName.isNotEmpty &&
+        _budgetNameController.text.isEmpty) {
+      _budgetNameController.text = budgetName;
+    }
   }
 
   @override

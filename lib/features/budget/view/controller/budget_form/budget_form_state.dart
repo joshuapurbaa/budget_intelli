@@ -7,7 +7,7 @@ final class BudgetFormState {
     required this.totalPlanExpense,
     required this.loading,
     this.totalBalance,
-    this.insertBudgetSuccess = false,
+    this.insertBudgetSuccess,
     this.insertItemSuccess = false,
     this.insertGroupSuccess = false,
     this.initial = false,
@@ -24,6 +24,7 @@ final class BudgetFormState {
     this.groupCategoriesParams,
     this.budgetParams,
     this.itemCategoriesParams,
+    this.budgetName,
   });
 
   factory BudgetFormState.initial() {
@@ -41,7 +42,7 @@ final class BudgetFormState {
   final double totalPlanIncome;
   final double totalPlanExpense;
   final double? totalBalance;
-  final bool insertBudgetSuccess;
+  final bool? insertBudgetSuccess;
   final bool insertItemSuccess;
   final bool insertGroupSuccess;
   final bool initial;
@@ -58,7 +59,7 @@ final class BudgetFormState {
   final Budget? budgetParams;
   final List<GroupCategory>? groupCategoriesParams;
   final List<ItemCategory>? itemCategoriesParams;
-
+  final String? budgetName;
   BudgetFormState copyWith({
     List<GroupCategoryHistory>? groupCategoryHistories,
     double? totalPlanIncome,
@@ -84,6 +85,7 @@ final class BudgetFormState {
     Budget? budgetParams,
     List<GroupCategory>? groupCategoriesParams,
     List<ItemCategory>? itemCategoriesParams,
+    String? budgetName,
   }) {
     return BudgetFormState(
       totalPlanIncome: totalPlanIncome ?? this.totalPlanIncome,
@@ -115,6 +117,7 @@ final class BudgetFormState {
       groupCategoriesParams:
           groupCategoriesParams ?? this.groupCategoriesParams,
       itemCategoriesParams: itemCategoriesParams ?? this.itemCategoriesParams,
+      budgetName: budgetName ?? this.budgetName,
     );
   }
 }

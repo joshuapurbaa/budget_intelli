@@ -120,7 +120,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
         return previous.insertBudgetSuccess != current.insertBudgetSuccess;
       },
       listener: (context, state) {
-        if (state.insertBudgetSuccess) {
+        if (state.insertBudgetSuccess != null && state.insertBudgetSuccess!) {
           _onSuccessInsertBudget(
             state,
             context,
