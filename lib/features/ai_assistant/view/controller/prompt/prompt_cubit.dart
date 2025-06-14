@@ -248,6 +248,7 @@ Create a budget that balances financial responsibility with quality of life. Res
 
   Future<void> _handleSuccessfulGeneration(
       GenerateContentResponse content) async {
+    debugPrint('content: ${content.text}');
     if (content.text == null) {
       _emitFailureState();
       return;

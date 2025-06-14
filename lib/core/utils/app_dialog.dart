@@ -15,44 +15,73 @@ class AppDialog {
     EdgeInsetsGeometry? contentPadding,
     bool blurBackground = true,
   }) async {
-    return showDialog<void>(
+    return showGeneralDialog<void>(
       context: context,
       barrierDismissible: barrierDismissible ?? true,
-      builder: (BuildContext context) {
-        return Stack(
-          children: [
-            GestureDetector(
-              onTap: () {
-                if (barrierDismissible ?? true) {
-                  Navigator.of(context).pop();
-                }
-              },
-              child: ColoredBox(
-                color: Colors.black.withValues(
-                  alpha: 0.5,
-                ), // warna background dengan opacity 50%
-                child: BackdropFilter(
-                  filter:
-                      ImageFilter.blur(sigmaX: 5, sigmaY: 5), // intensitas blur
-                  child: blurBackground
-                      ? ColoredBox(
-                          color: Colors.black.withValues(
-                            alpha: 0,
-                          ), // opacity 0 agar tidak berpengaruh terhadap warna
-                        )
-                      : null,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: Colors.black.withValues(alpha: 0.5),
+      pageBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return SafeArea(
+          child: Center(
+            child: Material(
+              type: MaterialType.card,
+              elevation: 24,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width - 32,
+                  maxHeight: MediaQuery.of(context).size.height * 0.8,
+                ),
+                padding: contentPadding ?? getEdgeInsetsAll(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (title != null) ...[
+                      DefaultTextStyle(
+                        style: Theme.of(context).textTheme.headlineSmall!,
+                        child: title,
+                      ),
+                      const SizedBox(height: 16),
+                    ],
+                    if (content != null)
+                      Flexible(
+                        child: content,
+                      ),
+                    if (actions != null && actions.isNotEmpty) ...[
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: actions.map((action) {
+                          return Expanded(child: action);
+                        }).toList(),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ),
-            AlertDialog(
-              title: title,
-              content: content,
-              actions: actions,
-              contentPadding: contentPadding ?? getEdgeInsetsAll(16),
-            ),
-          ],
+          ),
         );
       },
+      transitionBuilder: blurBackground
+          ? (BuildContext context, Animation<double> animation,
+              Animation<double> secondaryAnimation, Widget child) {
+              return BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 5 * animation.value,
+                  sigmaY: 5 * animation.value,
+                ),
+                child: FadeTransition(
+                  opacity: animation,
+                  child: child,
+                ),
+              );
+            }
+          : null,
     );
   }
 

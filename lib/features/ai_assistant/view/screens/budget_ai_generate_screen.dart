@@ -298,25 +298,26 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
                           AppButton(
                             label: localize.generateWithAI,
                             onPressed: () {
-                              context.read<PromptCubit>().resetStatus();
-                              if (state.generateSuccess) {
-                                _showSuccessDialog(state);
-                                return;
-                              }
+                              _showSuccessDialog(state);
+                              // context.read<PromptCubit>().resetStatus();
+                              // if (state.generateSuccess) {
+                              //   _showSuccessDialog(state);
+                              //   return;
+                              // }
 
-                              if (_formKey.currentState!.validate()) {
-                                _incomeFocusNode.unfocus();
-                                _additionalContextFocusNode.unfocus();
-                                _budgetNameFocusNode.unfocus();
-                                context
-                                    .read<PromptCubit>()
-                                    .retryGenerateBudget();
-                              } else {
-                                AppToast.showToastError(
-                                  context,
-                                  localize.pleaseFillAllRequiredFields,
-                                );
-                              }
+                              // if (_formKey.currentState!.validate()) {
+                              //   _incomeFocusNode.unfocus();
+                              //   _additionalContextFocusNode.unfocus();
+                              //   _budgetNameFocusNode.unfocus();
+                              //   context
+                              //       .read<PromptCubit>()
+                              //       .retryGenerateBudget();
+                              // } else {
+                              //   AppToast.showToastError(
+                              //     context,
+                              //     localize.pleaseFillAllRequiredFields,
+                              //   );
+                              // }
                             },
                           ),
                           Gap.vertical(16),
@@ -394,12 +395,9 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
               textAlign: TextAlign.center,
             ),
             Gap.vertical(16),
-            Text(
-              state.budgetGenerate!.notes,
-              style: textStyle(
-                context,
-                style: StyleType.bodMed,
-              ),
+            AppText(
+              text: state.budgetGenerate?.notes ?? '',
+              style: StyleType.bodMed,
             ),
           ],
         ),
@@ -407,6 +405,7 @@ class _BudgetAiGenerateScreenState extends State<BudgetAiGenerateScreen> {
       actions: [
         AppButton(
           label: localize.back,
+          height: getHeight(45),
           onPressed: () {
             final budgetName = _budgetNameController.text;
             context.pop(budgetName);
