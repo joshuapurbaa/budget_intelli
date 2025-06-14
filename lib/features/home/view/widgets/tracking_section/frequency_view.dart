@@ -86,7 +86,7 @@ class _FrequencyViewState extends State<FrequencyView> {
             padding: getEdgeInsets(bottom: 40),
             children: [
               SizedBox(
-                height: 130.h,
+                height: 100.h,
                 child: Row(
                   children: [
                     Expanded(
@@ -100,20 +100,22 @@ class _FrequencyViewState extends State<FrequencyView> {
                             });
                           },
                           child: AppGlass(
+                            backgroundColor:
+                                isIncome ? null : context.color.primary,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                getPngAsset(
-                                  isIncome ? eyeClose : eyeOpen,
-                                  color: context.color.onSurface,
-                                ),
-                                Gap.vertical(4),
                                 AppText(
                                   text: '$title ${localize.expenses}',
                                   style: StyleType.bodMed,
                                   maxLines: 1,
                                   fontWeight: FontWeight.bold,
+                                  color: isIncome
+                                      ? context.color.onSurface
+                                      : context.color.onPrimary,
                                 ),
+                                Gap.vertical(8),
+                                const AppDivider(),
                                 Gap.vertical(8),
                                 AppText(
                                   text: NumberFormatter.formatToMoneyDouble(
@@ -122,6 +124,9 @@ class _FrequencyViewState extends State<FrequencyView> {
                                   ),
                                   style: StyleType.bodMed,
                                   maxLines: 1,
+                                  color: isIncome
+                                      ? context.color.onSurface
+                                      : context.color.onPrimary,
                                 ),
                               ],
                             ),
@@ -141,20 +146,24 @@ class _FrequencyViewState extends State<FrequencyView> {
                             });
                           },
                           child: AppGlass(
+                            backgroundColor:
+                                isIncome ? context.color.primary : null,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
-                                getPngAsset(
-                                  isIncome ? eyeOpen : eyeClose,
-                                  color: context.color.onSurface,
-                                ),
-                                Gap.vertical(4),
                                 AppText(
                                   text: '$title ${localize.income}',
                                   style: StyleType.bodMed,
                                   maxLines: 1,
                                   fontWeight: FontWeight.bold,
+                                  color: isIncome
+                                      ? context.color.onPrimary
+                                      : context.color.onSurface,
                                 ),
+                                Gap.vertical(8),
+                                const AppDivider(),
+                                Gap.vertical(8),
                                 AppText(
                                   text: NumberFormatter.formatToMoneyDouble(
                                     context,
@@ -162,6 +171,9 @@ class _FrequencyViewState extends State<FrequencyView> {
                                   ),
                                   style: StyleType.bodMed,
                                   maxLines: 1,
+                                  color: isIncome
+                                      ? context.color.onPrimary
+                                      : context.color.onSurface,
                                 ),
                               ],
                             ),

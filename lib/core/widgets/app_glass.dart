@@ -14,6 +14,7 @@ class AppGlass extends StatelessWidget {
     this.onTap,
     this.duration,
     this.borderRadius,
+    this.backgroundColor,
   });
 
   final Widget child;
@@ -27,6 +28,7 @@ class AppGlass extends StatelessWidget {
   final void Function()? onTap;
   final Duration? duration;
   final double? borderRadius;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +43,7 @@ class AppGlass extends StatelessWidget {
         padding: padding ?? getEdgeInsetsAll(16),
         margin: margin,
         decoration: BoxDecoration(
-          color: isDarkMode ? null : context.color.surface,
+          color: backgroundColor ?? (isDarkMode ? null : context.color.surface),
           gradient: isDarkMode
               ? LinearGradient(
                   colors: [
