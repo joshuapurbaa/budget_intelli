@@ -152,22 +152,31 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
       }
     }
 
-    final totalIncome = groupCategoryCustom.isNotEmpty
-        ? groupCategoryCustom
-            .firstWhere((element) => element.type == AppStrings.incomeType)
-            .itemCategoryHistories
-            .map((e) => e.amount)
-            .fold(0.0, (previousValue, element) => previousValue + element)
+    // Calculate total income with null safety
+    final incomeGroups = groupCategoryCustom
+        .where((element) => element.type == AppStrings.incomeType)
+        .toList();
+
+    final totalIncome = incomeGroups.isNotEmpty
+        ? incomeGroups
+            .map((group) => group.itemCategoryHistories
+                .map((item) => item.amount)
+                .fold(0.0, (sum, amount) => sum + amount))
+            .fold(0.0, (sum, groupTotal) => sum + groupTotal)
         : 0.0;
 
-    final totalExpense = groupCategoryCustom
+    // Calculate total expense with null safety
+    final expenseGroups = groupCategoryCustom
         .where((element) => element.type != AppStrings.incomeType)
-        .map(
-          (e) => e.itemCategoryHistories
-              .map((e) => e.amount)
-              .fold(0.0, (previousValue, element) => previousValue + element),
-        )
-        .fold(0.0, (previousValue, element) => previousValue + element);
+        .toList();
+
+    final totalExpense = expenseGroups.isNotEmpty
+        ? expenseGroups
+            .map((group) => group.itemCategoryHistories
+                .map((item) => item.amount)
+                .fold(0.0, (sum, amount) => sum + amount))
+            .fold(0.0, (sum, groupTotal) => sum + groupTotal)
+        : 0.0;
 
     final totalBalance = totalIncome - totalExpense;
 
@@ -357,22 +366,31 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
       }
     }
 
-    final totalIncome = groupCategoryHistories.isNotEmpty
-        ? groupCategoryHistories
-            .firstWhere((element) => element.type == AppStrings.incomeType)
-            .itemCategoryHistories
-            .map((e) => e.amount)
-            .fold(0.0, (previousValue, element) => previousValue + element)
+    // Calculate total income with null safety
+    final incomeGroups = groupCategoryHistories
+        .where((element) => element.type == AppStrings.incomeType)
+        .toList();
+
+    final totalIncome = incomeGroups.isNotEmpty
+        ? incomeGroups
+            .map((group) => group.itemCategoryHistories
+                .map((item) => item.amount)
+                .fold(0.0, (sum, amount) => sum + amount))
+            .fold(0.0, (sum, groupTotal) => sum + groupTotal)
         : 0.0;
 
-    final totalExpense = groupCategoryHistories
+    // Calculate total expense with null safety
+    final expenseGroups = groupCategoryHistories
         .where((element) => element.type != AppStrings.incomeType)
-        .map(
-          (e) => e.itemCategoryHistories
-              .map((e) => e.amount)
-              .fold(0.0, (previousValue, element) => previousValue + element),
-        )
-        .fold(0.0, (previousValue, element) => previousValue + element);
+        .toList();
+
+    final totalExpense = expenseGroups.isNotEmpty
+        ? expenseGroups
+            .map((group) => group.itemCategoryHistories
+                .map((item) => item.amount)
+                .fold(0.0, (sum, amount) => sum + amount))
+            .fold(0.0, (sum, groupTotal) => sum + groupTotal)
+        : 0.0;
 
     final totalBalance = totalIncome - totalExpense;
 
@@ -526,23 +544,31 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
         }).toList(),
       );
 
-      final totalIncome = newGroupCategory.groupCategoryHistories.isNotEmpty
-          ? newGroupCategory.groupCategoryHistories
-              .firstWhere((element) => element.type == AppStrings.incomeType)
-              .itemCategoryHistories
-              .map((e) => e.amount)
-              .fold(0.0, (previousValue, element) => previousValue + element)
+      // Calculate total income with null safety
+      final incomeGroups = newGroupCategory.groupCategoryHistories
+          .where((element) => element.type == AppStrings.incomeType)
+          .toList();
+
+      final totalIncome = incomeGroups.isNotEmpty
+          ? incomeGroups
+              .map((group) => group.itemCategoryHistories
+                  .map((item) => item.amount)
+                  .fold(0.0, (sum, amount) => sum + amount))
+              .fold(0.0, (sum, groupTotal) => sum + groupTotal)
           : 0.0;
 
-      // kurangi total income dengan exp312ense yang berasal dari group selain Income
-      final totalExpense = newGroupCategory.groupCategoryHistories
+      // Calculate total expense with null safety
+      final expenseGroups = newGroupCategory.groupCategoryHistories
           .where((element) => element.type != AppStrings.incomeType)
-          .map(
-            (e) => e.itemCategoryHistories
-                .map((e) => e.amount)
-                .fold(0.0, (previousValue, element) => previousValue + element),
-          )
-          .fold(0.0, (previousValue, element) => previousValue + element);
+          .toList();
+
+      final totalExpense = expenseGroups.isNotEmpty
+          ? expenseGroups
+              .map((group) => group.itemCategoryHistories
+                  .map((item) => item.amount)
+                  .fold(0.0, (sum, amount) => sum + amount))
+              .fold(0.0, (sum, groupTotal) => sum + groupTotal)
+          : 0.0;
 
       add(
         UpdatePortionsEvent(
@@ -633,28 +659,78 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
         }).toList(),
       );
 
-      final totalIncome = newGroupCategory.groupCategoryHistories.isNotEmpty
-          ? newGroupCategory.groupCategoryHistories
-              .firstWhere(
-                (element) => element.type == AppStrings.incomeType,
-              )
-              .itemCategoryHistories
-              .map((e) => e.amount)
-              .fold(0.0, (previousValue, element) => previousValue + element)
+      // Calculate total income with null safety
+      final incomeGroups = newGroupCategory.groupCategoryHistories
+          .where((element) => element.type == AppStrings.incomeType)
+          .toList();
+
+      final totalIncome = incomeGroups.isNotEmpty
+          ? incomeGroups
+              .map((group) => group.itemCategoryHistories
+                  .map((item) => item.amount)
+                  .fold(0.0, (sum, amount) => sum + amount))
+              .fold(0.0, (sum, groupTotal) => sum + groupTotal)
           : 0.0;
 
-      final totalExpense = newGroupCategory.groupCategoryHistories
-          .where(
-            (element) => element.type != AppStrings.incomeType,
-          )
-          .map(
-            (e) => e.itemCategoryHistories
-                .map((e) => e.amount)
-                .fold(0.0, (previousValue, element) => previousValue + element),
-          )
-          .fold(0.0, (previousValue, element) => previousValue + element);
+      // Calculate total expense with null safety
+      final expenseGroups = newGroupCategory.groupCategoryHistories
+          .where((element) => element.type != AppStrings.incomeType)
+          .toList();
+
+      final totalExpense = expenseGroups.isNotEmpty
+          ? expenseGroups
+              .map((group) => group.itemCategoryHistories
+                  .map((item) => item.amount)
+                  .fold(0.0, (sum, amount) => sum + amount))
+              .fold(0.0, (sum, groupTotal) => sum + groupTotal)
+          : 0.0;
 
       final total = totalIncome - totalExpense;
+
+      // Debug logging to help identify issues
+      debugPrint('=== Budget Calculation Debug ===');
+      debugPrint('Income groups count: ${incomeGroups.length}');
+      debugPrint('Expense groups count: ${expenseGroups.length}');
+      debugPrint('Total Income: $totalIncome');
+      debugPrint('Total Expense: $totalExpense');
+      debugPrint('Total Balance: $total');
+      debugPrint('Income Type: ${AppStrings.incomeType}');
+      debugPrint(
+          'All groups count: ${newGroupCategory.groupCategoryHistories.length}');
+
+      for (final group in newGroupCategory.groupCategoryHistories) {
+        debugPrint(
+            'Group: ${group.groupName}, Type: ${group.type}, Items: ${group.itemCategoryHistories.length}');
+        debugPrint(
+            '  Group Type matches income? ${group.type == AppStrings.incomeType}');
+        debugPrint(
+            '  Group Type matches expense? ${group.type != AppStrings.incomeType}');
+        for (final item in group.itemCategoryHistories) {
+          debugPrint('  - ${item.name}: ${item.amount} (Type: ${item.type})');
+        }
+      }
+
+      // Additional calculation verification
+      debugPrint('--- Manual Calculation Verification ---');
+      var manualIncome = 0.0;
+      var manualExpense = 0.0;
+      for (final group in newGroupCategory.groupCategoryHistories) {
+        for (final item in group.itemCategoryHistories) {
+          if (group.type == AppStrings.incomeType) {
+            manualIncome += item.amount;
+            debugPrint(
+                'Adding to income: ${item.amount} (total now: $manualIncome)');
+          } else {
+            manualExpense += item.amount;
+            debugPrint(
+                'Adding to expense: ${item.amount} (total now: $manualExpense)');
+          }
+        }
+      }
+      debugPrint('Manual Income Total: $manualIncome');
+      debugPrint('Manual Expense Total: $manualExpense');
+      debugPrint('Manual Balance: ${manualIncome - manualExpense}');
+      debugPrint('============================');
 
       add(
         UpdatePortionsEvent(
@@ -670,6 +746,7 @@ class BudgetFormBloc extends Bloc<BudgetFormEvent, BudgetFormState> {
         ),
       );
     } on Exception catch (e) {
+      debugPrint('Error in _onUpdateItemCategoryInitialCreate: $e');
       emit(
         state.copyWith(
           insertBudgetSuccess: false,

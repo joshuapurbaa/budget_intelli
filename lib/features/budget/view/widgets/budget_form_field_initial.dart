@@ -519,9 +519,22 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
 
   void _updateItemAmount(
       ItemCategoryHistory item, String groupId, String value) {
-    final amount = double.tryParse(value) ?? 0.0;
+    // Parse currency formatted string properly
+    final cleanValue = value.replaceAll(RegExp(r'[^\d.]'), '');
+    final amount = double.tryParse(cleanValue) ?? 0.0;
+
+    // Debug logging for amount parsing
+    debugPrint(
+        'Amount input: "$value" -> cleaned: "$cleanValue" -> parsed: $amount');
+
     final newCategory = item.copyWith(amount: amount);
-    _onChangeField(newCategory, groupId);
+
+    // Add debouncing to avoid excessive updates
+    final key = '${groupId}_${item.id}';
+    _debounceTimers[key]?.cancel();
+    _debounceTimers[key] = Timer(const Duration(milliseconds: 300), () {
+      _onChangeField(newCategory, groupId);
+    });
   }
 
   void _removeGroupCategory(
