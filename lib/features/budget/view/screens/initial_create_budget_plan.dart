@@ -48,7 +48,7 @@ class _InitialCreateBudgetPlanScreenState
   Future<void> _onAiCreateBudget() async {
     final prefsAi = AiAssistantPreferences();
     final totalGenerateBudget = await prefsAi.getTotalGenerateBudget();
-    final validated = totalGenerateBudget <= 2;
+    final validated = totalGenerateBudget <= 4;
     if (validated) {
       final result = await context.pushNamed<String>(
         MyRoute.budgetAiGenerateScreen.noSlashes(),
@@ -118,7 +118,19 @@ class _InitialCreateBudgetPlanScreenState
                       _buildSaveSection(state, premium),
                     ],
                   ),
-                  if (_showOptionCreateBudget)
+                  if (_showOptionCreateBudget) ...[
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          _showOptionCreateBudget = false;
+                        });
+                      },
+                      child: Container(
+                        width: context.screenWidth,
+                        height: context.screenHeight,
+                        color: Colors.transparent,
+                      ),
+                    ),
                     Align(
                       child: CreateBudgetOptionDialog(
                         onManualPressed: () {
@@ -134,6 +146,7 @@ class _InitialCreateBudgetPlanScreenState
                         },
                       ),
                     ),
+                  ]
                 ],
               ),
             );
