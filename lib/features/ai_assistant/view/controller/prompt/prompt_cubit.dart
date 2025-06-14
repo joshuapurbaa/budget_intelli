@@ -19,161 +19,13 @@ class PromptCubit extends Cubit<PromptState> {
   final GeminiRepositoryModel _geminiModelRepository;
   final SettingPreferenceRepo _settingRepository;
 
-  void resetStatus() {
-    emit(
-      state.copyWith(
-        generateSuccess: false,
-        generateBudgetFailure: false,
-      ),
-    );
-  }
-
-  void resetPrompt() {
-    emit(
-      const PromptState(),
-    );
-  }
-
-  Future<void> setIncomeAmount({
-    required String incomeAmount,
-  }) async {
-    emit(
-      state.copyWith(
-        incomeAmount: incomeAmount,
-      ),
-    );
-  }
-
-  Future<void> setAdditionalTextInputs({
-    required String additionalTextInputs,
-  }) async {
-    emit(
-      state.copyWith(
-        additionalTextInputs: additionalTextInputs,
-      ),
-    );
-  }
-
-  Future<void> setLanguage() async {
-    final language = await _settingRepository.getLanguage();
-    emit(
-      state.copyWith(language: language),
-    );
-  }
-
-  Future<void> setBudgetMethod({
-    required BudgetMethodModel? budgetMethod,
-  }) async {
-    emit(
-      state.copyWith(
-        budgetMethod: budgetMethod,
-      ),
-    );
-  }
-
-  Future<void> setCurrency() async {
-    final currencyCode = await _settingRepository.getCurrencyCode();
-    final selectedCurrency = WorldCurrency.currencyList.firstWhere(
-      (element) => element.code == currencyCode,
-      orElse: () => CurrencyModel.initial,
-    );
-    emit(
-      state.copyWith(
-        currency: selectedCurrency,
-      ),
-    );
-  }
-
-  Future<void> setBudgetName({
-    required String budgetName,
-  }) async {
-    emit(
-      state.copyWith(
-        budgetName: budgetName,
-      ),
-    );
-  }
-
-  Future<void> submitPrompt() async {
-    emit(
-      state.copyWith(
-        loadingGenerateBudget: true,
-        textPrompt: initialCreateBudgetPrompt,
-      ),
-    );
-
-    final model = _geminiModelRepository.geminiProModel;
-
-    try {
-      final content = await generateContentFromText(model);
-
-      if (content != null) {
-        if (content.text == null) {
-          emit(
-            state.copyWith(
-              loadingGenerateBudget: false,
-              generateBudgetFailure: true,
-            ),
-          );
-          return;
-        }
-
-        // final outputTokenCount =
-        //     await model.countTokens([Content.text(content.text!)]);
-
-        final budgetGenerate =
-            BudgetGenerateModel.fromGeneratedContent(content);
-
-        emit(
-          state.copyWith(
-            loadingGenerateBudget: false,
-            generateBudgetFailure: false,
-            budgetGenerate: budgetGenerate,
-            generateSuccess: true,
-          ),
-        );
-      } else {
-        emit(
-          state.copyWith(
-            loadingGenerateBudget: false,
-            generateBudgetFailure: true,
-          ),
-        );
-      }
-    } on Exception catch (_) {
-      emit(
-        state.copyWith(
-          loadingGenerateBudget: false,
-          generateBudgetFailure: true,
-        ),
-      );
-    }
-  }
-
-  Future<GenerateContentResponse?> generateContentFromText(
-    GenerativeModel model,
-  ) async {
-    try {
-      final promptText = '${state.textPrompt}';
-      final mainText = TextPart(promptText);
-
-      final response =
-          await model.generateContent([Content.text(mainText.text)]);
-
-      return response;
-    } on Exception catch (e) {
-      debugPrint('error generateContentFromText :: $e');
-      return null;
-    }
-  }
-
-  String get initialCreateBudgetPromptEnglish {
-    return '''
+  // Constants
+  static const String _budgetPromptTemplate = '''
 Recommend a monthly budget for me based on the provided data. The budget should only contain real, valid financial data.
-Budget name: ${state.budgetName}
-I have the following financial data: income_amount: ${state.incomeAmount}
-I have the following context for my financial preferences: ${state.additionalTextInputs}
-${state.budgetMethod != null ? 'Create a budget using the method ${state.budgetMethod?.methodName}' : ''}
+Budget name: {budget_name}
+I have the following financial data: income_amount: {income_amount}
+I have the following context for my financial preferences: {additional_inputs}
+{budget_method_instruction}
 
 Provide a JSON response that has the following data structure:
 Create hex_color with Analogous Color Palette for each expense object.
@@ -193,9 +45,9 @@ The item category list contains objects Map<String, dynamic> with the following 
 - item_category_name: String
 - amount: Integer
 
-Ensure that the total amount of all item categories combined is exactly equal to ${state.incomeAmount}.
+Ensure that the total amount of all item categories combined is exactly equal to {income_amount}.
 
-Language for the response notes, group_name, group_explanation, and item_category_name should be in ${state.language}.
+Language for the response notes, group_name, group_explanation, and item_category_name should be in {language}.
 Add a note that creatively explains why the budget is good based on the provided data. Include a short financial experience that inspires the budget.
 
 Example of correct expense structure:
@@ -215,10 +67,198 @@ Example of correct expense structure:
   ]
 }
 
-Please provide the response in ${state.language}.
-
+Please provide the response in {language}.
 ''';
+
+  // State Reset Methods
+  void resetStatus() {
+    emit(state.copyWith(
+      generateSuccess: false,
+      generateBudgetFailure: false,
+    ));
   }
 
-  String get initialCreateBudgetPrompt => initialCreateBudgetPromptEnglish;
+  void resetPrompt() {
+    emit(const PromptState());
+  }
+
+  // State Update Methods
+  Future<void> updateIncomeAmount(String incomeAmount) async {
+    emit(state.copyWith(incomeAmount: incomeAmount));
+  }
+
+  Future<void> updateAdditionalTextInputs(String additionalTextInputs) async {
+    emit(state.copyWith(additionalTextInputs: additionalTextInputs));
+  }
+
+  Future<void> updateBudgetName(String budgetName) async {
+    emit(state.copyWith(budgetName: budgetName));
+  }
+
+  Future<void> updateBudgetMethod(BudgetMethodModel? budgetMethod) async {
+    emit(state.copyWith(budgetMethod: budgetMethod));
+  }
+
+  // Settings Configuration Methods
+  Future<void> loadLanguageSettings() async {
+    try {
+      final language = await _settingRepository.getLanguage();
+      emit(state.copyWith(language: language));
+    } on Exception catch (e) {
+      debugPrint('Error loading language settings: $e');
+    }
+  }
+
+  Future<void> loadCurrencySettings() async {
+    try {
+      final currencyCode = await _settingRepository.getCurrencyCode();
+      final selectedCurrency = _findCurrencyByCode(currencyCode);
+      emit(state.copyWith(currency: selectedCurrency));
+    } on Exception catch (e) {
+      debugPrint('Error loading currency settings: $e');
+    }
+  }
+
+  CurrencyModel _findCurrencyByCode(String currencyCode) {
+    return WorldCurrency.currencyList.firstWhere(
+      (currency) => currency.code == currencyCode,
+      orElse: () => CurrencyModel.initial,
+    );
+  }
+
+  // Budget Generation Methods
+  Future<void> generateBudget() async {
+    _emitLoadingState();
+
+    try {
+      final generatedContent = await _generateBudgetContent();
+
+      if (generatedContent != null) {
+        await _handleSuccessfulGeneration(generatedContent);
+      } else {
+        _emitFailureState();
+      }
+    } on Exception catch (e) {
+      debugPrint('Error generating budget: $e');
+      _emitFailureState();
+    }
+  }
+
+  void _emitLoadingState() {
+    emit(state.copyWith(
+      loadingGenerateBudget: true,
+      textPrompt: _buildPromptText(),
+    ));
+  }
+
+  Future<GenerateContentResponse?> _generateBudgetContent() async {
+    final model = _geminiModelRepository.geminiProModel;
+    return _generateContentFromText(model);
+  }
+
+  Future<void> _handleSuccessfulGeneration(
+      GenerateContentResponse content) async {
+    if (content.text == null) {
+      _emitFailureState();
+      return;
+    }
+
+    final budgetGenerate = BudgetGenerateModel.fromGeneratedContent(content);
+
+    emit(state.copyWith(
+      loadingGenerateBudget: false,
+      generateBudgetFailure: false,
+      budgetGenerate: budgetGenerate,
+      generateSuccess: true,
+    ));
+  }
+
+  void _emitFailureState() {
+    emit(state.copyWith(
+      loadingGenerateBudget: false,
+      generateBudgetFailure: true,
+    ));
+  }
+
+  Future<GenerateContentResponse?> _generateContentFromText(
+      GenerativeModel model) async {
+    try {
+      final promptText = state.textPrompt ?? '';
+      final mainText = TextPart(promptText);
+      final response =
+          await model.generateContent([Content.text(mainText.text)]);
+      return response;
+    } on Exception catch (e) {
+      debugPrint('Error generating content from text: $e');
+      return null;
+    }
+  }
+
+  // Prompt Building Methods
+  String _buildPromptText() {
+    return _budgetPromptTemplate
+        .replaceAll('{budget_name}', state.budgetName ?? '')
+        .replaceAll('{income_amount}', state.incomeAmount ?? '')
+        .replaceAll('{additional_inputs}', state.additionalTextInputs ?? '')
+        .replaceAll(
+            '{budget_method_instruction}', _getBudgetMethodInstruction())
+        .replaceAll('{language}', state.language ?? 'English');
+  }
+
+  String _getBudgetMethodInstruction() {
+    if (state.budgetMethod != null) {
+      return 'Create a budget using the method ${state.budgetMethod?.methodName}';
+    }
+    return '';
+  }
+
+  // Legacy method names for backward compatibility
+  @Deprecated('Use updateIncomeAmount instead')
+  Future<void> setIncomeAmount({required String incomeAmount}) async {
+    await updateIncomeAmount(incomeAmount);
+  }
+
+  @Deprecated('Use updateAdditionalTextInputs instead')
+  Future<void> setAdditionalTextInputs(
+      {required String additionalTextInputs}) async {
+    await updateAdditionalTextInputs(additionalTextInputs);
+  }
+
+  @Deprecated('Use loadLanguageSettings instead')
+  Future<void> setLanguage() async {
+    await loadLanguageSettings();
+  }
+
+  @Deprecated('Use updateBudgetMethod instead')
+  Future<void> setBudgetMethod(
+      {required BudgetMethodModel? budgetMethod}) async {
+    await updateBudgetMethod(budgetMethod);
+  }
+
+  @Deprecated('Use loadCurrencySettings instead')
+  Future<void> setCurrency() async {
+    await loadCurrencySettings();
+  }
+
+  @Deprecated('Use updateBudgetName instead')
+  Future<void> setBudgetName({required String budgetName}) async {
+    await updateBudgetName(budgetName);
+  }
+
+  @Deprecated('Use generateBudget instead')
+  Future<void> submitPrompt() async {
+    await generateBudget();
+  }
+
+  @Deprecated('Use _generateContentFromText instead')
+  Future<GenerateContentResponse?> generateContentFromText(
+      GenerativeModel model) async {
+    return _generateContentFromText(model);
+  }
+
+  @Deprecated('Use _buildPromptText instead')
+  String get initialCreateBudgetPromptEnglish => _buildPromptText();
+
+  @Deprecated('Use _buildPromptText instead')
+  String get initialCreateBudgetPrompt => _buildPromptText();
 }
