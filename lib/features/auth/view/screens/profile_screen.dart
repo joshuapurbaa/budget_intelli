@@ -146,9 +146,8 @@ class _ProfileScreenState extends State<ProfileScreen>
         builder: (context, settingState) {
           final bloc = context.read<SettingBloc>();
           final userIntelli = user;
-          var themeModeStr = '';
+
           final darkMode = settingState.themeMode == ThemeMode.dark;
-          final lightMode = settingState.themeMode == ThemeMode.light;
           final english = settingState.selectedLanguage == Language.english;
 
           final imageUrl = userIntelli?.imageUrl;
@@ -170,12 +169,6 @@ class _ProfileScreenState extends State<ProfileScreen>
             email = userIntelli?.email ?? '-';
           } else {
             email = '-';
-          }
-
-          if (darkMode) {
-            themeModeStr = localize.darkMode;
-          } else if (lightMode) {
-            themeModeStr = localize.lightMode;
           }
 
           return CustomScrollView(
@@ -224,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               AppText.medium14(
-                                text: themeModeStr,
+                                text: localize.darkMode,
                               ),
                               Switch(
                                 value: darkMode,

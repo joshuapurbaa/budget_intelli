@@ -189,7 +189,9 @@ class _FrequencyViewState extends State<FrequencyView> {
               //   transactions: transactionsFrequencyExcludeIncome,
               // ),
 
-              Gap.vertical(16),
+              Gap.vertical(8),
+              const AppDivider(),
+              Gap.vertical(8),
 
               Padding(
                 padding: getEdgeInsets(left: 16, right: 16),
@@ -197,7 +199,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                   scrollDirection: Axis.horizontal,
                   child: Row(
                     children: List.generate(
-                      filteredCategories.length,
+                      filteredCategories.length + 1,
                       (index) {
                         if (index == 0) {
                           return GestureDetector(
@@ -209,17 +211,25 @@ class _FrequencyViewState extends State<FrequencyView> {
                             child: AppGlass(
                               borderRadius: 8,
                               margin: getEdgeInsets(right: 8),
-                              child: Center(
-                                child: AppText(
-                                  text: localize.all,
-                                  style: StyleType.bodMed,
-                                  fontWeight: selectedCategoryId == null
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: selectedCategoryId == null
-                                      ? context.color.primary
-                                      : context.color.onSurface,
-                                ),
+                              padding: getEdgeInsets(
+                                left: 16,
+                                right: 16,
+                                top: 8,
+                                bottom: 8,
+                              ),
+                              backgroundColor: selectedCategoryId == null
+                                  ? context.color.primary
+                                  : null,
+                              child: AppText(
+                                text: localize.all,
+                                style: StyleType.bodMed,
+                                fontWeight: selectedCategoryId == null
+                                    ? FontWeight.bold
+                                    : FontWeight.normal,
+                                color: selectedCategoryId == null
+                                    ? context.color.onPrimary
+                                    : context.color.onSurface,
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           );
@@ -231,6 +241,14 @@ class _FrequencyViewState extends State<FrequencyView> {
                         return AppGlass(
                           borderRadius: 8,
                           margin: getEdgeInsets(right: 8),
+                          padding: getEdgeInsets(
+                            left: 16,
+                            right: 16,
+                            top: 8,
+                            bottom: 8,
+                          ),
+                          backgroundColor:
+                              isSelected ? context.color.primary : null,
                           onTap: () {
                             setState(() {
                               selectedCategoryId = category.id;
@@ -243,7 +261,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                   category.iconPath!,
                                   color: isSelected
                                       ? context.color.primary
-                                      : context.color.primaryContainer,
+                                      : context.color.onSurface,
                                 ),
                               Gap.horizontal(8),
                               AppText(
@@ -253,7 +271,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                     ? FontWeight.bold
                                     : FontWeight.normal,
                                 color: isSelected
-                                    ? context.color.onPrimaryContainer
+                                    ? context.color.onPrimary
                                     : context.color.onSurface,
                               ),
                             ],
@@ -264,7 +282,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                   ),
                 ),
               ),
-              Gap.vertical(16),
+              Gap.vertical(12),
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
