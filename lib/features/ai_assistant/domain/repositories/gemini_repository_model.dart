@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
@@ -16,6 +17,7 @@ class GeminiRepositoryModel {
 
   GenerativeModel _createModel() {
     final apiKey = dotenv.env['GEMINI_API_KEY'];
+    debugPrint('createModel apiKey :: $apiKey');
     assert(
       apiKey != null && apiKey.isNotEmpty,
       'GEMINI_API_KEY must not be null or empty',

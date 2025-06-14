@@ -167,25 +167,6 @@ class PromptCubit extends Cubit<PromptState> {
     }
   }
 
-//   String get initialCreateBudgetPromptEnglish {
-//     return '''
-// Recommend a monthly budget for me based on the provided data, The budget should only contain real, valid financial data.
-// Budget name: ${state.budgetName}
-// I have the following financial data: income_amount: ${state.incomeAmount}
-// I have the following context for my financial preferences: ${state.additionalTextInputs}
-// ${state.budgetMethod != null ? 'Create a budget using the method ${state.budgetMethod?.methodName}, ${state.budgetMethod?.methodDescription}'.replaceAll('\n', ' ') : ''}
-//
-// Provide a JSON response that has the following data structure:
-// Create hex_color with Analogous Color Palette for each expense object.
-// Four objects: budget_name, income_amount, expense, and notes. budget_name: String income_amount: Integer, expense: List<Map<String, dynamic>>, notes: String.
-// Expense lists are objects Map<String, dynamic> with the following variables: group_name: String, group_explanation: String, color: String (ex. '#E91E63'), item_categories: List<Map<String, dynamic>>.
-// Item category list are a list of objects Map<String, dynamic> with the following variables: item_category_name: String, amount: Integer. Total amount of all item category should be equal to ${state.incomeAmount}.
-//
-// Language for the response notes, group_name, group_explanation, and item_category_name should be in ${state.language}.
-// Add a notes that creatively explains why the budget is good based on the provided data. Tell a short financial experience that inspires the budget.
-// ''';
-//   }
-
   String get initialCreateBudgetPromptEnglish {
     return '''
 Recommend a monthly budget for me based on the provided data. The budget should only contain real, valid financial data.
@@ -234,65 +215,10 @@ Example of correct expense structure:
   ]
 }
 
-''';
-  }
-
-  String get initialCreateBudgetPromptIndonesia {
-    return '''
-Rekomendasikan anggaran bulanan untuk saya berdasarkan data yang diberikan. Anggaran harus hanya berisi data keuangan yang nyata dan valid.
-Budget name: ${state.budgetName}
-Saya memiliki data keuangan sebagai berikut: income_amount: ${state.incomeAmount}
-Saya memiliki konteks preferensi keuangan sebagai berikut: ${state.additionalTextInputs}
-${state.budgetMethod != null ? 'Buat anggaran menggunakan metode ${state.budgetMethod?.methodName}' : ''}
-
-Berikan respon dalam format JSON dengan struktur data berikut:
-Buat hex_color dengan Analogous Color Palette untuk setiap objek pengeluaran.
-Empat objek: budget_name, income_amount, expense, dan notes. 
-- budget_name: String
-- income_amount: Integer
-- expense: List<Map<String, dynamic>>
-- notes: String.
-
-Daftar expense berisi objek Map<String, dynamic> dengan variabel sebagai berikut:
-- group_name: String
-- group_explanation: String
-- color: String (contoh: '#E91E63')
-- item_categories: List<Map<String, dynamic>>
-
-Daftar item_categories berisi objek Map<String, dynamic> dengan variabel sebagai berikut:
-- item_category_name: String
-- amount: Integer
-
-Pastikan bahwa jumlah total dari semua item categories sama persis dengan ${state.incomeAmount}.
-
-Bahasa untuk notes, group_name, group_explanation, dan item_category_name harus dalam bahasa ${state.language}.
-Tambahkan notes yang secara kreatif menjelaskan mengapa anggaran ini baik berdasarkan data yang diberikan. Sertakan pengalaman keuangan singkat yang menginspirasi anggaran tersebut.
-
-Contoh struktur expense yang benar:
-{
-  "group_name": "Housing",
-  "group_explanation": "Pengeluaran terkait tempat tinggal",
-  "color": "#FF5733",
-  "item_categories": [
-    {
-      "item_category_name": "Rent",
-      "amount": 1000
-    },
-    {
-      "item_category_name": "Utilities",
-      "amount": 200
-    }
-  ]
-}
+Please provide the response in ${state.language}.
 
 ''';
   }
 
-  String get initialCreateBudgetPrompt {
-    if (state.language == 'Indonesia') {
-      return initialCreateBudgetPromptIndonesia;
-    } else {
-      return initialCreateBudgetPromptEnglish;
-    }
-  }
+  String get initialCreateBudgetPrompt => initialCreateBudgetPromptEnglish;
 }
