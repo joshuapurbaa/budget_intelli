@@ -39,14 +39,14 @@ class AppText extends StatelessWidget {
     super.key,
     this.textAlign,
     this.color,
-    this.fontWeight,
     this.fontStyle,
     this.autoSize,
     this.maxLines,
     this.noMaxLines,
     this.animation,
     this.minFontSize,
-  }) : style = StyleType.bodSm;
+  })  : style = StyleType.bodSm,
+        fontWeight = FontWeight.w400;
 
   const AppText.bold14({
     required this.text,

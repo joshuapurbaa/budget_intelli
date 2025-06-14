@@ -81,6 +81,9 @@ class _AccountScreenState extends State<AccountScreen> {
                           style: textStyle(
                             context,
                             style: StyleType.bodLg,
+                          ).copyWith(
+                            color:
+                                context.color.onSurface.withValues(alpha: 0.5),
                           ),
                         ),
                         TextSpan(
@@ -91,6 +94,8 @@ class _AccountScreenState extends State<AccountScreen> {
                           style: textStyle(
                             context,
                             style: StyleType.bodLg,
+                          ).copyWith(
+                            color: context.color.primary,
                           ),
                         ),
                       ],
@@ -144,11 +149,12 @@ class _AccountScreenState extends State<AccountScreen> {
                                           _whenCompleteAccountTransactionScreen,
                                         );
                                   },
-                                  child: const Align(
+                                  child: Align(
                                     alignment: Alignment.topRight,
                                     child: Icon(
                                       Icons.edit,
                                       size: 20,
+                                      color: context.color.secondary,
                                     ),
                                   ),
                                 ),
@@ -161,6 +167,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                         style: StyleType.bodMed,
                                         textAlign: TextAlign.center,
                                         maxLines: 2,
+                                        color: context.color.primary,
                                       ),
                                       Gap.vertical(16),
                                       const AppDivider(),
