@@ -100,10 +100,9 @@ class _FrequencyViewState extends State<FrequencyView> {
                             });
                           },
                           child: AppGlass(
-                            backgroundColor:
-                                isIncome ? null : context.color.primary,
+                            isSelected: !isIncome,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 AppText(
                                   text: '$title ${localize.expenses}',
@@ -115,7 +114,15 @@ class _FrequencyViewState extends State<FrequencyView> {
                                       : context.color.onPrimary,
                                 ),
                                 Gap.vertical(8),
-                                const AppDivider(),
+                                AppDivider(
+                                  color: isIncome
+                                      ? context.color.onSurface.withValues(
+                                          alpha: 0.3,
+                                        )
+                                      : context.color.onPrimary.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                ),
                                 Gap.vertical(8),
                                 AppText(
                                   text: NumberFormatter.formatToMoneyDouble(
@@ -123,6 +130,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                     totalAmountTransactionsExpenses,
                                   ),
                                   style: StyleType.bodMed,
+                                  fontWeight: FontWeight.bold,
                                   maxLines: 1,
                                   color: isIncome
                                       ? context.color.onSurface
@@ -146,11 +154,9 @@ class _FrequencyViewState extends State<FrequencyView> {
                             });
                           },
                           child: AppGlass(
-                            backgroundColor:
-                                isIncome ? context.color.primary : null,
+                            isSelected: isIncome,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 AppText(
                                   text: '$title ${localize.income}',
@@ -162,7 +168,15 @@ class _FrequencyViewState extends State<FrequencyView> {
                                       : context.color.onSurface,
                                 ),
                                 Gap.vertical(8),
-                                const AppDivider(),
+                                AppDivider(
+                                  color: isIncome
+                                      ? context.color.onPrimary.withValues(
+                                          alpha: 0.3,
+                                        )
+                                      : context.color.onSurface.withValues(
+                                          alpha: 0.3,
+                                        ),
+                                ),
                                 Gap.vertical(8),
                                 AppText(
                                   text: NumberFormatter.formatToMoneyDouble(
@@ -170,6 +184,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                     totalAmountTransactionsIncome,
                                   ),
                                   style: StyleType.bodMed,
+                                  fontWeight: FontWeight.bold,
                                   maxLines: 1,
                                   color: isIncome
                                       ? context.color.onPrimary
@@ -217,9 +232,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 top: 8,
                                 bottom: 8,
                               ),
-                              backgroundColor: selectedCategoryId == null
-                                  ? context.color.primary
-                                  : null,
+                              isSelected: selectedCategoryId == null,
                               child: AppText(
                                 text: localize.all,
                                 style: StyleType.bodMed,
@@ -247,8 +260,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                             top: 8,
                             bottom: 8,
                           ),
-                          backgroundColor:
-                              isSelected ? context.color.primary : null,
+                          isSelected: isSelected,
                           onTap: () {
                             setState(() {
                               selectedCategoryId = category.id;

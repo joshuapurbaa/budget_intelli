@@ -14,7 +14,7 @@ class AppGlass extends StatelessWidget {
     this.onTap,
     this.duration,
     this.borderRadius,
-    this.backgroundColor,
+    this.isSelected = false,
   });
 
   final Widget child;
@@ -28,12 +28,13 @@ class AppGlass extends StatelessWidget {
   final void Function()? onTap;
   final Duration? duration;
   final double? borderRadius;
-  final Color? backgroundColor;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     final themeMode = ControllerHelper.getThemeMode(context);
     final isDarkMode = themeMode == ThemeMode.dark;
+
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
@@ -43,19 +44,25 @@ class AppGlass extends StatelessWidget {
         padding: padding ?? getEdgeInsetsAll(16),
         margin: margin,
         decoration: BoxDecoration(
-          color: backgroundColor ?? (isDarkMode ? null : context.color.surface),
-          gradient: isDarkMode
-              ? LinearGradient(
-                  colors: [
-                    context.color.secondaryContainer,
-                    context.color.surface,
-                    context.color.surface,
-                  ],
-                  stops: const [0, 1, 1],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                )
-              : null,
+          color: isSelected
+              ? isDarkMode
+                  ? context.color.primary
+                  : context.color.primaryContainer
+              : (isDarkMode
+                  ? context.color.secondaryContainer
+                  : context.color.surface),
+          // gradient: isDarkMode
+          //     ? LinearGradient(
+          //         colors: [
+          //           context.color.secondaryContainer,
+          //           context.color.surface,
+          //           context.color.surface,
+          //         ],
+          //         stops: const [0, 1, 1],
+          //         begin: Alignment.topLeft,
+          //         end: Alignment.bottomRight,
+          //       )
+          //     : null,
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius ?? 16),
           ),

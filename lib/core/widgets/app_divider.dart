@@ -1,3 +1,4 @@
+import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
 
 class AppDivider extends StatelessWidget {
@@ -14,12 +15,15 @@ class AppDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = context.isDarkModeSetting;
     return Padding(
       padding: padding ?? EdgeInsets.zero,
       child: Divider(
         height: 1,
-        color:
-            Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.3),
+        color: color ??
+            (isDarkMode
+                ? context.color.outlineVariant
+                : context.color.outlineVariant.withValues(alpha: 0.3)),
         thickness: thickness ?? 1,
       ),
     );
