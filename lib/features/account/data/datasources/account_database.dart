@@ -87,7 +87,7 @@ class AccountDatabase {
     final db = await database;
     final List<Map<String, dynamic>> maps = await db.query(
       'Account',
-      orderBy: 'name',
+      orderBy: 'created_at DESC',
     );
 
     if (maps.isEmpty) {
