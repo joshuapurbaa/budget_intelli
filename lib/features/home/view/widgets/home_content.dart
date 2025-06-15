@@ -217,7 +217,7 @@ class _HomeContentState extends State<HomeContent>
                           child: TabBarView(
                             controller: _tabController,
                             children: [
-                              OverView(
+                              BudgetOverview(
                                 groupCategoryHistories: groupCategories,
                                 budget: budget,
                                 totalActualExpense: totalActualExpense,

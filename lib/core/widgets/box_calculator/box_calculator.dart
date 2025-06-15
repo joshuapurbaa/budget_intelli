@@ -1,5 +1,4 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -75,39 +74,45 @@ class _BoxCalculatorState extends State<BoxCalculator>
   ) {
     final localize = textLocalizer(context);
 
-    if (label.contains(localize.amountFieldLabel) ||
+    // Check if label is a placeholder text (not a number value)
+    final isPlaceholder = label.contains(localize.amountFieldLabel) ||
         label.contains(localize.totalAmountFieldLabel) ||
         label.contains(localize.budget) ||
-        label.contains(localize.startingBalance)) {
+        label.contains(localize.startingBalance);
+
+    if (isPlaceholder) {
+      // Style for placeholder/label text
       return AppText(
         text: label,
         color: context.color.onSurface.withValues(alpha: 0.5),
         fontWeight: FontWeight.w400,
         style: StyleType.bodMed,
       );
+    }
+
+    // Try to parse the label as a number
+    final parsedValue = double.tryParse(label.replaceAll(',', ''));
+
+    if (parsedValue != null) {
+      // Style for number values - more prominent
+      final currencyFormatter = NumberFormatter.formatToMoneyDouble(
+        context,
+        parsedValue,
+      );
+      return AppText(
+        text: currencyFormatter,
+        fontWeight: FontWeight.w700,
+        style: StyleType.bodMed,
+        color: context.color.onSurface,
+      );
     } else {
-      // Try to parse the label as a double
-      final parsedValue = double.tryParse(label);
-      if (parsedValue != null) {
-        final currencyFormatter = NumberFormatter.formatToMoneyDouble(
-          context,
-          parsedValue,
-        );
-        return AppText(
-          text: currencyFormatter,
-          fontWeight: FontWeight.w700,
-          style: StyleType.bodMed,
-          color: context.color.onSurface,
-        );
-      } else {
-        // If parsing fails, display the label as is
-        return AppText(
-          text: label,
-          color: context.color.onSurface.withValues(alpha: 0.5),
-          fontWeight: FontWeight.w400,
-          style: StyleType.bodMed,
-        );
-      }
+      // Style for non-number text - similar to placeholder but distinct
+      return AppText(
+        text: label,
+        color: context.color.onSurface.withValues(alpha: 0.6),
+        fontWeight: FontWeight.w500,
+        style: StyleType.bodMed,
+      );
     }
   }
 
