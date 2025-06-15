@@ -109,6 +109,7 @@ class _AddGroupCategoryScreenState extends State<AddGroupCategoryScreen> {
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
     final paddingLRT = getEdgeInsets(left: 16, right: 16, top: 10);
+
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, categoryState) {
         final budget = categoryState.budget;

@@ -11,6 +11,18 @@ import 'package:flutter_color_picker_plus/flutter_color_picker_plus.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
+// Constants
+class _Constants {
+  static const String groupNameInitialEN = 'Group Name';
+  static const String groupNameInitialID = 'Nama Grup';
+  static const String categoryNameInitialEN = 'Category Name';
+  static const String categoryNameInitialID = 'Nama Kategori';
+  static const String expenseType = 'expense';
+  static const double colorPickerRadius = 14.0;
+  static const double colorPickerIconSize = 12.0;
+  static const double dropdownMenuHeight = 300.0;
+}
+
 class FormNewBudgetGroup extends StatefulWidget {
   const FormNewBudgetGroup({
     required this.fromInitial,
@@ -19,7 +31,6 @@ class FormNewBudgetGroup extends StatefulWidget {
     required this.itemCategoryHistories,
     required this.budgetId,
     required this.categoryType,
-    // required this.indexGroup,
     required this.allItemCategoryHistories,
     super.key,
   });
@@ -30,8 +41,6 @@ class FormNewBudgetGroup extends StatefulWidget {
   final List<ItemCategoryHistory> itemCategoryHistories;
   final String budgetId;
   final String categoryType;
-
-  // final int indexGroup;
   final List<ItemCategoryHistory> allItemCategoryHistories;
 
   @override
@@ -39,81 +48,13 @@ class FormNewBudgetGroup extends StatefulWidget {
 }
 
 class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
-  String categoryTypeLocal = 'expense';
+  // State variables
+  String categoryTypeLocal = _Constants.expenseType;
   bool isExpense = true;
-  int totalNewGroup = 1;
-
-  GroupCategory? _selectedGroupCategory;
-  final _selectedItemCategory = <ItemCategory?>[];
   bool addNewGroup = false;
-  List<bool> addCategoryField = <bool>[];
   bool categoryNameExists = false;
 
-  void _onChangeField(ItemCategoryHistory newCategory) {
-    final groupId = widget.groupCategoryHistory.id;
-    if (widget.fromInitial) {
-      context.read<BudgetFormBloc>().add(
-            UpdateItemCategoryEventInitialCreate(
-              groupHistoId: groupId,
-              itemHistoId: newCategory.id,
-              itemCategoryHistory: newCategory,
-            ),
-          );
-    } else {
-      context.read<BudgetFormBloc>().add(
-            UpdateItemCategoryHistoryEvent(
-              groupId: groupId,
-              itemId: newCategory.id,
-              itemCategory: newCategory,
-            ),
-          );
-    }
-  }
-
-  void _onChangeValueEmpty(ItemCategoryHistory newCategory) {
-    final groupId = widget.groupCategoryHistory.id;
-    if (widget.fromInitial) {
-      context.read<BudgetFormBloc>().add(
-            UpdateItemCategoryEventInitialCreate(
-              groupHistoId: groupId,
-              itemHistoId: newCategory.id,
-              itemCategoryHistory: newCategory.copyWith(
-                amount: 0,
-              ),
-            ),
-          );
-    } else {
-      context.read<BudgetFormBloc>().add(
-            UpdateItemCategoryHistoryEvent(
-              groupId: groupId,
-              itemId: newCategory.id,
-              itemCategory: newCategory.copyWith(
-                amount: 0,
-              ),
-            ),
-          );
-    }
-  }
-
-  void _onRemoveItemCategory(ItemCategoryHistory item) {
-    final groupId = widget.groupCategoryHistory.id;
-    if (widget.fromInitial) {
-      context.read<BudgetFormBloc>().add(
-            RemoveItemCategoryFromInitial(
-              groupHistoId: groupId,
-              itemHistoId: item.id,
-            ),
-          );
-    } else {
-      context.read<BudgetFormBloc>().add(
-            RemoveItemCategoryFromInside(
-              groupId: groupId,
-              itemId: item.id,
-            ),
-          );
-    }
-  }
-
+  // Controllers and focus nodes
   final List<TextEditingController> _leftControllers = [];
   final List<TextEditingController> _rightControllers = [];
   final List<FocusNode> _leftFocusNodes = [];
@@ -121,10 +62,28 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
   final _groupNameController = TextEditingController();
   final _groupNameFocusNode = FocusNode();
 
+  // Category selection state
+  GroupCategory? _selectedGroupCategory;
+  final _selectedItemCategory = <ItemCategory?>[];
+  List<bool> addCategoryField = <bool>[];
+  Color? _pickerColor;
+
   @override
   void initState() {
     super.initState();
-    for (var i = 0; i < widget.itemCategoryHistories.length; i++) {
+    _initializeControllers();
+    _pickerColor = Color(widget.groupCategoryHistory.hexColor);
+  }
+
+  @override
+  void dispose() {
+    _disposeControllers();
+    super.dispose();
+  }
+
+  void _initializeControllers() {
+    final itemCount = widget.itemCategoryHistories.length;
+    for (var i = 0; i < itemCount; i++) {
       addCategoryField.add(false);
       _selectedItemCategory.add(null);
       _leftControllers.add(TextEditingController());
@@ -132,28 +91,59 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
       _leftFocusNodes.add(FocusNode());
       _rightFocusNodes.add(FocusNode());
     }
-    _pickerColor = Color(widget.groupCategoryHistory.hexColor);
   }
 
-  @override
-  void dispose() {
+  void _disposeControllers() {
     _groupNameController.dispose();
     _groupNameFocusNode.dispose();
-    for (var i = 0; i < widget.itemCategoryHistories.length; i++) {
+
+    for (var i = 0; i < _leftControllers.length; i++) {
       _leftControllers[i].dispose();
       _rightControllers[i].dispose();
       _leftFocusNodes[i].dispose();
       _rightFocusNodes[i].dispose();
     }
-    super.dispose();
   }
 
-  Color? _pickerColor;
+  void _onChangeField(ItemCategoryHistory newCategory) {
+    final groupId = widget.groupCategoryHistory.id;
+    final event = widget.fromInitial
+        ? UpdateItemCategoryEventInitialCreate(
+            groupHistoId: groupId,
+            itemHistoId: newCategory.id,
+            itemCategoryHistory: newCategory,
+          )
+        : UpdateItemCategoryHistoryEvent(
+            groupId: groupId,
+            itemId: newCategory.id,
+            itemCategory: newCategory,
+          );
+
+    context.read<BudgetFormBloc>().add(event);
+  }
+
+  void _onChangeValueEmpty(ItemCategoryHistory newCategory) {
+    final categoryWithZeroAmount = newCategory.copyWith(amount: 0);
+    _onChangeField(categoryWithZeroAmount);
+  }
+
+  void _onRemoveItemCategory(ItemCategoryHistory item) {
+    final groupId = widget.groupCategoryHistory.id;
+    final event = widget.fromInitial
+        ? RemoveItemCategoryFromInitial(
+            groupHistoId: groupId,
+            itemHistoId: item.id,
+          )
+        : RemoveItemCategoryFromInside(
+            groupId: groupId,
+            itemId: item.id,
+          );
+
+    context.read<BudgetFormBloc>().add(event);
+  }
 
   void _changeColor(Color color) {
-    setState(() {
-      _pickerColor = color;
-    });
+    setState(() => _pickerColor = color);
   }
 
   void _onPaintBrushTap() {
@@ -168,24 +158,91 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
         pickerColor: _pickerColor ?? Colors.red,
         onColorChanged: _changeColor,
       ),
-      actions: <Widget>[
+      actions: [
         AppButton(
           label: localize.save,
-          onPressed: () {
-            final color = _pickerColor!.toARGB32().toRadixString(16);
-            final hexColor = int.parse(color, radix: 16);
-
-            context.read<BudgetFormBloc>().add(
-                  UpdateGroupCategoryHistory(
-                    groupCategoryHistory: widget.groupCategoryHistory.copyWith(
-                      hexColor: hexColor,
-                    ),
-                  ),
-                );
-
-            context.pop();
-          },
+          onPressed: _saveColorSelection,
         ),
+      ],
+    );
+  }
+
+  void _saveColorSelection() {
+    final color = _pickerColor!.toARGB32().toRadixString(16);
+    final hexColor = int.parse(color, radix: 16);
+
+    context.read<BudgetFormBloc>().add(
+          UpdateGroupCategoryHistory(
+            groupCategoryHistory: widget.groupCategoryHistory.copyWith(
+              hexColor: hexColor,
+            ),
+          ),
+        );
+    context.pop();
+  }
+
+  bool _isGroupNamePlaceholder(String groupName, String localizedGroupName) {
+    return groupName.isEmpty ||
+        groupName == _Constants.groupNameInitialEN ||
+        groupName == _Constants.groupNameInitialID ||
+        groupName == localizedGroupName;
+  }
+
+  bool _isCategoryNamePlaceholder(String itemName, String selectCategory,
+      String typeCategoryName, String categoryName) {
+    return itemName.isEmpty ||
+        itemName == _Constants.categoryNameInitialID ||
+        itemName == _Constants.categoryNameInitialEN ||
+        itemName == selectCategory ||
+        itemName == typeCategoryName ||
+        itemName == categoryName;
+  }
+
+  TextStyle _getTextStyle(bool isPlaceholder) {
+    final baseStyle = textStyle(context, style: StyleType.bodMed);
+
+    if (isPlaceholder) {
+      return baseStyle.copyWith(
+        color: context.color.onSurface.withValues(alpha: 0.3),
+        fontWeight: FontWeight.w400,
+      );
+    }
+    return baseStyle;
+  }
+
+  Widget _buildColorPicker(int hexColor) {
+    return GestureDetector(
+      onTap: _onPaintBrushTap,
+      child: CircleAvatar(
+        radius: _Constants.colorPickerRadius,
+        backgroundColor: Color(hexColor),
+        child: Icon(
+          CupertinoIcons.paintbrush,
+          color: context.color.onSurface,
+          size: _Constants.colorPickerIconSize,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRadioOption(
+      String label, String value, String groupValue, String groupId,
+      {required bool isExpenses}) {
+    return Row(
+      children: [
+        Radio.adaptive(
+          value: value,
+          groupValue: groupValue,
+          onChanged: (value) => context.read<BudgetFormBloc>().add(
+                UpdateGroupCategoryHistoryType(
+                  groupId: groupId,
+                  type: value.toString(),
+                  isExpenses: isExpenses,
+                ),
+              ),
+        ),
+        Gap.horizontal(8),
+        AppText(text: label, style: StyleType.bodMed),
       ],
     );
   }
@@ -198,118 +255,39 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
     final type = widget.categoryType;
     final groupId = groupCategoryHistory.id;
     final groupName = groupCategoryHistory.groupName;
-    int? hexColor;
-    hexColor = groupCategoryHistory.hexColor;
+    final hexColor = groupCategoryHistory.hexColor;
 
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         final groupCategories = state.groupCategories;
         final itemCategories = state.itemCategories;
-
         final groupCategoryHistoriesCurrentBudgetId =
             state.groupCategoryHistoriesCurrentBudgetId;
         final itemCategoryHistoriesCurrentBudgetId =
             state.itemCategoryHistoriesCurrentBudgetId;
 
-        const groupNameInitialEN = 'Group Name';
-        const groupNameInitialID = 'Nama Grup';
-
-        TextStyle? groupNameBaseStyle;
-
-        if (groupName.isEmpty ||
-            groupName == groupNameInitialEN ||
-            groupName == groupNameInitialID ||
-            groupName == localize.groupName) {
-          groupNameBaseStyle = textStyle(
-            context,
-            style: StyleType.bodMed,
-          ).copyWith(
-            color: context.color.onSurface.withValues(alpha: 0.3),
-            fontWeight: FontWeight.w400,
-          );
-        } else {
-          groupNameBaseStyle = textStyle(
-            context,
-            style: StyleType.bodMed,
-          );
-        }
-
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (addNewGroup)
-              Column(
+            // Group type selection
+            if (addNewGroup) ...[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Row(
-                        children: [
-                          Radio.adaptive(
-                            value: AppStrings.expenseType,
-                            groupValue: type,
-                            onChanged: (value) {
-                              context.read<BudgetFormBloc>().add(
-                                    UpdateGroupCategoryHistoryType(
-                                      groupId: groupId,
-                                      type: value.toString(),
-                                      isExpenses: true,
-                                    ),
-                                  );
-                            },
-                          ),
-                          Gap.horizontal(8),
-                          AppText(
-                            text: localize.expenses,
-                            style: StyleType.bodMed,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        children: [
-                          Radio.adaptive(
-                            value: AppStrings.incomeType,
-                            groupValue: type,
-                            onChanged: (value) {
-                              context.read<BudgetFormBloc>().add(
-                                    UpdateGroupCategoryHistoryType(
-                                      groupId: groupId,
-                                      type: value.toString(),
-                                      isExpenses: false,
-                                    ),
-                                  );
-                            },
-                          ),
-                          Gap.horizontal(8),
-                          AppText(
-                            text: localize.income,
-                            style: StyleType.bodMed,
-                          ),
-                        ],
-                      ),
-                      Gap.horizontal(10),
-                      GestureDetector(
-                        onTap: _onPaintBrushTap,
-                        child: CircleAvatar(
-                          radius: 14,
-                          backgroundColor: Color(
-                            hexColor ?? 0xFFF44336,
-                          ),
-                          child: Icon(
-                            CupertinoIcons.paintbrush,
-                            color: context.color.onSurface,
-                            size: 12,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Gap.vertical(5),
-                  const AppDivider(),
-                  Gap.vertical(5),
+                  _buildRadioOption(
+                      localize.expenses, AppStrings.expenseType, type, groupId,
+                      isExpenses: true),
+                  _buildRadioOption(
+                      localize.income, AppStrings.incomeType, type, groupId,
+                      isExpenses: false),
+                  Gap.horizontal(10),
+                  _buildColorPicker(hexColor),
                 ],
               ),
-            if (!addNewGroup) ...[
+              Gap.vertical(5),
+              const AppDivider(),
+              Gap.vertical(5),
+            ] else ...[
               Stack(
                 children: [
                   Align(
@@ -322,22 +300,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: _onPaintBrushTap,
-                        child: CircleAvatar(
-                          radius: 14,
-                          backgroundColor: Color(
-                            hexColor ?? 0xFFF44336,
-                          ),
-                          child: Icon(
-                            CupertinoIcons.paintbrush,
-                            color: context.color.onSurface,
-                            size: 12,
-                          ),
-                        ),
-                      ),
-                    ],
+                    children: [_buildColorPicker(hexColor)],
                   ),
                 ],
               ),
@@ -345,36 +308,31 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
               const AppDivider(),
               Gap.vertical(10),
             ],
+
+            // Group name section
             Row(
               children: [
                 if (!addNewGroup) ...[
                   Expanded(
                     child: DropdownSearch<String>(
                       suffixProps: DropdownSuffixProps(
-                        clearButtonProps: ClearButtonProps(
-                          color: context.color.primary,
-                        ),
+                        clearButtonProps:
+                            ClearButtonProps(color: context.color.primary),
                         dropdownButtonProps: DropdownButtonProps(
-                          color: context.color.primary,
-                          iconSize: 18,
-                        ),
+                            color: context.color.primary, iconSize: 18),
                       ),
                       popupProps: PopupProps.menu(
                         showSelectedItems: true,
-                        disabledItemFn: (item) {
-                          return groupCategoryHistoriesCurrentBudgetId
-                              .map((e) => e.groupName)
-                              .contains(item);
-                        },
+                        disabledItemFn: (item) =>
+                            groupCategoryHistoriesCurrentBudgetId
+                                .map((e) => e.groupName)
+                                .contains(item),
                       ),
-                      items: (f, cs) => List.generate(
-                        groupCategories.length,
-                        (index) {
-                          return groupCategories[index].groupName;
-                        },
-                      ),
+                      items: (f, cs) =>
+                          groupCategories.map((e) => e.groupName).toList(),
                       decoratorProps: DropDownDecoratorProps(
-                        baseStyle: groupNameBaseStyle,
+                        baseStyle: _getTextStyle(_isGroupNamePlaceholder(
+                            groupName, localize.groupName)),
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.zero,
                           hintText: localize.selectGroup,
@@ -387,8 +345,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                       onChanged: (value) {
                         if (value != null) {
                           final selectedGroup = groupCategories.firstWhere(
-                            (element) => element.groupName == value,
-                          );
+                              (element) => element.groupName == value);
 
                           context.read<BudgetFormBloc>().add(
                                 UpdateGroupCategoryHistory(
@@ -407,9 +364,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                           final hexColor = int.parse(color ?? '0', radix: 16);
 
                           setState(() {
-                            _selectedGroupCategory = selectedGroup.copyWith(
-                              hexColor: hexColor,
-                            );
+                            _selectedGroupCategory =
+                                selectedGroup.copyWith(hexColor: hexColor);
                           });
                         }
                       },
@@ -423,51 +379,34 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                       controller: _groupNameController,
                       focusNode: _groupNameFocusNode,
                       onChanged: (value) {
-                        final groupExist = groupCategories.any(
-                          (element) =>
-                              element.groupName.toLowerCase().trim() ==
-                              value.toLowerCase().trim(),
-                        );
+                        final groupExist = groupCategories.any((element) =>
+                            element.groupName.toLowerCase().trim() ==
+                            value.toLowerCase().trim());
 
                         if (groupExist) {
                           AppToast.showToastError(
-                            context,
-                            '$value ${localize.alreadyExists}',
-                          );
+                              context, '$value ${localize.alreadyExists}');
                           _groupNameController.clear();
                           context.read<BudgetFormBloc>().add(
                                 UpdateGroupCategoryHistory(
-                                  groupCategoryHistory:
-                                      groupCategoryHistory.copyWith(
-                                    groupName: '',
-                                  ),
+                                  groupCategoryHistory: groupCategoryHistory
+                                      .copyWith(groupName: ''),
                                 ),
                               );
                         } else {
                           context.read<BudgetFormBloc>().add(
                                 UpdateGroupCategoryHistory(
-                                  groupCategoryHistory:
-                                      groupCategoryHistory.copyWith(
-                                    groupName: value,
-                                  ),
+                                  groupCategoryHistory: groupCategoryHistory
+                                      .copyWith(groupName: value),
                                 ),
                               );
                         }
                       },
-                      style: textStyle(
-                        context,
-                        style: StyleType.bodMed,
-                      ),
+                      style: textStyle(context, style: StyleType.bodMed),
                       decoration: InputDecoration(
                         contentPadding: EdgeInsets.zero,
                         hintText: groupName,
-                        hintStyle: textStyle(
-                          context,
-                          style: StyleType.bodMed,
-                        ).copyWith(
-                          color: context.color.onSurface.withValues(alpha: 0.3),
-                          fontWeight: FontWeight.w400,
-                        ),
+                        hintStyle: _getTextStyle(true),
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
                       ),
@@ -478,8 +417,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                     context.read<BudgetFormBloc>().add(
                           UpdateGroupCategoryHistory(
                             groupCategoryHistory: groupCategoryHistory.copyWith(
-                              groupName: localize.groupName,
-                            ),
+                                groupName: localize.groupName),
                           ),
                         );
                     setState(() {
@@ -487,9 +425,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                       if (addNewGroup) {
                         _groupNameFocusNode.requestFocus();
                       }
-                      if (_selectedGroupCategory != null) {
-                        _selectedGroupCategory = null;
-                      }
+                      _selectedGroupCategory = null;
                     });
                   },
                   child: AppText(
@@ -501,6 +437,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
               ],
             ),
             Gap.vertical(10),
+
+            // Item categories list
             ListView.separated(
               padding: EdgeInsets.zero,
               itemCount: itemCategoryHistories.length,
@@ -508,33 +446,16 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, indexItem) {
                 final item = itemCategoryHistories[indexItem];
-                const categoryNameInitialEN = 'Category Name';
-                const categoryNameInitialID = 'Nama Kategori';
-                TextStyle? baseStyle;
                 final itemName = item.name;
-
-                if (itemName.isEmpty ||
-                    itemName == categoryNameInitialID ||
-                    itemName == categoryNameInitialEN ||
-                    itemName == localize.selectCategory ||
-                    itemName == localize.typeCategoryName ||
-                    itemName == localize.categoryName) {
-                  baseStyle = textStyle(
-                    context,
-                    style: StyleType.bodMed,
-                  ).copyWith(
-                    color: context.color.onSurface.withValues(alpha: 0.3),
-                    fontWeight: FontWeight.w400,
-                  );
-                } else {
-                  baseStyle = textStyle(
-                    context,
-                    style: StyleType.bodMed,
-                  );
-                }
+                final isPlaceholder = _isCategoryNamePlaceholder(
+                    itemName,
+                    localize.selectCategory,
+                    localize.typeCategoryName,
+                    localize.categoryName);
 
                 return Row(
                   children: [
+                    // Category selector
                     if (addCategoryField[indexItem]) ...[
                       Expanded(
                         flex: 3,
@@ -544,51 +465,30 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                               controller: _leftControllers[indexItem],
                               focusNode: _leftFocusNodes[indexItem],
                               onChanged: (value) {
-                                final categories = state.itemCategories;
+                                final categoryExists = itemCategories.any(
+                                    (element) =>
+                                        element.categoryName
+                                            .toLowerCase()
+                                            .trim() ==
+                                        value.toLowerCase().trim());
 
-                                final categoryExists = categories.any(
-                                  (element) =>
-                                      element.categoryName
-                                          .toLowerCase()
-                                          .trim() ==
-                                      value.toLowerCase().trim(),
-                                );
-
-                                setState(() {
-                                  categoryNameExists = categoryExists;
-                                });
+                                setState(
+                                    () => categoryNameExists = categoryExists);
 
                                 if (categoryExists) {
-                                  AppToast.showToastError(
-                                    context,
-                                    '$value ${localize.alreadyExists}',
-                                  );
+                                  AppToast.showToastError(context,
+                                      '$value ${localize.alreadyExists}');
                                   _leftControllers[indexItem].clear();
-                                  final newCategory = item.copyWith(
-                                    name: '',
-                                  );
-                                  _onChangeField(newCategory);
+                                  _onChangeField(item.copyWith(name: ''));
                                 } else {
-                                  final newCategory = item.copyWith(
-                                    name: value,
-                                  );
-                                  _onChangeField(newCategory);
+                                  _onChangeField(item.copyWith(name: value));
                                 }
                               },
-                              style: textStyle(
-                                context,
-                                style: StyleType.bodMed,
-                              ),
+                              style:
+                                  textStyle(context, style: StyleType.bodMed),
                               decoration: InputDecoration(
                                 hintText: item.name,
-                                hintStyle: textStyle(
-                                  context,
-                                  style: StyleType.bodMed,
-                                ).copyWith(
-                                  color: context.color.onSurface
-                                      .withValues(alpha: 0.3),
-                                  fontWeight: FontWeight.w400,
-                                ),
+                                hintStyle: _getTextStyle(true),
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
                                 suffixIcon: IconButton(
@@ -597,17 +497,16 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                       addCategoryField[indexItem] =
                                           !addCategoryField[indexItem];
                                       _leftControllers[indexItem].clear();
-
-                                      context.read<BudgetFormBloc>().add(
-                                            UpdateItemCategoryHistoryEvent(
-                                              groupId: groupId,
-                                              itemId: item.id,
-                                              itemCategory: item.copyWith(
-                                                name: localize.selectCategory,
-                                              ),
-                                            ),
-                                          );
                                     });
+
+                                    context.read<BudgetFormBloc>().add(
+                                          UpdateItemCategoryHistoryEvent(
+                                            groupId: groupId,
+                                            itemId: item.id,
+                                            itemCategory: item.copyWith(
+                                                name: localize.selectCategory),
+                                          ),
+                                        );
                                   },
                                   icon: Icon(
                                     CupertinoIcons.chevron_down,
@@ -635,21 +534,18 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                               popupProps: PopupProps.menu(
                                 containerBuilder: (context, popupWidget) {
                                   return SizedBox(
-                                    height: 300,
+                                    height: _Constants.dropdownMenuHeight,
                                     child: Column(
                                       children: [
-                                        Expanded(
-                                          child: popupWidget,
-                                        ),
+                                        Expanded(child: popupWidget),
                                         Padding(
                                           padding: const EdgeInsets.all(12),
-                                          child: AppButton.noWidth(
+                                          child: AppButton(
+                                            height: 40,
                                             onPressed: () {
-                                              setState(() {
-                                                addCategoryField[indexItem] =
-                                                    !addCategoryField[
-                                                        indexItem];
-                                              });
+                                              setState(() => addCategoryField[
+                                                      indexItem] =
+                                                  !addCategoryField[indexItem]);
 
                                               context
                                                   .read<BudgetFormBloc>()
@@ -657,11 +553,9 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                                     UpdateItemCategoryHistoryEvent(
                                                       groupId: groupId,
                                                       itemId: item.id,
-                                                      itemCategory:
-                                                          item.copyWith(
-                                                        name: localize
-                                                            .typeCategoryName,
-                                                      ),
+                                                      itemCategory: item.copyWith(
+                                                          name: localize
+                                                              .typeCategoryName),
                                                     ),
                                                   );
                                               context.pop();
@@ -676,20 +570,16 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                   );
                                 },
                                 showSelectedItems: true,
-                                disabledItemFn: (item) {
-                                  return itemCategoryHistoriesCurrentBudgetId
-                                      .map((e) => e.name)
-                                      .contains(item);
-                                },
+                                disabledItemFn: (item) =>
+                                    itemCategoryHistoriesCurrentBudgetId
+                                        .map((e) => e.name)
+                                        .contains(item),
                               ),
-                              items: (f, cs) => List.generate(
-                                itemCategories.length,
-                                (index) {
-                                  return itemCategories[index].categoryName;
-                                },
-                              ),
+                              items: (f, cs) => itemCategories
+                                  .map((e) => e.categoryName)
+                                  .toList(),
                               decoratorProps: DropDownDecoratorProps(
-                                baseStyle: baseStyle,
+                                baseStyle: _getTextStyle(isPlaceholder),
                                 decoration: InputDecoration(
                                   contentPadding: EdgeInsets.zero,
                                   hintText: localize.selectCategory,
@@ -702,9 +592,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                               onChanged: (value) {
                                 if (value != null) {
                                   final selectedCategory =
-                                      itemCategories.firstWhere(
-                                    (element) => element.categoryName == value,
-                                  );
+                                      itemCategories.firstWhere((element) =>
+                                          element.categoryName == value);
 
                                   context.read<BudgetFormBloc>().add(
                                         UpdateItemCategoryHistoryEvent(
@@ -722,21 +611,17 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                         ),
                                       );
 
-                                  setState(() {
-                                    _selectedItemCategory[indexItem] =
-                                        selectedCategory;
-                                  });
+                                  setState(() =>
+                                      _selectedItemCategory[indexItem] =
+                                          selectedCategory);
                                 }
                               },
                               selectedItem: item.name,
                               suffixProps: DropdownSuffixProps(
                                 clearButtonProps: ClearButtonProps(
-                                  color: context.color.primary,
-                                ),
+                                    color: context.color.primary),
                                 dropdownButtonProps: DropdownButtonProps(
-                                  color: context.color.primary,
-                                  iconSize: 18,
-                                ),
+                                    color: context.color.primary, iconSize: 18),
                               ),
                             ),
                             Divider(
@@ -747,6 +632,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                           ],
                         ),
                       ),
+
+                    // Amount input
                     Expanded(
                       flex: 2,
                       child: BlocBuilder<SettingBloc, SettingState>(
@@ -755,27 +642,20 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                             controller: _rightControllers[indexItem],
                             focusNode: _rightFocusNodes[indexItem],
                             textAlign: TextAlign.end,
-                            style: textStyle(
-                              context,
-                              style: StyleType.bodMed,
-                            ),
+                            style: textStyle(context, style: StyleType.bodMed),
                             onChanged: (value) {
                               final cleanVal =
                                   value.replaceAll(RegExp('[^0-9]'), '');
 
                               if (cleanVal.isNotEmpty) {
-                                final newCategory = item.copyWith(
-                                  amount: cleanVal.toDouble(),
-                                );
-
-                                _onChangeField(newCategory);
+                                _onChangeField(
+                                    item.copyWith(amount: cleanVal.toDouble()));
                               } else {
                                 _onChangeValueEmpty(item);
                               }
                             },
-                            onEditingComplete: () {
-                              _rightFocusNodes[indexItem].unfocus();
-                            },
+                            onEditingComplete: () =>
+                                _rightFocusNodes[indexItem].unfocus(),
                             keyboardType: TextInputType.number,
                             inputFormatters: [
                               CurrencyTextInputFormatter.currency(
@@ -787,17 +667,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(10),
                               hintText: NumberFormatter.formatToMoneyDouble(
-                                context,
-                                item.amount,
-                              ),
-                              hintStyle: textStyle(
-                                context,
-                                style: StyleType.bodMed,
-                              ).copyWith(
-                                color: context.color.onSurface
-                                    .withValues(alpha: 0.3),
-                                fontWeight: FontWeight.w400,
-                              ),
+                                  context, item.amount),
+                              hintStyle: _getTextStyle(true),
                               focusedBorder: const OutlineInputBorder(
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),
@@ -822,6 +693,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                         },
                       ),
                     ),
+
+                    // Delete button
                     GestureDetector(
                       onTap: () {
                         _onRemoveItemCategory(item);
@@ -847,6 +720,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
               separatorBuilder: (context, index) => Gap.vertical(5),
             ),
             Gap.vertical(10),
+
+            // Add new item button
             GestureDetector(
               onTap: () {
                 final newItem = ItemCategoryHistory(
