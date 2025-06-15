@@ -1,6 +1,5 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BudgetOverviewTable extends StatelessWidget {
   const BudgetOverviewTable({
@@ -24,137 +23,117 @@ class BudgetOverviewTable extends StatelessWidget {
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
     return Container(
-      height: 200.h,
-      width: 300.w,
-      padding: const EdgeInsets.all(
-        16,
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.only(
+        top: 12,
       ),
       decoration: BoxDecoration(
         color: context.color.onPrimary,
-        borderRadius: BorderRadius.circular(
-          16,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          // Header Row
+          _buildTableRow(
+            context,
+            label: '',
+            planned: localize.planned,
+            actual: localize.actual,
+            isHeader: true,
+          ),
+          Gap.vertical(8),
+          AppDivider(
+            color: context.color.onSurface.withValues(alpha: 0.3),
+          ),
+          Gap.vertical(8),
+          // Income Row
+          _buildTableRow(
+            context,
+            label: localize.income,
+            planned: NumberFormatter.formatToMoneyDouble(
+              context,
+              totalPlanIncome,
+            ),
+            actual: NumberFormatter.formatToMoneyDouble(
+              context,
+              totalActualIncome,
+            ),
+          ),
+          Gap.vertical(8),
+          // Spending Row
+          _buildTableRow(
+            context,
+            label: localize.spending,
+            planned: NumberFormatter.formatToMoneyDouble(
+              context,
+              totalPlanExpense,
+            ),
+            actual: NumberFormatter.formatToMoneyDouble(
+              context,
+              totalActualExpense,
+            ),
+          ),
+          Gap.vertical(8),
+          // Remaining Row
+          _buildTableRow(
+            context,
+            label: localize.remaining,
+            planned: NumberFormatter.formatToMoneyDouble(
+              context,
+              plannedRemaining,
+            ),
+            actual: NumberFormatter.formatToMoneyDouble(
+              context,
+              actualRemaining,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTableRow(
+    BuildContext context, {
+    required String label,
+    required String planned,
+    required String actual,
+    bool isHeader = false,
+  }) {
+    final textStyle = isHeader ? StyleType.bodMed : StyleType.bodSm;
+    final fontWeight = isHeader ? FontWeight.w700 : FontWeight.normal;
+
+    return Row(
+      children: [
+        // Label column
+        Expanded(
+          flex: 2,
+          child: AppText(
+            text: label,
+            style: textStyle,
+            fontWeight: isHeader ? fontWeight : FontWeight.w700,
+          ),
         ),
-      ),
-      child: DataTable(
-        horizontalMargin: 0,
-        columnSpacing: 25,
-        dividerThickness: 0.2,
-        headingRowHeight: 40,
-        dataRowMaxHeight: 40,
-        dataRowMinHeight: 40,
-        columns: [
-          const DataColumn(
-            label: AppText(
-              text: '',
-              style: StyleType.bodMed,
-            ),
+        // Planned column
+        Expanded(
+          flex: 2,
+          child: AppText(
+            text: planned,
+            style: textStyle,
+            fontWeight: fontWeight,
+            textAlign: TextAlign.center,
           ),
-          DataColumn(
-            label: AppText(
-              text: localize.planned,
-              style: StyleType.bodMed,
-              fontWeight: FontWeight.w700,
-            ),
+        ),
+        // Actual column
+        Expanded(
+          flex: 2,
+          child: AppText(
+            text: actual,
+            style: textStyle,
+            fontWeight: fontWeight,
+            textAlign: TextAlign.center,
           ),
-          DataColumn(
-            label: AppText(
-              text: localize.actual,
-              style: StyleType.bodMed,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        ],
-        rows: [
-          DataRow(
-            cells: [
-              DataCell(
-                AppText(
-                  text: localize.income,
-                  style: StyleType.bodSm,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              DataCell(
-                AppText(
-                  text: NumberFormatter.formatToMoneyDouble(
-                    context,
-                    totalPlanIncome,
-                  ),
-                  style: StyleType.bodSm,
-                ),
-              ),
-              DataCell(
-                AppText(
-                  text: NumberFormatter.formatToMoneyDouble(
-                    context,
-                    totalActualIncome,
-                  ),
-                  style: StyleType.bodSm,
-                ),
-              ),
-            ],
-          ),
-          DataRow(
-            cells: [
-              DataCell(
-                AppText(
-                  text: localize.spending,
-                  style: StyleType.bodSm,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              DataCell(
-                AppText(
-                  text: NumberFormatter.formatToMoneyDouble(
-                    context,
-                    totalPlanExpense,
-                  ),
-                  style: StyleType.bodSm,
-                ),
-              ),
-              DataCell(
-                AppText(
-                  text: NumberFormatter.formatToMoneyDouble(
-                    context,
-                    totalActualExpense,
-                  ),
-                  style: StyleType.bodSm,
-                ),
-              ),
-            ],
-          ),
-          //   data row remaining
-          DataRow(
-            cells: [
-              DataCell(
-                AppText(
-                  text: localize.remaining,
-                  style: StyleType.bodSm,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              DataCell(
-                AppText(
-                  text: NumberFormatter.formatToMoneyDouble(
-                    context,
-                    plannedRemaining,
-                  ),
-                  style: StyleType.bodSm,
-                ),
-              ),
-              DataCell(
-                AppText(
-                  text: NumberFormatter.formatToMoneyDouble(
-                    context,
-                    actualRemaining,
-                  ),
-                  style: StyleType.bodSm,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

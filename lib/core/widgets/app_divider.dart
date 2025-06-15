@@ -26,7 +26,7 @@ class AppDivider extends StatelessWidget {
                     alpha: 0.1,
                   )
                 : context.color.outlineVariant.withValues(alpha: 0.3)),
-        thickness: thickness ?? 1,
+        thickness: thickness ?? 0.2,
       ),
     );
   }
