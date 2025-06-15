@@ -158,45 +158,35 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
 
   void _onPaintBrushTap() {
     final localize = textLocalizer(context);
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: AppText(
-            text: localize.pickAColor,
-            style: StyleType.headMed,
-          ),
-          content: SingleChildScrollView(
-            child: MaterialPicker(
-              pickerColor: _pickerColor ?? Colors.red,
-              onColorChanged: _changeColor,
-            ),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              child: AppText(
-                text: localize.save,
-                style: StyleType.bodLg,
-              ),
-              onPressed: () {
-                final color = _pickerColor!.toARGB32().toRadixString(16);
-                final hexColor = int.parse(color, radix: 16);
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: localize.pickAColor,
+        style: StyleType.headMed,
+      ),
+      content: MaterialPicker(
+        pickerColor: _pickerColor ?? Colors.red,
+        onColorChanged: _changeColor,
+      ),
+      actions: <Widget>[
+        AppButton(
+          label: localize.save,
+          onPressed: () {
+            final color = _pickerColor!.toARGB32().toRadixString(16);
+            final hexColor = int.parse(color, radix: 16);
 
-                context.read<BudgetFormBloc>().add(
-                      UpdateGroupCategoryHistory(
-                        groupCategoryHistory:
-                            widget.groupCategoryHistory.copyWith(
-                          hexColor: hexColor,
-                        ),
-                      ),
-                    );
+            context.read<BudgetFormBloc>().add(
+                  UpdateGroupCategoryHistory(
+                    groupCategoryHistory: widget.groupCategoryHistory.copyWith(
+                      hexColor: hexColor,
+                    ),
+                  ),
+                );
 
-                context.pop();
-              },
-            ),
-          ],
-        );
-      },
+            context.pop();
+          },
+        ),
+      ],
     );
   }
 

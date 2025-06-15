@@ -1298,47 +1298,38 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
 
   void _onPaintBrushTap(int index) {
     final localize = textLocalizer(context);
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: AppText(
-            text: localize.pickAColor,
-            style: StyleType.headMed,
-          ),
-          content: SingleChildScrollView(
-            child: MaterialPicker(
-              pickerColor: _pickerColor[index],
-              onColorChanged: (color) {
-                _changeColor(color, index);
-              },
-            ),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              child: AppText(
-                text: localize.save,
-                style: StyleType.bodLg,
-              ),
-              onPressed: () {
-                final color = _pickerColor[index].toARGB32().toRadixString(16);
-                final hexColor = int.parse(color, radix: 16);
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: localize.pickAColor,
+        style: StyleType.headMed,
+      ),
+      content: MaterialPicker(
+        pickerColor: _pickerColor[index],
+        onColorChanged: (color) {
+          _changeColor(color, index);
+        },
+      ),
+      actions: <Widget>[
+        AppButton(
+          label: localize.save,
+          onPressed: () {
+            final color = _pickerColor[index].toARGB32().toRadixString(16);
+            final hexColor = int.parse(color, radix: 16);
 
-                context.read<BudgetFormBloc>().add(
-                      UpdateGroupCategoryHistory(
-                        groupCategoryHistory:
-                            widget.groupCategoryHistories[index].copyWith(
-                          hexColor: hexColor,
-                        ),
-                      ),
-                    );
+            context.read<BudgetFormBloc>().add(
+                  UpdateGroupCategoryHistory(
+                    groupCategoryHistory:
+                        widget.groupCategoryHistories[index].copyWith(
+                      hexColor: hexColor,
+                    ),
+                  ),
+                );
 
-                context.pop();
-              },
-            ),
-          ],
-        );
-      },
+            context.pop();
+          },
+        ),
+      ],
     );
   }
 }

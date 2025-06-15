@@ -27,47 +27,29 @@ class IncomeExpenseDialog {
         textInfo = AppStrings.expenseInfoEN;
       }
     }
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          insetPadding: const EdgeInsets.only(
-            left: 16,
-            right: 16,
-            top: 50,
-            bottom: 16,
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: isIncome ? localize.income : localize.expenses,
+        style: StyleType.headMed,
+      ),
+      content: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          AppText.noMaxLines(
+            text: textInfo!,
+            style: StyleType.bodMed,
           ),
-          actionsPadding: const EdgeInsets.only(bottom: 16),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          title: AppText(
-            text: isIncome ? localize.income : localize.expenses,
-            style: StyleType.headMed,
-          ),
-          content: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText.noMaxLines(
-                  text: textInfo!,
-                  style: StyleType.bodMed,
-                ),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              child: AppText(
-                text: localize.close,
-                style: StyleType.headMed,
-                color: context.color.primary,
-              ),
-              onPressed: () {
-                context.pop();
-              },
-            ),
-          ],
-        );
-      },
+        ],
+      ),
+      actions: <Widget>[
+        AppButton(
+          label: localize.close,
+          onPressed: () {
+            context.pop();
+          },
+        ),
+      ],
     );
   }
 }

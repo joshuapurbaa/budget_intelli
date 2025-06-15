@@ -136,33 +136,85 @@ class AppDialog {
   }) async {
     final localize = textLocalizer(context);
     final colorScheme = Theme.of(context).colorScheme;
-    return showDialog<void>(
+    return showGeneralDialog<void>(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: AppText(
-            text: title,
-            style: StyleType.headMed,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: Colors.black.withValues(alpha: 0.5),
+      pageBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return SafeArea(
+          child: Center(
+            child: Material(
+              type: MaterialType.card,
+              elevation: 24,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width - 32,
+                  maxHeight: MediaQuery.of(context).size.height * 0.8,
+                ),
+                padding: getEdgeInsetsAll(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DefaultTextStyle(
+                      style: Theme.of(context).textTheme.headlineSmall!,
+                      child: AppText(
+                        text: title,
+                        style: StyleType.headMed,
+                      ),
+                    ),
+                    Gap.vertical(16),
+                    const AppDivider(),
+                    Gap.vertical(16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: onCancel,
+                            child: AppText.color(
+                              text: localize.no,
+                              color: colorScheme.primary,
+                              style: StyleType.headMed,
+                            ),
+                          ),
+                        ),
+                        Gap.horizontal(8),
+                        Expanded(
+                          child: TextButton(
+                            onPressed: onConfirm,
+                            child: AppText.color(
+                              text: localize.yes,
+                              color: colorScheme.error,
+                              style: StyleType.headMed,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
-          backgroundColor: colorScheme.surface,
-          actions: [
-            TextButton(
-              onPressed: onConfirm,
-              child: AppText.color(
-                text: localize.yes,
-                color: colorScheme.error,
-                style: StyleType.headMed,
-              ),
-            ),
-            TextButton(
-              onPressed: onCancel,
-              child: AppText.color(
-                text: localize.no,
-                color: colorScheme.primary,
-                style: StyleType.headMed,
-              ),
-            ),
-          ],
+        );
+      },
+      transitionBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation, Widget child) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5 * animation.value,
+            sigmaY: 5 * animation.value,
+          ),
+          child: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
         );
       },
     );
@@ -174,39 +226,95 @@ class AppDialog {
     String textContent,
   ) async {
     final localize = textLocalizer(context);
-    return showDialog<bool?>(
+    return showGeneralDialog<bool?>(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: AppText(
-            text: title,
-            style: StyleType.headMed,
-          ),
-          content: AppText(
-            text: textContent,
-            style: StyleType.bodMed,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                context.pop();
-              },
-              child: AppText(
-                text: localize.cencel,
-                style: StyleType.bodMed,
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: Colors.black.withValues(alpha: 0.5),
+      pageBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return SafeArea(
+          child: Center(
+            child: Material(
+              type: MaterialType.card,
+              elevation: 24,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width - 32,
+                  maxHeight: MediaQuery.of(context).size.height * 0.8,
+                ),
+                padding: getEdgeInsetsAll(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    DefaultTextStyle(
+                      style: Theme.of(context).textTheme.headlineSmall!,
+                      child: AppText(
+                        text: title,
+                        style: StyleType.headMed,
+                      ),
+                    ),
+                    Gap.vertical(16),
+                    const AppDivider(),
+                    Gap.vertical(16),
+                    Flexible(
+                      child: AppText(
+                        text: textContent,
+                        style: StyleType.bodMed,
+                      ),
+                    ),
+                    Gap.vertical(16),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              context.pop();
+                            },
+                            child: AppText(
+                              text: localize.cencel,
+                              style: StyleType.bodMed,
+                            ),
+                          ),
+                        ),
+                        Gap.horizontal(8),
+                        Expanded(
+                          child: TextButton(
+                            onPressed: () {
+                              context.pop(true);
+                            },
+                            child: AppText(
+                              text: localize.delete,
+                              style: StyleType.bodMed,
+                              color: context.color.error,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-            TextButton(
-              onPressed: () {
-                context.pop(true);
-              },
-              child: AppText(
-                text: localize.delete,
-                style: StyleType.bodMed,
-                color: context.color.error,
-              ),
-            ),
-          ],
+          ),
+        );
+      },
+      transitionBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation, Widget child) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5 * animation.value,
+            sigmaY: 5 * animation.value,
+          ),
+          child: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
         );
       },
     );
@@ -217,13 +325,54 @@ class AppDialog {
     String? imageUrl,
     Uint8List? imageBytes,
   }) async {
-    return showDialog<void>(
+    return showGeneralDialog<void>(
       context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: imageUrl != null
-              ? Image.network(imageUrl)
-              : Image.memory(imageBytes!),
+      barrierDismissible: true,
+      barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
+      barrierColor: Colors.black.withValues(alpha: 0.5),
+      pageBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation) {
+        return SafeArea(
+          child: Center(
+            child: Material(
+              type: MaterialType.card,
+              elevation: 24,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width - 32,
+                  maxHeight: MediaQuery.of(context).size.height * 0.8,
+                ),
+                padding: getEdgeInsetsAll(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Flexible(
+                      child: imageUrl != null
+                          ? Image.network(imageUrl)
+                          : Image.memory(imageBytes!),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+      transitionBuilder: (BuildContext context, Animation<double> animation,
+          Animation<double> secondaryAnimation, Widget child) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5 * animation.value,
+            sigmaY: 5 * animation.value,
+          ),
+          child: FadeTransition(
+            opacity: animation,
+            child: child,
+          ),
         );
       },
     );
@@ -237,22 +386,38 @@ class AppDialog {
       context: context,
       barrierDismissible: true,
       barrierLabel: MaterialLocalizations.of(context).modalBarrierDismissLabel,
-      barrierColor: Colors.black54,
+      barrierColor: Colors.black.withValues(alpha: 0.5),
       transitionDuration: const Duration(milliseconds: 300),
       pageBuilder: (
         BuildContext buildContext,
         animation,
         secondaryAnimation,
       ) {
-        return Center(
-          child: AlertDialog(
-            shape: const RoundedRectangleBorder(),
-            content: SizedBox(
-              // height: 200,
-              width: MediaQuery.of(context).size.width,
-              child: child,
+        return SafeArea(
+          child: Center(
+            child: Material(
+              type: MaterialType.card,
+              elevation: 24,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Container(
+                constraints: BoxConstraints(
+                  maxWidth: MediaQuery.of(context).size.width - 32,
+                  maxHeight: MediaQuery.of(context).size.height * 0.8,
+                ),
+                padding: getEdgeInsetsAll(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Flexible(
+                      child: child,
+                    ),
+                  ],
+                ),
+              ),
             ),
-            insetPadding: EdgeInsets.zero,
           ),
         );
       },
@@ -262,9 +427,15 @@ class AppDialog {
         secondaryAnimation,
         child,
       ) {
-        return ScaleTransition(
-          scale: animation,
-          child: child,
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 5 * animation.value,
+            sigmaY: 5 * animation.value,
+          ),
+          child: ScaleTransition(
+            scale: animation,
+            child: child,
+          ),
         );
       },
     );

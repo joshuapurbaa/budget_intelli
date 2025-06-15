@@ -705,40 +705,35 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
 
   void _onPaintBrushTap(int index) {
     final localize = textLocalizer(context);
-    showDialog<void>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: AppText(
-          text: localize.pickAColor,
-          style: StyleType.headMed,
-        ),
-        content: SingleChildScrollView(
-          child: MaterialPicker(
-            pickerColor: _pickerColor[index],
-            onColorChanged: (color) =>
-                setState(() => _pickerColor[index] = color),
-          ),
-        ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              final color = _pickerColor[index].toARGB32().toRadixString(16);
-              final hexColor = int.parse(color, radix: 16);
-
-              context.read<BudgetFormBloc>().add(
-                    UpdateGroupCategoryHistory(
-                      groupCategoryHistory:
-                          widget.groupCategories[index].copyWith(
-                        hexColor: hexColor,
-                      ),
-                    ),
-                  );
-              context.pop();
-            },
-            child: AppText(text: localize.save, style: StyleType.bodLg),
-          ),
-        ],
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: localize.pickAColor,
+        style: StyleType.headMed,
       ),
+      content: MaterialPicker(
+        pickerColor: _pickerColor[index],
+        onColorChanged: (color) => setState(() => _pickerColor[index] = color),
+      ),
+      actions: <Widget>[
+        AppButton(
+          label: localize.save,
+          onPressed: () {
+            final color = _pickerColor[index].toARGB32().toRadixString(16);
+            final hexColor = int.parse(color, radix: 16);
+
+            context.read<BudgetFormBloc>().add(
+                  UpdateGroupCategoryHistory(
+                    groupCategoryHistory:
+                        widget.groupCategories[index].copyWith(
+                      hexColor: hexColor,
+                    ),
+                  ),
+                );
+            context.pop();
+          },
+        ),
+      ],
     );
   }
 

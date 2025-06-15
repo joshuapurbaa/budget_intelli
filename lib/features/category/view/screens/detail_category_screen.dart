@@ -245,44 +245,35 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                     context.pop();
                   },
                   onPaintBrushTap: () {
-                    showDialog<void>(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: AppText(
-                            text: localize.pickAColor,
-                            style: StyleType.headMed,
-                          ),
-                          content: SingleChildScrollView(
-                            child: MaterialPicker(
-                              pickerColor: currentColor,
-                              onColorChanged: changeColor,
-                            ),
-                          ),
-                          actions: <Widget>[
-                            ElevatedButton(
-                              child: AppText(
-                                text: localize.save,
-                                style: StyleType.bodLg,
-                              ),
-                              onPressed: () {
-                                final color =
-                                    pickerColor.toARGB32().toRadixString(16);
-                                final hexColor = int.parse(color, radix: 16);
+                    AppDialog.showCustomDialog(
+                      context,
+                      title: AppText(
+                        text: localize.pickAColor,
+                        style: StyleType.headMed,
+                      ),
+                      content: MaterialPicker(
+                        pickerColor: currentColor,
+                        onColorChanged: changeColor,
+                      ),
+                      actions: [
+                        AppButton.darkLabel(
+                          label: localize.save,
+                          onPressed: () {
+                            final color =
+                                pickerColor.toARGB32().toRadixString(16);
+                            final hexColor = int.parse(color, radix: 16);
 
-                                if (itemCategory != null) {
-                                  _onUpdate(
-                                    itemCategory: itemCategory,
-                                    hexColor: hexColor,
-                                  );
-                                }
+                            if (itemCategory != null) {
+                              _onUpdate(
+                                itemCategory: itemCategory,
+                                hexColor: hexColor,
+                              );
+                            }
 
-                                context.pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
+                            context.pop();
+                          },
+                        ),
+                      ],
                     );
                   },
                 ),

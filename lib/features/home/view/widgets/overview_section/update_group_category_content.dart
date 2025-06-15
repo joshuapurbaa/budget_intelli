@@ -150,51 +150,40 @@ class _UpdateGroupCategoryContentState
 
   void _onPaintBrushTap(int index) {
     final localize = textLocalizer(context);
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: AppText(
-            text: localize.pickAColor,
-            style: StyleType.headMed,
-          ),
-          content: SingleChildScrollView(
-            child: MaterialPicker(
-              pickerColor:
-                  context.read<CategoryCubit>().state.pickerColor[index],
-              onColorChanged: (color) {
-                _changeColor(color, index);
-              },
-            ),
-          ),
-          actions: <Widget>[
-            ElevatedButton(
-              child: AppText(
-                text: localize.save,
-                style: StyleType.bodLg,
-              ),
-              onPressed: () {
-                final categoryState = context.read<CategoryCubit>().state;
-                final color = categoryState.pickerColor[index]
-                    .toARGB32()
-                    .toRadixString(16);
-                final hexColor = int.parse(color, radix: 16);
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: localize.pickAColor,
+        style: StyleType.headMed,
+      ),
+      content: MaterialPicker(
+        pickerColor: context.read<CategoryCubit>().state.pickerColor[index],
+        onColorChanged: (color) {
+          _changeColor(color, index);
+        },
+      ),
+      actions: <Widget>[
+        AppButton(
+          label: localize.save,
+          onPressed: () {
+            final categoryState = context.read<CategoryCubit>().state;
+            final color =
+                categoryState.pickerColor[index].toARGB32().toRadixString(16);
+            final hexColor = int.parse(color, radix: 16);
 
-                context.read<CategoryCubit>().getItemCategoryArgs(
-                      groupCategoryHistory:
-                          categoryState.groupCategoryHistory!.copyWith(
-                        hexColor: hexColor,
-                      ),
-                      currentColor: List.from(categoryState.currentColor)
-                        ..[index] = Color(hexColor),
-                    );
+            context.read<CategoryCubit>().getItemCategoryArgs(
+                  groupCategoryHistory:
+                      categoryState.groupCategoryHistory!.copyWith(
+                    hexColor: hexColor,
+                  ),
+                  currentColor: List.from(categoryState.currentColor)
+                    ..[index] = Color(hexColor),
+                );
 
-                context.pop();
-              },
-            ),
-          ],
-        );
-      },
+            context.pop();
+          },
+        ),
+      ],
     );
   }
 }

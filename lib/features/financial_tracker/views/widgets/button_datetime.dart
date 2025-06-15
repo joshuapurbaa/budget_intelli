@@ -15,132 +15,101 @@ class ButtonDateTime extends StatelessWidget {
     final localize = textLocalizer(context);
     return GestureDetector(
       onTap: () {
-        showGeneralDialog(
-          context: context,
-          barrierDismissible: true,
-          barrierLabel:
-              MaterialLocalizations.of(context).modalBarrierDismissLabel,
-          barrierColor: Colors.black54,
-          transitionDuration: const Duration(milliseconds: 300),
-          pageBuilder: (
-            BuildContext buildContext,
-            animation,
-            secondaryAnimation,
-          ) {
-            return Center(
-              child: AlertDialog(
-                shape: const RoundedRectangleBorder(),
-                content: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      EasyDateTimeLine(
-                        initialDate: DateTime.now(),
-                        onDateChange: (date) {
-                          final dateTime = DateTime(
-                            date.year,
-                            date.month,
-                            date.day,
-                            int.parse(state.selectedHour),
-                            int.parse(state.selectedMinute),
-                          );
-                          context
-                              .read<TimeScrollWheelCubit>()
-                              .setSelectedDate(dateTime);
-                        },
-                        headerProps: EasyHeaderProps(
-                          selectedDateStyle: TextStyle(
-                            color: context.color.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        activeColor: context.color.primary,
-                        dayProps: EasyDayProps(
-                          todayHighlightStyle: TodayHighlightStyle.none,
-                          todayHighlightColor: context.color.primary,
-                          activeDayStyle: DayStyle(
-                            dayNumStyle: textStyle(
-                              context,
-                              style: StyleType.disMd,
-                            ).copyWith(
-                              color: context.color.onPrimary,
-                            ),
-                            monthStrStyle: textStyle(
-                              context,
-                              style: StyleType.bodSm,
-                            ).copyWith(
-                              color: context.color.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                            dayStrStyle: textStyle(
-                              context,
-                              style: StyleType.bodSm,
-                            ).copyWith(
-                              color: context.color.onPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          inactiveDayStyle: DayStyle(
-                            dayNumStyle: textStyle(
-                              context,
-                              style: StyleType.bodLg,
-                            ),
-                          ),
-                          todayStyle: DayStyle(
-                            dayNumStyle: textStyle(
-                              context,
-                              style: StyleType.bodLg,
-                            ).copyWith(
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Gap.vertical(16),
-                      AppText(
-                        text: localize.at,
-                        style: StyleType.bodLg,
-                      ),
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.1,
-                        padding: getEdgeInsetsSymmetric(horizontal: 80),
-                        child: Stack(
-                          children: [
-                            const TimeScrollWheel(),
-                            Align(
-                              alignment: Alignment.centerRight,
-                              child: BlocBuilder<TimeScrollWheelCubit,
-                                  TimeScrollWheelState>(
-                                builder: (context, state) {
-                                  return AppText(
-                                    text: state.period,
-                                    style: StyleType.bodLg,
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+        AppDialog.showCustomDialog(
+          context,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              EasyDateTimeLine(
+                initialDate: DateTime.now(),
+                onDateChange: (date) {
+                  final dateTime = DateTime(
+                    date.year,
+                    date.month,
+                    date.day,
+                    int.parse(state.selectedHour),
+                    int.parse(state.selectedMinute),
+                  );
+                  context
+                      .read<TimeScrollWheelCubit>()
+                      .setSelectedDate(dateTime);
+                },
+                headerProps: EasyHeaderProps(
+                  selectedDateStyle: TextStyle(
+                    color: context.color.primary,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-                insetPadding: EdgeInsets.zero,
+                activeColor: context.color.primary,
+                dayProps: EasyDayProps(
+                  todayHighlightStyle: TodayHighlightStyle.none,
+                  todayHighlightColor: context.color.primary,
+                  activeDayStyle: DayStyle(
+                    dayNumStyle: textStyle(
+                      context,
+                      style: StyleType.disMd,
+                    ).copyWith(
+                      color: context.color.onPrimary,
+                    ),
+                    monthStrStyle: textStyle(
+                      context,
+                      style: StyleType.bodSm,
+                    ).copyWith(
+                      color: context.color.onPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    dayStrStyle: textStyle(
+                      context,
+                      style: StyleType.bodSm,
+                    ).copyWith(
+                      color: context.color.onPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  inactiveDayStyle: DayStyle(
+                    dayNumStyle: textStyle(
+                      context,
+                      style: StyleType.bodLg,
+                    ),
+                  ),
+                  todayStyle: DayStyle(
+                    dayNumStyle: textStyle(
+                      context,
+                      style: StyleType.bodLg,
+                    ).copyWith(
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
               ),
-            );
-          },
-          transitionBuilder: (
-            context,
-            animation,
-            secondaryAnimation,
-            child,
-          ) {
-            return ScaleTransition(
-              scale: animation,
-              child: child,
-            );
-          },
+              Gap.vertical(16),
+              AppText(
+                text: localize.at,
+                style: StyleType.bodLg,
+              ),
+              Container(
+                height: MediaQuery.of(context).size.height * 0.1,
+                padding: getEdgeInsetsSymmetric(horizontal: 80),
+                child: Stack(
+                  children: [
+                    const TimeScrollWheel(),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: BlocBuilder<TimeScrollWheelCubit,
+                          TimeScrollWheelState>(
+                        builder: (context, state) {
+                          return AppText(
+                            text: state.period,
+                            style: StyleType.bodLg,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         );
       },
       child: Container(

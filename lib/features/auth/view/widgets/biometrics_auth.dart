@@ -102,35 +102,38 @@ class _BiometricAuthState extends State<BiometricAuth> {
 
   void _showEnrollmentPrompt(BuildContext context) {
     final localize = textLocalizer(context);
-    showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: AppText(
-            text: localize.setUpBiometrics,
-            textAlign: TextAlign.center,
+
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: localize.setUpBiometrics,
+        style: StyleType.headMed,
+      ),
+      content: AppText(
+        text: localize.biometricNotSetUp,
+        textAlign: TextAlign.center,
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () {
+            context.pop();
+          },
+          child: AppText(
+            text: localize.cancel,
+            style: StyleType.bodMed,
           ),
-          content: AppText(
-            text: localize.biometricNotSetUp,
-            textAlign: TextAlign.center,
+        ),
+        TextButton(
+          onPressed: () {
+            context.pop();
+            _openBiometricSettings();
+          },
+          child: AppText(
+            text: localize.openSettings,
+            style: StyleType.bodMed,
           ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: AppText(text: localize.cancel),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                _openBiometricSettings();
-              },
-              child: AppText(text: localize.openSettings),
-            ),
-          ],
-        );
-      },
+        ),
+      ],
     );
   }
 
@@ -141,28 +144,27 @@ class _BiometricAuthState extends State<BiometricAuth> {
   }
 
   void _showErrorDialog(BuildContext context, String message) {
-    showDialog<void>(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: AppText(
-            text: textLocalizer(context).authenticationError,
+    final localize = textLocalizer(context);
+
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: localize.authenticationError,
+        style: StyleType.headMed,
+      ),
+      content: AppText(text: message),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () {
+            // _openBiometricSettings();
+            Navigator.of(context).pop();
+          },
+          child: const AppText(
+            text: 'Ok',
+            style: StyleType.bodMed,
           ),
-          content: AppText(text: message),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                // _openBiometricSettings();
-                Navigator.of(context).pop();
-              },
-              child: const AppText(
-                text: 'Ok',
-                style: StyleType.bodMed,
-              ),
-            ),
-          ],
-        );
-      },
+        ),
+      ],
     );
   }
 
