@@ -27,10 +27,12 @@ class UpdateGroupCategoryContent extends StatefulWidget {
 class _UpdateGroupCategoryContentState
     extends State<UpdateGroupCategoryContent> {
   final _groupNameController = TextEditingController();
+  final _groupNameFocusNode = FocusNode();
 
   @override
   void initState() {
     super.initState();
+    _groupNameFocusNode.requestFocus();
     context.read<CategoryCubit>().getGroupCategories();
     if (widget.groupCategoryHistory != null) {
       _groupNameController.text = widget.groupCategoryHistory!.groupName;
@@ -53,6 +55,7 @@ class _UpdateGroupCategoryContentState
                 Expanded(
                   child: TextField(
                     controller: _groupNameController,
+                    focusNode: _groupNameFocusNode,
                     onChanged: (value) {
                       context.read<CategoryCubit>().searchGroupCategoryByName(
                             name: value,
