@@ -57,13 +57,12 @@ dependencies:
   in_app_purchase: ^3.2.0
   internet_connection_checker_plus: ^2.3.0
   intl: any
-  json_annotation: ^4.8.1
+  json_annotation: ^4.9.0
   local_auth: ^2.2.0
   local_auth_android: ^1.0.42
   logger: ^2.2.0
   lottie: ^3.1.0
   math_expressions: ^2.4.0
-  mockito: ^5.4.4
   open_file: ^3.3.2
   path: ^1.9.0
   path_provider: ^2.1.4
@@ -88,6 +87,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^6.7.1
+  mockito: ^5.4.6
   # mockingjay: ^2.0.0
   # mocktail: ^1.0.0
 
