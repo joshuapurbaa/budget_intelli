@@ -40,91 +40,89 @@ class _AppCalculatorBottomSheetState extends State<AppCalculatorBottomSheet> {
     final currencySymbol = context.watch<SettingBloc>().state.currency.symbol;
     return Container(
       constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.60,
+        maxHeight: context.screenHeight * 0.60,
       ),
       padding: getEdgeInsetsSymmetric(horizontal: 10),
-      child: Stack(
+      child: Column(
         children: [
-          Column(
-            children: [
-              Container(
-                margin: getEdgeInsets(top: 10),
-                height: 5,
-                width: 50,
-                decoration: BoxDecoration(
-                  color: context.color.onInverseSurface,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                ),
+          Container(
+            margin: getEdgeInsets(top: 10),
+            height: 5,
+            width: 50,
+            decoration: BoxDecoration(
+              color: context.color.onInverseSurface,
+              borderRadius: const BorderRadius.all(
+                Radius.circular(10),
               ),
-              Gap.vertical(15),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppText(
-                            text: currencySymbol,
-                            style: StyleType.bodLg,
-                          ),
-                          Gap.horizontal(5),
-                          Expanded(
-                            child: AppText.autoSize(
-                              maxLines: 2,
-                              text: NumberFormatter.formatStringToMoneyNoSymbol(
-                                context,
-                                notifier.result,
-                              ),
-                              style: StyleType.disLg,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    if (!zeroExpression)
-                      AppText(
-                        text: notifier.expression,
-                        style: StyleType.bodMed,
-                        color: context.color.onSurface.withValues(alpha: 0.5),
-                        fontWeight: FontWeight.w400,
-                      ),
-                  ],
-                ),
-              ),
-              Gap.vertical(5),
-              AppCalculatorButtons(
-                notifier: notifier,
-              ),
-              Gap.vertical(5),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(382.w, 65.h),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  backgroundColor: context.color.primary,
-                ),
-                onPressed: () {
-                  final amount = NumberFormatter.formatStringToMoneyNoSymbol(
-                    context,
-                    notifier.result,
-                  );
-
-                  context.pop(amount);
-                },
-                child: AppText(
-                  text: localize.recordTransaction,
-                  style: StyleType.bodLg,
-                  color: context.color.onPrimary,
-                ),
-              ),
-              Gap.vertical(20),
-            ],
+            ),
           ),
+          Gap.vertical(15),
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText(
+                        text: currencySymbol,
+                        style: StyleType.bodLg,
+                      ),
+                      Gap.horizontal(5),
+                      Expanded(
+                        child: AppText.autoSize(
+                          maxLines: 2,
+                          text: NumberFormatter.formatStringToMoneyNoSymbol(
+                            context,
+                            notifier.result,
+                          ),
+                          style: StyleType.disLg,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (!zeroExpression)
+                  AppText(
+                    text: notifier.expression,
+                    style: StyleType.bodMed,
+                    color: context.color.onSurface.withValues(alpha: 0.5),
+                    fontWeight: FontWeight.w400,
+                  ),
+              ],
+            ),
+          ),
+          Gap.vertical(5),
+          AppCalculatorButtons(
+            notifier: notifier,
+          ),
+          Gap.vertical(5),
+          SafeArea(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: Size(382.w, 60.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                backgroundColor: context.color.primary,
+              ),
+              onPressed: () {
+                final amount = NumberFormatter.formatStringToMoneyNoSymbol(
+                  context,
+                  notifier.result,
+                );
+
+                context.pop(amount);
+              },
+              child: AppText(
+                text: localize.recordTransaction,
+                style: StyleType.bodLg,
+                color: context.color.onPrimary,
+              ),
+            ),
+          ),
+          Gap.vertical(20),
         ],
       ),
     );
