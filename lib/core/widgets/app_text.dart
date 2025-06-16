@@ -17,6 +17,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   });
 
   const AppText.color({
@@ -32,6 +33,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   });
 
   const AppText.reg12({
@@ -45,6 +47,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodSm,
         fontWeight = FontWeight.w400;
 
@@ -59,6 +62,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w700;
 
@@ -73,6 +77,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w400;
 
@@ -87,6 +92,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w300;
 
@@ -101,6 +107,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w500;
 
@@ -115,6 +122,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodLg,
         fontWeight = FontWeight.w500;
 
@@ -129,6 +137,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodLg,
         fontWeight = FontWeight.w400;
 
@@ -143,6 +152,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodLg,
         fontWeight = FontWeight.w300;
 
@@ -157,6 +167,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.titSm,
         fontWeight = FontWeight.w400;
 
@@ -171,6 +182,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.titSm,
         fontWeight = FontWeight.w600;
 
@@ -185,6 +197,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   })  : style = StyleType.bodMed,
         fontWeight = FontWeight.w400;
 
@@ -201,6 +214,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   }) : fontStyle = FontStyle.italic;
 
   const AppText.autoSize({
@@ -215,6 +229,7 @@ class AppText extends StatelessWidget {
     this.noMaxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   }) : autoSize = true;
 
   const AppText.noMaxLines({
@@ -229,6 +244,7 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.animation,
     this.minFontSize,
+    this.lineThrough,
   }) : noMaxLines = true;
 
   const AppText.animate({
@@ -243,7 +259,24 @@ class AppText extends StatelessWidget {
     this.maxLines,
     this.noMaxLines,
     this.minFontSize,
+    this.lineThrough,
   }) : animation = true;
+
+  // Add a constructor specifically for line through text
+  const AppText.lineThrough({
+    required this.text,
+    this.style,
+    super.key,
+    this.textAlign,
+    this.fontWeight,
+    this.color,
+    this.fontStyle,
+    this.autoSize,
+    this.maxLines,
+    this.noMaxLines,
+    this.animation,
+    this.minFontSize,
+  }) : lineThrough = true;
 
   final String text;
   final StyleType? style;
@@ -256,9 +289,13 @@ class AppText extends StatelessWidget {
   final bool? noMaxLines;
   final bool? animation;
   final double? minFontSize;
+  final bool? lineThrough;
 
   @override
   Widget build(BuildContext context) {
+    final textDecoration =
+        lineThrough == true ? TextDecoration.lineThrough : TextDecoration.none;
+
     if (autoSize != null) {
       return AutoSizeText(
         minFontSize: minFontSize ?? 12,
@@ -267,6 +304,7 @@ class AppText extends StatelessWidget {
           fontWeight: fontWeight,
           color: color ?? context.color.onSurface,
           fontStyle: fontStyle,
+          decoration: textDecoration,
         ),
         maxLines: maxLines ?? 1,
         overflow: TextOverflow.ellipsis,
@@ -280,6 +318,7 @@ class AppText extends StatelessWidget {
           fontWeight: fontWeight,
           color: color ?? context.color.onSurface,
           fontStyle: fontStyle,
+          decoration: textDecoration,
         ),
         textAlign: textAlign,
       );
@@ -292,6 +331,7 @@ class AppText extends StatelessWidget {
           fontWeight: fontWeight,
           color: color ?? context.color.onSurface,
           fontStyle: fontStyle,
+          decoration: textDecoration,
         ),
         textAlign: textAlign,
         maxLines: maxLines ?? 2,
@@ -305,6 +345,7 @@ class AppText extends StatelessWidget {
         fontWeight: fontWeight,
         color: color ?? context.color.onSurface,
         fontStyle: fontStyle,
+        decoration: textDecoration,
       ),
       textAlign: textAlign,
       maxLines: maxLines ?? 2,

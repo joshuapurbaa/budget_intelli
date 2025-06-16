@@ -1237,4 +1237,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get areYouSureYouWantToDeleteThisAsset =>
       'Are you sure you want to delete this asset?';
+
+  @override
+  String get completed => 'Completed';
+
+  @override
+  String get overspending => 'Overspending';
 }

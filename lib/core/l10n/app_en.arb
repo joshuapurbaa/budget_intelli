@@ -396,5 +396,7 @@
   "unexpectedError": "An unexpected error occurred: {e}",
   "tryAgain": "Try Again",
   "ok": "Ok",
-  "areYouSureYouWantToDeleteThisAsset": "Are you sure you want to delete this asset?"
+  "areYouSureYouWantToDeleteThisAsset": "Are you sure you want to delete this asset?",
+  "completed": "Completed",
+  "overspending": "Overspending"
 }

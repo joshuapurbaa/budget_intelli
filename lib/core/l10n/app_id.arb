@@ -396,5 +396,7 @@
   "unexpectedError": "Terjadi kesalahan tak terduga: {e}",
   "tryAgain": "Coba Lagi",
   "ok": "Ok",
-  "areYouSureYouWantToDeleteThisAsset": "Apakah Anda yakin ingin menghapus aset ini?"
+  "areYouSureYouWantToDeleteThisAsset": "Apakah Anda yakin ingin menghapus aset ini?",
+  "completed": "Selesai",
+  "overspending": "Melebihi Anggaran"
 }

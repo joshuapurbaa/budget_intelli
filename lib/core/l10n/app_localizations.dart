@@ -2485,6 +2485,18 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Apakah Anda yakin ingin menghapus aset ini?'**
   String get areYouSureYouWantToDeleteThisAsset;
+
+  /// No description provided for @completed.
+  ///
+  /// In id, this message translates to:
+  /// **'Selesai'**
+  String get completed;
+
+  /// No description provided for @overspending.
+  ///
+  /// In id, this message translates to:
+  /// **'Melebihi Anggaran'**
+  String get overspending;
 }
 
 class _AppLocalizationsDelegate

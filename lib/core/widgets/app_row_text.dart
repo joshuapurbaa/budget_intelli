@@ -10,6 +10,7 @@ class RowText extends StatelessWidget {
     this.fontWeightLeft,
     this.fontStyleLeft,
     this.fontWeightRight,
+    this.lineThrough,
     super.key,
   });
 
@@ -20,6 +21,7 @@ class RowText extends StatelessWidget {
   final FontWeight? fontWeightLeft;
   final FontWeight? fontWeightRight;
   final FontStyle? fontStyleLeft;
+  final bool? lineThrough;
 
   @override
   Widget build(BuildContext context) {
@@ -32,12 +34,14 @@ class RowText extends StatelessWidget {
             fontWeight: fontWeightLeft ?? FontWeight.w600,
             style: styleTypeLeft ?? StyleType.bodMed,
             fontStyle: fontStyleLeft ?? FontStyle.normal,
+            lineThrough: lineThrough,
           ),
         ),
         AppText(
           text: right,
           style: styleTypeRight ?? StyleType.bodMed,
           fontWeight: fontWeightRight ?? FontWeight.w400,
+          lineThrough: lineThrough,
         ),
       ],
     );

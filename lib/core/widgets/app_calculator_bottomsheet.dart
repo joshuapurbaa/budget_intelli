@@ -40,7 +40,7 @@ class _AppCalculatorBottomSheetState extends State<AppCalculatorBottomSheet> {
     final currencySymbol = context.watch<SettingBloc>().state.currency.symbol;
     return Container(
       constraints: BoxConstraints(
-        maxHeight: context.screenHeight * 0.60,
+        maxHeight: context.screenHeight * 0.65,
       ),
       padding: getEdgeInsetsSymmetric(horizontal: 10),
       child: Column(

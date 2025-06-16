@@ -607,6 +607,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
     final iconPath = item.iconPath;
     final iconPathNotNull = iconPath != null;
     final isIncome = item.type == 'income';
+    final localize = textLocalizer(context);
 
     // Calculate progress metrics
     final actualAmount = widget.itemCategoryTransactions
@@ -616,6 +617,9 @@ class _BudgetOverviewState extends State<BudgetOverview> {
 
     final progressData =
         _calculateItemProgress(actualAmount, item.amount, isIncome);
+
+    final percent = progressData['percent']!;
+    final completed = percent == 1.0;
 
     return GestureDetector(
       onTap: () =>
@@ -634,11 +638,20 @@ class _BudgetOverviewState extends State<BudgetOverview> {
                   fontWeightLeft: FontWeight.w500,
                   right:
                       NumberFormatter.formatToMoneyDouble(context, item.amount),
+                  lineThrough: completed,
                 ),
               ),
+              if (completed) ...[
+                Gap.horizontal(5),
+                AppText(
+                  text: localize.completed,
+                  style: StyleType.bodSm,
+                  color: context.color.primary,
+                ),
+              ]
             ],
           ),
-          if (progressData['percent']! > 0) ...[
+          if (percent > 0) ...[
             Gap.vertical(5),
             _buildProgressIndicator(progressData, actualAmount),
           ],
@@ -696,11 +709,12 @@ class _BudgetOverviewState extends State<BudgetOverview> {
     final percent = progressData['percent']!;
     final percentValue = progressData['percentValue']!;
 
-    final isOverTarget = percent >= 1.0;
+    final isOverTarget = percentValue > 100;
+    final overspending = localize.overspending;
 
     var percentStr = '${percentValue.truncate()}%';
     if (isOverTarget) {
-      percentStr = '$percentStr ${percent >= 1 ? 'Overspending' : ''}';
+      percentStr = '$percentStr ${(percentValue > 100) ? overspending : ''}';
     }
 
     final percentTextColor = isOverTarget
