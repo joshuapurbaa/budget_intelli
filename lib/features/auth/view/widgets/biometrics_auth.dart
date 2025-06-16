@@ -126,6 +126,16 @@ class _BiometricAuthState extends State<BiometricAuth> {
         TextButton(
           onPressed: () {
             context.pop();
+            _authenticate();
+          },
+          child: AppText(
+            text: 'Try Again',
+            style: StyleType.bodMed,
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            context.pop();
             _openBiometricSettings();
           },
           child: AppText(
@@ -156,11 +166,20 @@ class _BiometricAuthState extends State<BiometricAuth> {
       actions: <Widget>[
         TextButton(
           onPressed: () {
-            // _openBiometricSettings();
             Navigator.of(context).pop();
           },
           child: const AppText(
             text: 'Ok',
+            style: StyleType.bodMed,
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+            _authenticate();
+          },
+          child: const AppText(
+            text: 'Try Again',
             style: StyleType.bodMed,
           ),
         ),
@@ -178,6 +197,15 @@ class _BiometricAuthState extends State<BiometricAuth> {
       ),
       content: AppText(text: message),
       actions: <Widget>[
+        AppButton(
+          height: 48,
+          label: 'Try Again',
+          onPressed: () {
+            context.pop();
+            _authenticate();
+          },
+        ),
+        Gap.vertical(8),
         AppButton(
           height: 48,
           label: textLocalizer(context).setUp,
@@ -198,10 +226,17 @@ class _BiometricAuthState extends State<BiometricAuth> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Gap.vertical(16),
+            Image.asset(
+              logo,
+              color: context.color.onSurface,
+              width: 100,
+            ),
+            Gap.vertical(16),
             Image.asset(
               identityPng,
               color: context.color.onSurface,
-              width: MediaQuery.sizeOf(context).width * 0.5,
+              width: 50,
             ),
             Gap.vertical(32),
             Padding(

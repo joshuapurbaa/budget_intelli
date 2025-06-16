@@ -637,6 +637,12 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                   setState(() =>
                                       _selectedItemCategory[indexItem] =
                                           selectedCategory);
+
+                                  _unfocusAllFocusNode();
+                                  if (itemName ==
+                                      selectedCategory.categoryName) {
+                                    _rightFocusNodes[indexItem].requestFocus();
+                                  }
                                 }
                               },
                               selectedItem: item.name,

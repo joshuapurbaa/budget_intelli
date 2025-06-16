@@ -32,11 +32,20 @@ class BudgetFormField extends StatefulWidget {
 class _BudgetFormFieldState extends State<BudgetFormField> {
   final List<List<TextEditingController>> _leftTextEditingControllers = [];
   final List<List<TextEditingController>> _rightTextEditingControllers = [];
-  final List<List<bool>> _addCategoryField = [];
+  final List<List<FocusNode>> _leftFocusNodes = [];
+  final List<List<FocusNode>> _rightFocusNodes = [];
+  final List<List<bool>> _addNewCategoryField = [];
   final List<List<ItemCategory>> _selectedItemCategories = [];
   final List<GroupCategory> _selectedGroupCategories = [];
   List<bool> addNewGroups = [];
   final List<TextEditingController> _groupNameController = [];
+
+  static const categoryNameInitialEN = 'Category Name';
+  static const categoryNameInitialID = 'Nama Kategori';
+  static const groupNameInitialEN = 'Group Name';
+  static const groupNameInitialID = 'Nama Grup';
+
+  static const hintText = 'Type here...';
 
   @override
   void didUpdateWidget(covariant BudgetFormField oldWidget) {
@@ -116,6 +125,8 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
     setState(() {
       final leftControllers = <TextEditingController>[];
       final rightControllers = <TextEditingController>[];
+      final leftFocusNodes = <FocusNode>[];
+      final rightFocusNodes = <FocusNode>[];
       final valueList = <bool>[];
       final itemCategoryList = <ItemCategory>[];
 
@@ -138,11 +149,15 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
         rightControllers.add(rightController);
         valueList.add(value);
         itemCategoryList.add(itemCategory);
+        leftFocusNodes.add(FocusNode());
+        rightFocusNodes.add(FocusNode());
       }
 
       _leftTextEditingControllers.add(leftControllers);
       _rightTextEditingControllers.add(rightControllers);
-      _addCategoryField.add(valueList);
+      _leftFocusNodes.add(leftFocusNodes);
+      _rightFocusNodes.add(rightFocusNodes);
+      _addNewCategoryField.add(valueList);
       _selectedItemCategories.add(itemCategoryList);
       _selectedGroupCategories.add(
         GroupCategory(
@@ -173,9 +188,11 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
     setState(() {
       _leftTextEditingControllers.clear();
       _rightTextEditingControllers.clear();
+      _leftFocusNodes.clear();
+      _rightFocusNodes.clear();
       _pickerColor.clear();
       _currentColor.clear();
-      _addCategoryField.clear();
+      _addNewCategoryField.clear();
       _selectedItemCategories.clear();
       _selectedGroupCategories.clear();
       addNewGroups.clear();
@@ -188,12 +205,12 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
         final rightControllers = <TextEditingController>[];
         final valueList = <bool>[];
         final itemCategoryList = <ItemCategory>[];
-
+        final leftFocusNodes = <FocusNode>[];
+        final rightFocusNodes = <FocusNode>[];
         for (var j = 0; j < itemCategories.length; j++) {
           TextEditingController? rightController;
           final amount = itemCategories[j].amount;
-          final leftController =
-              TextEditingController(text: itemCategories[j].name);
+          final leftController = TextEditingController(text: '');
 
           if (amount > 0) {
             rightController = TextEditingController(
@@ -218,12 +235,15 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
           rightControllers.add(rightController);
           valueList.add(value);
           itemCategoryList.add(itemCategory);
+          leftFocusNodes.add(FocusNode());
+          rightFocusNodes.add(FocusNode());
         }
 
         _leftTextEditingControllers.add(leftControllers);
         _rightTextEditingControllers.add(rightControllers);
-
-        _addCategoryField.add(valueList);
+        _leftFocusNodes.add(leftFocusNodes);
+        _rightFocusNodes.add(rightFocusNodes);
+        _addNewCategoryField.add(valueList);
         addNewGroups.add(false);
         _selectedItemCategories.add(itemCategoryList);
         _selectedGroupCategories.add(
@@ -242,6 +262,20 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
         _currentColor.add(Color(widget.groupCategoryHistories[i].hexColor));
       }
     });
+  }
+
+  TextStyle _getTextStyle(bool isPlaceholder, {bool isHint = false}) {
+    final baseStyle = textStyle(context, style: StyleType.bodMed);
+
+    if (isPlaceholder || isHint) {
+      return baseStyle.copyWith(
+        color: isHint
+            ? context.color.onSurface.withValues(alpha: 0.3)
+            : context.color.onSurface,
+        fontWeight: FontWeight.w400,
+      );
+    }
+    return baseStyle;
   }
 
   @override
@@ -284,10 +318,6 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
               final lastIndex = widget.groupCategoryHistories.length - 1;
               final isLast = indexGroup == lastIndex;
 
-              const groupNameInitialEN = 'Group Name';
-              const groupNameInitialID = 'Nama Grup';
-              const categoryNameInitialEN = 'Category Name';
-              const categoryNameInitialID = 'Nama Kategori';
               final title = isIncome ? localize.income : localize.expenses;
 
               final onlyOneIncomeAndExpense =
@@ -590,7 +620,9 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                               .removeAt(indexGroup);
                                           _rightTextEditingControllers
                                               .removeAt(indexGroup);
-                                          _addCategoryField
+                                          _leftFocusNodes.removeAt(indexGroup);
+                                          _rightFocusNodes.removeAt(indexGroup);
+                                          _addNewCategoryField
                                               .removeAt(indexGroup);
                                           _selectedItemCategories
                                               .removeAt(indexGroup);
@@ -688,7 +720,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
 
                                 return Row(
                                   children: [
-                                    if (_addCategoryField[indexGroup]
+                                    if (_addNewCategoryField[indexGroup]
                                         [indexItem])
                                       Expanded(
                                         flex: 3,
@@ -698,6 +730,9 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                               controller:
                                                   _leftTextEditingControllers[
                                                       indexGroup][indexItem],
+                                              focusNode:
+                                                  _leftFocusNodes[indexGroup]
+                                                      [indexItem],
                                               onChanged: (value) {
                                                 final categoryExists =
                                                     itemCategories.any(
@@ -718,6 +753,9 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                   _leftTextEditingControllers[
                                                           indexGroup][indexItem]
                                                       .clear();
+                                                  _leftFocusNodes[indexGroup]
+                                                          [indexItem]
+                                                      .unfocus();
                                                   final newCategory =
                                                       item.copyWith(
                                                     name: '',
@@ -737,19 +775,15 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                   );
                                                 }
                                               },
-                                              style: textStyle(
-                                                context,
-                                                style: StyleType.bodMed,
+                                              style: _getTextStyle(
+                                                item.name.isEmpty,
                                               ),
                                               decoration: InputDecoration(
                                                 hintText: item.name,
-                                                hintStyle: textStyle(
-                                                  context,
-                                                  style: StyleType.bodMed,
-                                                ).copyWith(
-                                                  color: context.color.onSurface
-                                                      .withValues(alpha: 0.3),
-                                                  fontWeight: FontWeight.w400,
+                                                hintStyle: _getTextStyle(
+                                                  item.name.isEmpty,
+                                                  isHint: item.name ==
+                                                      localize.typeCategoryName,
                                                 ),
                                                 enabledBorder: InputBorder.none,
                                                 focusedBorder: InputBorder.none,
@@ -757,11 +791,11 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                   onPressed: () {
                                                     setState(() {
                                                       final prevsValue =
-                                                          _addCategoryField[
+                                                          _addNewCategoryField[
                                                                   indexGroup]
                                                               [indexItem];
 
-                                                      _addCategoryField[
+                                                      _addNewCategoryField[
                                                                   indexGroup]
                                                               [indexItem] =
                                                           !prevsValue;
@@ -770,6 +804,10 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                                   indexGroup]
                                                               [indexItem]
                                                           .clear();
+                                                      _leftFocusNodes[
+                                                                  indexGroup]
+                                                              [indexItem]
+                                                          .unfocus();
 
                                                       context
                                                           .read<
@@ -803,7 +841,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                           ],
                                         ),
                                       ),
-                                    if (!_addCategoryField[indexGroup]
+                                    if (!_addNewCategoryField[indexGroup]
                                         [indexItem])
                                       Expanded(
                                         flex: 3,
@@ -856,8 +894,8 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(12),
-                                                          child:
-                                                              AppButton.noWidth(
+                                                          child: AppButton(
+                                                            height: 40,
                                                             onPressed: () {
                                                               _setNewCategory(
                                                                 item: item,
@@ -868,7 +906,13 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                                 groupId:
                                                                     groupId,
                                                               );
-                                                              context.pop();
+
+                                                              _unfocusAllFocusNode();
+                                                              _leftFocusNodes[
+                                                                          indexGroup]
+                                                                      [
+                                                                      indexItem]
+                                                                  .requestFocus();
                                                             },
                                                             label: localize.add,
                                                           ),
@@ -901,14 +945,10 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                       EdgeInsets.zero,
                                                   hintText:
                                                       localize.selectCategory,
-                                                  hintStyle: textStyle(
-                                                    context,
-                                                    style: StyleType.bodLg,
-                                                  ).copyWith(
-                                                    color: context
-                                                        .color.onSurface
-                                                        .withValues(alpha: 0.3),
-                                                    fontWeight: FontWeight.w400,
+                                                  hintStyle: _getTextStyle(
+                                                    item.name.isEmpty,
+                                                    isHint:
+                                                        item.name == hintText,
                                                   ),
                                                   border: OutlineInputBorder(
                                                     borderRadius:
@@ -964,6 +1004,17 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                                 indexGroup]
                                                             [indexItem] =
                                                         selectedCategory;
+
+                                                    _unfocusAllFocusNode();
+
+                                                    if (item.name ==
+                                                        selectedCategory
+                                                            .categoryName) {
+                                                      _rightFocusNodes[
+                                                                  indexGroup]
+                                                              [indexItem]
+                                                          .requestFocus();
+                                                    }
                                                   });
                                                 }
                                               },
@@ -998,6 +1049,9 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                             controller:
                                                 _rightTextEditingControllers[
                                                     indexGroup][indexItem],
+                                            focusNode:
+                                                _rightFocusNodes[indexGroup]
+                                                    [indexItem],
                                             textAlign: TextAlign.end,
                                             style: textStyle(
                                               context,
@@ -1030,12 +1084,9 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                             },
                                             keyboardType: TextInputType.number,
                                             inputFormatters: [
-                                              CurrencyTextInputFormatter
-                                                  .currency(
-                                                locale: state.currency.locale,
-                                                symbol:
-                                                    '${state.currency.symbol} ',
-                                                decimalDigits: 0,
+                                              CurrencyFormatter
+                                                  .currencyFormatter(
+                                                context,
                                               ),
                                             ],
                                             decoration: InputDecoration(
@@ -1092,6 +1143,10 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                           _rightTextEditingControllers[
                                                   indexGroup]
                                               .removeAt(indexItem);
+                                          _leftFocusNodes[indexGroup]
+                                              .removeAt(indexItem);
+                                          _rightFocusNodes[indexGroup]
+                                              .removeAt(indexItem);
 
                                           _selectedItemCategories[indexGroup]
                                               .removeAt(indexItem);
@@ -1139,7 +1194,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                     TextEditingController(),
                                   );
 
-                                  _addCategoryField[indexGroup].add(false);
+                                  _addNewCategoryField[indexGroup].add(false);
                                   _selectedItemCategories[indexGroup].add(
                                     ItemCategory(
                                       id: newItem.itemId,
@@ -1153,11 +1208,13 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                   );
                                   _groupNameController
                                       .add(TextEditingController());
+
+                                  _leftFocusNodes[indexGroup].add(FocusNode());
+                                  _rightFocusNodes[indexGroup].add(FocusNode());
                                 });
                               },
                               child: AppText(
-                                text:
-                                    '+ ${localize.add} ${groupCategoryHistory.groupName}',
+                                text: '+ ${localize.add} ${localize.category}',
                                 style: StyleType.bodMed,
                                 color: context.color.primary,
                               ),
@@ -1265,9 +1322,9 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       final localize = textLocalizer(context);
       setState(() {
-        final prevsValue = _addCategoryField[indexGroup][indexItem];
+        final prevsValue = _addNewCategoryField[indexGroup][indexItem];
 
-        _addCategoryField[indexGroup][indexItem] = !prevsValue;
+        _addNewCategoryField[indexGroup][indexItem] = !prevsValue;
 
         _selectedItemCategories[indexGroup][indexItem] = ItemCategory(
           id: item.id,
@@ -1336,5 +1393,18 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
         ),
       ],
     );
+  }
+
+  void _unfocusAllFocusNode() {
+    for (final element in _leftFocusNodes) {
+      for (final element in element) {
+        element.unfocus();
+      }
+    }
+    for (final element in _rightFocusNodes) {
+      for (final element in element) {
+        element.unfocus();
+      }
+    }
   }
 }
