@@ -119,7 +119,13 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                           state.updateSuccess ||
                           state.deleteSuccess) {
                         if (context.canPop()) {
-                          context.pop();
+                          if (state.deleteSuccess) {
+                            context
+                              ..pop()
+                              ..pop();
+                          } else {
+                            context.pop();
+                          }
                         }
 
                         _reset();

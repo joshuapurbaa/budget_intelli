@@ -105,9 +105,21 @@ class NetWorthBloc extends Bloc<NetWorthEvent, NetWorthState> {
     final result = await _getAssetList(NoParams());
     result.fold(
       (failure) => emit(
-        state.copyWith(error: failure.message),
+        state.copyWith(
+          error: failure.message,
+          loading: false,
+          insertSuccess: false,
+          updateSuccess: false,
+          deleteSuccess: false,
+        ),
       ),
-      (assets) => emit(state.copyWith(assets: assets)),
+      (assets) => emit(state.copyWith(
+        assets: assets,
+        loading: false,
+        insertSuccess: false,
+        updateSuccess: false,
+        deleteSuccess: false,
+      )),
     );
   }
 
