@@ -10,12 +10,14 @@ class BoxCalculator extends StatefulWidget {
     this.focusNode,
     this.isIcome = false,
     this.height,
+    this.onComplete,
   });
 
   final String label;
   final FocusNode? focusNode;
   final bool isIcome;
   final double? height;
+  final void Function()? onComplete;
 
   @override
   State<BoxCalculator> createState() => _BoxCalculatorState();
@@ -135,6 +137,7 @@ class _BoxCalculatorState extends State<BoxCalculator>
       setState(() {
         label = result;
         context.read<BoxCalculatorCubit>().select(result);
+        widget.onComplete?.call();
       });
     }
   }

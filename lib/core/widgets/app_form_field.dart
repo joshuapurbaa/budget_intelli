@@ -11,6 +11,8 @@ class AppFormField extends StatefulWidget {
     this.keyboardType,
     this.initialValue,
     this.hintStyle,
+    this.autofocus = false,
+    this.focusNode,
   });
 
   final void Function(String) onChanged;
@@ -19,7 +21,8 @@ class AppFormField extends StatefulWidget {
   final TextInputType? keyboardType;
   final int? initialValue;
   final TextStyle? hintStyle;
-
+  final bool autofocus;
+  final FocusNode? focusNode;
   @override
   State<AppFormField> createState() => _AppFormFieldState();
 }
@@ -29,6 +32,8 @@ class _AppFormFieldState extends State<AppFormField> {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: widget.controller,
+      autofocus: widget.autofocus,
+      focusNode: widget.focusNode,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.symmetric(
           horizontal: 16.w,

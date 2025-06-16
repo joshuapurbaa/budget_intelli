@@ -21,6 +21,8 @@ class AddAssetAccountScreen extends StatefulWidget {
 class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
   final _assetNameController = TextEditingController();
   final _assetDescriptionController = TextEditingController();
+  final _assetNameFocusNode = FocusNode();
+  final _assetDescriptionFocusNode = FocusNode();
 
   @override
   void initState() {
@@ -33,6 +35,20 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
           .read<BoxCalculatorCubit>()
           .select(widget.asset?.amount.toString() ?? '');
     }
+  }
+
+  void _unFocus() {
+    _assetNameFocusNode.unfocus();
+    _assetDescriptionFocusNode.unfocus();
+  }
+
+  @override
+  void dispose() {
+    _assetNameController.dispose();
+    _assetDescriptionController.dispose();
+    _assetNameFocusNode.dispose();
+    _assetDescriptionFocusNode.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,6 +72,8 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                     child: AppFormField(
                       controller: _assetNameController,
                       hintText: '${localize.assetName}*',
+                      focusNode: _assetNameFocusNode,
+                      autofocus: true,
                       onChanged: (value) {},
                       hintStyle: textStyle(
                         context,
@@ -72,6 +90,7 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                   BoxCalculator(
                     label: '${localize.value}*',
                     height: 65.h,
+                    onComplete: _unFocus,
                   ),
                   Gap.vertical(10),
                   AppGlass(
@@ -80,6 +99,7 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                       controller: _assetDescriptionController,
                       hintText:
                           '${localize.description} (${localize.optional})',
+                      focusNode: _assetDescriptionFocusNode,
                       onChanged: (value) {},
                       hintStyle: textStyle(
                         context,
@@ -98,7 +118,9 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                       if (state.insertSuccess ||
                           state.updateSuccess ||
                           state.deleteSuccess) {
-                        context.pop();
+                        if (context.canPop()) {
+                          context.pop();
+                        }
 
                         _reset();
                         context.read<NetWorthBloc>().add(GetAssetList());
