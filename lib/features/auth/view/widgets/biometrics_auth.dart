@@ -239,7 +239,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
                 suffixIcon: getPngAsset(identityPng, width: 50),
               ),
             ),
-            Gap.vertical(32),
+            Gap.vertical(100),
           ],
         ),
       ),
