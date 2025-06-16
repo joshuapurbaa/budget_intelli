@@ -39,10 +39,6 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
     super.initState();
     final category = widget.itemCategory;
     _nameController.text = category.name;
-    _amountController.text = NumberFormatter.formatToMoneyDouble(
-      context,
-      category.amount,
-    );
   }
 
   @override
@@ -139,14 +135,12 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   ),
                   keyboardType: TextInputType.number,
                   inputFormatters: [
-                    CurrencyFormatter.currencyFormatter(
-                      context,
-                    ),
+                    CurrencyFormatter.currencyFormatter(context),
                   ],
                   decoration: InputDecoration(
-                    hintText: NumberFormatter.formatToMoneyInt(
+                    hintText: NumberFormatter.formatToMoneyDouble(
                       context,
-                      0,
+                      widget.itemCategory.amount,
                     ),
                     hintStyle: textStyle(
                       context,
