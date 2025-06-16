@@ -32,8 +32,8 @@ class AppDialog {
               ),
               child: Container(
                 constraints: BoxConstraints(
-                  maxWidth: MediaQuery.of(context).size.width - 32,
-                  maxHeight: MediaQuery.of(context).size.height * 0.8,
+                  maxWidth: context.screenWidth - 32,
+                  maxHeight: context.screenHeight * 0.8,
                 ),
                 padding: contentPadding ?? getEdgeInsetsAll(16),
                 child: Column(
@@ -57,9 +57,19 @@ class AppDialog {
                       const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: actions.map((action) {
-                          return Expanded(child: action);
-                        }).toList(),
+                        children: actions
+                            .asMap()
+                            .entries
+                            .map((entry) {
+                              final index = entry.key;
+                              final action = entry.value;
+                              return [
+                                if (index > 0) Gap.horizontal(8),
+                                Expanded(child: action),
+                              ];
+                            })
+                            .expand((element) => element)
+                            .toList(),
                       ),
                     ],
                   ],

@@ -3,9 +3,8 @@ import 'package:budget_intelli/features/net_worth/domain/entities/asset_entity.d
 import 'package:budget_intelli/features/net_worth/domain/repositories/asset_repository.dart';
 import 'package:fpdart/fpdart.dart';
 
-class UpdateAsset implements UseCase<Unit, AssetEntity> {
-
-  UpdateAsset({
+class UpdateAssetUsecase implements UseCase<Unit, AssetEntity> {
+  UpdateAssetUsecase({
     required this.assetRepository,
   });
   final AssetRepository assetRepository;

@@ -95,39 +95,64 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                   Gap.vertical(16),
                   BlocConsumer<NetWorthBloc, NetWorthState>(
                     listener: (context, state) {
-                      if (state.insertSuccess) {
+                      if (state.insertSuccess ||
+                          state.updateSuccess ||
+                          state.deleteSuccess) {
+                        context.pop();
+
                         _reset();
                         context.read<NetWorthBloc>().add(GetAssetList());
-                        context.pop();
                       }
                     },
                     builder: (context, state) {
-                      return AppButton(
-                        label: localize.add,
-                        onPressed: () {
-                          final value = ControllerHelper.getAmount(context);
+                      return Column(
+                        children: [
+                          AppButton(
+                            label: widget.asset != null
+                                ? localize.update
+                                : localize.add,
+                            onPressed: () {
+                              final value = ControllerHelper.getAmount(context);
+                              final assetId = widget.asset?.id;
+                              final createdAt = widget.asset?.createdAt;
 
-                          if (value != null &&
-                              _assetNameController.text.isNotEmpty) {
-                            final assetValue = value;
-                            final assetEntity = AssetEntity(
-                              name: _assetNameController.text,
-                              amount: assetValue,
-                              description: _assetDescriptionController.text,
-                              id: const Uuid().v4(),
-                              createdAt: DateTime.now().toString(),
-                              updatedAt: DateTime.now().toString(),
-                            );
-                            context.read<NetWorthBloc>().add(
-                                  AddAssetEvent(assetEntity),
+                              if (value != null &&
+                                  _assetNameController.text.isNotEmpty) {
+                                final assetValue = value;
+                                final assetEntity = AssetEntity(
+                                  name: _assetNameController.text,
+                                  amount: assetValue,
+                                  description: _assetDescriptionController.text,
+                                  id: assetId ?? const Uuid().v4(),
+                                  createdAt:
+                                      createdAt ?? DateTime.now().toString(),
+                                  updatedAt: DateTime.now().toString(),
                                 );
-                          } else {
-                            AppToast.showToastError(
-                              context,
-                              localize.pleaseFillAllRequiredFields,
-                            );
-                          }
-                        },
+                                if (assetId != null) {
+                                  context.read<NetWorthBloc>().add(
+                                        UpdateAssetEvent(assetEntity),
+                                      );
+                                } else {
+                                  context.read<NetWorthBloc>().add(
+                                        AddAssetEvent(assetEntity),
+                                      );
+                                }
+                              } else {
+                                AppToast.showToastError(
+                                  context,
+                                  localize.pleaseFillAllRequiredFields,
+                                );
+                              }
+                            },
+                          ),
+                          Gap.vertical(10),
+                          AppButton.outlined(
+                            label: localize.delete,
+                            onPressed: () {
+                              _showDeleteDialog(context);
+                            },
+                          ),
+                        ],
                       );
                     },
                   ),
@@ -137,6 +162,41 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
           ),
         ],
       ),
+    );
+  }
+
+  void _showDeleteDialog(BuildContext context) {
+    final localize = textLocalizer(context);
+    AppDialog.showCustomDialog(
+      context,
+      title: AppText(
+        text: localize.delete,
+        style: StyleType.headSm,
+        color: context.color.error,
+        textAlign: TextAlign.center,
+      ),
+      content: AppText(
+        text: localize.areYouSureYouWantToDeleteThisAsset,
+        textAlign: TextAlign.center,
+      ),
+      actions: [
+        AppButton(
+          height: 40,
+          label: localize.cancel,
+          onPressed: () {
+            context.pop();
+          },
+        ),
+        AppButton.outlined(
+          height: 40,
+          label: localize.delete,
+          onPressed: () {
+            context
+                .read<NetWorthBloc>()
+                .add(DeleteAssetEvent(widget.asset?.id ?? ''));
+          },
+        ),
+      ],
     );
   }
 

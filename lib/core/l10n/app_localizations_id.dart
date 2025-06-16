@@ -1235,4 +1235,8 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get ok => 'Ok';
+
+  @override
+  String get areYouSureYouWantToDeleteThisAsset =>
+      'Apakah Anda yakin ingin menghapus aset ini?';
 }

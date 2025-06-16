@@ -690,6 +690,16 @@ void _initNetWorth() {
         serviceLocator(),
       ),
     )
+    ..registerFactory<UpdateAssetUsecase>(
+      () => UpdateAssetUsecase(
+        assetRepository: serviceLocator(),
+      ),
+    )
+    ..registerFactory<DeleteAssetUsecase>(
+      () => DeleteAssetUsecase(
+        assetRepository: serviceLocator(),
+      ),
+    )
     ..registerLazySingleton(
       NetWorthDatabase.new,
     )
@@ -699,6 +709,8 @@ void _initNetWorth() {
         insertLiabilities: serviceLocator(),
         getAssetList: serviceLocator(),
         getLiabilityList: serviceLocator(),
+        updateAsset: serviceLocator(),
+        deleteAssetUsecase: serviceLocator(),
       ),
     );
 }

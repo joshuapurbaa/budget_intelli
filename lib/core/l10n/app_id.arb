@@ -395,5 +395,6 @@
   "unspecifiedError": "Terjadi kesalahan tak terduga: {e}",
   "unexpectedError": "Terjadi kesalahan tak terduga: {e}",
   "tryAgain": "Coba Lagi",
-  "ok": "Ok"
+  "ok": "Ok",
+  "areYouSureYouWantToDeleteThisAsset": "Apakah Anda yakin ingin menghapus aset ini?"
 }

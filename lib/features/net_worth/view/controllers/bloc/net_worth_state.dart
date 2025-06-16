@@ -1,13 +1,14 @@
 part of 'net_worth_bloc.dart';
 
-@immutable
-final class NetWorthState {
+final class NetWorthState extends Equatable {
   const NetWorthState({
     required this.assets,
     required this.liabilities,
     this.loading = false,
     this.error = '',
     this.insertSuccess = false,
+    this.updateSuccess = false,
+    this.deleteSuccess = false,
   });
 
   final List<AssetEntity> assets;
@@ -15,13 +16,16 @@ final class NetWorthState {
   final bool loading;
   final String error;
   final bool insertSuccess;
-
+  final bool updateSuccess;
+  final bool deleteSuccess;
   NetWorthState copyWith({
     List<AssetEntity>? assets,
     List<LiabilityEntity>? liabilities,
     bool? loading,
     String? error,
     bool? insertSuccess,
+    bool? updateSuccess,
+    bool? deleteSuccess,
   }) {
     return NetWorthState(
       assets: assets ?? this.assets,
@@ -29,26 +33,19 @@ final class NetWorthState {
       loading: loading ?? this.loading,
       error: error ?? this.error,
       insertSuccess: insertSuccess ?? this.insertSuccess,
+      updateSuccess: updateSuccess ?? this.updateSuccess,
+      deleteSuccess: deleteSuccess ?? this.deleteSuccess,
     );
   }
 
   @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-
-    return other is NetWorthState &&
-        listEquals(other.assets, assets) &&
-        listEquals(other.liabilities, liabilities) &&
-        other.loading == loading &&
-        other.error == error &&
-        other.insertSuccess == insertSuccess;
-  }
-
-  @override
-  int get hashCode =>
-      assets.hashCode ^
-      liabilities.hashCode ^
-      loading.hashCode ^
-      error.hashCode ^
-      insertSuccess.hashCode;
+  List<Object?> get props => [
+        assets,
+        liabilities,
+        loading,
+        error,
+        insertSuccess,
+        updateSuccess,
+        deleteSuccess,
+      ];
 }

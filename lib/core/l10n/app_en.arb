@@ -395,5 +395,6 @@
   "unspecifiedError": "An unspecified error occurred: {e}",
   "unexpectedError": "An unexpected error occurred: {e}",
   "tryAgain": "Try Again",
-  "ok": "Ok"
+  "ok": "Ok",
+  "areYouSureYouWantToDeleteThisAsset": "Are you sure you want to delete this asset?"
 }
