@@ -258,6 +258,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
     final groupName = groupCategoryHistory.groupName;
     final hexColor = groupCategoryHistory.hexColor;
 
+    print('_addNewCategoryField ${_addNewCategoryField}');
+
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         final groupCategories = state.groupCategories;
@@ -447,6 +449,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, indexItem) {
                 final item = itemCategoryHistories[indexItem];
+                print(
+                    'itemCategoryHistories.length ${itemCategoryHistories.length}');
                 final itemName = item.name;
                 final isPlaceholder = _isCategoryNamePlaceholder(
                     itemName,
@@ -544,13 +548,11 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                             height: 40,
                                             onPressed: () {
                                               // Close the dropdown first
-                                              context.pop();
+                                              // context.pop();1
 
                                               setState(() {
                                                 _addNewCategoryField[
-                                                        indexItem] =
-                                                    !_addNewCategoryField[
-                                                        indexItem];
+                                                    indexItem] = true;
                                               });
 
                                               context
