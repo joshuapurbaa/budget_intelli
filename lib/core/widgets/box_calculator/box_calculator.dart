@@ -51,7 +51,7 @@ class _BoxCalculatorState extends State<BoxCalculator>
             label = widget.label;
           }
           return AppGlass(
-            height: widget.height ?? 70.h,
+            height: widget.height,
             child: Row(
               children: [
                 if (widget.isIcome)

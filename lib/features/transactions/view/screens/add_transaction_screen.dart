@@ -296,6 +296,32 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         ],
                       ),
                       Gap.vertical(8),
+                      GestureDetector(
+                        onTap: _showCalendar,
+                        child: AppGlass(
+                          child: Row(
+                            children: [
+                              getSvgAsset(
+                                dateCalender,
+                                color: context.color.onSurface,
+                              ),
+                              Gap.horizontal(16),
+                              Expanded(
+                                child: textDate,
+                              ),
+                              Gap.horizontal(16),
+                              Icon(
+                                calendarOpened
+                                    ? CupertinoIcons.chevron_up
+                                    : CupertinoIcons.chevron_down,
+                                size: 25,
+                              ),
+                              Gap.horizontal(10),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Gap.vertical(8),
                       BlocBuilder<TrackingCubit, TrackingState>(
                         builder: (context, state) {
                           var itemCategories = <ItemCategoryHistory>[];
@@ -311,10 +337,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                           }
 
                           return AppGlass(
-                            // height: 70.h,
                             padding: getEdgeInsets(
-                              top: 10,
-                              bottom: 10,
                               left: 16,
                               right: 10,
                             ),
@@ -423,33 +446,6 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                         },
                       ),
                       Gap.vertical(8),
-                      GestureDetector(
-                        onTap: _showCalendar,
-                        child: AppGlass(
-                          height: 70.h,
-                          child: Row(
-                            children: [
-                              getSvgAsset(
-                                dateCalender,
-                                color: context.color.onSurface,
-                              ),
-                              Gap.horizontal(16),
-                              Expanded(
-                                child: textDate,
-                              ),
-                              Gap.horizontal(16),
-                              Icon(
-                                calendarOpened
-                                    ? CupertinoIcons.chevron_up
-                                    : CupertinoIcons.chevron_down,
-                                size: 25,
-                              ),
-                              Gap.horizontal(10),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Gap.vertical(8),
                       AppBoxFormField(
                         hintText: hintText,
                         prefixIcon: noteDescriptionPng,
@@ -466,10 +462,7 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             children: [
                               Expanded(
                                 child: AppGlass(
-                                  height: 70.h,
                                   padding: getEdgeInsets(
-                                    top: 10,
-                                    bottom: 10,
                                     left: 16,
                                     right: 10,
                                   ),
@@ -537,8 +530,10 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                   );
                                 },
                                 child: AppGlass(
-                                  height: 70.h,
-                                  child: const Icon(Icons.add),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: context.color.primary,
+                                  ),
                                 ),
                               ),
                             ],

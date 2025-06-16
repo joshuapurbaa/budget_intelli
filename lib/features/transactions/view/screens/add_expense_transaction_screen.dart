@@ -178,7 +178,6 @@ class _AddExpenseTransactionScreenState
                   delegate: SliverChildListDelegate.fixed(
                     [
                       AppGlass(
-                        // height: 70.h,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -248,7 +247,6 @@ class _AddExpenseTransactionScreenState
                       GestureDetector(
                         onTap: _showCalendar,
                         child: AppGlass(
-                          height: 70.h,
                           child: Row(
                             children: [
                               getSvgAsset(
@@ -288,10 +286,7 @@ class _AddExpenseTransactionScreenState
                             children: [
                               Expanded(
                                 child: AppGlass(
-                                  height: 70.h,
                                   padding: getEdgeInsets(
-                                    top: 10,
-                                    bottom: 10,
                                     left: 16,
                                     right: 10,
                                   ),
@@ -377,8 +372,10 @@ class _AddExpenseTransactionScreenState
                                   );
                                 },
                                 child: AppGlass(
-                                  height: 70.h,
-                                  child: const Icon(Icons.add),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: context.color.primary,
+                                  ),
                                 ),
                               ),
                             ],

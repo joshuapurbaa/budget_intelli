@@ -178,7 +178,6 @@ class _AddIncomeIncomeTransactionScreenState
                   delegate: SliverChildListDelegate.fixed(
                     [
                       AppGlass(
-                        height: 70.h,
                         child: Row(
                           children: [
                             if (iconPath != null) ...[
@@ -214,7 +213,6 @@ class _AddIncomeIncomeTransactionScreenState
                       GestureDetector(
                         onTap: _showCalendar,
                         child: AppGlass(
-                          height: 70.h,
                           child: Row(
                             children: [
                               getSvgAsset(
@@ -254,10 +252,7 @@ class _AddIncomeIncomeTransactionScreenState
                             children: [
                               Expanded(
                                 child: AppGlass(
-                                  height: 70.h,
                                   padding: getEdgeInsets(
-                                    top: 10,
-                                    bottom: 10,
                                     left: 16,
                                     right: 10,
                                   ),
@@ -343,8 +338,10 @@ class _AddIncomeIncomeTransactionScreenState
                                   );
                                 },
                                 child: AppGlass(
-                                  height: 70.h,
-                                  child: const Icon(Icons.add),
+                                  child: Icon(
+                                    Icons.add,
+                                    color: context.color.primary,
+                                  ),
                                 ),
                               ),
                             ],
