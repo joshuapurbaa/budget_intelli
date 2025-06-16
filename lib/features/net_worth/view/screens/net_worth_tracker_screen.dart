@@ -58,7 +58,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
         totalNetWorth = totalAsset - totalLiability;
         final color = totalNetWorth >= 0 ? Colors.green : Colors.red;
 
-        final _appDivider = AppDivider(
+        final appDivider = AppDivider(
           color: context.color.onSurface.withValues(
             alpha: 0.1,
           ),
@@ -156,7 +156,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                     padding: const EdgeInsets.only(bottom: 5),
                                     child: Column(
                                       children: [
-                                        _appDivider,
+                                        appDivider,
                                         Gap.vertical(15),
                                         Row(
                                           mainAxisAlignment:
@@ -201,7 +201,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                               ),
                             ),
                             Gap.vertical(10),
-                            _appDivider,
+                            appDivider,
                             Gap.vertical(10),
                             // Add Asset Button
                             GestureDetector(
@@ -282,7 +282,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                     child: Column(
                                       children: [
                                         Gap.vertical(5),
-                                        _appDivider,
+                                        appDivider,
                                         Gap.vertical(5),
                                         Row(
                                           children: [
@@ -311,7 +311,7 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                               ),
                             ),
                             Gap.vertical(10),
-                            _appDivider,
+                            appDivider,
                             Gap.vertical(10),
 
                             // Add Liability Button
