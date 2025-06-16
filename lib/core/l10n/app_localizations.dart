@@ -2443,6 +2443,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Kesalahan jaringan. Silakan periksa koneksi internet Anda dan coba lagi.'**
   String get networkError;
+
+  /// No description provided for @editAsset.
+  ///
+  /// In id, this message translates to:
+  /// **'Ubah Aset'**
+  String get editAsset;
 }
 
 class _AppLocalizationsDelegate

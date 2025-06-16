@@ -1,5 +1,4 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/core/widgets/app_field_calculator.dart';
 import 'package:budget_intelli/features/net_worth/net_worth_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +7,12 @@ import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
 class AddAssetAccountScreen extends StatefulWidget {
-  const AddAssetAccountScreen({super.key});
+  const AddAssetAccountScreen({
+    super.key,
+    this.asset,
+  });
+
+  final AssetEntity? asset;
 
   @override
   State<AddAssetAccountScreen> createState() => _AddAssetAccountScreenState();
@@ -22,6 +26,13 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
   void initState() {
     super.initState();
     _reset();
+    if (widget.asset != null) {
+      _assetNameController.text = widget.asset?.name ?? '';
+      _assetDescriptionController.text = widget.asset?.description ?? '';
+      context
+          .read<BoxCalculatorCubit>()
+          .select(widget.asset?.amount.toString() ?? '');
+    }
   }
 
   @override
@@ -32,7 +43,8 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
       body: CustomScrollView(
         slivers: [
           SliverAppBarPrimary(
-            title: localize.addAsset,
+            title:
+                widget.asset != null ? localize.editAsset : localize.addAsset,
           ),
           SliverPadding(
             padding: paddingLTR,

@@ -1212,4 +1212,7 @@ class AppLocalizationsId extends AppLocalizations {
   @override
   String get networkError =>
       'Kesalahan jaringan. Silakan periksa koneksi internet Anda dan coba lagi.';
+
+  @override
+  String get editAsset => 'Ubah Aset';
 }

@@ -149,6 +149,8 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                     ),
                                     Gap.vertical(5),
                                     Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Expanded(
                                           child: AppText(
@@ -165,6 +167,21 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
                                           ),
                                           style: StyleType.bodMed,
                                           color: context.color.primary,
+                                        ),
+                                        Gap.horizontal(10),
+                                        GestureDetector(
+                                          onTap: () {
+                                            context.pushNamed(
+                                              MyRoute.addAssetAccount
+                                                  .noSlashes(),
+                                              extra: assetList[index],
+                                            );
+                                          },
+                                          child: Icon(
+                                            Icons.edit,
+                                            color: context.color.primary,
+                                            size: 20,
+                                          ),
                                         ),
                                       ],
                                     ),

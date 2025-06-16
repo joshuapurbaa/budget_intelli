@@ -1210,4 +1210,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get networkError =>
       'Network error. Please check your internet connection and try again.';
+
+  @override
+  String get editAsset => 'Edit Asset';
 }

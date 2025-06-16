@@ -18,6 +18,7 @@ class AppButton extends StatelessWidget {
     this.back,
     this.noWidth,
     this.outlined = false,
+    this.suffixIcon,
   });
 
   const AppButton.darkLabel({
@@ -34,6 +35,7 @@ class AppButton extends StatelessWidget {
     this.labelColor,
     this.noWidth,
     this.outlined = false,
+    this.suffixIcon,
   });
 
   const AppButton.success({
@@ -49,6 +51,7 @@ class AppButton extends StatelessWidget {
     this.back,
     this.noWidth,
     this.outlined = false,
+    this.suffixIcon,
   }) : success = true;
 
   // AppButton.noWidth
@@ -66,6 +69,7 @@ class AppButton extends StatelessWidget {
     this.width,
     this.noWidth = true,
     this.outlined = false,
+    this.suffixIcon,
   });
 
   const AppButton.outlined({
@@ -82,6 +86,7 @@ class AppButton extends StatelessWidget {
     this.success,
     this.noWidth,
     this.outlined = true,
+    this.suffixIcon,
   });
 
   final String label;
@@ -96,6 +101,7 @@ class AppButton extends StatelessWidget {
   final bool? back;
   final bool? noWidth;
   final bool? outlined;
+  final Widget? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -205,6 +211,7 @@ class AppButton extends StatelessWidget {
             style: StyleType.bodLg,
             color: labelColor ?? colorScheme.onPrimary,
           ),
+          if (suffixIcon != null) suffixIcon!,
         ],
       ),
     )

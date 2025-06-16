@@ -3,7 +3,7 @@ const String expense = 'assets/icons/expense';
 const String family = 'assets/icons/family';
 const String svg = 'assets/icons/svg';
 const String riv = 'assets/icons/riv';
-const String image = 'assets/images';
+const String images = 'assets/images';
 const String json = 'assets/json';
 
 // png
@@ -65,7 +65,7 @@ const String interestRatePng = '$png/interest-rate.png';
 const String priceHousePng = '$png/price-house.png';
 const String tenureTimePng = '$png/tenure-time-left.png';
 const String identityPng = '$png/identity.png';
-const String budgetIntelliPng = '$image/budget_intelli_splash.png';
+const String budgetIntelliPng = '$images/budget_intelli_splash.png';
 const String goalsPng = '$png/goals.png';
 const String taget3dPng = '$png/target-3d.png';
 const String eyeClose = '$png/eye-close.png';
@@ -193,7 +193,7 @@ const String send = '$svg/send.svg';
 const String business = '$svg/business.svg';
 
 // image
-const String logo = '$image/logo.png';
+const String logo = '$images/logo.png';
 
 // json
 const String loadingAi2 = '$json/loading-artificial-intelligence-2.json';

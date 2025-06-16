@@ -282,7 +282,9 @@ class AppRoute {
       GoRoute(
         path: MyRoute.addAssetAccount,
         pageBuilder: (context, state) => _customTransitionPage(
-          const AddAssetAccountScreen(),
+          AddAssetAccountScreen(
+            asset: state.extra as AssetEntity,
+          ),
           rightToLeft: true,
         ),
       ),

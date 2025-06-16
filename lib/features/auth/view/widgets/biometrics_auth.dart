@@ -222,30 +222,23 @@ class _BiometricAuthState extends State<BiometricAuth> {
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
     return Scaffold(
+      backgroundColor: context.color.primaryContainer,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Gap.vertical(16),
-            Image.asset(
-              logo,
-              color: context.color.onSurface,
-              width: 100,
-            ),
-            Gap.vertical(16),
-            Image.asset(
-              identityPng,
-              color: context.color.onSurface,
-              width: 50,
-            ),
-            Gap.vertical(32),
+            const Spacer(),
+            getPngAsset(logo, width: 150, height: 150),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: AppButton(
                 label: localize.authenticate,
                 onPressed: _authenticate,
+                suffixIcon: getPngAsset(identityPng, width: 50),
               ),
             ),
+            Gap.vertical(32),
           ],
         ),
       ),
