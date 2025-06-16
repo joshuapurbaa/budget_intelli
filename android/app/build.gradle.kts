@@ -7,6 +7,15 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.inputStream().use { localProperties.load(it) }
+}
+
+val flutterVersionCode = localProperties.getProperty("flutter.versionCode")
+val flutterVersionName = localProperties.getProperty("flutter.versionName")
+
 plugins {
     id("com.android.application")
     // START: FlutterFire Configuration
@@ -40,8 +49,8 @@ android {
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = 23
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = flutterVersionCode?.toIntOrNull() ?: 1
+        versionName = flutterVersionName ?: "1.0"
         multiDexEnabled = true
         
         // Add this to handle Google Ads atomic field updater issues
