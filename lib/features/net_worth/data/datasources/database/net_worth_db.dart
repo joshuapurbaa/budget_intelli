@@ -104,14 +104,14 @@ class NetWorthDatabase {
   }
 
   // get all assets from the database table
-  Future<List<Map<String, dynamic>>> assets() async {
+  Future<List<Map<String, dynamic>>> getAllAssets() async {
     final db = await database;
-    return db.query('Assets');
+    return db.query('Assets', orderBy: 'created_at DESC');
   }
 
   // get all liabilities from the database table
-  Future<List<Map<String, dynamic>>> liabilities() async {
+  Future<List<Map<String, dynamic>>> getAllLiabilities() async {
     final db = await database;
-    return db.query('Liabilities');
+    return db.query('Liabilities', orderBy: 'created_at DESC');
   }
 }

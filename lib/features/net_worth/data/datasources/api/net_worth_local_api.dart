@@ -19,7 +19,6 @@ abstract interface class NetWorthLocalApi {
 }
 
 class NetWorthLocalApiImpl implements NetWorthLocalApi {
-
   NetWorthLocalApiImpl({
     required this.netWorthDatabase,
   });
@@ -30,7 +29,7 @@ class NetWorthLocalApiImpl implements NetWorthLocalApi {
     try {
       final assetList = <AssetModel>[];
       await netWorthDatabase.database;
-      final assets = await netWorthDatabase.assets();
+      final assets = await netWorthDatabase.getAllAssets();
       for (final asset in assets) {
         assetList.add(
           AssetModel.fromMap(asset),
@@ -87,7 +86,7 @@ class NetWorthLocalApiImpl implements NetWorthLocalApi {
     try {
       final liabilityList = <LiabilityModel>[];
       await netWorthDatabase.database;
-      final liabilities = await netWorthDatabase.liabilities();
+      final liabilities = await netWorthDatabase.getAllLiabilities();
       for (final liability in liabilities) {
         liabilityList.add(
           LiabilityModel.fromMap(liability),
