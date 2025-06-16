@@ -312,6 +312,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
               Gap.vertical(10),
               AppDivider(
                 color: dividerColor,
+                thickness: 0.4,
               ),
               Gap.vertical(10),
             ],
@@ -430,6 +431,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                     setState(() {
                       addNewGroup = !addNewGroup;
                       if (addNewGroup) {
+                        _unfocusAllFocusNode();
                         _groupNameFocusNode.requestFocus();
                       }
                       _selectedGroupCategory = null;
@@ -579,6 +581,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                                               .typeCategoryName),
                                                     ),
                                                   );
+                                              _unfocusAllFocusNode();
                                               _leftFocusNodes[indexItem]
                                                   .requestFocus();
                                             },
@@ -678,11 +681,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                 _rightFocusNodes[indexItem].unfocus(),
                             keyboardType: TextInputType.number,
                             inputFormatters: [
-                              CurrencyTextInputFormatter.currency(
-                                locale: state.currency.locale,
-                                symbol: '${state.currency.symbol} ',
-                                decimalDigits: 0,
-                              ),
+                              CurrencyFormatter.currencyFormatter(context),
                             ],
                             decoration: InputDecoration(
                               contentPadding: const EdgeInsets.all(10),
@@ -770,6 +769,9 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                 setState(() {
                   _addNewCategoryField.add(true);
                   _selectedItemCategory.add(null);
+
+                  _unfocusAllFocusNode();
+                  _leftFocusNodes.last.requestFocus();
                 });
               },
               child: AppText(
@@ -783,5 +785,15 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
         );
       },
     );
+  }
+
+  void _unfocusAllFocusNode() {
+    for (final element in _leftFocusNodes) {
+      element.unfocus();
+    }
+    for (final element in _rightFocusNodes) {
+      element.unfocus();
+    }
+    _groupNameFocusNode.unfocus();
   }
 }

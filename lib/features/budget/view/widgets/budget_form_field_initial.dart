@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -366,7 +365,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
     int indexGroup,
     int indexItem,
   ) {
-    final currency = context.read<SettingBloc>().state.currency;
     final item = groupCategory.itemCategoryHistories[indexItem];
     final colorOnSurface = context.color.onSurface.withValues(alpha: 0.5);
     final baseStyle = _isInitialCategoryName(item.name)
@@ -377,12 +375,6 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
         : textStyle(context, style: StyleType.bodMed);
 
     final colorRightHintText = context.color.onSurface;
-
-    final currencyFormatter = CurrencyTextInputFormatter.currency(
-      locale: context.l10n.localeName,
-      symbol: currency.symbol,
-      decimalDigits: 0,
-    );
 
     const radiusCircular = Radius.circular(10);
 
@@ -424,7 +416,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
             style: textStyle(context, style: StyleType.bodMed)
                 .copyWith(color: colorRightHintText),
             keyboardType: TextInputType.number,
-            inputFormatters: [currencyFormatter],
+            inputFormatters: [CurrencyFormatter.currencyFormatter(context)],
             onChanged: (value) =>
                 _updateItemAmount(item, groupCategory.id, value),
             decoration: InputDecoration(

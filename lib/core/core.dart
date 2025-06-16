@@ -57,6 +57,7 @@ export 'utils/text_localize.dart';
 export 'utils/text_style.dart';
 export 'utils/timestamp_formatter.dart';
 export 'utils/top_curve_clipper.dart';
+export 'utils/currency_formatter.dart';
 // typedef
 export 'utils/typedef.dart';
 export 'utils/usecase.dart';
