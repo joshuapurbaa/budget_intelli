@@ -1215,4 +1215,24 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get editAsset => 'Ubah Aset';
+
+  @override
+  String get noPasscodeSet =>
+      'Tidak ada kode sandi yang diatur pada perangkat ini. Silakan atur kode sandi untuk menggunakan biometrik.';
+
+  @override
+  String unspecifiedError(Object e) {
+    return 'Terjadi kesalahan tak terduga: $e';
+  }
+
+  @override
+  String unexpectedError(Object e) {
+    return 'Terjadi kesalahan tak terduga: $e';
+  }
+
+  @override
+  String get tryAgain => 'Coba Lagi';
+
+  @override
+  String get ok => 'Ok';
 }

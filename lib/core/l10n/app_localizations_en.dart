@@ -1213,4 +1213,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editAsset => 'Edit Asset';
+
+  @override
+  String get noPasscodeSet =>
+      'No passcode is set on this device. Please set a passcode to use biometrics.';
+
+  @override
+  String unspecifiedError(Object e) {
+    return 'An unspecified error occurred: $e';
+  }
+
+  @override
+  String unexpectedError(Object e) {
+    return 'An unexpected error occurred: $e';
+  }
+
+  @override
+  String get tryAgain => 'Try Again';
+
+  @override
+  String get ok => 'Ok';
 }

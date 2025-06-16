@@ -79,7 +79,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
         case auth_error.passcodeNotSet:
           _showErrorDialog(
             context,
-            'No passcode is set on this device. Please set a passcode to use biometrics.',
+            localize.noPasscodeSet,
           );
 
         case auth_error.notAvailable:
@@ -91,12 +91,12 @@ class _BiometricAuthState extends State<BiometricAuth> {
         default:
           _showErrorDialog(
             context,
-            'An unspecified error occurred: ${e.message}',
+            localize.unspecifiedError(e.message ?? ''),
           );
       }
     } on Exception catch (e) {
       if (!mounted) return;
-      _showErrorDialog(context, 'An unexpected error occurred: $e');
+      _showErrorDialog(context, localize.unexpectedError(e.toString()));
     }
   }
 
@@ -129,7 +129,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
             _authenticate();
           },
           child: AppText(
-            text: 'Try Again',
+            text: localize.tryAgain,
             style: StyleType.bodMed,
           ),
         ),
@@ -168,8 +168,8 @@ class _BiometricAuthState extends State<BiometricAuth> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const AppText(
-            text: 'Ok',
+          child: AppText(
+            text: localize.ok,
             style: StyleType.bodMed,
           ),
         ),
@@ -178,8 +178,8 @@ class _BiometricAuthState extends State<BiometricAuth> {
             Navigator.of(context).pop();
             _authenticate();
           },
-          child: const AppText(
-            text: 'Try Again',
+          child: AppText(
+            text: localize.tryAgain,
             style: StyleType.bodMed,
           ),
         ),
@@ -188,6 +188,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
   }
 
   void _showNotSetupDialog(BuildContext context, String message) {
+    final localize = textLocalizer(context);
     AppDialog.showCustomDialog(
       context,
       title: AppText(
@@ -199,7 +200,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
       actions: <Widget>[
         AppButton(
           height: 48,
-          label: 'Try Again',
+          label: localize.tryAgain,
           onPressed: () {
             context.pop();
             _authenticate();
@@ -208,7 +209,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
         Gap.vertical(8),
         AppButton(
           height: 48,
-          label: textLocalizer(context).setUp,
+          label: localize.setUp,
           onPressed: () {
             _openBiometricSettings();
             context.pop();

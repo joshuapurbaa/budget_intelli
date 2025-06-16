@@ -2449,6 +2449,36 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Ubah Aset'**
   String get editAsset;
+
+  /// No description provided for @noPasscodeSet.
+  ///
+  /// In id, this message translates to:
+  /// **'Tidak ada kode sandi yang diatur pada perangkat ini. Silakan atur kode sandi untuk menggunakan biometrik.'**
+  String get noPasscodeSet;
+
+  /// No description provided for @unspecifiedError.
+  ///
+  /// In id, this message translates to:
+  /// **'Terjadi kesalahan tak terduga: {e}'**
+  String unspecifiedError(Object e);
+
+  /// No description provided for @unexpectedError.
+  ///
+  /// In id, this message translates to:
+  /// **'Terjadi kesalahan tak terduga: {e}'**
+  String unexpectedError(Object e);
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In id, this message translates to:
+  /// **'Coba Lagi'**
+  String get tryAgain;
+
+  /// No description provided for @ok.
+  ///
+  /// In id, this message translates to:
+  /// **'Ok'**
+  String get ok;
 }
 
 class _AppLocalizationsDelegate
