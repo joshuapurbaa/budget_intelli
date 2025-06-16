@@ -42,6 +42,7 @@ export 'utils/box_decoration.dart';
 export 'utils/box_shadow.dart';
 export 'utils/clean_json.dart';
 export 'utils/container_decoration.dart';
+export 'utils/currency_formatter.dart';
 export 'utils/date_formatter.dart';
 export 'utils/edge_insets.dart';
 export 'utils/gap.dart';
@@ -57,7 +58,6 @@ export 'utils/text_localize.dart';
 export 'utils/text_style.dart';
 export 'utils/timestamp_formatter.dart';
 export 'utils/top_curve_clipper.dart';
-export 'utils/currency_formatter.dart';
 // typedef
 export 'utils/typedef.dart';
 export 'utils/usecase.dart';
