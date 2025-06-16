@@ -665,18 +665,18 @@ class _BudgetOverviewState extends State<BudgetOverview> {
       double actualAmount, double budgetAmount, bool isIncome) {
     var percent = 0.0;
     var percentValue = 0.0;
-    Color? percentTextColor;
+    // Color? percentTextColor;
 
     if (actualAmount != 0) {
       percentValue = (actualAmount / budgetAmount) * 100;
       percent = percentValue / 100;
-      percentTextColor = context.color.onSurface.withValues(alpha: 0.5);
+      // percentTextColor = context.color.onSurface.withValues(alpha: 0.5);
 
       if (percent > 1) {
         percent = 1;
-        percentTextColor = isIncome
-            ? AppColor.green.withValues(alpha: 0.5)
-            : context.color.error.withValues(alpha: 0.5);
+        // percentTextColor = isIncome
+        //     ? AppColor.green.withValues(alpha: 0.5)
+        //     : context.color.error.withValues(alpha: 0.5);
       }
     }
 
@@ -862,8 +862,6 @@ class _BudgetOverviewState extends State<BudgetOverview> {
 
   /// Builds action buttons for creating new groups and budgets
   Widget _buildActionButtons(double plannedRemaining) {
-    final localize = textLocalizer(context);
-
     return Column(
       children: [
         _buildNewGroupButton(plannedRemaining),
@@ -916,11 +914,17 @@ class _BudgetOverviewState extends State<BudgetOverview> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Expanded(child: SizedBox()),
-            Icon(CupertinoIcons.add, color: context.color.primary),
+            Icon(
+              CupertinoIcons.add,
+              color: context.color.primary,
+            ),
             Gap.horizontal(10),
             Expanded(
               flex: 2,
-              child: AppText(text: localize.newBudget, style: StyleType.bodMed),
+              child: AppText(
+                text: localize.newBudget,
+                style: StyleType.bodMed,
+              ),
             ),
           ],
         ),

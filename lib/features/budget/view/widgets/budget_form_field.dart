@@ -256,6 +256,8 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
       }
     }
 
+    final dividerColor = context.color.onSurface.withValues(alpha: 0.1);
+
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         final itemCategories = state.itemCategories;
@@ -389,8 +391,11 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                 ),
                               ],
                             ),
-                            Gap.vertical(10),
-                            const AppDivider(),
+                            Gap.vertical(5),
+                            AppDivider(
+                              color: dividerColor,
+                              thickness: 0.4,
+                            ),
                             Gap.vertical(5),
                             Row(
                               children: [
@@ -641,7 +646,12 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                 ),
                               ],
                             ),
-                            Gap.vertical(10),
+                            Gap.vertical(5),
+                            AppDivider(
+                              color: dividerColor,
+                              thickness: 0.4,
+                            ),
+                            Gap.vertical(5),
                             ListView.separated(
                               padding: EdgeInsets.zero,
                               itemCount: _leftTextEditingControllers[indexGroup]
@@ -786,11 +796,9 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                                 ),
                                               ),
                                             ),
-                                            Divider(
-                                              color: context
-                                                  .color.primaryContainer,
-                                              height: 0,
-                                              thickness: 0.5,
+                                            AppDivider(
+                                              color: dividerColor,
+                                              thickness: 0.4,
                                             ),
                                           ],
                                         ),
@@ -961,12 +969,9 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                               },
                                               selectedItem: item.name,
                                             ),
-                                            Divider(
-                                              color: context
-                                                  .color.primaryContainer
-                                                  .withValues(alpha: 0.4),
-                                              height: 0,
-                                              thickness: 0.5,
+                                            AppDivider(
+                                              color: dividerColor,
+                                              thickness: 0.4,
                                             ),
                                           ],
                                         ),
@@ -1104,7 +1109,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                               separatorBuilder: (context, index) =>
                                   Gap.vertical(5),
                             ),
-                            Gap.vertical(10),
+                            Gap.vertical(8),
                             GestureDetector(
                               onTap: () {
                                 final id = const Uuid().v1();
@@ -1244,7 +1249,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                 },
               );
             },
-            separatorBuilder: (context, index) => Gap.vertical(10),
+            separatorBuilder: (context, index) => Gap.vertical(8),
           ),
         );
       },

@@ -45,6 +45,8 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
             generateBudgetAI: false,
           ),
         );
+
+    _budgetNameFocus.requestFocus();
   }
 
   void _selectDateRange(List<DateTime?> results) {
@@ -211,7 +213,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                   left: 16,
                   top: 16,
                   right: 16,
-                  bottom: 10,
+                  bottom: 8,
                 ),
                 sliver: SliverToBoxAdapter(
                   child: Column(
@@ -261,7 +263,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                         focusNode: _budgetNameFocus,
                         isPng: true,
                       ),
-                      Gap.vertical(10),
+                      Gap.vertical(8),
                       // AppGlass(
                       //   child: Row(
                       //     mainAxisAlignment: MainAxisAlignment.center,
@@ -292,7 +294,7 @@ class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
                           _budgetNameFocus.unfocus();
                           final now = DateTime.now();
 
-                          final width = MediaQuery.sizeOf(context).width * 0.9;
+                          final width = context.screenWidth * 0.9;
 
                           final results = await showCalendarDatePicker2Dialog(
                             context: context,
