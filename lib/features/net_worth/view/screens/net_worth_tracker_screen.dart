@@ -141,20 +141,32 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
 
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 5),
-                                child: Row(
+                                child: Column(
                                   children: [
-                                    Expanded(
-                                      child: AppText(
-                                        text: category,
-                                        style: StyleType.bodMed,
-                                      ),
+                                    AppDivider(
+                                      color: context.color.onSurface
+                                          .withValues(alpha: 0.5),
                                     ),
-                                    AppText(
-                                      text: NumberFormatter.formatToMoneyDouble(
-                                        context,
-                                        amount,
-                                      ),
-                                      style: StyleType.bodMed,
+                                    Gap.vertical(5),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: AppText(
+                                            text: category,
+                                            style: StyleType.bodMed,
+                                            color: context.color.primary,
+                                          ),
+                                        ),
+                                        AppText(
+                                          text: NumberFormatter
+                                              .formatToMoneyDouble(
+                                            context,
+                                            amount,
+                                          ),
+                                          style: StyleType.bodMed,
+                                          color: context.color.primary,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -210,20 +222,33 @@ class _NetWorthTrackerScreenState extends State<NetWorthTrackerScreen> {
 
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 5),
-                                child: Row(
+                                child: Column(
                                   children: [
-                                    Expanded(
-                                      child: AppText(
-                                        text: category,
-                                        style: StyleType.bodMed,
-                                      ),
+                                    Gap.vertical(5),
+                                    AppDivider(
+                                      color: context.color.onSurface
+                                          .withValues(alpha: 0.5),
                                     ),
-                                    AppText(
-                                      text: NumberFormatter.formatToMoneyDouble(
-                                        context,
-                                        amount,
-                                      ),
-                                      style: StyleType.bodMed,
+                                    Gap.vertical(5),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: AppText(
+                                            text: category,
+                                            style: StyleType.bodMed,
+                                            color: context.color.primary,
+                                          ),
+                                        ),
+                                        AppText(
+                                          text: NumberFormatter
+                                              .formatToMoneyDouble(
+                                            context,
+                                            amount,
+                                          ),
+                                          style: StyleType.bodMed,
+                                          color: context.color.primary,
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
