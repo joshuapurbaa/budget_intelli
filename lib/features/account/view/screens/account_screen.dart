@@ -194,27 +194,29 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                     BottomSheetParent(
                       isWithBorderTop: true,
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          AppButton.darkLabel(
-                            label: localize.add,
-                            isActive: true,
-                            onPressed: () {
-                              context
-                                  .read<AccountBloc>()
-                                  .add(SelectAccountEvent(null));
-                              context.push(MyRoute.addAccountScreen);
-                            },
-                          ),
-                          Gap.vertical(10),
-                          AppButton.outlined(
-                            label: localize.accountTransfer,
-                            onPressed: () {
-                              context.push(MyRoute.accountTransferScreen);
-                            },
-                          ),
-                        ],
+                      child: SafeArea(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            AppButton.darkLabel(
+                              label: localize.add,
+                              isActive: true,
+                              onPressed: () {
+                                context
+                                    .read<AccountBloc>()
+                                    .add(SelectAccountEvent(null));
+                                context.push(MyRoute.addAccountScreen);
+                              },
+                            ),
+                            Gap.vertical(10),
+                            AppButton.outlined(
+                              label: localize.accountTransfer,
+                              onPressed: () {
+                                context.push(MyRoute.accountTransferScreen);
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

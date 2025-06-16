@@ -143,99 +143,102 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
         return Scaffold(
           bottomSheet: BottomSheetParent(
             isWithBorderTop: true,
-            child: BlocConsumer<TransactionsCubit, TransactionsState>(
-              listener: (context, state) {
-                if (state is AddExpenseTransactionSuccess) {
-                  _onTransactionSuccess(state);
-                }
+            child: SafeArea(
+              child: BlocConsumer<TransactionsCubit, TransactionsState>(
+                listener: (context, state) {
+                  if (state is AddExpenseTransactionSuccess) {
+                    _onTransactionSuccess(state);
+                  }
 
-                if (state is AddExpenseTransactionFailed) {
-                  context.pop();
-                  AppToast.showToastError(
-                    context,
-                    state.message,
-                  );
-                }
+                  if (state is AddExpenseTransactionFailed) {
+                    context.pop();
+                    AppToast.showToastError(
+                      context,
+                      state.message,
+                    );
+                  }
 
-                if (state is TransactionsLoading) {
-                  AppDialog.showLoading(context);
-                }
-              },
-              builder: (context, stateTransaction) {
-                return BlocConsumer<BudgetFirestoreCubit, BudgetFirestoreState>(
-                  listener: (context, state) {
-                    if (state.insertItemCategoryTransactionSuccess) {
-                      _afterSuccess(budgetId!);
-                    }
-                  },
-                  builder: (context, state) {
-                    final loading = state.loadingFirestore;
-                    return loading
-                        ? const Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          )
-                        : AppButton.darkLabel(
-                            label: localize.add,
-                            isActive: true,
-                            onPressed: () {
-                              if (_selectedItemCategory != null) {
-                                final idTransaction = const Uuid().v1();
-                                final itemId = _selectedItemCategory?.id;
-                                final amount =
-                                    ControllerHelper.getAmount(context);
-                                final groupId =
-                                    _selectedItemCategory?.groupHistoryId;
+                  if (state is TransactionsLoading) {
+                    AppDialog.showLoading(context);
+                  }
+                },
+                builder: (context, stateTransaction) {
+                  return BlocConsumer<BudgetFirestoreCubit,
+                      BudgetFirestoreState>(
+                    listener: (context, state) {
+                      if (state.insertItemCategoryTransactionSuccess) {
+                        _afterSuccess(budgetId!);
+                      }
+                    },
+                    builder: (context, state) {
+                      final loading = state.loadingFirestore;
+                      return loading
+                          ? const Center(
+                              child: CircularProgressIndicator.adaptive(),
+                            )
+                          : AppButton.darkLabel(
+                              label: localize.add,
+                              isActive: true,
+                              onPressed: () {
+                                if (_selectedItemCategory != null) {
+                                  final idTransaction = const Uuid().v1();
+                                  final itemId = _selectedItemCategory?.id;
+                                  final amount =
+                                      ControllerHelper.getAmount(context);
+                                  final groupId =
+                                      _selectedItemCategory?.groupHistoryId;
 
-                                final imageBytes =
-                                    ControllerHelper.getImagesBytes(
-                                  context,
-                                );
-                                if (itemId != null &&
-                                    amount != null &&
-                                    _selectedDate != null &&
-                                    groupId != null &&
-                                    _selectedAccount != null &&
-                                    _spendOnController.text.isNotEmpty) {
-                                  final selectedAccountId =
-                                      _selectedAccount?.id;
-                                  final transaction = ItemCategoryTransaction(
-                                    id: idTransaction,
-                                    itemHistoId: itemId,
-                                    categoryName: _selectedItemCategory!.name,
-                                    amount: amount,
-                                    createdAt: _selectedDate.toString(),
-                                    type: transactionType,
-                                    spendOn: _spendOnController.text,
-                                    budgetId: budgetId!,
-                                    picture: imageBytes,
-                                    groupId: groupId,
-                                    accountId: selectedAccountId!,
+                                  final imageBytes =
+                                      ControllerHelper.getImagesBytes(
+                                    context,
                                   );
-                                  context
-                                      .read<TransactionsCubit>()
-                                      .insertItemCategoryTransaction(
-                                        itemCategoryTransaction: transaction,
-                                        selectedAccount: _selectedAccount!,
-                                        amount: amount,
-                                        budgetId: budgetId,
-                                      );
+                                  if (itemId != null &&
+                                      amount != null &&
+                                      _selectedDate != null &&
+                                      groupId != null &&
+                                      _selectedAccount != null &&
+                                      _spendOnController.text.isNotEmpty) {
+                                    final selectedAccountId =
+                                        _selectedAccount?.id;
+                                    final transaction = ItemCategoryTransaction(
+                                      id: idTransaction,
+                                      itemHistoId: itemId,
+                                      categoryName: _selectedItemCategory!.name,
+                                      amount: amount,
+                                      createdAt: _selectedDate.toString(),
+                                      type: transactionType,
+                                      spendOn: _spendOnController.text,
+                                      budgetId: budgetId!,
+                                      picture: imageBytes,
+                                      groupId: groupId,
+                                      accountId: selectedAccountId!,
+                                    );
+                                    context
+                                        .read<TransactionsCubit>()
+                                        .insertItemCategoryTransaction(
+                                          itemCategoryTransaction: transaction,
+                                          selectedAccount: _selectedAccount!,
+                                          amount: amount,
+                                          budgetId: budgetId,
+                                        );
+                                  } else {
+                                    AppToast.showToastError(
+                                      context,
+                                      localize.pleaseFillAllRequiredFields,
+                                    );
+                                  }
                                 } else {
                                   AppToast.showToastError(
                                     context,
                                     localize.pleaseFillAllRequiredFields,
                                   );
                                 }
-                              } else {
-                                AppToast.showToastError(
-                                  context,
-                                  localize.pleaseFillAllRequiredFields,
-                                );
-                              }
-                            },
-                          );
-                  },
-                );
-              },
+                              },
+                            );
+                    },
+                  );
+                },
+              ),
             ),
           ),
           body: CustomScrollView(
