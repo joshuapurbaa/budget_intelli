@@ -70,8 +70,8 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.getByName("debug")
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
 
@@ -88,6 +88,8 @@ dependencies {
     // Google Play Services dependencies with explicit versions
     implementation("com.google.android.gms:play-services-ads:24.4.0")
     implementation("com.google.android.gms:play-services-base:18.7.0")
+    
+
 }
 
 flutter {

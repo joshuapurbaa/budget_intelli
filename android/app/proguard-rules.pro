@@ -31,6 +31,10 @@
 -keep class com.google.android.gms.** { *; }
 -dontwarn com.google.android.gms.**
 
+# Keep Google Play Core
+-keep class com.google.android.play.core.** { *; }
+-dontwarn com.google.android.play.core.**
+
 # Keep Firebase
 -keep class com.google.firebase.** { *; }
 -dontwarn com.google.firebase.**
