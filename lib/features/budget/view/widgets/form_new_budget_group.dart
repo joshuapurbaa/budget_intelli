@@ -258,8 +258,6 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
     final groupName = groupCategoryHistory.groupName;
     final hexColor = groupCategoryHistory.hexColor;
 
-    print('_addNewCategoryField ${_addNewCategoryField}');
-
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
         final groupCategories = state.groupCategories;
@@ -449,14 +447,18 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: (context, indexItem) {
                 final item = itemCategoryHistories[indexItem];
-                print(
-                    'itemCategoryHistories.length ${itemCategoryHistories.length}');
+
                 final itemName = item.name;
                 final isPlaceholder = _isCategoryNamePlaceholder(
                     itemName,
                     localize.selectCategory,
                     localize.typeCategoryName,
                     localize.categoryName);
+
+                if (_addNewCategoryField.length !=
+                    itemCategoryHistories.length) {
+                  return const CircularProgressIndicator.adaptive();
+                }
 
                 return Row(
                   children: [
@@ -547,9 +549,6 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                           child: AppButton(
                                             height: 40,
                                             onPressed: () {
-                                              // Close the dropdown first
-                                              // context.pop();1
-
                                               setState(() {
                                                 _addNewCategoryField[
                                                     indexItem] = true;
@@ -641,6 +640,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                       flex: 2,
                       child: BlocBuilder<SettingBloc, SettingState>(
                         builder: (context, state) {
+                          const radius10 = Radius.circular(10);
                           return TextField(
                             controller: _rightControllers[indexItem],
                             focusNode: _rightFocusNodes[indexItem],
@@ -674,17 +674,17 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                               hintStyle: _getTextStyle(true),
                               focusedBorder: const OutlineInputBorder(
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                  topRight: Radius.circular(10),
+                                  topLeft: radius10,
+                                  bottomRight: radius10,
+                                  topRight: radius10,
                                 ),
                                 borderSide: BorderSide.none,
                               ),
                               border: const OutlineInputBorder(
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(10),
-                                  bottomRight: Radius.circular(10),
-                                  topRight: Radius.circular(10),
+                                  topLeft: radius10,
+                                  bottomRight: radius10,
+                                  topRight: radius10,
                                 ),
                                 borderSide: BorderSide.none,
                               ),
