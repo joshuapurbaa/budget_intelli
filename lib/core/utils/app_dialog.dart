@@ -266,6 +266,7 @@ class AppDialog {
                       child: AppText(
                         text: title,
                         style: StyleType.headMed,
+                        textAlign: TextAlign.center,
                       ),
                     ),
                     Gap.vertical(16),
@@ -278,6 +279,8 @@ class AppDialog {
                       ),
                     ),
                     Gap.vertical(16),
+                    const AppDivider(),
+                    Gap.vertical(16),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
@@ -289,6 +292,7 @@ class AppDialog {
                             child: AppText(
                               text: localize.cencel,
                               style: StyleType.bodMed,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),
@@ -302,6 +306,7 @@ class AppDialog {
                               text: localize.delete,
                               style: StyleType.bodMed,
                               color: context.color.error,
+                              fontWeight: FontWeight.w500,
                             ),
                           ),
                         ),

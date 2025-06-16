@@ -585,8 +585,9 @@ class _BudgetOverviewState extends State<BudgetOverview> {
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: items.length,
-        separatorBuilder: (context, _) => const AppDivider(
-          padding: EdgeInsets.only(top: 5, bottom: 5),
+        separatorBuilder: (context, _) => AppDivider(
+          padding: getEdgeInsetsAll(5),
+          color: context.color.onSurface.withValues(alpha: 0.3),
         ),
         itemBuilder: (context, index) => _buildCategoryItem(
           items[index],

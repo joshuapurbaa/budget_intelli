@@ -22,13 +22,17 @@ class CategoryEditDialog extends StatefulWidget {
 }
 
 class _CategoryEditDialogState extends State<CategoryEditDialog> {
-  final _leftController = TextEditingController();
-  final _rightController = TextEditingController();
+  final _nameController = TextEditingController();
+  final _amountController = TextEditingController();
+  final _nameFocusNode = FocusNode();
+  final _amountFocusNode = FocusNode();
 
   @override
   void dispose() {
-    _leftController.dispose();
-    _rightController.dispose();
+    _nameController.dispose();
+    _amountController.dispose();
+    _nameFocusNode.dispose();
+    _amountFocusNode.dispose();
     super.dispose();
   }
 
@@ -36,13 +40,13 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
   Widget build(BuildContext context) {
     final title = textLocalizer(context).editCategory;
     final category = widget.itemCategory;
-    _leftController.text = category.name;
-    _rightController.text = NumberFormatter.formatToMoneyDouble(
+    _nameController.text = category.name;
+    _amountController.text = NumberFormatter.formatToMoneyDouble(
       context,
       category.amount,
     );
     return SizedBox(
-      width: MediaQuery.of(context).size.width * 0.9,
+      width: context.screenWidth * 0.9,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,6 +56,10 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
             style: StyleType.headMed,
           ),
           Gap.vertical(16),
+          AppDivider(
+            color: context.color.onSurface.withValues(alpha: 0.3),
+          ),
+          Gap.vertical(10),
           RichText(
             textAlign: TextAlign.center,
             text: TextSpan(
@@ -83,7 +91,9 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
             children: [
               Expanded(
                 child: TextField(
-                  controller: _leftController,
+                  focusNode: _nameFocusNode,
+                  controller: _nameController,
+                  autofocus: true,
                   textInputAction: TextInputAction.next,
                   style: textStyle(
                     context,
@@ -95,8 +105,20 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                       context,
                       style: StyleType.bodMed,
                     ),
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide.none,
+                    ),
+                    fillColor: context.color.onSurface.withValues(alpha: 0.05),
+                    filled: true,
                   ),
                 ),
               ),
@@ -105,7 +127,8 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                 child: BlocBuilder<SettingBloc, SettingState>(
                   builder: (context, state) {
                     return TextField(
-                      controller: _rightController,
+                      focusNode: _amountFocusNode,
+                      controller: _amountController,
                       textAlign: TextAlign.end,
                       textInputAction: TextInputAction.done,
                       style: textStyle(
@@ -121,7 +144,6 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                         ),
                       ],
                       decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.all(10),
                         hintText: NumberFormatter.formatToMoneyInt(
                           context,
                           0,
@@ -139,7 +161,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                           borderSide: BorderSide.none,
                         ),
                         fillColor:
-                            context.color.onSurface.withValues(alpha: 0.1),
+                            context.color.onSurface.withValues(alpha: 0.05),
                         filled: true,
                       ),
                     );
@@ -160,6 +182,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                   child: AppText(
                     text: textLocalizer(context).cancel,
                     style: StyleType.bodMed,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -170,11 +193,18 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                     backgroundColor: context.color.primary,
                   ),
                   onPressed: () {
-                    final amount = _rightController.text;
+                    final amount = _amountController.text;
+
+                    // check if category name and amount is changed
+                    if (category.name == _nameController.text &&
+                        category.amount == amount.toDouble()) {
+                      context.pop();
+                      return;
+                    }
 
                     context.read<CategoryCubit>().updateItemCategoryHistory(
                           itemCategoryHistory: category.copyWith(
-                            name: _leftController.text,
+                            name: _nameController.text,
                             amount: amount.toDouble(),
                             updatedAt: DateTime.now().toString(),
                           ),
@@ -185,6 +215,7 @@ class _CategoryEditDialogState extends State<CategoryEditDialog> {
                     text: textLocalizer(context).save,
                     style: StyleType.bodMed,
                     color: context.color.onPrimary,
+                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
