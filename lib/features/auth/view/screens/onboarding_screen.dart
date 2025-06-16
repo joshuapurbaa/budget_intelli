@@ -35,11 +35,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(0),
         child: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.primary,
+          backgroundColor: context.color.primary,
           elevation: 0,
         ),
       ),
-      backgroundColor: Theme.of(context).colorScheme.primary,
+      backgroundColor: context.color.primary,
       body: Stack(
         children: [
           PageView(
@@ -76,8 +76,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 effect: ExpandingDotsEffect(
                   dotHeight: 8.h,
                   dotWidth: 8.w,
-                  dotColor: Theme.of(context).colorScheme.tertiaryContainer,
-                  activeDotColor: Theme.of(context).colorScheme.primary,
+                  dotColor: context.color.tertiaryContainer,
+                  activeDotColor: context.color.primary,
                 ),
               ),
             ),
@@ -104,8 +104,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       },
                       width: double.infinity,
                       height: 58.h,
-                      backgroundColor:
-                          Theme.of(context).colorScheme.tertiaryContainer,
+                      backgroundColor: context.color.tertiaryContainer,
                     ),
                   ),
                   Gap.horizontal(16),

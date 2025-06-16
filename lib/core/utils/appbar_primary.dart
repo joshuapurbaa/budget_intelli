@@ -31,7 +31,7 @@ AppBar appBarPrimary({
         ),
     title: AppText(
       text: title ?? '',
-      style: StyleType.headLg,
+      style: StyleType.headMed,
       color: context.color.onSurface,
     ),
     centerTitle: centerTitle ?? true,

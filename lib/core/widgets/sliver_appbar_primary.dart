@@ -27,7 +27,7 @@ class SliverAppBarPrimary extends StatelessWidget {
       pinned: true,
       title: AppText(
         text: title,
-        style: StyleType.headLg,
+        style: StyleType.headMed,
       ),
       centerTitle: centerTitle ?? true,
       floating: true,
