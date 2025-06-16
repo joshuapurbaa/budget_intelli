@@ -695,11 +695,12 @@ class _BudgetOverviewState extends State<BudgetOverview> {
     final localize = textLocalizer(context);
     final percent = progressData['percent']!;
     final percentValue = progressData['percentValue']!;
-    final isOverTarget = percent >= 1;
+
+    final isOverTarget = percent >= 1.0;
 
     var percentStr = '${percentValue.truncate()}%';
     if (isOverTarget) {
-      percentStr = '$percentStr ${percent > 1 ? 'Overspending' : ''}';
+      percentStr = '$percentStr ${percent >= 1 ? 'Overspending' : ''}';
     }
 
     final percentTextColor = isOverTarget
@@ -745,7 +746,9 @@ class _BudgetOverviewState extends State<BudgetOverview> {
                   Gap.horizontal(4),
                   AppText(
                     text: NumberFormatter.formatToMoneyDouble(
-                        context, actualAmount),
+                      context,
+                      actualAmount,
+                    ),
                     style: StyleType.bodSm,
                     color: percentTextColor,
                     fontStyle: FontStyle.italic,

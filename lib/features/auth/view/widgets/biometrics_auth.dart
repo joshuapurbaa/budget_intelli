@@ -222,6 +222,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
+    final isDarkMode = context.isDarkModeSetting;
     return Scaffold(
       backgroundColor: context.color.primaryContainer,
       body: Center(
@@ -229,14 +230,23 @@ class _BiometricAuthState extends State<BiometricAuth> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-            getPngAsset(logo, width: 150, height: 150),
+            getPngAsset(
+              logo,
+              width: 150,
+              height: 150,
+              color: isDarkMode ? context.color.onPrimary : null,
+            ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: AppButton(
                 label: localize.authenticate,
                 onPressed: _authenticate,
-                suffixIcon: getPngAsset(identityPng, width: 50),
+                suffixIcon: getPngAsset(
+                  identityPng,
+                  width: 50,
+                  color: isDarkMode ? context.color.onPrimary : null,
+                ),
               ),
             ),
             Gap.vertical(100),

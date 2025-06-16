@@ -3,7 +3,6 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/ai_assistant/ai_assistant_barrel.dart';
 import 'package:budget_intelli/features/ai_assistant/models/budget_method_model.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -125,11 +124,7 @@ class _AiBudgetGenerateScreenState extends State<AiBudgetGenerateScreen> {
                               style: StyleType.bodMed,
                             ),
                             inputFormatters: [
-                              CurrencyTextInputFormatter.currency(
-                                locale: state.currency?.locale,
-                                symbol: state.currency?.symbol,
-                                decimalDigits: 0,
-                              ),
+                              CurrencyFormatter.currencyFormatter(context),
                             ],
                             validator: (value) {
                               if (value!.isEmpty) {

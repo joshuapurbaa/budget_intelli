@@ -1,6 +1,5 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppBoxFormField extends StatelessWidget {
   const AppBoxFormField({

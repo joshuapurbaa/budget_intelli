@@ -2,7 +2,6 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/category/category_barrel.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
-import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -1085,9 +1084,7 @@ class _BudgetFormFieldState extends State<BudgetFormField> {
                                             keyboardType: TextInputType.number,
                                             inputFormatters: [
                                               CurrencyFormatter
-                                                  .currencyFormatter(
-                                                context,
-                                              ),
+                                                  .currencyFormatter(context),
                                             ],
                                             decoration: InputDecoration(
                                               contentPadding:

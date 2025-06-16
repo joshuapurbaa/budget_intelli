@@ -11,11 +11,20 @@ class CurrencyFormatter {
   }) {
     final locale = context.l10n.localeName;
 
-    final currency = context.read<SettingBloc>().state.currency;
-    return CurrencyTextInputFormatter.currency(
-      locale: locale,
-      symbol: currency.symbol,
-      decimalDigits: decimalDigits ?? 0,
-    );
+    try {
+      final currency = context.read<SettingBloc>().state.currency;
+      return CurrencyTextInputFormatter.currency(
+        locale: locale,
+        symbol: currency.symbol,
+        decimalDigits: decimalDigits ?? 0,
+      );
+    } on Exception catch (e) {
+      debugPrint('error currency formatter: $e');
+      return CurrencyTextInputFormatter.currency(
+        locale: locale,
+        symbol: r'$',
+        decimalDigits: decimalDigits ?? 0,
+      );
+    }
   }
 }
