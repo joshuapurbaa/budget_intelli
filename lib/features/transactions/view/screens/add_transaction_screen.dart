@@ -141,447 +141,481 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
           _getItemCategoriesByBudgetId(budgetId);
         }
         return Scaffold(
-          bottomSheet: BottomSheetParent(
-            isWithBorderTop: true,
-            child: SafeArea(
-              child: BlocConsumer<TransactionsCubit, TransactionsState>(
-                listener: (context, state) {
-                  if (state is AddExpenseTransactionSuccess) {
-                    _onTransactionSuccess(state);
-                  }
-
-                  if (state is AddExpenseTransactionFailed) {
-                    context.pop();
-                    AppToast.showToastError(
-                      context,
-                      state.message,
-                    );
-                  }
-
-                  if (state is TransactionsLoading) {
-                    AppDialog.showLoading(context);
-                  }
-                },
-                builder: (context, stateTransaction) {
-                  return BlocConsumer<BudgetFirestoreCubit,
-                      BudgetFirestoreState>(
-                    listener: (context, state) {
-                      if (state.insertItemCategoryTransactionSuccess) {
-                        _afterSuccess(budgetId!);
-                      }
-                    },
-                    builder: (context, state) {
-                      final loading = state.loadingFirestore;
-                      return loading
-                          ? const Center(
-                              child: CircularProgressIndicator.adaptive(),
-                            )
-                          : AppButton.darkLabel(
-                              label: localize.add,
-                              isActive: true,
-                              onPressed: () {
-                                if (_selectedItemCategory != null) {
-                                  final idTransaction = const Uuid().v1();
-                                  final itemId = _selectedItemCategory?.id;
-                                  final amount =
-                                      ControllerHelper.getAmount(context);
-                                  final groupId =
-                                      _selectedItemCategory?.groupHistoryId;
-
-                                  final imageBytes =
-                                      ControllerHelper.getImagesBytes(
-                                    context,
-                                  );
-                                  if (itemId != null &&
-                                      amount != null &&
-                                      _selectedDate != null &&
-                                      groupId != null &&
-                                      _selectedAccount != null &&
-                                      _spendOnController.text.isNotEmpty) {
-                                    final selectedAccountId =
-                                        _selectedAccount?.id;
-                                    final transaction = ItemCategoryTransaction(
-                                      id: idTransaction,
-                                      itemHistoId: itemId,
-                                      categoryName: _selectedItemCategory!.name,
-                                      amount: amount,
-                                      createdAt: _selectedDate.toString(),
-                                      type: transactionType,
-                                      spendOn: _spendOnController.text,
-                                      budgetId: budgetId!,
-                                      picture: imageBytes,
-                                      groupId: groupId,
-                                      accountId: selectedAccountId!,
-                                    );
-                                    context
-                                        .read<TransactionsCubit>()
-                                        .insertItemCategoryTransaction(
-                                          itemCategoryTransaction: transaction,
-                                          selectedAccount: _selectedAccount!,
-                                          amount: amount,
-                                          budgetId: budgetId,
-                                        );
-                                  } else {
-                                    AppToast.showToastError(
-                                      context,
-                                      localize.pleaseFillAllRequiredFields,
-                                    );
-                                  }
-                                } else {
-                                  AppToast.showToastError(
-                                    context,
-                                    localize.pleaseFillAllRequiredFields,
-                                  );
-                                }
-                              },
-                            );
-                    },
-                  );
-                },
-              ),
-            ),
-          ),
           body: CustomScrollView(
             slivers: [
               SliverAppBarPrimary(
                 title: '${localize.add} ${localize.transactions}',
               ),
-              SliverPadding(
-                padding: getEdgeInsetsAll(16),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate.fixed(
-                    [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              SliverFillRemaining(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 0,
+                      left: 16,
+                      right: 16,
+                      child: Column(
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Radio.adaptive(
-                                value: 'expense',
-                                groupValue: transactionType,
-                                onChanged: (value) {
-                                  setState(() {
-                                    transactionType = value.toString();
-                                    _selectedItemCategory = null;
-                                    _itemCategoryController.clear();
-                                    _remainingStr = null;
-                                  });
-                                },
-                              ),
-                              Gap.horizontal(8),
-                              AppText(
-                                text: localize.expenses,
-                                style: StyleType.bodMed,
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              Radio.adaptive(
-                                value: 'income',
-                                groupValue: transactionType,
-                                onChanged: (value) {
-                                  setState(() {
-                                    transactionType = value.toString();
-                                    _selectedItemCategory = null;
-                                    _itemCategoryController.clear();
-                                    _remainingStr = null;
-                                  });
-                                },
-                              ),
-                              Gap.horizontal(8),
-                              AppText(
-                                text: localize.income,
-                                style: StyleType.bodMed,
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Gap.vertical(8),
-                      GestureDetector(
-                        onTap: _showCalendar,
-                        child: AppGlass(
-                          child: Row(
-                            children: [
-                              getSvgAsset(
-                                dateCalender,
-                                color: context.color.onSurface,
-                              ),
-                              Gap.horizontal(16),
-                              Expanded(
-                                child: textDate,
-                              ),
-                              Gap.horizontal(16),
-                              Icon(
-                                calendarOpened
-                                    ? CupertinoIcons.chevron_up
-                                    : CupertinoIcons.chevron_down,
-                                size: 25,
-                              ),
-                              Gap.horizontal(10),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Gap.vertical(8),
-                      BlocBuilder<TrackingCubit, TrackingState>(
-                        builder: (context, state) {
-                          var itemCategories = <ItemCategoryHistory>[];
-
-                          if (transactionType == 'expense') {
-                            itemCategories = state.itemCategories
-                                .where((element) => element.type == 'expense')
-                                .toList();
-                          } else {
-                            itemCategories = state.itemCategories
-                                .where((element) => element.type == 'income')
-                                .toList();
-                          }
-
-                          return AppGlass(
-                            padding: getEdgeInsets(
-                              left: 16,
-                              right: 10,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                DropdownMenu<ItemCategoryHistory>(
-                                  controller: _itemCategoryController,
-                                  expandedInsets: EdgeInsets.zero,
-                                  menuHeight: 150.h,
-                                  selectedTrailingIcon: const Icon(
-                                    CupertinoIcons.chevron_up,
-                                    size: 25,
+                              Row(
+                                children: [
+                                  Radio.adaptive(
+                                    value: 'expense',
+                                    groupValue: transactionType,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        transactionType = value.toString();
+                                        _selectedItemCategory = null;
+                                        _itemCategoryController.clear();
+                                        _remainingStr = null;
+                                      });
+                                    },
                                   ),
-                                  leadingIcon: Padding(
-                                    padding: getEdgeInsets(right: 22),
-                                    child: getPngAsset(
-                                      categoryPng,
-                                      height: 18,
-                                      width: 18,
-                                      color: context.color.onSurface,
-                                    ),
-                                  ),
-                                  inputDecorationTheme:
-                                      _inputDecoration(context),
-                                  trailingIcon: const Icon(
-                                    CupertinoIcons.chevron_down,
-                                    size: 25,
-                                  ),
-                                  hintText: '${localize.selectCategory}*',
-                                  textStyle: textStyle(
-                                    context,
+                                  Gap.horizontal(8),
+                                  AppText(
+                                    text: localize.expenses,
                                     style: StyleType.bodMed,
-                                  ).copyWith(
-                                    fontWeight: FontWeight.w700,
                                   ),
-                                  requestFocusOnTap: false,
-                                  onSelected:
-                                      (ItemCategoryHistory? category) async {
-                                    await _calculateTransactions(category);
-                                  },
-                                  menuStyle: _menuStyle(),
-                                  dropdownMenuEntries: itemCategories.map<
-                                      DropdownMenuEntry<ItemCategoryHistory>>(
-                                    (ItemCategoryHistory itemCategory) {
-                                      final path = itemCategory.iconPath;
-                                      return DropdownMenuEntry<
-                                          ItemCategoryHistory>(
-                                        leadingIcon: path != null
-                                            ? getPngAsset(
-                                                path,
-                                                height: 20,
-                                                width: 20,
-                                                // color: context.color.onSurface,
-                                              )
-                                            : Icon(
-                                                CupertinoIcons.photo,
-                                                color: context.color.primary,
-                                                size: 18,
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Radio.adaptive(
+                                    value: 'income',
+                                    groupValue: transactionType,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        transactionType = value.toString();
+                                        _selectedItemCategory = null;
+                                        _itemCategoryController.clear();
+                                        _remainingStr = null;
+                                      });
+                                    },
+                                  ),
+                                  Gap.horizontal(8),
+                                  AppText(
+                                    text: localize.income,
+                                    style: StyleType.bodMed,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          Gap.vertical(8),
+                          BlocBuilder<TrackingCubit, TrackingState>(
+                            builder: (context, state) {
+                              var itemCategories = <ItemCategoryHistory>[];
+
+                              if (transactionType == 'expense') {
+                                itemCategories = state.itemCategories
+                                    .where(
+                                        (element) => element.type == 'expense')
+                                    .toList();
+                              } else {
+                                itemCategories = state.itemCategories
+                                    .where(
+                                        (element) => element.type == 'income')
+                                    .toList();
+                              }
+
+                              return AppGlass(
+                                padding: getEdgeInsets(
+                                  left: 16,
+                                  right: 10,
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    DropdownMenu<ItemCategoryHistory>(
+                                      controller: _itemCategoryController,
+                                      expandedInsets: EdgeInsets.zero,
+                                      menuHeight: 150.h,
+                                      selectedTrailingIcon: const Icon(
+                                        CupertinoIcons.chevron_up,
+                                        size: 25,
+                                      ),
+                                      leadingIcon: Padding(
+                                        padding: getEdgeInsets(right: 22),
+                                        child: getPngAsset(
+                                          categoryPng,
+                                          height: 18,
+                                          width: 18,
+                                          color: context.color.onSurface,
+                                        ),
+                                      ),
+                                      inputDecorationTheme:
+                                          _inputDecoration(context),
+                                      trailingIcon: const Icon(
+                                        CupertinoIcons.chevron_down,
+                                        size: 25,
+                                      ),
+                                      hintText: '${localize.selectCategory}*',
+                                      textStyle: textStyle(
+                                        context,
+                                        style: StyleType.bodMed,
+                                      ).copyWith(
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                      requestFocusOnTap: false,
+                                      onSelected: (ItemCategoryHistory?
+                                          category) async {
+                                        await _calculateTransactions(category);
+                                      },
+                                      menuStyle: _menuStyle(),
+                                      dropdownMenuEntries: itemCategories.map<
+                                          DropdownMenuEntry<
+                                              ItemCategoryHistory>>(
+                                        (ItemCategoryHistory itemCategory) {
+                                          final path = itemCategory.iconPath;
+                                          return DropdownMenuEntry<
+                                              ItemCategoryHistory>(
+                                            leadingIcon: path != null
+                                                ? getPngAsset(
+                                                    path,
+                                                    height: 20,
+                                                    width: 20,
+                                                    // color: context.color.onSurface,
+                                                  )
+                                                : Icon(
+                                                    CupertinoIcons.photo,
+                                                    color:
+                                                        context.color.primary,
+                                                    size: 18,
+                                                  ),
+                                            value: itemCategory,
+                                            label: itemCategory.name,
+                                            style: MenuItemButton.styleFrom(
+                                              visualDensity:
+                                                  VisualDensity.comfortable,
+                                              textStyle: textStyle(
+                                                context,
+                                                style: StyleType.bodMed,
                                               ),
-                                        value: itemCategory,
-                                        label: itemCategory.name,
-                                        style: MenuItemButton.styleFrom(
-                                          visualDensity:
-                                              VisualDensity.comfortable,
-                                          textStyle: textStyle(
-                                            context,
-                                            style: StyleType.bodMed,
+                                            ),
+                                          );
+                                        },
+                                      ).toList(),
+                                    ),
+                                    if (_remainingStr != null) ...[
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 50, bottom: 8),
+                                        child: RichText(
+                                          textAlign: TextAlign.center,
+                                          text: TextSpan(
+                                            children: [
+                                              TextSpan(
+                                                text: '${localize.left2}: ',
+                                                style: textStyle(
+                                                  context,
+                                                  style: StyleType.bodSm,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: _remainingStr ?? '',
+                                                style: textStyle(
+                                                  context,
+                                                  style: StyleType.bodSm,
+                                                ).copyWith(
+                                                  color: context.color.primary,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
+                                      ),
+                                    ],
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+                          Gap.vertical(8),
+                          GestureDetector(
+                            onTap: _showCalendar,
+                            child: AppGlass(
+                              child: Row(
+                                children: [
+                                  getSvgAsset(
+                                    dateCalender,
+                                    color: context.color.onSurface,
+                                  ),
+                                  Gap.horizontal(16),
+                                  Expanded(
+                                    child: textDate,
+                                  ),
+                                  Gap.horizontal(16),
+                                  Icon(
+                                    calendarOpened
+                                        ? CupertinoIcons.chevron_up
+                                        : CupertinoIcons.chevron_down,
+                                    size: 25,
+                                  ),
+                                  Gap.horizontal(10),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Gap.vertical(8),
+                          AppBoxFormField(
+                            hintText: hintText,
+                            prefixIcon: noteDescriptionPng,
+                            controller: _spendOnController,
+                            focusNode: _focusSpendOn,
+                            isPng: true,
+                            iconColor: context.color.onSurface,
+                          ),
+                          Gap.vertical(8),
+                          BlocBuilder<AccountBloc, AccountState>(
+                            builder: (context, state) {
+                              final accounts = state.accounts;
+                              return Row(
+                                children: [
+                                  Expanded(
+                                    child: AppGlass(
+                                      padding: getEdgeInsets(
+                                        left: 16,
+                                        right: 10,
+                                      ),
+                                      child: DropdownMenu<Account>(
+                                        expandedInsets: EdgeInsets.zero,
+                                        menuHeight: 150.h,
+                                        selectedTrailingIcon: const Icon(
+                                          CupertinoIcons.chevron_up,
+                                          size: 25,
+                                        ),
+                                        leadingIcon: Padding(
+                                          padding: getEdgeInsets(right: 22),
+                                          child: getPngAsset(
+                                            accountPng,
+                                            height: 18,
+                                            width: 18,
+                                            color: context.color.onSurface,
+                                          ),
+                                        ),
+                                        inputDecorationTheme:
+                                            _inputDecoration(context),
+                                        trailingIcon: const Icon(
+                                          CupertinoIcons.chevron_down,
+                                          size: 25,
+                                        ),
+                                        hintText: '${localize.selectAccount}*',
+                                        textStyle: textStyle(
+                                          context,
+                                          style: StyleType.bodMed,
+                                        ).copyWith(
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        requestFocusOnTap: false,
+                                        onSelected: (Account? account) {
+                                          setState(() {
+                                            _selectedAccount = account;
+                                          });
+                                        },
+                                        menuStyle: _menuStyle(),
+                                        dropdownMenuEntries: accounts
+                                            .map<DropdownMenuEntry<Account>>(
+                                          (Account account) {
+                                            return DropdownMenuEntry<Account>(
+                                              value: account,
+                                              label: account.name,
+                                              style: MenuItemButton.styleFrom(
+                                                visualDensity:
+                                                    VisualDensity.comfortable,
+                                                textStyle: textStyle(
+                                                  context,
+                                                  style: StyleType.bodMed,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ).toList(),
+                                      ),
+                                    ),
+                                  ),
+                                  Gap.horizontal(5),
+                                  GestureDetector(
+                                    onTap: () {
+                                      context.push(
+                                        MyRoute.addAccountScreen,
                                       );
                                     },
-                                  ).toList(),
-                                ),
-                                if (_remainingStr != null) ...[
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 50),
-                                    child: RichText(
-                                      textAlign: TextAlign.center,
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: '${localize.left2}: ',
-                                            style: textStyle(
-                                              context,
-                                              style: StyleType.bodSm,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: _remainingStr ?? '',
-                                            style: textStyle(
-                                              context,
-                                              style: StyleType.bodSm,
-                                            ).copyWith(
-                                              color: context.color.primary,
-                                            ),
-                                          ),
-                                        ],
+                                    child: AppGlass(
+                                      child: Icon(
+                                        Icons.add,
+                                        color: context.color.primary,
                                       ),
                                     ),
                                   ),
                                 ],
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                      Gap.vertical(8),
-                      AppBoxFormField(
-                        hintText: hintText,
-                        prefixIcon: noteDescriptionPng,
-                        controller: _spendOnController,
-                        focusNode: _focusSpendOn,
-                        isPng: true,
-                        iconColor: context.color.onSurface,
-                      ),
-                      Gap.vertical(8),
-                      BlocBuilder<AccountBloc, AccountState>(
-                        builder: (context, state) {
-                          final accounts = state.accounts;
-                          return Row(
-                            children: [
-                              Expanded(
-                                child: AppGlass(
-                                  padding: getEdgeInsets(
-                                    left: 16,
-                                    right: 10,
-                                  ),
-                                  child: DropdownMenu<Account>(
-                                    expandedInsets: EdgeInsets.zero,
-                                    menuHeight: 150.h,
-                                    selectedTrailingIcon: const Icon(
-                                      CupertinoIcons.chevron_up,
-                                      size: 25,
-                                    ),
-                                    leadingIcon: Padding(
-                                      padding: getEdgeInsets(right: 22),
-                                      child: getPngAsset(
-                                        accountPng,
-                                        height: 18,
-                                        width: 18,
-                                        color: context.color.onSurface,
-                                      ),
-                                    ),
-                                    inputDecorationTheme:
-                                        _inputDecoration(context),
-                                    trailingIcon: const Icon(
-                                      CupertinoIcons.chevron_down,
-                                      size: 25,
-                                    ),
-                                    hintText: '${localize.selectAccount}*',
-                                    textStyle: textStyle(
-                                      context,
-                                      style: StyleType.bodMed,
-                                    ).copyWith(
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    requestFocusOnTap: false,
-                                    onSelected: (Account? account) {
-                                      setState(() {
-                                        _selectedAccount = account;
-                                      });
-                                    },
-                                    menuStyle: _menuStyle(),
-                                    dropdownMenuEntries: accounts
-                                        .map<DropdownMenuEntry<Account>>(
-                                      (Account account) {
-                                        return DropdownMenuEntry<Account>(
-                                          value: account,
-                                          label: account.name,
-                                          style: MenuItemButton.styleFrom(
-                                            visualDensity:
-                                                VisualDensity.comfortable,
-                                            textStyle: textStyle(
-                                              context,
-                                              style: StyleType.bodMed,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ).toList(),
-                                  ),
-                                ),
-                              ),
-                              Gap.horizontal(5),
-                              GestureDetector(
-                                onTap: () {
-                                  context.push(
-                                    MyRoute.addAccountScreen,
-                                  );
-                                },
-                                child: AppGlass(
-                                  child: Icon(
-                                    Icons.add,
-                                    color: context.color.primary,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      ),
-                      Gap.vertical(8),
-                      BoxCalculator(
-                        label: '${localize.amountFieldLabel}*',
-                      ),
-                      Gap.vertical(8),
-                      BlocBuilder<TransactionsCubit, TransactionsState>(
-                        builder: (context, state) {
-                          var created = false;
-                          if (state is AddExpenseTransactionSuccess) {
-                            created = true;
-                          } else {
-                            created = false;
-                          }
-                          return AppBoxUploadImage(
-                            created: created,
-                          );
-                        },
-                      ),
-                      if (!premiumUser) ...[
-                        Gap.vertical(8),
-                        // Gap.vertical(32),
-                        // AppButton(
-                        //   label: localize.buyPremium,
-                        //   onPressed: () {
-                        //     _showPremiumModalBottom(userIntelli);
-                        //   },
-                        // ),
+                              );
+                            },
+                          ),
+                          Gap.vertical(8),
+                          BoxCalculator(
+                            label: '${localize.amountFieldLabel}*',
+                          ),
+                          Gap.vertical(8),
+                          BlocBuilder<TransactionsCubit, TransactionsState>(
+                            builder: (context, state) {
+                              var created = false;
+                              if (state is AddExpenseTransactionSuccess) {
+                                created = true;
+                              } else {
+                                created = false;
+                              }
+                              return AppBoxUploadImage(
+                                created: created,
+                              );
+                            },
+                          ),
+                          if (!premiumUser) ...[
+                            Gap.vertical(8),
+                            // Gap.vertical(32),
+                            // AppButton(
+                            //   label: localize.buyPremium,
+                            //   onPressed: () {
+                            //     _showPremiumModalBottom(userIntelli);
+                            //   },
+                            // ),
 
-                        AdWidgetRepository(
-                          // user: userIntelli,
-                          height: 50,
-                          child: Container(
-                            color: context.color.surface,
+                            AdWidgetRepository(
+                              // user: userIntelli,
+                              height: 50,
+                              child: Container(
+                                color: context.color.surface,
+                              ),
+                            ),
+                          ],
+                          Gap.vertical(90),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: SafeArea(
+                        child: BottomSheetParent(
+                          isWithBorderTop: true,
+                          child: BlocConsumer<TransactionsCubit,
+                              TransactionsState>(
+                            listener: (context, state) {
+                              if (state is AddExpenseTransactionSuccess) {
+                                _onTransactionSuccess(state);
+                              }
+
+                              if (state is AddExpenseTransactionFailed) {
+                                context.pop();
+                                AppToast.showToastError(
+                                  context,
+                                  state.message,
+                                );
+                              }
+
+                              if (state is TransactionsLoading) {
+                                AppDialog.showLoading(context);
+                              }
+                            },
+                            builder: (context, stateTransaction) {
+                              return BlocConsumer<BudgetFirestoreCubit,
+                                  BudgetFirestoreState>(
+                                listener: (context, state) {
+                                  if (state
+                                      .insertItemCategoryTransactionSuccess) {
+                                    _afterSuccess(budgetId!);
+                                  }
+                                },
+                                builder: (context, state) {
+                                  final loading = state.loadingFirestore;
+                                  return loading
+                                      ? const Center(
+                                          child: CircularProgressIndicator
+                                              .adaptive(),
+                                        )
+                                      : AppButton.darkLabel(
+                                          label: localize.add,
+                                          isActive: true,
+                                          onPressed: () {
+                                            if (_selectedItemCategory != null) {
+                                              final idTransaction =
+                                                  const Uuid().v1();
+                                              final itemId =
+                                                  _selectedItemCategory?.id;
+                                              final amount =
+                                                  ControllerHelper.getAmount(
+                                                      context);
+                                              final groupId =
+                                                  _selectedItemCategory
+                                                      ?.groupHistoryId;
+
+                                              final imageBytes =
+                                                  ControllerHelper
+                                                      .getImagesBytes(
+                                                context,
+                                              );
+                                              if (itemId != null &&
+                                                  amount != null &&
+                                                  _selectedDate != null &&
+                                                  groupId != null &&
+                                                  _selectedAccount != null &&
+                                                  _spendOnController
+                                                      .text.isNotEmpty) {
+                                                final selectedAccountId =
+                                                    _selectedAccount?.id;
+                                                final transaction =
+                                                    ItemCategoryTransaction(
+                                                  id: idTransaction,
+                                                  itemHistoId: itemId,
+                                                  categoryName:
+                                                      _selectedItemCategory!
+                                                          .name,
+                                                  amount: amount,
+                                                  createdAt:
+                                                      _selectedDate.toString(),
+                                                  type: transactionType,
+                                                  spendOn:
+                                                      _spendOnController.text,
+                                                  budgetId: budgetId!,
+                                                  picture: imageBytes,
+                                                  groupId: groupId,
+                                                  accountId: selectedAccountId!,
+                                                );
+                                                context
+                                                    .read<TransactionsCubit>()
+                                                    .insertItemCategoryTransaction(
+                                                      itemCategoryTransaction:
+                                                          transaction,
+                                                      selectedAccount:
+                                                          _selectedAccount!,
+                                                      amount: amount,
+                                                      budgetId: budgetId,
+                                                    );
+                                              } else {
+                                                AppToast.showToastError(
+                                                  context,
+                                                  localize
+                                                      .pleaseFillAllRequiredFields,
+                                                );
+                                              }
+                                            } else {
+                                              AppToast.showToastError(
+                                                context,
+                                                localize
+                                                    .pleaseFillAllRequiredFields,
+                                              );
+                                            }
+                                          },
+                                        );
+                                },
+                              );
+                            },
                           ),
                         ),
-                      ],
-                      Gap.vertical(90),
-                    ],
-                  ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],
