@@ -70,31 +70,6 @@ class _ExploresState extends State<Explores> {
                       // ),
                       AppGlass(
                         onTap: () {
-                          context.push(
-                            MyRoute.netWorthTracker,
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            getPngAsset(
-                              netWorthPng,
-                              width: 50,
-                              height: 50,
-                              color: context.color.onSurface,
-                            ),
-                            Gap.vertical(22),
-                            AppText(
-                              text: localize.netWorthTracker,
-                              style: StyleType.bodLg,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                      AppGlass(
-                        onTap: () {
                           context.read<AccountBloc>().add(GetAccountsEvent());
                           context.push(
                             MyRoute.accountScreen,
@@ -119,6 +94,32 @@ class _ExploresState extends State<Explores> {
                           ],
                         ),
                       ),
+                      AppGlass(
+                        onTap: () {
+                          context.push(
+                            MyRoute.netWorthTracker,
+                          );
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            getPngAsset(
+                              netWorthPng,
+                              width: 50,
+                              height: 50,
+                              color: context.color.onSurface,
+                            ),
+                            Gap.vertical(22),
+                            AppText(
+                              text: localize.netWorthTracker,
+                              style: StyleType.bodLg,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+
                       AppGlass(
                         onTap: () {
                           context.push(

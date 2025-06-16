@@ -57,11 +57,9 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
                     ),
                   ),
                   Gap.vertical(10),
-                  AppGlass(
+                  BoxCalculator(
+                    label: '${localize.value}*',
                     height: 65.h,
-                    child: AppFieldCalculator(
-                      label: '${localize.value}*',
-                    ),
                   ),
                   Gap.vertical(10),
                   AppGlass(

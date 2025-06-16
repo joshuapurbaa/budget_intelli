@@ -27,28 +27,28 @@ class AppFormField extends StatefulWidget {
 class _AppFormFieldState extends State<AppFormField> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: TextFormField(
-        controller: widget.controller,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.symmetric(
-            horizontal: 16.w,
-            vertical: 16.h,
-          ),
-          border: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          hintStyle: widget.hintStyle ??
-              textStyle(
-                context,
-                style: StyleType.bodMed,
-              ),
-          hintText: widget.hintText,
+    return TextFormField(
+      controller: widget.controller,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: 16.w,
+          vertical: 16.h,
         ),
-        onChanged: widget.onChanged,
-        keyboardType: widget.keyboardType ?? TextInputType.text,
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        hintStyle: widget.hintStyle ??
+            textStyle(
+              context,
+              style: StyleType.bodMed,
+            ).copyWith(
+              color: context.color.onSurface.withValues(alpha: 0.5),
+            ),
+        hintText: widget.hintText,
       ),
+      onChanged: widget.onChanged,
+      keyboardType: widget.keyboardType ?? TextInputType.text,
     );
   }
 }

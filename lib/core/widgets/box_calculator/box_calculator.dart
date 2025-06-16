@@ -9,11 +9,13 @@ class BoxCalculator extends StatefulWidget {
     super.key,
     this.focusNode,
     this.isIcome = false,
+    this.height,
   });
 
   final String label;
   final FocusNode? focusNode;
   final bool isIcome;
+  final double? height;
 
   @override
   State<BoxCalculator> createState() => _BoxCalculatorState();
@@ -47,7 +49,7 @@ class _BoxCalculatorState extends State<BoxCalculator>
             label = widget.label;
           }
           return AppGlass(
-            height: 70.h,
+            height: widget.height ?? 70.h,
             child: Row(
               children: [
                 if (widget.isIcome)

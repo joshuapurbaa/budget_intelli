@@ -1,5 +1,4 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/core/widgets/app_field_calculator.dart';
 import 'package:budget_intelli/features/net_worth/net_worth_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,11 +57,9 @@ class _AddLiabilityAccountScreenState extends State<AddLiabilityAccountScreen> {
                     ),
                   ),
                   Gap.vertical(10),
-                  AppGlass(
+                  BoxCalculator(
+                    label: '${localize.amountFieldLabel}*',
                     height: 65.h,
-                    child: AppFieldCalculator(
-                      label: '${localize.amountFieldLabel}*',
-                    ),
                   ),
                   Gap.vertical(10),
                   AppGlass(
