@@ -65,7 +65,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
   // Category selection state
   GroupCategory? _selectedGroupCategory;
   final _selectedItemCategory = <ItemCategory?>[];
-  List<bool> _addNewCategoryField = [];
+  final List<bool> _addNewCategoryField = [];
 
   Color? _pickerColor;
 
@@ -257,6 +257,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
     final groupId = groupCategoryHistory.id;
     final groupName = groupCategoryHistory.groupName;
     final hexColor = groupCategoryHistory.hexColor;
+    final dividerColor = context.color.onSurface.withValues(alpha: 0.1);
 
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, state) {
@@ -286,7 +287,10 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                 ],
               ),
               Gap.vertical(5),
-              const AppDivider(),
+              AppDivider(
+                color: dividerColor,
+                thickness: 0.4,
+              ),
               Gap.vertical(5),
             ] else ...[
               Stack(
@@ -306,7 +310,9 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                 ],
               ),
               Gap.vertical(10),
-              const AppDivider(),
+              AppDivider(
+                color: dividerColor,
+              ),
               Gap.vertical(10),
             ],
 
@@ -437,7 +443,12 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                 ),
               ],
             ),
-            Gap.vertical(10),
+            Gap.vertical(5),
+            AppDivider(
+              color: dividerColor,
+              thickness: 0.4,
+            ),
+            Gap.vertical(5),
 
             // Item categories list
             ListView.separated(
@@ -524,7 +535,10 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                 ),
                               ),
                             ),
-                            const AppDivider(),
+                            AppDivider(
+                              color: dividerColor,
+                              thickness: 0.4,
+                            ),
                           ],
                         ),
                       ),
@@ -630,7 +644,10 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                     color: context.color.primary, iconSize: 18),
                               ),
                             ),
-                            const AppDivider(),
+                            AppDivider(
+                              color: dividerColor,
+                              thickness: 0.4,
+                            ),
                           ],
                         ),
                       ),

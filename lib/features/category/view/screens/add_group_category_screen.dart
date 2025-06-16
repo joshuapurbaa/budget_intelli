@@ -108,7 +108,7 @@ class _AddGroupCategoryScreenState extends State<AddGroupCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
-    final paddingLRT = getEdgeInsets(left: 16, right: 16, top: 10);
+    final paddingLRT = getEdgeInsets(left: 16, right: 16, top: 8);
 
     return BlocBuilder<CategoryCubit, CategoryState>(
       builder: (context, categoryState) {
@@ -172,7 +172,6 @@ class _AddGroupCategoryScreenState extends State<AddGroupCategoryScreen> {
                     padding: paddingLRT,
                     sliver: SliverToBoxAdapter(
                       child: AppGlass(
-                        height: 70.h,
                         child: Row(
                           children: [
                             getPngAsset(
