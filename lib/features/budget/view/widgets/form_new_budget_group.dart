@@ -65,7 +65,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
   // Category selection state
   GroupCategory? _selectedGroupCategory;
   final _selectedItemCategory = <ItemCategory?>[];
-  List<bool> addCategoryField = <bool>[];
+  List<bool> _addNewCategoryField = [];
+
   Color? _pickerColor;
 
   @override
@@ -84,7 +85,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
   void _initializeControllers() {
     final itemCount = widget.itemCategoryHistories.length;
     for (var i = 0; i < itemCount; i++) {
-      addCategoryField.add(false);
+      _addNewCategoryField.add(false);
       _selectedItemCategory.add(null);
       _leftControllers.add(TextEditingController());
       _rightControllers.add(TextEditingController());
@@ -455,8 +456,8 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
 
                 return Row(
                   children: [
-                    // Category selector
-                    if (addCategoryField[indexItem]) ...[
+                    // show input new category
+                    if (_addNewCategoryField[indexItem]) ...[
                       Expanded(
                         flex: 3,
                         child: Column(
@@ -494,17 +495,18 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                 suffixIcon: IconButton(
                                   onPressed: () {
                                     setState(() {
-                                      addCategoryField[indexItem] =
-                                          !addCategoryField[indexItem];
-                                      _leftControllers[indexItem].clear();
+                                      _addNewCategoryField[indexItem] =
+                                          !_addNewCategoryField[indexItem];
                                     });
+                                    _leftControllers[indexItem].clear();
 
                                     context.read<BudgetFormBloc>().add(
                                           UpdateItemCategoryHistoryEvent(
                                             groupId: groupId,
                                             itemId: item.id,
                                             itemCategory: item.copyWith(
-                                                name: localize.selectCategory),
+                                              name: localize.selectCategory,
+                                            ),
                                           ),
                                         );
                                   },
@@ -516,16 +518,14 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                 ),
                               ),
                             ),
-                            Divider(
-                              color: context.color.primaryContainer,
-                              height: 0,
-                              thickness: 0.5,
-                            ),
+                            const AppDivider(),
                           ],
                         ),
                       ),
                     ],
-                    if (!addCategoryField[indexItem])
+
+                    // show category dropdown
+                    if (!_addNewCategoryField[indexItem])
                       Expanded(
                         flex: 3,
                         child: Column(
@@ -543,9 +543,15 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                           child: AppButton(
                                             height: 40,
                                             onPressed: () {
-                                              setState(() => addCategoryField[
-                                                      indexItem] =
-                                                  !addCategoryField[indexItem]);
+                                              // Close the dropdown first
+                                              context.pop();
+
+                                              setState(() {
+                                                _addNewCategoryField[
+                                                        indexItem] =
+                                                    !_addNewCategoryField[
+                                                        indexItem];
+                                              });
 
                                               context
                                                   .read<BudgetFormBloc>()
@@ -558,7 +564,6 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                                               .typeCategoryName),
                                                     ),
                                                   );
-                                              context.pop();
                                               _leftFocusNodes[indexItem]
                                                   .requestFocus();
                                             },
@@ -624,11 +629,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                                     color: context.color.primary, iconSize: 18),
                               ),
                             ),
-                            Divider(
-                              color: context.color.primaryContainer,
-                              height: 0,
-                              thickness: 0.5,
-                            ),
+                            const AppDivider(),
                           ],
                         ),
                       ),
@@ -705,7 +706,7 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                         _rightFocusNodes.removeAt(indexItem);
 
                         setState(() {
-                          addCategoryField.removeAt(indexItem);
+                          _addNewCategoryField.removeAt(indexItem);
                           _selectedItemCategory.removeAt(indexItem);
                         });
                       },
@@ -748,12 +749,12 @@ class _FormNewBudgetGroupState extends State<FormNewBudgetGroup> {
                 _rightFocusNodes.add(FocusNode());
 
                 setState(() {
-                  addCategoryField.add(true);
+                  _addNewCategoryField.add(true);
                   _selectedItemCategory.add(null);
                 });
               },
               child: AppText(
-                text: '+ ${localize.add} $groupName',
+                text: '+ ${localize.add} ${localize.category}',
                 style: StyleType.bodMed,
                 color: context.color.primary,
               ),
