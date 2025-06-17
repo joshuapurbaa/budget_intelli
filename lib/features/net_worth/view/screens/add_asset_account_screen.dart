@@ -31,9 +31,9 @@ class _AddAssetAccountScreenState extends State<AddAssetAccountScreen> {
     if (widget.asset != null) {
       _assetNameController.text = widget.asset?.name ?? '';
       _assetDescriptionController.text = widget.asset?.description ?? '';
-      context
-          .read<BoxCalculatorCubit>()
-          .select(widget.asset?.amount.toString() ?? '');
+      context.read<BoxCalculatorCubit>().select(
+          widget.asset?.amount.toString() ?? '',
+          onUpdateFromState: true);
     }
   }
 

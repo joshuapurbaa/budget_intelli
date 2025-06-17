@@ -1,6 +1,8 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:budget_intelli/features/settings/controller/settings_bloc/settings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class BoxCalculator extends StatefulWidget {
   const BoxCalculator({
@@ -10,6 +12,7 @@ class BoxCalculator extends StatefulWidget {
     this.isIcome = false,
     this.height,
     this.onComplete,
+    // this.onUpdate = false,
   });
 
   final String label;
@@ -17,6 +20,7 @@ class BoxCalculator extends StatefulWidget {
   final bool isIcome;
   final double? height;
   final void Function()? onComplete;
+  // final bool onUpdate;
 
   @override
   State<BoxCalculator> createState() => _BoxCalculatorState();
@@ -44,8 +48,10 @@ class _BoxCalculatorState extends State<BoxCalculator>
       },
       child: BlocBuilder<BoxCalculatorCubit, BoxCalculatorState>(
         builder: (context, state) {
+          var onUpdateFromState = true;
           if (state is BoxCalculatorSelected) {
             label = state.value;
+            onUpdateFromState = state.onUpdateFromState;
           } else {
             label = widget.label;
           }
@@ -62,7 +68,7 @@ class _BoxCalculatorState extends State<BoxCalculator>
                     calculator,
                   ),
                 Gap.horizontal(16),
-                _label(label, context),
+                _label(label, context, onUpdateFromState: onUpdateFromState),
               ],
             ),
           );
@@ -73,49 +79,55 @@ class _BoxCalculatorState extends State<BoxCalculator>
 
   AppText _label(
     String label,
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    bool onUpdateFromState = false,
+  }) {
     final localize = textLocalizer(context);
+    final colorScheme = context.color;
+    final currency = context.watch<SettingBloc>().state.currency;
 
-    // Check if label is a placeholder text (not a number value)
-    final isPlaceholder = label.contains(localize.amountFieldLabel) ||
+    if (label.contains(localize.amountFieldLabel) ||
         label.contains(localize.totalAmountFieldLabel) ||
         label.contains(localize.budget) ||
-        label.contains(localize.startingBalance);
-
-    if (isPlaceholder) {
-      // Style for placeholder/label text
+        label.contains(localize.startingBalance)) {
       return AppText(
         text: label,
         color: context.color.onSurface.withValues(alpha: 0.5),
         fontWeight: FontWeight.w400,
         style: StyleType.bodMed,
       );
-    }
-
-    // Try to parse the label as a number
-    final parsedValue = double.tryParse(label.replaceAll(',', ''));
-
-    if (parsedValue != null) {
-      // Style for number values - more prominent
-      final currencyFormatter = NumberFormatter.formatToMoneyDouble(
-        context,
-        parsedValue,
-      );
-      return AppText(
-        text: currencyFormatter,
-        fontWeight: FontWeight.w700,
-        style: StyleType.bodMed,
-        color: context.color.onSurface,
-      );
     } else {
-      // Style for non-number text - similar to placeholder but distinct
-      return AppText(
-        text: label,
-        color: context.color.onSurface.withValues(alpha: 0.6),
-        fontWeight: FontWeight.w500,
-        style: StyleType.bodMed,
-      );
+      String? amount;
+      final isUpdate = onUpdateFromState;
+      if (label.isNotEmpty) {
+        amount = label;
+
+        if (isUpdate) {
+          final formatter = NumberFormat.currency(
+            locale: currency.locale,
+            symbol: '${currency.symbol} ',
+            decimalDigits: 0,
+          );
+
+          amount = formatter.format(double.tryParse(amount) ?? 0);
+        }
+
+        return AppText(
+          text: isUpdate ? amount : '${currency.symbol} $amount',
+          fontWeight: FontWeight.w700,
+          style: StyleType.bodMed,
+          color: colorScheme.onSurface,
+        );
+      } else {
+        amount = widget.label;
+
+        return AppText(
+          text: '${currency.symbol} $amount',
+          fontWeight: FontWeight.w700,
+          style: StyleType.bodMed,
+          color: colorScheme.onSurface,
+        );
+      }
     }
   }
 
@@ -135,7 +147,9 @@ class _BoxCalculatorState extends State<BoxCalculator>
     if (result != null && result.isNotEmpty && result != ' ') {
       setState(() {
         label = result;
-        context.read<BoxCalculatorCubit>().select(result);
+        context
+            .read<BoxCalculatorCubit>()
+            .select(result, onUpdateFromState: false);
         widget.onComplete?.call();
       });
     }

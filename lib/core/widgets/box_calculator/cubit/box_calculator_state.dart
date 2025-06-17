@@ -7,6 +7,10 @@ sealed class BoxCalculatorState {
 final class BoxCalculatorInitial extends BoxCalculatorState {}
 
 final class BoxCalculatorSelected extends BoxCalculatorState {
-  BoxCalculatorSelected(this.value);
+  BoxCalculatorSelected(
+    this.value, {
+    this.onUpdateFromState = true,
+  });
   final String value;
+  final bool onUpdateFromState;
 }

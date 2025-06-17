@@ -35,9 +35,10 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
     final selectedAccount = state.selectedAccount;
 
     if (selectedAccount != null) {
-      context
-          .read<BoxCalculatorCubit>()
-          .select(selectedAccount.amount.toString());
+      context.read<BoxCalculatorCubit>().select(
+            selectedAccount.amount.toString(),
+            onUpdateFromState: true,
+          );
       _accountNameController.text = selectedAccount.name;
       _accountTypeController.text = selectedAccount.accountType;
 

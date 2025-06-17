@@ -49,9 +49,10 @@ class _UpdateItemCategoryTransactionScreenState
       if (transaction != null) {
         if (createdAtStr != null) {
           final createdAt = DateTime.parse(createdAtStr);
-          context
-              .read<BoxCalculatorCubit>()
-              .select(transaction.amount.toString());
+          context.read<BoxCalculatorCubit>().select(
+                transaction.amount.toString(),
+                onUpdateFromState: true,
+              );
           _spendOnController.text = transaction.spendOn;
           context.read<BoxCalendarCubit>().selectSingleDate(
             [createdAt],
