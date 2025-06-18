@@ -2,7 +2,7 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 
 class AppBoxCalculator extends StatefulWidget {
   const AppBoxCalculator({
@@ -43,7 +43,6 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
         _showCalculator();
       },
       child: AppGlass(
-        height: 70.h,
         child: Row(
           children: [
             if (widget.isIcome)
@@ -67,10 +66,11 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
 
   AppText _label(
     String label,
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    bool onUpdateFromState = false,
+  }) {
     final localize = textLocalizer(context);
-    final colorScheme = Theme.of(context).colorScheme;
+    final colorScheme = context.color;
     final currency = context.watch<SettingBloc>().state.currency;
 
     if (label.contains(localize.amountFieldLabel) ||
@@ -85,17 +85,36 @@ class _AppBoxCalculatorState extends State<AppBoxCalculator>
       );
     } else {
       String? amount;
+      final isUpdate = onUpdateFromState;
       if (label.isNotEmpty) {
         amount = label;
+
+        if (isUpdate) {
+          final formatter = NumberFormat.currency(
+            locale: currency.locale,
+            symbol: '${currency.symbol} ',
+            decimalDigits: 0,
+          );
+
+          amount = formatter.format(double.tryParse(amount) ?? 0);
+        }
+
+        return AppText(
+          text: isUpdate ? amount : '${currency.symbol} $amount',
+          fontWeight: FontWeight.w700,
+          style: StyleType.bodMed,
+          color: colorScheme.onSurface,
+        );
       } else {
         amount = widget.label;
+
+        return AppText(
+          text: '${currency.symbol} $amount',
+          fontWeight: FontWeight.w700,
+          style: StyleType.bodMed,
+          color: colorScheme.onSurface,
+        );
       }
-      return AppText(
-        text: '${currency.symbol} $amount',
-        fontWeight: FontWeight.w700,
-        style: StyleType.bodMed,
-        color: colorScheme.onSurface,
-      );
     }
   }
 

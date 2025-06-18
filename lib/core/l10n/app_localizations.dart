@@ -2497,6 +2497,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Melebihi Anggaran'**
   String get overspending;
+
+  /// No description provided for @totalRepetition.
+  ///
+  /// In id, this message translates to:
+  /// **'Total Pengulangan'**
+  String get totalRepetition;
 }
 
 class _AppLocalizationsDelegate

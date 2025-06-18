@@ -45,8 +45,8 @@ class _SchedulePaymentListScreenState extends State<SchedulePaymentListScreen> {
                           CupertinoIcons.add,
                         ),
                         Gap.horizontal(16),
-                        const AppText(
-                          text: 'Add Schedule Payment',
+                        AppText(
+                          text: localize.addSchedulePayment,
                           style: StyleType.bodMed,
                           fontWeight: FontWeight.bold,
                         ),
@@ -56,92 +56,113 @@ class _SchedulePaymentListScreenState extends State<SchedulePaymentListScreen> {
                 ),
               ],
               if (schedulePayments.isNotEmpty) ...[
-                SliverList.separated(
-                  itemCount: schedulePayments.length,
-                  separatorBuilder: (context, index) => Gap.vertical(10),
-                  itemBuilder: (context, index) {
-                    final item = schedulePayments[index];
+                SliverFillRemaining(
+                    child: Stack(
+                  children: [
+                    Column(
+                      children: [
+                        Expanded(
+                          child: ListView.separated(
+                            padding: EdgeInsets.zero,
+                            itemCount: schedulePayments.length,
+                            separatorBuilder: (context, index) =>
+                                Gap.vertical(10),
+                            itemBuilder: (context, index) {
+                              final item = schedulePayments[index];
 
-                    return AppGlass(
-                      onTap: () {
-                        context.read<SchedulePaymentDbBloc>()
-                          ..add(
-                            GetSchedulePaymentByIdFromDb(id: item.id),
-                          )
-                          ..add(
-                            GetRepetitionListBySchedulePaymentIdEvent(item.id),
-                          );
-                        context.pushNamed(
-                          MyRoute.schedulePaymentsDetail.noSlashes(),
-                        );
-                      },
-                      margin: EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                        top: index == 0 ? 16 : 0,
-                      ),
-                      child: Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: AppText(
-                                text: item.status,
-                                style: StyleType.bodSm,
-                              ),
-                            ),
-                          ),
-                          Gap.horizontal(10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText(
-                                  text: item.name,
-                                  style: StyleType.bodLg,
+                              return AppGlass(
+                                onTap: () {
+                                  context.read<SchedulePaymentDbBloc>()
+                                    ..add(
+                                      GetSchedulePaymentByIdFromDb(id: item.id),
+                                    )
+                                    ..add(
+                                      GetRepetitionListBySchedulePaymentIdEvent(
+                                          item.id),
+                                    );
+                                  context.pushNamed(
+                                    MyRoute.schedulePaymentsDetail.noSlashes(),
+                                  );
+                                },
+                                margin: EdgeInsets.only(
+                                  left: 16,
+                                  right: 16,
+                                  top: index == 0 ? 16 : 0,
                                 ),
-                                Gap.vertical(5),
-                                AppText(
-                                  text: 'Total Repetition ${item.repitition}x',
-                                  style: StyleType.bodMed,
-                                  fontStyle: FontStyle.italic,
+                                child: Row(
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 30,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: AppText(
+                                          text: item.status,
+                                          style: StyleType.bodSm,
+                                        ),
+                                      ),
+                                    ),
+                                    Gap.horizontal(10),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          AppText(
+                                            text: item.name,
+                                            style: StyleType.bodLg,
+                                          ),
+                                          Gap.vertical(5),
+                                          AppText(
+                                            text:
+                                                '${localize.totalRepetition} ${item.repitition}x',
+                                            style: StyleType.bodMed,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                          if (item.description != null) ...[
+                                            Gap.vertical(5),
+                                            AppText(
+                                              text: item.description ?? '-',
+                                              style: StyleType.bodSm,
+                                            ),
+                                          ],
+                                        ],
+                                      ),
+                                    ),
+                                    const Icon(
+                                      CupertinoIcons.chevron_compact_right,
+                                      size: 30,
+                                    ),
+                                  ],
                                 ),
-                                if (item.description != null) ...[
-                                  Gap.vertical(5),
-                                  AppText(
-                                    text: item.description ?? '-',
-                                    style: StyleType.bodSm,
-                                  ),
-                                ],
-                              ],
-                            ),
+                              );
+                            },
                           ),
-                          const Icon(
-                            CupertinoIcons.chevron_compact_right,
-                            size: 30,
+                        ),
+                        Gap.vertical(100),
+                      ],
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: SafeArea(
+                        child: BottomSheetParent(
+                          isWithBorderTop: true,
+                          child: AppButton(
+                            label: localize.addSchedulePayment,
+                            onPressed: () {
+                              context.pushNamed(
+                                MyRoute.addSchedulePayment.noSlashes(),
+                              );
+                            },
                           ),
-                        ],
+                        ),
                       ),
-                    );
-                  },
-                ),
+                    ),
+                  ],
+                )),
               ],
-              SliverToBoxAdapter(
-                child: Gap.vertical(100),
-              ),
             ],
-          ),
-          bottomSheet: BottomSheetParent(
-            isWithBorderTop: true,
-            child: AppButton(
-              label: 'Add Schedule Payment',
-              onPressed: () {
-                context.pushNamed(
-                  MyRoute.addSchedulePayment.noSlashes(),
-                );
-              },
-            ),
           ),
         );
       },

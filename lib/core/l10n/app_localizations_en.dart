@@ -1243,4 +1243,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get overspending => 'Overspending';
+
+  @override
+  String get totalRepetition => 'Total Repetition';
 }

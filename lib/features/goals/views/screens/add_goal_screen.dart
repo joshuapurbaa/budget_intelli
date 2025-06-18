@@ -225,55 +225,59 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   //     ],
                   //   ),
                   // ),
+                  Gap.vertical(32),
+                  BlocListener<GoalDatabaseBloc, GoalDatabaseState>(
+                    listener: (context, state) {
+                      if (state.insertGoalSuccess == true) {
+                        if (context.canPop()) {
+                          context.pop();
+                          context
+                              .read<GoalDatabaseBloc>()
+                              .add(ResetGoalStateEvent());
+                          context
+                              .read<GoalDatabaseBloc>()
+                              .add(GetGoalsFromDbEvent());
+                        }
+                      }
+                    },
+                    child: AppButton(
+                      label: localize.save,
+                      onPressed: () {
+                        if (dateRange.isNotEmpty &&
+                            _goalAmount != null &&
+                            _startingBalance != null &&
+                            remainingAmountGoal != null &&
+                            _goalNameController.text.isNotEmpty) {
+                          final goal = GoalModel(
+                            id: const Uuid().v1(),
+                            goalName: _goalNameController.text,
+                            goalAmount: _goalAmount!,
+                            startGoalDate: dateRange[0].toString(),
+                            endGoalDate: dateRange[1].toString(),
+                            remainingAmount: remainingAmountGoal.toDouble(),
+                            createdAt: currentDate.toString(),
+                            updatedAt: currentDate.toString(),
+                            perDayAmount: planAmountPerDay!,
+                            perMonthAmount: planAmountPerMonth!,
+                          );
+
+                          context
+                              .read<GoalDatabaseBloc>()
+                              .add(InsertGoalToDbEvent(goal));
+                        } else {
+                          AppToast.showToastError(
+                            context,
+                            localize.pleaseFillAllRequiredFields,
+                          );
+                        }
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ],
-      ),
-      bottomSheet: BottomSheetParent(
-        isWithBorderTop: true,
-        child: BlocListener<GoalDatabaseBloc, GoalDatabaseState>(
-          listener: (context, state) {
-            if (state.insertGoalSuccess == true) {
-              if (context.canPop()) {
-                context.pop();
-                context.read<GoalDatabaseBloc>().add(ResetGoalStateEvent());
-                context.read<GoalDatabaseBloc>().add(GetGoalsFromDbEvent());
-              }
-            }
-          },
-          child: AppButton(
-            label: localize.save,
-            onPressed: () {
-              if (dateRange.isNotEmpty &&
-                  _goalAmount != null &&
-                  _startingBalance != null &&
-                  remainingAmountGoal != null &&
-                  _goalNameController.text.isNotEmpty) {
-                final goal = GoalModel(
-                  id: const Uuid().v1(),
-                  goalName: _goalNameController.text,
-                  goalAmount: _goalAmount!,
-                  startGoalDate: dateRange[0].toString(),
-                  endGoalDate: dateRange[1].toString(),
-                  remainingAmount: remainingAmountGoal.toDouble(),
-                  createdAt: currentDate.toString(),
-                  updatedAt: currentDate.toString(),
-                  perDayAmount: planAmountPerDay!,
-                  perMonthAmount: planAmountPerMonth!,
-                );
-
-                context.read<GoalDatabaseBloc>().add(InsertGoalToDbEvent(goal));
-              } else {
-                AppToast.showToastError(
-                  context,
-                  localize.pleaseFillAllRequiredFields,
-                );
-              }
-            },
-          ),
-        ),
       ),
     );
   }

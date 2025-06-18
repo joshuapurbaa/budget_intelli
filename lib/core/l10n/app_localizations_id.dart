@@ -1245,4 +1245,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get overspending => 'Melebihi Anggaran';
+
+  @override
+  String get totalRepetition => 'Total Pengulangan';
 }

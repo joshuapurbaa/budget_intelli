@@ -54,118 +54,141 @@ class _GoalListScreenState extends State<GoalListScreen> {
                 ),
               ],
               if (goals.isNotEmpty) ...[
-                SliverList.separated(
-                  itemCount: goals.length,
-                  itemBuilder: (context, index) {
-                    final goal = goals[index];
+                SliverFillRemaining(
+                  child: Stack(
+                    children: [
+                      Column(
+                        children: [
+                          Expanded(
+                            child: ListView.separated(
+                              padding: EdgeInsets.zero,
+                              itemCount: goals.length,
+                              itemBuilder: (context, index) {
+                                final goal = goals[index];
 
-                    final saved = goal.goalAmount - goal.remainingAmount;
+                                final saved =
+                                    goal.goalAmount - goal.remainingAmount;
 
-                    final savedStr = NumberFormatter.formatToMoneyDouble(
-                      context,
-                      saved,
-                    );
+                                final savedStr =
+                                    NumberFormatter.formatToMoneyDouble(
+                                  context,
+                                  saved,
+                                );
 
-                    final goalAmountStr = NumberFormatter.formatToMoneyDouble(
-                      context,
-                      goal.goalAmount,
-                    );
+                                final goalAmountStr =
+                                    NumberFormatter.formatToMoneyDouble(
+                                  context,
+                                  goal.goalAmount,
+                                );
 
-                    final startDate = goal.startGoalDate.toDateTime();
-                    final endDate = goal.endGoalDate.toDateTime();
-                    final now = DateTime.now();
-                    var remainingDays = '';
+                                final startDate =
+                                    goal.startGoalDate.toDateTime();
+                                final endDate = goal.endGoalDate.toDateTime();
+                                final now = DateTime.now();
+                                var remainingDays = '';
 
-                    if (startDate.isAfter(now)) {
-                      remainingDays = localize.notStarted;
-                    } else {
-                      remainingDays =
-                          '${endDate.difference(now).inDays} ${localize.daysToGo}';
-                    }
+                                if (startDate.isAfter(now)) {
+                                  remainingDays = localize.notStarted;
+                                } else {
+                                  remainingDays =
+                                      '${endDate.difference(now).inDays} ${localize.daysToGo}';
+                                }
 
-                    return GestureDetector(
-                      onTap: () {
-                        context.read<GoalDatabaseBloc>().add(
-                              GetGoalFromDbByIdEvent(goal.id),
-                            );
+                                return GestureDetector(
+                                  onTap: () {
+                                    context.read<GoalDatabaseBloc>().add(
+                                          GetGoalFromDbByIdEvent(goal.id),
+                                        );
 
-                        context.pushNamed(
-                          MyRoute.detailGoal.noSlashes(),
-                        );
-                      },
-                      child: Padding(
-                        padding: getEdgeInsetsAll(16),
-                        child: Row(
-                          children: [
-                            CircularPercentIndicator(
-                              radius: 30,
-                              lineWidth: 8,
-                              center: getPngAsset(
-                                goalsPng,
-                                color: context.color.onSurface,
-                              ),
-                            ),
-                            Gap.horizontal(10),
-                            Expanded(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: AppText(
-                                          text: goal.goalName,
-                                          style: StyleType.bodLg,
-                                          maxLines: 1,
+                                    context.pushNamed(
+                                      MyRoute.detailGoal.noSlashes(),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: getEdgeInsetsAll(16),
+                                    child: Row(
+                                      children: [
+                                        CircularPercentIndicator(
+                                          radius: 30,
+                                          lineWidth: 8,
+                                          center: getPngAsset(
+                                            goalsPng,
+                                            color: context.color.onSurface,
+                                          ),
                                         ),
-                                      ),
-                                      Gap.horizontal(10),
-                                      AppText(
-                                        text: remainingDays,
-                                        style: StyleType.bodMed,
-                                        fontWeight: FontWeight.bold,
-                                        color: context.color.error,
-                                      ),
-                                    ],
+                                        Gap.horizontal(10),
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: AppText(
+                                                      text: goal.goalName,
+                                                      style: StyleType.bodLg,
+                                                      maxLines: 1,
+                                                    ),
+                                                  ),
+                                                  Gap.horizontal(10),
+                                                  AppText(
+                                                    text: remainingDays,
+                                                    style: StyleType.bodMed,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: context.color.error,
+                                                  ),
+                                                ],
+                                              ),
+                                              AppText(
+                                                text:
+                                                    '$savedStr ${localize.ofLocalize} $goalAmountStr ${localize.saved}',
+                                                style: StyleType.bodMed,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  AppText(
-                                    text:
-                                        '$savedStr ${localize.ofLocalize} $goalAmountStr ${localize.saved}',
-                                    style: StyleType.bodMed,
-                                  ),
-                                ],
+                                );
+                              },
+                              separatorBuilder: (context, index) =>
+                                  const AppDivider(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 5,
+                                ),
                               ),
                             ),
-                          ],
+                          ),
+                          Gap.vertical(100),
+                        ],
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        child: SafeArea(
+                          child: BottomSheetParent(
+                            isWithBorderTop: true,
+                            child: AppButton(
+                              label: localize.addGoal,
+                              onPressed: () {
+                                context.pushNamed(
+                                  MyRoute.addGoal.noSlashes(),
+                                );
+                              },
+                            ),
+                          ),
                         ),
                       ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => const AppDivider(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 5,
-                    ),
+                    ],
                   ),
                 ),
               ],
             ],
           );
         },
-      ),
-      bottomSheet: BottomSheetParent(
-        isWithBorderTop: true,
-        child: AppButton(
-          label: localize.addGoal,
-          onPressed: () async {
-            final result = await context.pushNamed(
-              MyRoute.addGoal.noSlashes(),
-            );
-
-            if (result != null) {
-              _getData();
-            }
-          },
-        ),
       ),
     );
   }

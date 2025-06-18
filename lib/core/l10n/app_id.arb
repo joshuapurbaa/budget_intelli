@@ -398,5 +398,6 @@
   "ok": "Ok",
   "areYouSureYouWantToDeleteThisAsset": "Apakah Anda yakin ingin menghapus aset ini?",
   "completed": "Selesai",
-  "overspending": "Melebihi Anggaran"
+  "overspending": "Melebihi Anggaran",
+  "totalRepetition": "Total Pengulangan"
 }

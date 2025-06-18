@@ -79,220 +79,225 @@ class _GoalEditPopupState extends State<GoalEditPopup> {
       planAmountPerMonth = remainingAmountGoal / monthsRemaining;
     }
 
-    return Material(
-      borderRadius: const BorderRadius.vertical(
-        top: Radius.circular(16),
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-          left: 16,
-          right: 16,
-          top: 16,
+    return SafeArea(
+      child: Material(
+        borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(16),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                AppText(
-                  text: title,
-                  style: StyleType.headMed,
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {
-                    context.pop();
-                  },
-                  icon: const Icon(
-                    Icons.close_rounded,
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+            left: 16,
+            right: 16,
+            top: 16,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  AppText(
+                    text: title,
+                    style: StyleType.headMed,
                   ),
-                ),
-              ],
-            ),
-            Gap.vertical(22),
-            TextField(
-              controller: _goalNameController,
-              textInputAction: TextInputAction.next,
-              style: textStyle(
-                context,
-                style: StyleType.bodMed,
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {
+                      context.pop();
+                    },
+                    icon: const Icon(
+                      Icons.close_rounded,
+                    ),
+                  ),
+                ],
               ),
-              decoration: InputDecoration(
-                labelText: localize.goalName,
-                floatingLabelAlignment: FloatingLabelAlignment.center,
-                contentPadding: const EdgeInsets.all(10),
-                hintStyle: textStyle(
+              Gap.vertical(22),
+              TextField(
+                controller: _goalNameController,
+                textInputAction: TextInputAction.next,
+                style: textStyle(
                   context,
                   style: StyleType.bodMed,
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide.none,
-                ),
-                fillColor: context.color.onSurface.withValues(alpha: 0.1),
-                filled: true,
-              ),
-            ),
-            Gap.vertical(22),
-            AppBoxCalculator(
-              label: NumberFormatter.formatToMoneyDouble(
-                context,
-                widget.goal.goalAmount,
-              ),
-              onValueSelected: (value) {
-                setState(() {
-                  _updatedGoalAmount = value.toDouble();
-                });
-              },
-            ),
-            Gap.vertical(16),
-            AppBoxBorder(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    text: '${localize.goalDate} (${localize.selectGoalPeriod})',
+                decoration: InputDecoration(
+                  labelText: localize.goalName,
+                  floatingLabelAlignment: FloatingLabelAlignment.center,
+                  contentPadding: const EdgeInsets.all(10),
+                  hintStyle: textStyle(
+                    context,
                     style: StyleType.bodMed,
-                    fontWeight: FontWeight.bold,
                   ),
-                  Gap.vertical(10),
-                  GestureDetector(
-                    onTap: () async {
-                      final width = MediaQuery.sizeOf(context).width * 0.9;
-                      final sixtyDayBefore =
-                          DateTime.now().subtract(const Duration(days: 60));
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide.none,
+                  ),
+                  fillColor: context.color.onSurface.withValues(alpha: 0.1),
+                  filled: true,
+                ),
+              ),
+              Gap.vertical(22),
+              AppBoxCalculator(
+                label: NumberFormatter.formatToMoneyDouble(
+                  context,
+                  widget.goal.goalAmount,
+                ),
+                onValueSelected: (value) {
+                  setState(() {
+                    _updatedGoalAmount = value.toDouble();
+                  });
+                },
+              ),
+              Gap.vertical(16),
+              AppBoxBorder(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      text:
+                          '${localize.goalDate} (${localize.selectGoalPeriod})',
+                      style: StyleType.bodMed,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    Gap.vertical(10),
+                    GestureDetector(
+                      onTap: () async {
+                        final width = context.screenWidth * 0.9;
+                        final sixtyDayBefore =
+                            DateTime.now().subtract(const Duration(days: 60));
 
-                      final results = await showCalendarDatePicker2Dialog(
-                        context: context,
-                        config: CalendarDatePicker2WithActionButtonsConfig(
-                          calendarType: CalendarDatePicker2Type.range,
-                          firstDate: sixtyDayBefore,
-                          controlsTextStyle: textStyle(
-                            context,
-                            style: StyleType.bodLg,
-                          ),
-                        ),
-                        dialogSize: Size(width, 400),
-                        value: _daterange,
-                        borderRadius: BorderRadius.circular(15),
-                      );
-
-                      if (results != null && results.length == 2) {
-                        setState(() {
-                          _daterange = results;
-                        });
-                      }
-                    },
-                    child: AppGlass(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: AppText(
-                              text: formatDateRangeDateList(
-                                _daterange,
-                                context,
-                              ),
-                              style: StyleType.bodMed,
-                              textAlign: TextAlign.center,
-                              fontWeight:
-                                  _daterange.isEmpty ? null : FontWeight.w700,
-                              maxLines: 2,
-                              color: _daterange.isEmpty
-                                  ? onSurfaceColor
-                                  : context.color.onSurface,
+                        final results = await showCalendarDatePicker2Dialog(
+                          context: context,
+                          config: CalendarDatePicker2WithActionButtonsConfig(
+                            calendarType: CalendarDatePicker2Type.range,
+                            firstDate: sixtyDayBefore,
+                            controlsTextStyle: textStyle(
+                              context,
+                              style: StyleType.bodLg,
                             ),
                           ),
-                          Gap.horizontal(10),
-                          const Icon(
-                            CupertinoIcons.chevron_down_circle,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Gap.vertical(16),
-            BlocListener<GoalDatabaseBloc, GoalDatabaseState>(
-              listener: (context, state) {
-                if (state.updateGoalSuccess) {
-                  if (context.canPop()) {
-                    context.pop();
-                    context.read<GoalDatabaseBloc>().add(ResetGoalStateEvent());
-                    context.read<GoalDatabaseBloc>().add(
-                          GetGoalFromDbByIdEvent(widget.goal.id),
+                          dialogSize: Size(width, 400),
+                          value: _daterange,
+                          borderRadius: BorderRadius.circular(15),
                         );
-                    context.read<GoalDatabaseBloc>().add(
-                          GetGoalsFromDbEvent(),
-                        );
-                  }
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Expanded(
-                    child: OutlinedButton(
-                      onPressed: () {
-                        context.pop();
-                      },
-                      child: AppText(
-                        text: textLocalizer(context).cancel,
-                        style: StyleType.bodMed,
-                      ),
-                    ),
-                  ),
-                  Gap.horizontal(10),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: context.color.primary,
-                      ),
-                      onPressed: () {
-                        final goal = widget.goal;
-                        if (widget.saved != null &&
-                            _updatedGoalAmount != null) {
-                          final remainingAmount =
-                              _updatedGoalAmount! - widget.saved!;
 
-                          final updatedGoal = GoalModel(
-                            id: goal.id,
-                            goalName: _goalNameController.text,
-                            goalAmount: _updatedGoalAmount!,
-                            startGoalDate: _daterange[0].toString(),
-                            endGoalDate: _daterange[1].toString(),
-                            remainingAmount: remainingAmount,
-                            createdAt: goal.createdAt,
-                            updatedAt: DateTime.now().toString(),
-                            perDayAmount: planAmountPerDay!,
-                            perMonthAmount: planAmountPerMonth!,
-                          );
-
-                          context.read<GoalDatabaseBloc>().add(
-                                UpdateGoalFromDBEvent(updatedGoal),
-                              );
+                        if (results != null && results.length == 2) {
+                          setState(() {
+                            _daterange = results;
+                          });
                         }
                       },
-                      child: AppText(
-                        text: textLocalizer(context).save,
-                        style: StyleType.bodMed,
-                        color: context.color.onPrimary,
+                      child: AppGlass(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: AppText(
+                                text: formatDateRangeDateList(
+                                  _daterange,
+                                  context,
+                                ),
+                                style: StyleType.bodMed,
+                                textAlign: TextAlign.center,
+                                fontWeight:
+                                    _daterange.isEmpty ? null : FontWeight.w700,
+                                maxLines: 2,
+                                color: _daterange.isEmpty
+                                    ? onSurfaceColor
+                                    : context.color.onSurface,
+                              ),
+                            ),
+                            Gap.horizontal(10),
+                            const Icon(
+                              CupertinoIcons.chevron_down_circle,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Gap.vertical(16),
-          ],
+              Gap.vertical(16),
+              BlocListener<GoalDatabaseBloc, GoalDatabaseState>(
+                listener: (context, state) {
+                  if (state.updateGoalSuccess) {
+                    if (context.canPop()) {
+                      context.pop();
+                      context
+                          .read<GoalDatabaseBloc>()
+                          .add(ResetGoalStateEvent());
+                      context.read<GoalDatabaseBloc>().add(
+                            GetGoalFromDbByIdEvent(widget.goal.id),
+                          );
+                      context.read<GoalDatabaseBloc>().add(
+                            GetGoalsFromDbEvent(),
+                          );
+                    }
+                  }
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () {
+                          context.pop();
+                        },
+                        child: AppText(
+                          text: textLocalizer(context).cancel,
+                          style: StyleType.bodMed,
+                        ),
+                      ),
+                    ),
+                    Gap.horizontal(10),
+                    Expanded(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: context.color.primary,
+                        ),
+                        onPressed: () {
+                          final goal = widget.goal;
+                          if (widget.saved != null &&
+                              _updatedGoalAmount != null) {
+                            final remainingAmount =
+                                _updatedGoalAmount! - widget.saved!;
+
+                            final updatedGoal = GoalModel(
+                              id: goal.id,
+                              goalName: _goalNameController.text,
+                              goalAmount: _updatedGoalAmount!,
+                              startGoalDate: _daterange[0].toString(),
+                              endGoalDate: _daterange[1].toString(),
+                              remainingAmount: remainingAmount,
+                              createdAt: goal.createdAt,
+                              updatedAt: DateTime.now().toString(),
+                              perDayAmount: planAmountPerDay!,
+                              perMonthAmount: planAmountPerMonth!,
+                            );
+
+                            context.read<GoalDatabaseBloc>().add(
+                                  UpdateGoalFromDBEvent(updatedGoal),
+                                );
+                          }
+                        },
+                        child: AppText(
+                          text: textLocalizer(context).save,
+                          style: StyleType.bodMed,
+                          color: context.color.onPrimary,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Gap.vertical(16),
+            ],
+          ),
         ),
       ),
     );
