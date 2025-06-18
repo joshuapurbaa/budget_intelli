@@ -16,16 +16,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
-class InitialCreateBudgetPlanScreen extends StatefulWidget {
-  const InitialCreateBudgetPlanScreen({super.key});
+class CreateNewBudgetInitialScreen extends StatefulWidget {
+  const CreateNewBudgetInitialScreen({super.key});
 
   @override
-  State<InitialCreateBudgetPlanScreen> createState() =>
-      _InitialCreateBudgetPlanScreenState();
+  State<CreateNewBudgetInitialScreen> createState() =>
+      _CreateNewBudgetInitialScreenState();
 }
 
-class _InitialCreateBudgetPlanScreenState
-    extends State<InitialCreateBudgetPlanScreen> {
+class _CreateNewBudgetInitialScreenState
+    extends State<CreateNewBudgetInitialScreen> {
   // Constants
   static const int _maxAiGenerateBudgetLimit = 3;
   static const int _maxDaysForWeeklyBudget = 25;

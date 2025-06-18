@@ -155,6 +155,8 @@ class _SettingScreenState extends State<SettingScreen>
             themeModeStr = localize.darkMode;
           } else if (lightMode) {
             themeModeStr = localize.lightMode;
+          } else {
+            themeModeStr = localize.systemMode;
           }
 
           return CustomScrollView(

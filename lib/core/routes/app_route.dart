@@ -32,7 +32,7 @@ class AppRoute {
           !continueWithoutLogin) {
         return MyRoute.initialSetting;
       } else if (onInitialScreen && continueWithoutLogin) {
-        return MyRoute.initialCreateBudgetPlan;
+        return MyRoute.createNewBudgetInitial;
       }
       return null;
     },
@@ -114,10 +114,10 @@ class AppRoute {
             ),
           ),
           GoRoute(
-            path: MyRoute.addNewBudgetScreen.noSlashes(),
-            name: MyRoute.addNewBudgetScreen.noSlashes(),
+            path: MyRoute.createNewBudgetScreen.noSlashes(),
+            name: MyRoute.createNewBudgetScreen.noSlashes(),
             pageBuilder: (context, state) => _customTransitionPage(
-              const AddNewBudgetScreen(),
+              const CreateNewBudgetScreen(),
               rightToLeft: true,
             ),
           ),
@@ -248,9 +248,9 @@ class AppRoute {
         ),
       ),
       GoRoute(
-        path: MyRoute.initialCreateBudgetPlan,
+        path: MyRoute.createNewBudgetInitial,
         pageBuilder: (context, state) => _customTransitionPage(
-          const InitialCreateBudgetPlanScreen(),
+          const CreateNewBudgetInitialScreen(),
           bottomToTop: true,
         ),
         routes: [

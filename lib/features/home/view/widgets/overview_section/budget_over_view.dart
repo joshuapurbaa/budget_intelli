@@ -924,7 +924,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
     return GestureDetector(
       onTap: () {
         context.read<BudgetFormBloc>().add(BudgetFormDefaultValues());
-        context.pushNamed(MyRoute.addNewBudgetScreen.noSlashes());
+        context.pushNamed(MyRoute.createNewBudgetScreen.noSlashes());
       },
       child: AppGlass(
         margin: getEdgeInsets(left: 16, right: 16, bottom: 10),

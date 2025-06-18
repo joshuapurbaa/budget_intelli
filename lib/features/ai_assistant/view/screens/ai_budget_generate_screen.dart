@@ -432,7 +432,7 @@ class _AiBudgetGenerateScreenState extends State<AiBudgetGenerateScreen> {
 
       // Check if widget is still mounted before navigating
       if (mounted) {
-        context.go(MyRoute.initialCreateBudgetPlan);
+        context.go(MyRoute.createNewBudgetInitial);
       }
     });
   }

@@ -55,7 +55,7 @@ class _SignInScreenInitialState extends State<SignInScreenInitial> {
 
     if (!prefs) {
       if (!mounted) return;
-      context.go(MyRoute.initialCreateBudgetPlan);
+      context.go(MyRoute.createNewBudgetInitial);
     } else {
       if (!mounted) return;
       context.go(MyRoute.main);

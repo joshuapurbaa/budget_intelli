@@ -246,7 +246,7 @@ class _AddBudget extends StatelessWidget {
                 );
 
             context.pushNamed(
-              MyRoute.addNewBudgetScreen.noSlashes(),
+              MyRoute.createNewBudgetScreen.noSlashes(),
             );
           },
           child: AppGlass(

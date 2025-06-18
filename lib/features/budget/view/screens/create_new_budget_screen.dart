@@ -10,14 +10,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
-class AddNewBudgetScreen extends StatefulWidget {
-  const AddNewBudgetScreen({super.key});
+class CreateNewBudgetScreen extends StatefulWidget {
+  const CreateNewBudgetScreen({super.key});
 
   @override
-  State<AddNewBudgetScreen> createState() => _AddNewBudgetScreenState();
+  State<CreateNewBudgetScreen> createState() => _CreateNewBudgetScreenState();
 }
 
-class _AddNewBudgetScreenState extends State<AddNewBudgetScreen> {
+class _CreateNewBudgetScreenState extends State<CreateNewBudgetScreen> {
   final _scrollController = ScrollController();
   final _budgetNameController = TextEditingController();
   final _budgetNameFocus = FocusNode();

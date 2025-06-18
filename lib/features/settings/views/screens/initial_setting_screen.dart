@@ -437,7 +437,7 @@ class _InitialSettingScreenState extends State<InitialSettingScreen>
                             continueWithoutLogin: true,
                           ),
                         );
-                      context.go(MyRoute.initialCreateBudgetPlan);
+                      context.go(MyRoute.createNewBudgetInitial);
                     },
                     child: AppText(
                       text: localize.startBudgeting,

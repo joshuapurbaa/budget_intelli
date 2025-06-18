@@ -31,7 +31,11 @@ class _FinancialTrackerDashboardAppbarState
           children: [
             getSvgAsset(
               chevronDown,
+              width: 15,
+              height: 15,
+              color: context.color.onSurface,
             ),
+            Gap.horizontal(10),
             AppText(
               text: 'Buku Bawaan',
               style: StyleType.bodMed,

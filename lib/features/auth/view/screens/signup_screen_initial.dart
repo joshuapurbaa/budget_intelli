@@ -56,7 +56,7 @@ class _SignUpScreenInitialState extends State<SignUpScreenInitial> {
 
     if (!prefsState) {
       if (!mounted) return;
-      context.go(MyRoute.initialCreateBudgetPlan);
+      context.go(MyRoute.createNewBudgetInitial);
     } else {
       if (!mounted) return;
       context.go(MyRoute.main);

@@ -49,8 +49,7 @@ class FinancialTrackerDashboardBody extends StatelessWidget {
                           builder: (context) {
                             return Container(
                               constraints: BoxConstraints(
-                                maxHeight:
-                                    MediaQuery.of(context).size.height * 0.30,
+                                maxHeight: context.screenHeight * 0.30,
                               ),
                               padding: getEdgeInsetsAll(20),
                               child: ListView.builder(

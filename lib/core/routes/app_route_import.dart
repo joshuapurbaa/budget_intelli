@@ -10,8 +10,8 @@ import 'package:budget_intelli/features/auth/view/screens/signup_screen_initial.
 import 'package:budget_intelli/features/auth/view/screens/welcome_screen.dart';
 import 'package:budget_intelli/features/bottom_navbar/screens/main_navigation.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
-import 'package:budget_intelli/features/budget/view/screens/add_new_budget_screen.dart';
 import 'package:budget_intelli/features/budget/view/screens/budget_list_screen.dart';
+import 'package:budget_intelli/features/budget/view/screens/create_new_budget_screen.dart';
 import 'package:budget_intelli/features/category/category_barrel.dart';
 import 'package:budget_intelli/features/category/view/screens/add_item_category_screen.dart';
 import 'package:budget_intelli/features/category/view/widgets/list_icon_screen.dart';

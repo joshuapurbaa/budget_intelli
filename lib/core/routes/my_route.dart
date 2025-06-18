@@ -18,7 +18,7 @@ class MyRoute {
   static const String chatScreen = '/chat-screen';
   static const String netWorthTracker = '/net-worth-tracker';
   static const String initialSetting = '/initial-setting';
-  static const String initialCreateBudgetPlan = '/initial-create-budget-plan';
+  static const String createNewBudgetInitial = '/create-new-budget-initial';
   static const String budgetList = '/budget-list';
   static const String detailCategory = '/detail-category';
   static const String listIconScreen = '/list-icon';
@@ -29,7 +29,7 @@ class MyRoute {
       '/update-item-category-transaction';
   static const String addGroupCategory = '/add-group-category';
   static const String addTransaction = '/add-transaction';
-  static const String addNewBudgetScreen = '/add-new-budget-screen';
+  static const String createNewBudgetScreen = '/create-new-budget-screen';
   static const String addAssetAccount = '/add-asset-account';
   static const String addLiabilityAccount = '/add-liability-account';
   static const String accountScreen = '/account-screen';

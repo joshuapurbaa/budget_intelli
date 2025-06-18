@@ -86,7 +86,7 @@ export 'view/controller/budget/budget_bloc.dart';
 export 'view/controller/budget_firestore/budget_firestore_cubit.dart';
 export 'view/controller/budget_form/budget_form_bloc.dart';
 export 'view/controller/budgets/budgets_cubit.dart';
-export 'view/screens/initial_create_budget_plan.dart';
+export 'view/screens/create_new_budget_initial_screen.dart';
 export 'view/widgets/budget_form_field.dart';
 export 'view/widgets/create_budget_option_dialog.dart';
 export 'view/widgets/form_new_budget_group.dart';

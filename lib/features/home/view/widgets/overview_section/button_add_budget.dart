@@ -18,7 +18,7 @@ class ButtonAddBudget extends StatelessWidget {
               );
 
           context.pushNamed(
-            MyRoute.addNewBudgetScreen.noSlashes(),
+            MyRoute.createNewBudgetScreen.noSlashes(),
           );
         },
         child: AppGlass(
