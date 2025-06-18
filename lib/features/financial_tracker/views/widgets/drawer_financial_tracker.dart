@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 
 class DrawerFinancialTracker extends StatelessWidget {
   const DrawerFinancialTracker({
+    required this.onNavigate,
     super.key,
   });
+  final VoidCallback onNavigate;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,7 @@ class DrawerFinancialTracker extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
+                onNavigate.call();
                 context.pushNamed(
                   MyRoute.member.noSlashes(),
                 );
@@ -68,9 +71,11 @@ class DrawerFinancialTracker extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                context.pushNamed(
-                  MyRoute.setting.noSlashes(),
-                );
+                context
+                    .pushNamed(
+                      MyRoute.setting.noSlashes(),
+                    )
+                    .whenComplete(onNavigate.call);
               },
               title: AppText(
                 text: localize.settings,

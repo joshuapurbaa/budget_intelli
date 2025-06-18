@@ -45,7 +45,13 @@ class _FinancialTrackerDashboardState extends State<FinancialTrackerDashboard> {
       backgroundColor: context.color.primaryContainer,
       body: Stack(
         children: [
-          const DrawerFinancialTracker(),
+          DrawerFinancialTracker(
+            onNavigate: () {
+              setState(() {
+                value = 0;
+              });
+            },
+          ),
           TweenAnimationBuilder(
             curve: Curves.easeInOut,
             tween: Tween<double>(begin: 0, end: value),

@@ -24,7 +24,7 @@ final class SettingState {
     this.useBiometrics = true,
     this.isAuthenticated = false,
     this.notificationEnable = true,
-    this.hideFinancialTracker = true,
+    this.hideFinancialTracker = false,
   });
 
   final Language selectedLanguage;
