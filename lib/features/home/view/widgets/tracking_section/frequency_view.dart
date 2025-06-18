@@ -75,6 +75,8 @@ class _FrequencyViewState extends State<FrequencyView> {
           transactionsListviewData = transactionsFrequencyOnlyExpense;
         }
 
+        final isDarkMode = context.isDarkModeSetting;
+
         return RefreshIndicator.adaptive(
           onRefresh: () async {
             context.read<SearchTransactionCubit>().searchTransaction(
@@ -109,19 +111,14 @@ class _FrequencyViewState extends State<FrequencyView> {
                                   style: StyleType.bodMed,
                                   maxLines: 1,
                                   fontWeight: FontWeight.bold,
-                                  color: isIncome
-                                      ? context.color.onSurface
-                                      : context.color.onPrimary,
+                                  color: isIncome ? null : Colors.black,
                                 ),
                                 Gap.vertical(8),
                                 AppDivider(
-                                  color: isIncome
-                                      ? context.color.onSurface.withValues(
-                                          alpha: 0.3,
-                                        )
-                                      : context.color.onPrimary.withValues(
-                                          alpha: 0.3,
-                                        ),
+                                  thickness: 0.8,
+                                  color: isDarkMode
+                                      ? context.color.onPrimary
+                                      : Colors.black,
                                 ),
                                 Gap.vertical(8),
                                 AppText(
@@ -132,9 +129,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                   style: StyleType.bodMed,
                                   fontWeight: FontWeight.bold,
                                   maxLines: 1,
-                                  color: isIncome
-                                      ? context.color.onSurface
-                                      : context.color.onPrimary,
+                                  color: isIncome ? null : Colors.black,
                                 ),
                               ],
                             ),
@@ -163,19 +158,14 @@ class _FrequencyViewState extends State<FrequencyView> {
                                   style: StyleType.bodMed,
                                   maxLines: 1,
                                   fontWeight: FontWeight.bold,
-                                  color: isIncome
-                                      ? context.color.onPrimary
-                                      : context.color.onSurface,
+                                  color: isIncome ? Colors.black : null,
                                 ),
                                 Gap.vertical(8),
                                 AppDivider(
-                                  color: isIncome
-                                      ? context.color.onPrimary.withValues(
-                                          alpha: 0.3,
-                                        )
-                                      : context.color.onSurface.withValues(
-                                          alpha: 0.3,
-                                        ),
+                                  thickness: 0.8,
+                                  color: isDarkMode
+                                      ? context.color.onPrimary
+                                      : Colors.black,
                                 ),
                                 Gap.vertical(8),
                                 AppText(
@@ -186,9 +176,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                   style: StyleType.bodMed,
                                   fontWeight: FontWeight.bold,
                                   maxLines: 1,
-                                  color: isIncome
-                                      ? context.color.onPrimary
-                                      : context.color.onSurface,
+                                  color: isIncome ? Colors.black : null,
                                 ),
                               ],
                             ),

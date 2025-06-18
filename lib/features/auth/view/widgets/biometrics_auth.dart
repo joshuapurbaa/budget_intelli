@@ -224,7 +224,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
     final localize = textLocalizer(context);
     final isDarkMode = context.isDarkModeSetting;
     return Scaffold(
-      backgroundColor: context.color.primaryContainer,
+      backgroundColor: const Color(0xFF39693b),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -241,7 +241,9 @@ class _BiometricAuthState extends State<BiometricAuth> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: AppButton(
                 label: localize.authenticate,
+                backgroundColor: const Color(0xffa5d395),
                 onPressed: _authenticate,
+                labelColor: Colors.black,
                 suffixIcon: getPngAsset(
                   identityPng,
                   width: 50,

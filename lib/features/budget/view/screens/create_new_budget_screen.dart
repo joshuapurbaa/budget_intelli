@@ -358,7 +358,7 @@ class _CreateNewBudgetScreenState extends State<CreateNewBudgetScreen> {
                   padding: getEdgeInsets(
                     left: 16,
                     right: 16,
-                    bottom: 16,
+                    bottom: 60,
                   ),
                   sliver: SliverToBoxAdapter(
                     child: BlocConsumer<BudgetFirestoreCubit,
