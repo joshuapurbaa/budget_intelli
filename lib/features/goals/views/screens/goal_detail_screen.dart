@@ -242,7 +242,9 @@ class GoalDetailScreen extends StatelessWidget {
                                 ),
                                 Gap.vertical(32),
                                 AppButton.outlined(
+                                  outlineColor: context.color.error,
                                   label: localize.delete,
+                                  labelColor: context.color.error,
                                   onPressed: () async {
                                     final title = localize.deleteGoal;
                                     final contentText = localize.confirmDelete;

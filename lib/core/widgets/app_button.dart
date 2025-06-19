@@ -19,6 +19,7 @@ class AppButton extends StatelessWidget {
     this.noWidth,
     this.outlined = false,
     this.suffixIcon,
+    this.outlineColor,
   });
 
   const AppButton.darkLabel({
@@ -36,6 +37,7 @@ class AppButton extends StatelessWidget {
     this.noWidth,
     this.outlined = false,
     this.suffixIcon,
+    this.outlineColor,
   });
 
   const AppButton.success({
@@ -52,6 +54,7 @@ class AppButton extends StatelessWidget {
     this.noWidth,
     this.outlined = false,
     this.suffixIcon,
+    this.outlineColor,
   }) : success = true;
 
   // AppButton.noWidth
@@ -70,6 +73,7 @@ class AppButton extends StatelessWidget {
     this.noWidth = true,
     this.outlined = false,
     this.suffixIcon,
+    this.outlineColor,
   });
 
   const AppButton.outlined({
@@ -87,6 +91,7 @@ class AppButton extends StatelessWidget {
     this.noWidth,
     this.outlined = true,
     this.suffixIcon,
+    this.outlineColor,
   });
 
   final String label;
@@ -102,6 +107,7 @@ class AppButton extends StatelessWidget {
   final bool? noWidth;
   final bool? outlined;
   final Widget? suffixIcon;
+  final Color? outlineColor;
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +118,11 @@ class AppButton extends StatelessWidget {
         width: width ?? 382.w,
         child: OutlinedButton(
           onPressed: isActive == false ? null : onPressed,
+          style: OutlinedButton.styleFrom(
+            side: BorderSide(
+              color: outlineColor ?? colorScheme.onSurface,
+            ),
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
