@@ -68,6 +68,8 @@ class _ExploresState extends State<Explores> {
                       //     ],
                       //   ),
                       // ),
+
+                      // Account Balance
                       AppGlass(
                         onTap: () {
                           context.read<AccountBloc>().add(GetAccountsEvent());
@@ -94,6 +96,8 @@ class _ExploresState extends State<Explores> {
                           ],
                         ),
                       ),
+
+                      // Net Worth Tracker
                       AppGlass(
                         onTap: () {
                           context.push(
@@ -120,59 +124,7 @@ class _ExploresState extends State<Explores> {
                         ),
                       ),
 
-                      AppGlass(
-                        onTap: () {
-                          context.push(
-                            MyRoute.financialCalculator,
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            getPngAsset(
-                              financialCalculatorPng,
-                              width: 50,
-                              height: 50,
-                              color: context.color.onSurface,
-                            ),
-                            Gap.vertical(22),
-                            AppText(
-                              text: localize.financialCalculator,
-                              style: StyleType.bodLg,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                      AppGlass(
-                        onTap: () {
-                          context.read<SchedulePaymentDbBloc>().add(
-                                GetSchedulePaymentsFromDb(),
-                              );
-                          context.pushNamed(
-                            MyRoute.schedulePaymentsList.noSlashes(),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            getPngAsset(
-                              schedulePayment,
-                              width: 50,
-                              height: 50,
-                              color: context.color.onSurface,
-                            ),
-                            Gap.vertical(22),
-                            AppText(
-                              text: localize.schedulePayment,
-                              style: StyleType.bodLg,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
+                      // Goals
                       AppGlass(
                         onTap: () {
                           context.read<GoalDatabaseBloc>().add(
@@ -201,6 +153,65 @@ class _ExploresState extends State<Explores> {
                           ],
                         ),
                       ),
+
+                      // Schedule Payment
+                      AppGlass(
+                        onTap: () {
+                          context.read<SchedulePaymentDbBloc>().add(
+                                GetSchedulePaymentsFromDb(),
+                              );
+                          context.pushNamed(
+                            MyRoute.schedulePaymentsList.noSlashes(),
+                          );
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            getPngAsset(
+                              schedulePayment,
+                              width: 50,
+                              height: 50,
+                              color: context.color.onSurface,
+                            ),
+                            Gap.vertical(22),
+                            AppText(
+                              text: localize.schedulePayment,
+                              style: StyleType.bodLg,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // Financial Calculator
+                      AppGlass(
+                        onTap: () {
+                          context.push(
+                            MyRoute.financialCalculator,
+                          );
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            getPngAsset(
+                              financialCalculatorPng,
+                              width: 50,
+                              height: 50,
+                              color: context.color.onSurface,
+                            ),
+                            Gap.vertical(22),
+                            AppText(
+                              text: localize.financialCalculator,
+                              style: StyleType.bodLg,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+
+                      // My Portfolio
                       AppGlass(
                         onTap: () {
                           context.read<MyPortfolioDbBloc>().add(
@@ -229,6 +240,9 @@ class _ExploresState extends State<Explores> {
                           ],
                         ),
                       ),
+
+                      // Budget
+
                       // AppGlass(
                       //   onTap: () {
                       //     context.push(
