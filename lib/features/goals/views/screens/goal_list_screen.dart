@@ -104,52 +104,120 @@ class _GoalListScreenState extends State<GoalListScreen> {
                                       MyRoute.detailGoal.noSlashes(),
                                     );
                                   },
-                                  child: Padding(
-                                    padding: getEdgeInsetsAll(16),
-                                    child: Row(
-                                      children: [
-                                        CircularPercentIndicator(
-                                          radius: 30,
+                                  child: Stack(
+                                    children: [
+                                      AppGlass(
+                                        padding: getEdgeInsets(
+                                            left: 32,
+                                            top: 22,
+                                            right: 16,
+                                            bottom: 16),
+                                        margin: getEdgeInsets(
+                                            left: 30,
+                                            top: 16,
+                                            right: 16,
+                                            bottom: 16),
+                                        child: Row(
+                                          children: [
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    children: [
+                                                      Expanded(
+                                                        child: AppText(
+                                                          text: goal.goalName,
+                                                          style:
+                                                              StyleType.bodMed,
+                                                          maxLines: 1,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      Gap.horizontal(10),
+                                                      AppText(
+                                                        text: remainingDays,
+                                                        style: StyleType.bodSm,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        color:
+                                                            context.color.error,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Gap.vertical(4),
+                                                  RichText(
+                                                    text: TextSpan(
+                                                      children: [
+                                                        TextSpan(
+                                                          text: savedStr,
+                                                          style: textStyle(
+                                                            context,
+                                                            style:
+                                                                StyleType.bodSm,
+                                                          ).copyWith(
+                                                            color: context
+                                                                .color.primary,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                        ),
+                                                        TextSpan(
+                                                          text:
+                                                              ' ${localize.ofLocalize} $goalAmountStr ${localize.saved}',
+                                                          style: textStyle(
+                                                            context,
+                                                            style:
+                                                                StyleType.bodSm,
+                                                          ).copyWith(
+                                                            color: context
+                                                                .color.onSurface
+                                                                .withValues(
+                                                              alpha: 0.6,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    textAlign: TextAlign.center,
+                                                    textDirection:
+                                                        TextDirection.rtl,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Gap.horizontal(10),
+                                            AppAnimatedContainer(
+                                              onTap: () {
+                                                context.pushNamed(
+                                                  MyRoute.detailGoal
+                                                      .noSlashes(),
+                                                );
+                                              },
+                                              child: getSvgAsset(
+                                                chevronRight,
+                                                width: 16,
+                                                height: 16,
+                                                color: context.color.onSurface,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Positioned(
+                                        left: 16,
+                                        child: CircularPercentIndicator(
+                                          radius: 28,
                                           lineWidth: 8,
                                           center: getPngAsset(
                                             goalsPng,
                                             color: context.color.onSurface,
                                           ),
                                         ),
-                                        Gap.horizontal(10),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: AppText(
-                                                      text: goal.goalName,
-                                                      style: StyleType.bodLg,
-                                                      maxLines: 1,
-                                                    ),
-                                                  ),
-                                                  Gap.horizontal(10),
-                                                  AppText(
-                                                    text: remainingDays,
-                                                    style: StyleType.bodMed,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: context.color.error,
-                                                  ),
-                                                ],
-                                              ),
-                                              AppText(
-                                                text:
-                                                    '$savedStr ${localize.ofLocalize} $goalAmountStr ${localize.saved}',
-                                                style: StyleType.bodMed,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 );
                               },

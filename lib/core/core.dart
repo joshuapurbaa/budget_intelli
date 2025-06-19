@@ -58,11 +58,14 @@ export 'utils/text_localize.dart';
 export 'utils/text_style.dart';
 export 'utils/timestamp_formatter.dart';
 export 'utils/top_curve_clipper.dart';
+
 // typedef
 export 'utils/typedef.dart';
 export 'utils/usecase.dart';
+
 // widgets
 export 'widgets/ad_widget_repository.dart';
+export 'widgets/app_animated_container.dart';
 export 'widgets/app_box_border.dart';
 export 'widgets/app_box_calculator.dart';
 export 'widgets/app_box_calendar/app_box_calendar.dart';
@@ -94,6 +97,7 @@ export 'widgets/app_text.dart';
 export 'widgets/app_transformer.dart';
 export 'widgets/bottom_sheet_parent.dart';
 export 'widgets/box_calculator/box_calculator.dart';
+
 // cubit
 export 'widgets/box_calculator/cubit/box_calculator_cubit.dart';
 export 'widgets/box_calender.dart';
