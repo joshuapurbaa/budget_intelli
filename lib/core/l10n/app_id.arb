@@ -399,5 +399,7 @@
   "areYouSureYouWantToDeleteThisAsset": "Apakah Anda yakin ingin menghapus aset ini?",
   "completed": "Selesai",
   "overspending": "Melebihi Anggaran",
-  "totalRepetition": "Total Pengulangan"
+  "totalRepetition": "Total Pengulangan",
+  "yourTarget": "Target Anda",
+  "targetDate": "Tanggal Target"
 }

@@ -1248,4 +1248,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get totalRepetition => 'Total Pengulangan';
+
+  @override
+  String get yourTarget => 'Target Anda';
+
+  @override
+  String get targetDate => 'Tanggal Target';
 }

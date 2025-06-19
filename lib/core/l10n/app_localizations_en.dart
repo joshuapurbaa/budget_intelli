@@ -1246,4 +1246,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalRepetition => 'Total Repetition';
+
+  @override
+  String get yourTarget => 'Your Target';
+
+  @override
+  String get targetDate => 'Target Date';
 }

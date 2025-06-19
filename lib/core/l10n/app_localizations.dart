@@ -2503,6 +2503,18 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Total Pengulangan'**
   String get totalRepetition;
+
+  /// No description provided for @yourTarget.
+  ///
+  /// In id, this message translates to:
+  /// **'Target Anda'**
+  String get yourTarget;
+
+  /// No description provided for @targetDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal Target'**
+  String get targetDate;
 }
 
 class _AppLocalizationsDelegate

@@ -399,5 +399,7 @@
   "areYouSureYouWantToDeleteThisAsset": "Are you sure you want to delete this asset?",
   "completed": "Completed",
   "overspending": "Overspending",
-  "totalRepetition": "Total Repetition"
+  "totalRepetition": "Total Repetition",
+  "yourTarget": "Your Target",
+  "targetDate": "Target Date"
 }

@@ -68,9 +68,10 @@ class GoalDetailScreen extends StatelessWidget {
           final now = DateTime.now();
 
           if (startDate.isAfter(now)) {
-            remainingDayStr = 'Not started';
+            remainingDayStr = localize.notStarted;
           } else {
-            remainingDayStr = '${endDate.difference(now).inDays} days to go';
+            remainingDayStr =
+                '${endDate.difference(now).inDays} ${localize.daysToGo}';
           }
 
           int monthsRemaining;
@@ -139,17 +140,17 @@ class GoalDetailScreen extends StatelessWidget {
                                   ),
                                   child: Column(
                                     children: [
-                                      const Row(
+                                      Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           AppText(
-                                            text: 'Your Target',
+                                            text: localize.yourTarget,
                                             style: StyleType.bodSm,
                                             fontWeight: FontWeight.w600,
                                           ),
                                           AppText(
-                                            text: 'Target Date',
+                                            text: localize.targetDate,
                                             style: StyleType.bodSm,
                                             fontWeight: FontWeight.w600,
                                           ),
@@ -202,7 +203,8 @@ class GoalDetailScreen extends StatelessWidget {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           AppText(
-                                            text: 'Saved: $savedStr',
+                                            text:
+                                                '${localize.saved}: $savedStr',
                                             style: StyleType.bodSm,
                                             fontWeight: FontWeight.w700,
                                           ),
@@ -227,11 +229,66 @@ class GoalDetailScreen extends StatelessWidget {
                                                 fontWeight: FontWeight.bold,
                                               ),
                                               Gap.vertical(10),
-                                              AppText(
-                                                text:
-                                                    '${localize.toHitYourGoalOn}  $suggestedDailyAmount per day or $suggestedMonthlyAmount ${localize.perMonth} ',
-                                                style: StyleType.bodSm,
-                                                noMaxLines: true,
+                                              // AppText(
+                                              //   text:
+                                              //       '${localize.toHitYourGoalOn}  $suggestedDailyAmount ${localize.perDayOr} $suggestedMonthlyAmount ${localize.perMonth} ',
+                                              //   style: StyleType.bodSm,
+                                              //   noMaxLines: true,
+                                              // ),
+                                              RichText(
+                                                text: TextSpan(
+                                                  children: [
+                                                    TextSpan(
+                                                      text:
+                                                          '${localize.toHitYourGoalOn} ',
+                                                      style: textStyle(
+                                                        context,
+                                                        style: StyleType.bodSm,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          '$suggestedDailyAmount ',
+                                                      style: textStyle(
+                                                        context,
+                                                        style: StyleType.bodSm,
+                                                      ).copyWith(
+                                                        color: context
+                                                            .color.primary,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          '${localize.perDayOr} ',
+                                                      style: textStyle(
+                                                        context,
+                                                        style: StyleType.bodSm,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text:
+                                                          '$suggestedMonthlyAmount ',
+                                                      style: textStyle(
+                                                        context,
+                                                        style: StyleType.bodSm,
+                                                      ).copyWith(
+                                                        color: context
+                                                            .color.primary,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text: localize.perMonth,
+                                                      style: textStyle(
+                                                        context,
+                                                        style: StyleType.bodSm,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ],
                                           ),
