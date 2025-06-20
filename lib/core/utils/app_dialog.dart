@@ -49,12 +49,15 @@ class AppDialog {
                       const AppDivider(),
                       Gap.vertical(16),
                     ],
-                    if (content != null)
+                    if (content != null) ...[
                       Flexible(
                         child: content,
                       ),
+                      Gap.vertical(16),
+                      const AppDivider(),
+                    ],
                     if (actions != null && actions.isNotEmpty) ...[
-                      const SizedBox(height: 16),
+                      Gap.vertical(16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: actions

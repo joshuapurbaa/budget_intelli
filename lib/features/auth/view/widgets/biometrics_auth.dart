@@ -198,7 +198,7 @@ class _BiometricAuthState extends State<BiometricAuth> {
       ),
       content: AppText(text: message),
       actions: <Widget>[
-        AppButton(
+        AppButton.outlined(
           height: 48,
           label: localize.tryAgain,
           onPressed: () {
@@ -206,7 +206,6 @@ class _BiometricAuthState extends State<BiometricAuth> {
             _authenticate();
           },
         ),
-        Gap.vertical(8),
         AppButton(
           height: 48,
           label: localize.setUp,

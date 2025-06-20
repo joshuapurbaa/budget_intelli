@@ -115,7 +115,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 ),
                                 Gap.vertical(8),
                                 AppDivider(
-                                  thickness: 0.8,
+                                  thickness: 0.9,
                                   color: isDarkMode
                                       ? context.color.onPrimary
                                       : Colors.black,
@@ -162,7 +162,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 ),
                                 Gap.vertical(8),
                                 AppDivider(
-                                  thickness: 0.8,
+                                  thickness: 0.9,
                                   color: isDarkMode
                                       ? context.color.onPrimary
                                       : Colors.black,
@@ -193,7 +193,12 @@ class _FrequencyViewState extends State<FrequencyView> {
               // ),
 
               Gap.vertical(8),
-              const AppDivider(),
+              Padding(
+                padding: getEdgeInsets(left: 16, right: 16),
+                child: const AppDivider(
+                  thickness: 0.9,
+                ),
+              ),
               Gap.vertical(8),
 
               Padding(
@@ -204,6 +209,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                     children: List.generate(
                       filteredCategories.length + 1,
                       (index) {
+                        final isDarkMode = context.isDarkModeSetting;
                         if (index == 0) {
                           return GestureDetector(
                             onTap: () {
@@ -227,9 +233,11 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 fontWeight: selectedCategoryId == null
                                     ? FontWeight.bold
                                     : FontWeight.normal,
-                                color: selectedCategoryId == null
-                                    ? context.color.onPrimary
-                                    : context.color.onSurface,
+                                color: isDarkMode
+                                    ? selectedCategoryId == null
+                                        ? context.color.onPrimary
+                                        : context.color.onSurface
+                                    : Colors.black,
                                 textAlign: TextAlign.center,
                               ),
                             ),
@@ -259,9 +267,6 @@ class _FrequencyViewState extends State<FrequencyView> {
                               if (category.iconPath != null)
                                 getPngAsset(
                                   category.iconPath!,
-                                  color: isSelected
-                                      ? context.color.primary
-                                      : context.color.onSurface,
                                 ),
                               Gap.horizontal(8),
                               AppText(
@@ -269,10 +274,12 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 style: StyleType.bodMed,
                                 fontWeight: isSelected
                                     ? FontWeight.bold
-                                    : FontWeight.normal,
-                                color: isSelected
-                                    ? context.color.onPrimary
-                                    : context.color.onSurface,
+                                    : FontWeight.w500,
+                                color: isDarkMode
+                                    ? isSelected
+                                        ? context.color.onPrimary
+                                        : context.color.onSurface
+                                    : Colors.black,
                               ),
                             ],
                           ),
@@ -332,6 +339,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                 },
                 separatorBuilder: (context, index) => AppDivider(
                   padding: getEdgeInsets(top: 10, bottom: 10),
+                  thickness: 0.9,
                 ),
               ),
             ],
