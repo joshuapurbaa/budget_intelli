@@ -297,6 +297,12 @@ class GoalDetailScreen extends StatelessWidget {
                                     ],
                                   ),
                                 ),
+                                Gap.vertical(16),
+                                AppDivider(
+                                  color: context.color.onSurface
+                                      .withValues(alpha: 0.1),
+                                ),
+                                Gap.vertical(16),
                                 Gap.vertical(32),
                                 AppButton.outlined(
                                   outlineColor: context.color.error,

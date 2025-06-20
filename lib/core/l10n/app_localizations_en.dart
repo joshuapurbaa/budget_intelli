@@ -75,7 +75,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpBody1 => 'Already have an account?';
 
   @override
-  String get textDividerSignUpSignInScreen => 'or';
+  String get orText => 'or';
 
   @override
   String get signInForgotPasswordText => 'Forgot Password?';
@@ -1252,4 +1252,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get targetDate => 'Target Date';
+
+  @override
+  String get yourGoalDurationIs => 'Your goal duration is';
 }

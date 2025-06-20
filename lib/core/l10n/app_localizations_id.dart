@@ -75,7 +75,7 @@ class AppLocalizationsId extends AppLocalizations {
   String get signUpBody1 => 'Sudah punya akun?';
 
   @override
-  String get textDividerSignUpSignInScreen => 'atau';
+  String get orText => 'atau';
 
   @override
   String get signInForgotPasswordText => 'Lupa Kata Sandi?';
@@ -1254,4 +1254,7 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get targetDate => 'Tanggal Target';
+
+  @override
+  String get yourGoalDurationIs => 'Durasi Target anda adalah';
 }

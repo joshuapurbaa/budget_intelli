@@ -224,11 +224,11 @@ abstract class AppLocalizations {
   /// **'Sudah punya akun?'**
   String get signUpBody1;
 
-  /// No description provided for @textDividerSignUpSignInScreen.
+  /// No description provided for @orText.
   ///
   /// In id, this message translates to:
   /// **'atau'**
-  String get textDividerSignUpSignInScreen;
+  String get orText;
 
   /// No description provided for @signInForgotPasswordText.
   ///
@@ -2515,6 +2515,12 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tanggal Target'**
   String get targetDate;
+
+  /// No description provided for @yourGoalDurationIs.
+  ///
+  /// In id, this message translates to:
+  /// **'Durasi Target anda adalah'**
+  String get yourGoalDurationIs;
 }
 
 class _AppLocalizationsDelegate

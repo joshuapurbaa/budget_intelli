@@ -31,6 +31,8 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     double? planAmountPerDay;
     num? remainingAmountGoal;
     final currentDate = DateTime.now();
+    int daysRemaining = 0;
+    int monthsRemaining = 0;
 
     if (dateRange.isNotEmpty &&
         _goalAmount != null &&
@@ -46,9 +48,6 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
       remainingAmountGoal = goalAmount - startingBalance;
 
       // Hitung bulan yang tersisa dalam tahun
-      int monthsRemaining;
-      int daysRemaining;
-
       daysRemaining = endDate!.difference(startDate!).inDays;
 
       if (endDate.year == startDate.year) {
@@ -179,6 +178,13 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                               ],
                             ),
                           ),
+                        ),
+                        Gap.vertical(10),
+                        // duration of goals
+                        AppText(
+                          text:
+                              '${localize.yourGoalDurationIs} $daysRemaining ${localize.days} ${localize.orText} $monthsRemaining ${localize.month}',
+                          style: StyleType.bodSm,
                         ),
                       ],
                     ),

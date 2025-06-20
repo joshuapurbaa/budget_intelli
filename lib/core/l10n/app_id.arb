@@ -20,7 +20,7 @@
   "termConditionFirst": "Saya setuju dengan",
   "termConditionSecond": "Syarat & Ketentuan Budget Intelli",
   "signUpBody1": "Sudah punya akun?",
-  "textDividerSignUpSignInScreen": "atau",
+  "orText": "atau",
   "signInForgotPasswordText": "Lupa Kata Sandi?",
   "forgotPassTitle": "Lupa kata sandi?",
   "forgotPassDesc": "Masukkan email yang terkait dengan akun Serrap Anda, dan kami akan mengirimkan Anda kata sandi satu kali (OTP) untuk memulai.",
@@ -401,5 +401,6 @@
   "overspending": "Melebihi Anggaran",
   "totalRepetition": "Total Pengulangan",
   "yourTarget": "Target Anda",
-  "targetDate": "Tanggal Target"
+  "targetDate": "Tanggal Target",
+  "yourGoalDurationIs": "Durasi Target anda adalah"
 }

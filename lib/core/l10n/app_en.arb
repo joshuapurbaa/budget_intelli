@@ -20,7 +20,7 @@
   "termConditionFirst": "I agree to Budget Intelli",
   "termConditionSecond": "Terms & Conditions",
   "signUpBody1": "Already have an account?",
-  "textDividerSignUpSignInScreen": "or",
+  "orText": "or",
   "signInForgotPasswordText": "Forgot Password?",
   "forgotPassTitle": "Forgot Your Password?",
   "forgotPassDesc": "Enter the email associated with your Serrap account, and we'll send you a one-time password (OTP) to get started.",
@@ -401,5 +401,6 @@
   "overspending": "Overspending",
   "totalRepetition": "Total Repetition",
   "yourTarget": "Your Target",
-  "targetDate": "Target Date"
+  "targetDate": "Target Date",
+  "yourGoalDurationIs": "Your goal duration is"
 }

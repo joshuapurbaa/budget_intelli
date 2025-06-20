@@ -67,7 +67,7 @@ class WelcomeScreen extends StatelessWidget {
                           Padding(
                             padding: getEdgeInsetsSymmetric(horizontal: 16),
                             child: AppText(
-                              text: localize.textDividerSignUpSignInScreen,
+                              text: localize.orText,
                               style: StyleType.headSm,
                               fontWeight: FontWeight.w500,
                             ),
