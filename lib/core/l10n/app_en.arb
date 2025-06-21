@@ -402,5 +402,14 @@
   "totalRepetition": "Total Repetition",
   "yourTarget": "Your Target",
   "targetDate": "Target Date",
-  "yourGoalDurationIs": "Your goal duration is"
+  "yourGoalDurationIs": "Your goal duration is",
+  "addAmountToYourGoal": "Add amount to your goal",
+  "addToGoal": "Add to Goal",
+  "updating": "Updating...",
+  "updateHistory": "Update History",
+  "noUpdatesYet": "No updates yet. Start adding to your goal!",
+  "moreEntries": "more entries",
+  "goalUpdatedSuccessfully": "Goal updated successfully",
+  "pleaseEnterValidAmount": "Please enter a valid amount",
+  "somethingWentWrong": "Something went wrong"
 }

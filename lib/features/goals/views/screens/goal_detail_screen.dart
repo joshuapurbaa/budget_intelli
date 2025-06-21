@@ -122,215 +122,228 @@ class GoalDetailScreen extends StatelessWidget {
                         ),
                         child: ColoredBox(
                           color: context.color.surface,
-                          child: Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              children: [
-                                Gap.vertical(25),
-                                AppText(
-                                  text: goal?.goalName ?? '-',
-                                  style: StyleType.disSm,
+                          child: ListView(
+                            padding: getEdgeInsetsSymmetric(
+                              horizontal: 16,
+                              vertical: 16,
+                            ),
+                            children: [
+                              Gap.vertical(25),
+                              AppText(
+                                text: goal?.goalName ?? '-',
+                                style: StyleType.disSm,
+                                textAlign: TextAlign.center,
+                              ),
+                              Gap.vertical(16),
+                              Container(
+                                padding: const EdgeInsets.all(16),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: context.color.onInverseSurface,
                                 ),
-                                Gap.vertical(16),
-                                Container(
-                                  padding: const EdgeInsets.all(16),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(16),
-                                    color: context.color.onInverseSurface,
-                                  ),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AppText(
-                                            text: localize.yourTarget,
-                                            style: StyleType.bodSm,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                          AppText(
-                                            text: localize.targetDate,
-                                            style: StyleType.bodSm,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ],
-                                      ),
-                                      Gap.vertical(8),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AppText(
-                                            text: goalAmountStr ?? '-',
-                                            style: StyleType.bodLg,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          AppText(
-                                            text: endDateStr ?? '-',
-                                            style: StyleType.bodLg,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ],
-                                      ),
-                                      Gap.vertical(5),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          const AppText(
-                                            text: '',
-                                            style: StyleType.bodSm,
-                                          ),
-                                          AppText(
-                                            text: remainingDayStr,
-                                            style: StyleType.bodSm,
-                                            fontStyle: FontStyle.italic,
-                                            color: context.color.onSurface
-                                                .withValues(alpha: 0.5),
-                                          ),
-                                        ],
-                                      ),
-                                      Gap.vertical(16),
-                                      LinearProgressIndicator(
-                                        value: percentage,
-                                        minHeight: 15,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      Gap.vertical(8),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          AppText(
-                                            text:
-                                                '${localize.saved}: $savedStr',
-                                            style: StyleType.bodSm,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                          AppText(
-                                            text: percetageStr ?? '-',
-                                            style: StyleType.bodSm,
-                                            fontWeight: FontWeight.w700,
-                                          ),
-                                        ],
-                                      ),
-                                      if (suggestedMonthlyAmount != null) ...[
-                                        Gap.vertical(16),
-                                        AppBoxBorder(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              AppText(
-                                                text:
-                                                    '${localize.suggested} 💡',
-                                                style: StyleType.bodMed,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              Gap.vertical(10),
-                                              // AppText(
-                                              //   text:
-                                              //       '${localize.toHitYourGoalOn}  $suggestedDailyAmount ${localize.perDayOr} $suggestedMonthlyAmount ${localize.perMonth} ',
-                                              //   style: StyleType.bodSm,
-                                              //   noMaxLines: true,
-                                              // ),
-                                              RichText(
-                                                text: TextSpan(
-                                                  children: [
-                                                    TextSpan(
-                                                      text:
-                                                          '${localize.toHitYourGoalOn} ',
-                                                      style: textStyle(
-                                                        context,
-                                                        style: StyleType.bodSm,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                          '$suggestedDailyAmount ',
-                                                      style: textStyle(
-                                                        context,
-                                                        style: StyleType.bodSm,
-                                                      ).copyWith(
-                                                        color: context
-                                                            .color.primary,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                          '${localize.perDayOr} ',
-                                                      style: textStyle(
-                                                        context,
-                                                        style: StyleType.bodSm,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text:
-                                                          '$suggestedMonthlyAmount ',
-                                                      style: textStyle(
-                                                        context,
-                                                        style: StyleType.bodSm,
-                                                      ).copyWith(
-                                                        color: context
-                                                            .color.primary,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                      ),
-                                                    ),
-                                                    TextSpan(
-                                                      text: localize.perMonth,
-                                                      style: textStyle(
-                                                        context,
-                                                        style: StyleType.bodSm,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        AppText(
+                                          text: localize.yourTarget,
+                                          style: StyleType.bodSm,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                        AppText(
+                                          text: localize.targetDate,
+                                          style: StyleType.bodSm,
+                                          fontWeight: FontWeight.w600,
                                         ),
                                       ],
+                                    ),
+                                    Gap.vertical(8),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        AppText(
+                                          text: goalAmountStr ?? '-',
+                                          style: StyleType.bodLg,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        AppText(
+                                          text: endDateStr ?? '-',
+                                          style: StyleType.bodLg,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ],
+                                    ),
+                                    Gap.vertical(5),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        const AppText(
+                                          text: '',
+                                          style: StyleType.bodSm,
+                                        ),
+                                        AppText(
+                                          text: remainingDayStr,
+                                          style: StyleType.bodSm,
+                                          fontStyle: FontStyle.italic,
+                                          color: context.color.onSurface
+                                              .withValues(alpha: 0.5),
+                                        ),
+                                      ],
+                                    ),
+                                    Gap.vertical(16),
+                                    LinearProgressIndicator(
+                                      value: percentage,
+                                      minHeight: 15,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    Gap.vertical(8),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        AppText(
+                                          text: '${localize.saved}: $savedStr',
+                                          style: StyleType.bodSm,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        AppText(
+                                          text: percetageStr ?? '-',
+                                          style: StyleType.bodSm,
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                      ],
+                                    ),
+                                    if (suggestedMonthlyAmount != null) ...[
+                                      Gap.vertical(16),
+                                      AppBoxBorder(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            AppText(
+                                              text: '${localize.suggested} 💡',
+                                              style: StyleType.bodMed,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            Gap.vertical(10),
+                                            // AppText(
+                                            //   text:
+                                            //       '${localize.toHitYourGoalOn}  $suggestedDailyAmount ${localize.perDayOr} $suggestedMonthlyAmount ${localize.perMonth} ',
+                                            //   style: StyleType.bodSm,
+                                            //   noMaxLines: true,
+                                            // ),
+                                            RichText(
+                                              text: TextSpan(
+                                                children: [
+                                                  TextSpan(
+                                                    text:
+                                                        '${localize.toHitYourGoalOn} ',
+                                                    style: textStyle(
+                                                      context,
+                                                      style: StyleType.bodSm,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        '$suggestedDailyAmount ',
+                                                    style: textStyle(
+                                                      context,
+                                                      style: StyleType.bodSm,
+                                                    ).copyWith(
+                                                      color:
+                                                          context.color.primary,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        '${localize.perDayOr} ',
+                                                    style: textStyle(
+                                                      context,
+                                                      style: StyleType.bodSm,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text:
+                                                        '$suggestedMonthlyAmount ',
+                                                    style: textStyle(
+                                                      context,
+                                                      style: StyleType.bodSm,
+                                                    ).copyWith(
+                                                      color:
+                                                          context.color.primary,
+                                                      fontWeight:
+                                                          FontWeight.w600,
+                                                    ),
+                                                  ),
+                                                  TextSpan(
+                                                    text: localize.perMonth,
+                                                    style: textStyle(
+                                                      context,
+                                                      style: StyleType.bodSm,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ],
-                                  ),
+                                  ],
                                 ),
-                                Gap.vertical(16),
-                                AppDivider(
-                                  color: context.color.onSurface
-                                      .withValues(alpha: 0.1),
-                                ),
-                                Gap.vertical(16),
-                                Gap.vertical(32),
-                                AppButton.outlined(
-                                  outlineColor: context.color.error,
-                                  label: localize.delete,
-                                  labelColor: context.color.error,
-                                  onPressed: () async {
-                                    final title = localize.deleteGoal;
-                                    final contentText = localize.confirmDelete;
-                                    final result =
-                                        await AppDialog.showConfirmationDelete(
-                                      context,
-                                      title,
-                                      contentText,
-                                    );
-                                    if (result != null) {
-                                      final id = goal?.id;
+                              ),
+                              Gap.vertical(16),
+                              AppDivider(
+                                color: context.color.onSurface
+                                    .withValues(alpha: 0.1),
+                              ),
+                              Gap.vertical(16),
 
-                                      if (context.mounted) {
-                                        _onDeleteGoal(
-                                          context,
-                                          id,
+                              // Goal Update Widget
+                              if (goal != null)
+                                GoalUpdateWidget(
+                                  goal: goal,
+                                  onGoalUpdated: () {
+                                    // Refresh the goal data when updated
+                                    context.read<GoalDatabaseBloc>().add(
+                                          GetGoalFromDbByIdEvent(goal.id),
                                         );
-                                      }
-                                    }
                                   },
                                 ),
-                              ],
-                            ),
+
+                              Gap.vertical(32),
+                              AppButton.outlined(
+                                outlineColor: context.color.error,
+                                label: localize.delete,
+                                labelColor: context.color.error,
+                                onPressed: () async {
+                                  final title = localize.deleteGoal;
+                                  final contentText = localize.confirmDelete;
+                                  final result =
+                                      await AppDialog.showConfirmationDelete(
+                                    context,
+                                    title,
+                                    contentText,
+                                  );
+                                  if (result != null) {
+                                    final id = goal?.id;
+
+                                    if (context.mounted) {
+                                      _onDeleteGoal(
+                                        context,
+                                        id,
+                                      );
+                                    }
+                                  }
+                                },
+                              ),
+                            ],
                           ),
                         )
                             .animate()

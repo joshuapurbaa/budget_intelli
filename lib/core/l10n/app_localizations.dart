@@ -2521,6 +2521,60 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Durasi Target anda adalah'**
   String get yourGoalDurationIs;
+
+  /// No description provided for @addAmountToYourGoal.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambahkan jumlah ke target Anda'**
+  String get addAmountToYourGoal;
+
+  /// No description provided for @addToGoal.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambahkan ke Target'**
+  String get addToGoal;
+
+  /// No description provided for @updating.
+  ///
+  /// In id, this message translates to:
+  /// **'Memperbarui...'**
+  String get updating;
+
+  /// No description provided for @updateHistory.
+  ///
+  /// In id, this message translates to:
+  /// **'Perbarui Riwayat'**
+  String get updateHistory;
+
+  /// No description provided for @noUpdatesYet.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada perbaruan. Mulai menambahkan ke target Anda!'**
+  String get noUpdatesYet;
+
+  /// No description provided for @moreEntries.
+  ///
+  /// In id, this message translates to:
+  /// **'entri lebih banyak'**
+  String get moreEntries;
+
+  /// No description provided for @goalUpdatedSuccessfully.
+  ///
+  /// In id, this message translates to:
+  /// **'Target berhasil diperbarui'**
+  String get goalUpdatedSuccessfully;
+
+  /// No description provided for @pleaseEnterValidAmount.
+  ///
+  /// In id, this message translates to:
+  /// **'Harap masukkan jumlah yang valid'**
+  String get pleaseEnterValidAmount;
+
+  /// No description provided for @somethingWentWrong.
+  ///
+  /// In id, this message translates to:
+  /// **'Terjadi kesalahan'**
+  String get somethingWentWrong;
 }
 
 class _AppLocalizationsDelegate

@@ -1257,4 +1257,32 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get yourGoalDurationIs => 'Durasi Target anda adalah';
+
+  @override
+  String get addAmountToYourGoal => 'Tambahkan jumlah ke target Anda';
+
+  @override
+  String get addToGoal => 'Tambahkan ke Target';
+
+  @override
+  String get updating => 'Memperbarui...';
+
+  @override
+  String get updateHistory => 'Perbarui Riwayat';
+
+  @override
+  String get noUpdatesYet =>
+      'Belum ada perbaruan. Mulai menambahkan ke target Anda!';
+
+  @override
+  String get moreEntries => 'entri lebih banyak';
+
+  @override
+  String get goalUpdatedSuccessfully => 'Target berhasil diperbarui';
+
+  @override
+  String get pleaseEnterValidAmount => 'Harap masukkan jumlah yang valid';
+
+  @override
+  String get somethingWentWrong => 'Terjadi kesalahan';
 }

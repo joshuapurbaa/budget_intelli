@@ -402,5 +402,14 @@
   "totalRepetition": "Total Pengulangan",
   "yourTarget": "Target Anda",
   "targetDate": "Tanggal Target",
-  "yourGoalDurationIs": "Durasi Target anda adalah"
+  "yourGoalDurationIs": "Durasi Target anda adalah",
+  "addAmountToYourGoal": "Tambahkan jumlah ke target Anda",
+  "addToGoal": "Tambahkan ke Target",
+  "updating": "Memperbarui...",
+  "updateHistory": "Perbarui Riwayat",
+  "noUpdatesYet": "Belum ada perbaruan. Mulai menambahkan ke target Anda!",
+  "moreEntries": "entri lebih banyak",
+  "goalUpdatedSuccessfully": "Target berhasil diperbarui",
+  "pleaseEnterValidAmount": "Harap masukkan jumlah yang valid",
+  "somethingWentWrong": "Terjadi kesalahan"
 }

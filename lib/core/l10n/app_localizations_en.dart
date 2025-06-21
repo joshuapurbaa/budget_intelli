@@ -1255,4 +1255,31 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yourGoalDurationIs => 'Your goal duration is';
+
+  @override
+  String get addAmountToYourGoal => 'Add amount to your goal';
+
+  @override
+  String get addToGoal => 'Add to Goal';
+
+  @override
+  String get updating => 'Updating...';
+
+  @override
+  String get updateHistory => 'Update History';
+
+  @override
+  String get noUpdatesYet => 'No updates yet. Start adding to your goal!';
+
+  @override
+  String get moreEntries => 'more entries';
+
+  @override
+  String get goalUpdatedSuccessfully => 'Goal updated successfully';
+
+  @override
+  String get pleaseEnterValidAmount => 'Please enter a valid amount';
+
+  @override
+  String get somethingWentWrong => 'Something went wrong';
 }
