@@ -31,8 +31,8 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     double? planAmountPerDay;
     num? remainingAmountGoal;
     final currentDate = DateTime.now();
-    int daysRemaining = 0;
-    int monthsRemaining = 0;
+    var daysRemaining = 0;
+    var monthsRemaining = 0;
 
     if (dateRange.isNotEmpty &&
         _goalAmount != null &&

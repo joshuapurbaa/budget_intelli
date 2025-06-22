@@ -39,7 +39,7 @@ class _GoalUpdateWidgetState extends State<GoalUpdateWidget> {
         _history = history;
         _isLoading = false;
       });
-    } catch (e) {
+    } on Exception catch (_) {
       setState(() => _isLoading = false);
     }
   }
@@ -167,14 +167,12 @@ class _GoalUpdateWidgetState extends State<GoalUpdateWidget> {
                       label: localize.addAmountToYourGoal,
                     ),
                     Gap.vertical(16),
-                    SizedBox(
-                      child: AppButton(
-                        label:
-                            _isLoading ? localize.updating : localize.addToGoal,
-                        onPressed: () async {
-                          await _addToGoal();
-                        },
-                      ),
+                    AppButton(
+                      label:
+                          _isLoading ? localize.updating : localize.addToGoal,
+                      onPressed: () async {
+                        await _addToGoal();
+                      },
                     ),
                   ],
                 ),
