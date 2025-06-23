@@ -102,7 +102,7 @@ class _BoxCalenderState extends State<BoxCalender> {
           child: AppGlass(
             // boxShadow: appBoxShadow(context),
             // border: appBorder(context),
-            height: 70.h,
+
             child: Row(
               children: [
                 getSvgAsset(

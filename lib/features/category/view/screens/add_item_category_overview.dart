@@ -154,152 +154,6 @@ class _AddItemCategoryOverviewScreenState
             state.itemCategoryHistoriesCurrentBudgetId;
 
         return Scaffold(
-          bottomSheet: BottomSheetParent(
-            isWithBorderTop: true,
-            child: BlocConsumer<BudgetFirestoreCubit, BudgetFirestoreState>(
-              listener: (context, fireState) {
-                if (fireState.insertItemHistoryFireSuccess) {
-                  context.read<CategoryCubit>().resetState();
-                  context.read<BudgetFirestoreCubit>().resetState();
-                  _getItem(state);
-                }
-              },
-              builder: (context, fireState) {
-                if (fireState.loadingFirestore) {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-                }
-                return AppButton.darkLabel(
-                  label: localize.add,
-                  onPressed: () {
-                    final alreadyExistInCurrentBudget =
-                        itemCategoryHistoCurrentBudgetId.any(
-                      (element) =>
-                          element.name.toLowerCase().trim() ==
-                          _nameController.text.toLowerCase().trim(),
-                    );
-
-                    if (alreadyExistInCurrentBudget) {
-                      AppToast.showToastError(
-                        context,
-                        localize.categoryNameAlreadyExists,
-                      );
-                      return;
-                    }
-
-                    ItemCategory? itemCategory;
-
-                    final amount = ControllerHelper.getAmount(context);
-                    final budgetId =
-                        context.read<CategoryCubit>().state.budget?.id;
-
-                    String? id;
-                    String? name;
-                    String? type;
-                    int? hexColor;
-                    String? iconPath;
-                    String? itemId;
-
-                    if (_nameController.text.isNotEmpty) {
-                      itemCategory = categories
-                          .where(
-                            (element) =>
-                                element.categoryName.toLowerCase().trim() ==
-                                _nameController.text.toLowerCase().trim(),
-                          )
-                          .firstOrNull;
-                    }
-
-                    if (_selectedItemCategory != null || itemCategory != null) {
-                      String? typeStr;
-
-                      if (_selectedItemCategory != null) {
-                        typeStr = _selectedItemCategory?.type == 'expense'
-                            ? localize.expenses
-                            : localize.income;
-
-                        if (widget.groupHistory.type !=
-                            _selectedItemCategory?.type) {
-                          AppToast.showToastError(
-                            context,
-                            '${localize.thisCategoryIs} $typeStr ${localize.inPreviousBudget}',
-                          );
-                          return;
-                        }
-                        id = _selectedItemCategory?.id;
-                        name = _selectedItemCategory?.categoryName;
-                        type = _selectedItemCategory?.type;
-                        hexColor = _selectedItemCategory?.hexColor;
-                        iconPath = _selectedItemCategory?.iconPath;
-                        itemId = _selectedItemCategory?.id;
-                      } else {
-                        typeStr = itemCategory?.type == 'expense'
-                            ? localize.expenses
-                            : localize.income;
-
-                        if (widget.groupHistory.type != itemCategory?.type) {
-                          AppToast.showToastError(
-                            context,
-                            '${localize.thisCategoryIs} $typeStr ${localize.inPreviousBudget}',
-                          );
-                          return;
-                        }
-
-                        id = itemCategory?.id;
-                        name = itemCategory?.categoryName;
-                        type = itemCategory?.type;
-                        hexColor = itemCategory?.hexColor;
-                        iconPath = itemCategory?.iconPath;
-                        itemId = itemCategory?.id;
-                      }
-                    } else {
-                      id = const Uuid().v4();
-                      itemId = const Uuid().v1();
-                      name = _nameController.text;
-                      hexColor = this.hexColor;
-                      iconPath = this.iconPath;
-                      type = isExpense ? 'expense' : 'income';
-                    }
-
-                    if (id != null &&
-                        name != null &&
-                        type != null &&
-                        itemId != null &&
-                        amount != null) {
-                      final history = ItemCategoryHistory(
-                        id: id,
-                        name: name,
-                        type: type,
-                        createdAt: DateTime.now().toString(),
-                        isExpense: type == 'expense',
-                        hexColor: hexColor,
-                        iconPath: iconPath,
-                        groupHistoryId: groupId,
-                        amount: amount,
-                        budgetId: budgetId,
-                        itemId: itemId,
-                        groupName: groupName,
-                      );
-
-                      setState(() {
-                        itemCategoryHistory = history;
-                      });
-
-                      context.read<CategoryCubit>().insertItemCategoryHistory(
-                            itemCategoryHistory: history,
-                          );
-                    } else {
-                      AppToast.showToastError(
-                        context,
-                        localize.pleaseFillAllRequiredFields,
-                      );
-                    }
-                  },
-                );
-              },
-            ),
-          ),
           body: CustomScrollView(
             slivers: [
               SliverPersistentHeader(
@@ -351,146 +205,327 @@ class _AddItemCategoryOverviewScreenState
                   },
                 ),
               ),
-              SliverPadding(
-                padding: getEdgeInsetsAll(16),
-                sliver: SliverList(
-                  delegate: SliverChildListDelegate.fixed(
-                    [
-                      AppGlass(
-                        height: 70.h,
-                        child: Row(
-                          children: [
-                            getPngAsset(
-                              groupCategoryPng,
-                              height: 20,
-                              width: 20,
-                              color: context.color.onSurface,
-                            ),
-                            Gap.horizontal(16),
-                            AppText(
-                              text: groupName,
-                              style: StyleType.bodMed,
-                            ),
-                          ],
-                        ),
-                      ),
-                      Gap.vertical(10),
-                      BoxCalculator(
-                        label: hintCalculator,
-                      ),
-                      Gap.vertical(10),
-                      AppBoxFormField(
-                        hintText: '${localize.nameFieldLabel}*',
-                        prefixIcon: noteDescriptionPng,
-                        controller: _nameController,
-                        focusNode: _focusCategoryName,
-                        isPng: true,
-                        iconColor: context.color.onSurface,
-                        onChanged: (value) {
-                          if (value.isNotEmpty) {
-                            final categoryExists = categories.any(
-                              (element) =>
-                                  element.categoryName.toLowerCase().trim() ==
-                                  value.toLowerCase().trim(),
-                            );
-
-                            final search = context
-                                .read<CategoryCubit>()
-                                .searchItemCategoryByName(
-                                  name: value,
-                                  itemCategories: state.itemCategories,
-                                );
-
-                            setState(() {
-                              categoryNameExists = categoryExists;
-                              _selectedItemCategory = null;
-                              _searchResult = search;
-                            });
-                          }
-                        },
-                      ),
-                      if (_searchResult.isNotEmpty) ...[
-                        Gap.vertical(10),
-                        AppGlass(
-                          child: Column(
-                            children: List.generate(
-                              _searchResult.length,
-                              (index) {
-                                final item = _searchResult[index];
-                                var alreadyUsed = false;
-                                final onlyOneAndLastIndex =
-                                    _searchResult.length == 1 ||
-                                        index == _searchResult.length - 1;
-
-                                for (var i = 0;
-                                    i <
-                                        state
-                                            .itemCategoryHistoriesCurrentBudgetId
-                                            .length;
-                                    i++) {
-                                  final element = state
-                                      .itemCategoryHistoriesCurrentBudgetId[i];
-                                  if (element.name == item.categoryName) {
-                                    alreadyUsed = true;
-                                    break;
-                                  }
-                                }
-
-                                return GestureDetector(
-                                  onTap: () {
-                                    if (alreadyUsed) {
-                                      AppToast.showToastError(
-                                        context,
-                                        localize
-                                            .thisCategoryAlreadyUsedInBudget,
-                                      );
-                                      return;
-                                    }
-
-                                    setState(() {
-                                      _nameController.text = item.categoryName;
-                                      _selectedItemCategory = item;
-                                      _searchResult = [];
-                                    });
-                                  },
-                                  child: Container(
-                                    padding:
-                                        getEdgeInsetsSymmetric(vertical: 8),
-                                    decoration: BoxDecoration(
-                                      border: onlyOneAndLastIndex
-                                          ? null
-                                          : Border(
-                                              bottom: BorderSide(
-                                                color: context
-                                                    .color.outlineVariant
-                                                    .withValues(alpha: 0.3),
-                                              ),
-                                            ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        AppText(
-                                          text: item.categoryName,
-                                          style: StyleType.bodMed,
-                                        ),
-                                        if (alreadyUsed)
-                                          const Icon(
-                                            CupertinoIcons.check_mark,
-                                          ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
+              SliverFillRemaining(
+                child: Stack(
+                  children: [
+                    Positioned(
+                      top: 16,
+                      left: 16,
+                      right: 16,
+                      child: Column(
+                        children: [
+                          AppGlass(
+                            child: Row(
+                              children: [
+                                getPngAsset(
+                                  groupCategoryPng,
+                                  height: 20,
+                                  width: 20,
+                                  color: context.color.onSurface,
+                                ),
+                                Gap.horizontal(16),
+                                AppText(
+                                  text: groupName,
+                                  style: StyleType.bodMed,
+                                ),
+                              ],
                             ),
                           ),
+                          Gap.vertical(10),
+                          BoxCalculator(
+                            label: hintCalculator,
+                          ),
+                          Gap.vertical(10),
+                          AppBoxFormField(
+                            hintText: '${localize.nameFieldLabel}*',
+                            prefixIcon: noteDescriptionPng,
+                            controller: _nameController,
+                            focusNode: _focusCategoryName,
+                            isPng: true,
+                            iconColor: context.color.onSurface,
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                final categoryExists = categories.any(
+                                  (element) =>
+                                      element.categoryName
+                                          .toLowerCase()
+                                          .trim() ==
+                                      value.toLowerCase().trim(),
+                                );
+
+                                final search = context
+                                    .read<CategoryCubit>()
+                                    .searchItemCategoryByName(
+                                      name: value,
+                                      itemCategories: state.itemCategories,
+                                    );
+
+                                setState(() {
+                                  categoryNameExists = categoryExists;
+                                  _selectedItemCategory = null;
+                                  _searchResult = search;
+                                });
+                              }
+                            },
+                          ),
+                          if (_searchResult.isNotEmpty) ...[
+                            Gap.vertical(10),
+                            AppGlass(
+                              child: Column(
+                                children: List.generate(
+                                  _searchResult.length,
+                                  (index) {
+                                    final item = _searchResult[index];
+                                    var alreadyUsed = false;
+                                    final onlyOneAndLastIndex =
+                                        _searchResult.length == 1 ||
+                                            index == _searchResult.length - 1;
+
+                                    for (var i = 0;
+                                        i <
+                                            state
+                                                .itemCategoryHistoriesCurrentBudgetId
+                                                .length;
+                                        i++) {
+                                      final element = state
+                                          .itemCategoryHistoriesCurrentBudgetId[i];
+                                      if (element.name == item.categoryName) {
+                                        alreadyUsed = true;
+                                        break;
+                                      }
+                                    }
+
+                                    return GestureDetector(
+                                      onTap: () {
+                                        if (alreadyUsed) {
+                                          AppToast.showToastError(
+                                            context,
+                                            localize
+                                                .thisCategoryAlreadyUsedInBudget,
+                                          );
+                                          return;
+                                        }
+
+                                        setState(() {
+                                          _nameController.text =
+                                              item.categoryName;
+                                          _selectedItemCategory = item;
+                                          _searchResult = [];
+                                        });
+                                      },
+                                      child: Container(
+                                        padding:
+                                            getEdgeInsetsSymmetric(vertical: 8),
+                                        decoration: BoxDecoration(
+                                          border: onlyOneAndLastIndex
+                                              ? null
+                                              : Border(
+                                                  bottom: BorderSide(
+                                                    color: context
+                                                        .color.outlineVariant
+                                                        .withValues(alpha: 0.3),
+                                                  ),
+                                                ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            AppText(
+                                              text: item.categoryName,
+                                              style: StyleType.bodMed,
+                                            ),
+                                            if (alreadyUsed)
+                                              const Icon(
+                                                CupertinoIcons.check_mark,
+                                              ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      child: SafeArea(
+                        child: BottomSheetParent(
+                          isWithBorderTop: true,
+                          child: BlocConsumer<BudgetFirestoreCubit,
+                              BudgetFirestoreState>(
+                            listener: (context, fireState) {
+                              if (fireState.insertItemHistoryFireSuccess) {
+                                context.read<CategoryCubit>().resetState();
+                                context
+                                    .read<BudgetFirestoreCubit>()
+                                    .resetState();
+                                _getItem(state);
+                              }
+                            },
+                            builder: (context, fireState) {
+                              if (fireState.loadingFirestore) {
+                                return const Center(
+                                  child: CircularProgressIndicator.adaptive(),
+                                );
+                              }
+                              return AppButton(
+                                label: localize.add,
+                                onPressed: () {
+                                  final alreadyExistInCurrentBudget =
+                                      itemCategoryHistoCurrentBudgetId.any(
+                                    (element) =>
+                                        element.name.toLowerCase().trim() ==
+                                        _nameController.text
+                                            .toLowerCase()
+                                            .trim(),
+                                  );
+
+                                  if (alreadyExistInCurrentBudget) {
+                                    AppToast.showToastError(
+                                      context,
+                                      localize.categoryNameAlreadyExists,
+                                    );
+                                    return;
+                                  }
+
+                                  ItemCategory? itemCategory;
+
+                                  final amount =
+                                      ControllerHelper.getAmount(context);
+                                  final budgetId = context
+                                      .read<CategoryCubit>()
+                                      .state
+                                      .budget
+                                      ?.id;
+
+                                  String? id;
+                                  String? name;
+                                  String? type;
+                                  int? hexColor;
+                                  String? iconPath;
+                                  String? itemId;
+
+                                  if (_nameController.text.isNotEmpty) {
+                                    itemCategory = categories
+                                        .where(
+                                          (element) =>
+                                              element.categoryName
+                                                  .toLowerCase()
+                                                  .trim() ==
+                                              _nameController.text
+                                                  .toLowerCase()
+                                                  .trim(),
+                                        )
+                                        .firstOrNull;
+                                  }
+
+                                  if (_selectedItemCategory != null ||
+                                      itemCategory != null) {
+                                    String? typeStr;
+
+                                    if (_selectedItemCategory != null) {
+                                      typeStr = _selectedItemCategory?.type ==
+                                              'expense'
+                                          ? localize.expenses
+                                          : localize.income;
+
+                                      if (widget.groupHistory.type !=
+                                          _selectedItemCategory?.type) {
+                                        AppToast.showToastError(
+                                          context,
+                                          '${localize.thisCategoryIs} $typeStr ${localize.inPreviousBudget}',
+                                        );
+                                        return;
+                                      }
+                                      id = _selectedItemCategory?.id;
+                                      name =
+                                          _selectedItemCategory?.categoryName;
+                                      type = _selectedItemCategory?.type;
+                                      hexColor =
+                                          _selectedItemCategory?.hexColor;
+                                      iconPath =
+                                          _selectedItemCategory?.iconPath;
+                                      itemId = _selectedItemCategory?.id;
+                                    } else {
+                                      typeStr = itemCategory?.type == 'expense'
+                                          ? localize.expenses
+                                          : localize.income;
+
+                                      if (widget.groupHistory.type !=
+                                          itemCategory?.type) {
+                                        AppToast.showToastError(
+                                          context,
+                                          '${localize.thisCategoryIs} $typeStr ${localize.inPreviousBudget}',
+                                        );
+                                        return;
+                                      }
+
+                                      id = itemCategory?.id;
+                                      name = itemCategory?.categoryName;
+                                      type = itemCategory?.type;
+                                      hexColor = itemCategory?.hexColor;
+                                      iconPath = itemCategory?.iconPath;
+                                      itemId = itemCategory?.id;
+                                    }
+                                  } else {
+                                    id = const Uuid().v4();
+                                    itemId = const Uuid().v1();
+                                    name = _nameController.text;
+                                    hexColor = this.hexColor;
+                                    iconPath = this.iconPath;
+                                    type = isExpense ? 'expense' : 'income';
+                                  }
+
+                                  if (id != null &&
+                                      name != null &&
+                                      type != null &&
+                                      itemId != null &&
+                                      amount != null) {
+                                    final history = ItemCategoryHistory(
+                                      id: id,
+                                      name: name,
+                                      type: type,
+                                      createdAt: DateTime.now().toString(),
+                                      isExpense: type == 'expense',
+                                      hexColor: hexColor,
+                                      iconPath: iconPath,
+                                      groupHistoryId: groupId,
+                                      amount: amount,
+                                      budgetId: budgetId,
+                                      itemId: itemId,
+                                      groupName: groupName,
+                                    );
+
+                                    setState(() {
+                                      itemCategoryHistory = history;
+                                    });
+
+                                    context
+                                        .read<CategoryCubit>()
+                                        .insertItemCategoryHistory(
+                                          itemCategoryHistory: history,
+                                        );
+                                  } else {
+                                    AppToast.showToastError(
+                                      context,
+                                      localize.pleaseFillAllRequiredFields,
+                                    );
+                                  }
+                                },
+                              );
+                            },
+                          ),
                         ),
-                        Gap.vertical(100),
-                      ],
-                    ],
-                  ),
+                      ),
+                    )
+                  ],
                 ),
               ),
             ],

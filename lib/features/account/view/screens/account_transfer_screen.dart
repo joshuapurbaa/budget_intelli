@@ -68,214 +68,237 @@ class _AccountTransferScreenState extends State<AccountTransferScreen> {
             SliverAppBarPrimary(
               title: localize.accountTransfer,
             ),
-            BlocConsumer<AccountBloc, AccountState>(
-              listener: (context, state) {
-                final transferSuccess = state.transferSuccess;
+            SliverFillRemaining(
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 16,
+                    left: 16,
+                    right: 16,
+                    child: BlocConsumer<AccountBloc, AccountState>(
+                      listener: (context, state) {
+                        final transferSuccess = state.transferSuccess;
 
-                if (transferSuccess) {
-                  _onTransferSuccess(state);
-                }
-              },
-              builder: (context, state) {
-                final accounts = state.accounts;
+                        if (transferSuccess) {
+                          _onTransferSuccess(state);
+                        }
+                      },
+                      builder: (context, state) {
+                        final accounts = state.accounts;
 
-                return SliverPadding(
-                  padding: getEdgeInsetsAll(16),
-                  sliver: SliverToBoxAdapter(
-                    child: Column(
-                      children: [
-                        Gap.vertical(16),
-                        AppGlass(
-                          height: 70.h,
-                          padding: getEdgeInsets(
-                            top: 10,
-                            bottom: 10,
-                            left: 16,
-                            right: 10,
-                          ),
-                          child: DropdownMenu<Account>(
-                            expandedInsets: EdgeInsets.zero,
-                            menuHeight: 150.h,
-                            selectedTrailingIcon: const Icon(
-                              CupertinoIcons.chevron_up,
-                              size: 25,
-                            ),
-                            leadingIcon: Padding(
-                              padding: getEdgeInsets(right: 22),
-                              child: getPngAsset(
-                                accountPng,
-                                height: 18,
-                                width: 18,
-                                color: context.color.onSurface,
+                        return Column(
+                          children: [
+                            Gap.vertical(16),
+                            AppGlass(
+                              height: 70.h,
+                              padding: getEdgeInsets(
+                                top: 10,
+                                bottom: 10,
+                                left: 16,
+                                right: 10,
+                              ),
+                              child: DropdownMenu<Account>(
+                                expandedInsets: EdgeInsets.zero,
+                                menuHeight: 150.h,
+                                selectedTrailingIcon: const Icon(
+                                  CupertinoIcons.chevron_up,
+                                  size: 25,
+                                ),
+                                leadingIcon: Padding(
+                                  padding: getEdgeInsets(right: 22),
+                                  child: getPngAsset(
+                                    accountPng,
+                                    height: 18,
+                                    width: 18,
+                                    color: context.color.onSurface,
+                                  ),
+                                ),
+                                inputDecorationTheme: _inputDecoration(context),
+                                trailingIcon: const Icon(
+                                  CupertinoIcons.chevron_down,
+                                  size: 25,
+                                ),
+                                hintText: '${localize.account} 1',
+                                textStyle: textStyle(
+                                  context,
+                                  style: StyleType.bodMed,
+                                ).copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                requestFocusOnTap: false,
+                                onSelected: (Account? account) {
+                                  setState(() {
+                                    _firstSelectedAccount = account;
+                                  });
+                                },
+                                menuStyle: _menuStyle(),
+                                dropdownMenuEntries:
+                                    accounts.map<DropdownMenuEntry<Account>>(
+                                  (Account account) {
+                                    return DropdownMenuEntry<Account>(
+                                      value: account,
+                                      label: account.name,
+                                      style: MenuItemButton.styleFrom(
+                                        visualDensity:
+                                            VisualDensity.comfortable,
+                                        textStyle: textStyle(
+                                          context,
+                                          style: StyleType.bodMed,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
                               ),
                             ),
-                            inputDecorationTheme: _inputDecoration(context),
-                            trailingIcon: const Icon(
-                              CupertinoIcons.chevron_down,
-                              size: 25,
+                            Gap.vertical(16),
+                            BoxCalculator(
+                              label: '${localize.amountFieldLabel}*',
                             ),
-                            hintText: '${localize.account} 1',
-                            textStyle: textStyle(
-                              context,
-                              style: StyleType.bodMed,
-                            ).copyWith(
-                              fontWeight: FontWeight.w700,
+                            Gap.vertical(16),
+                            Icon(
+                              CupertinoIcons.arrow_down,
+                              color: context.color.onSurface
+                                  .withValues(alpha: 0.5),
                             ),
-                            requestFocusOnTap: false,
-                            onSelected: (Account? account) {
-                              setState(() {
-                                _firstSelectedAccount = account;
-                              });
-                            },
-                            menuStyle: _menuStyle(),
-                            dropdownMenuEntries:
-                                accounts.map<DropdownMenuEntry<Account>>(
-                              (Account account) {
-                                return DropdownMenuEntry<Account>(
-                                  value: account,
-                                  label: account.name,
-                                  style: MenuItemButton.styleFrom(
-                                    visualDensity: VisualDensity.comfortable,
-                                    textStyle: textStyle(
-                                      context,
-                                      style: StyleType.bodMed,
-                                    ),
+                            Gap.vertical(16),
+                            AppGlass(
+                              height: 70.h,
+                              padding: getEdgeInsets(
+                                top: 10,
+                                bottom: 10,
+                                left: 16,
+                                right: 10,
+                              ),
+                              child: DropdownMenu<Account>(
+                                expandedInsets: EdgeInsets.zero,
+                                menuHeight: 150.h,
+                                selectedTrailingIcon: const Icon(
+                                  CupertinoIcons.chevron_up,
+                                  size: 25,
+                                ),
+                                leadingIcon: Padding(
+                                  padding: getEdgeInsets(right: 22),
+                                  child: getPngAsset(
+                                    accountPng,
+                                    height: 18,
+                                    width: 18,
+                                    color: context.color.onSurface,
                                   ),
-                                );
-                              },
-                            ).toList(),
-                          ),
-                        ),
-                        Gap.vertical(16),
-                        BoxCalculator(
-                          label: '${localize.amountFieldLabel}*',
-                        ),
-                        Gap.vertical(16),
-                        Icon(
-                          CupertinoIcons.arrow_down,
-                          color: context.color.onSurface.withValues(alpha: 0.5),
-                        ),
-                        Gap.vertical(16),
-                        AppGlass(
-                          height: 70.h,
-                          padding: getEdgeInsets(
-                            top: 10,
-                            bottom: 10,
-                            left: 16,
-                            right: 10,
-                          ),
-                          child: DropdownMenu<Account>(
-                            expandedInsets: EdgeInsets.zero,
-                            menuHeight: 150.h,
-                            selectedTrailingIcon: const Icon(
-                              CupertinoIcons.chevron_up,
-                              size: 25,
-                            ),
-                            leadingIcon: Padding(
-                              padding: getEdgeInsets(right: 22),
-                              child: getPngAsset(
-                                accountPng,
-                                height: 18,
-                                width: 18,
-                                color: context.color.onSurface,
+                                ),
+                                inputDecorationTheme: _inputDecoration(context),
+                                trailingIcon: const Icon(
+                                  CupertinoIcons.chevron_down,
+                                  size: 25,
+                                ),
+                                hintText: '${localize.account} 2',
+                                textStyle: textStyle(
+                                  context,
+                                  style: StyleType.bodMed,
+                                ).copyWith(
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                requestFocusOnTap: false,
+                                onSelected: (Account? account) {
+                                  setState(() {
+                                    _secondSelectedAccount = account;
+                                  });
+                                },
+                                menuStyle: _menuStyle(),
+                                dropdownMenuEntries:
+                                    accounts.map<DropdownMenuEntry<Account>>(
+                                  (Account account) {
+                                    return DropdownMenuEntry<Account>(
+                                      value: account,
+                                      label: account.name,
+                                      style: MenuItemButton.styleFrom(
+                                        visualDensity:
+                                            VisualDensity.comfortable,
+                                        textStyle: textStyle(
+                                          context,
+                                          style: StyleType.bodMed,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
                               ),
                             ),
-                            inputDecorationTheme: _inputDecoration(context),
-                            trailingIcon: const Icon(
-                              CupertinoIcons.chevron_down,
-                              size: 25,
-                            ),
-                            hintText: '${localize.account} 2',
-                            textStyle: textStyle(
-                              context,
-                              style: StyleType.bodMed,
-                            ).copyWith(
-                              fontWeight: FontWeight.w700,
-                            ),
-                            requestFocusOnTap: false,
-                            onSelected: (Account? account) {
-                              setState(() {
-                                _secondSelectedAccount = account;
-                              });
-                            },
-                            menuStyle: _menuStyle(),
-                            dropdownMenuEntries:
-                                accounts.map<DropdownMenuEntry<Account>>(
-                              (Account account) {
-                                return DropdownMenuEntry<Account>(
-                                  value: account,
-                                  label: account.name,
-                                  style: MenuItemButton.styleFrom(
-                                    visualDensity: VisualDensity.comfortable,
-                                    textStyle: textStyle(
-                                      context,
-                                      style: StyleType.bodMed,
-                                    ),
-                                  ),
-                                );
-                              },
-                            ).toList(),
-                          ),
-                        ),
-                        Gap.vertical(16),
-                      ],
+                            Gap.vertical(16),
+                          ],
+                        );
+                      },
                     ),
                   ),
-                );
-              },
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: SafeArea(
+                      child: BottomSheetParent(
+                        isWithBorderTop: true,
+                        child: AppButton.darkLabel(
+                          label: localize.save,
+                          isActive: true,
+                          onPressed: () {
+                            final amount = ControllerHelper.getAmount(context);
+
+                            if (_firstSelectedAccount ==
+                                _secondSelectedAccount) {
+                              AppToast.showToastError(
+                                context,
+                                localize.selectDifferentAccount,
+                              );
+                              return;
+                            }
+
+                            if (amount != null &&
+                                _firstSelectedAccount != null &&
+                                _secondSelectedAccount != null) {
+                              final firstAmount = _firstSelectedAccount?.amount;
+                              final secondAmount =
+                                  _secondSelectedAccount?.amount;
+
+                              if (firstAmount != null && secondAmount != null) {
+                                final updatedFirstAmount = firstAmount - amount;
+                                final updatedSecondAmount =
+                                    secondAmount + amount;
+
+                                final updatedFirstAccount =
+                                    _firstSelectedAccount!.copyWith(
+                                  amount: updatedFirstAmount,
+                                );
+
+                                final updatedSecondAccount =
+                                    _secondSelectedAccount!.copyWith(
+                                  amount: updatedSecondAmount,
+                                );
+
+                                context.read<AccountBloc>().add(
+                                      TransferAccountEvent(
+                                        updatedFirstAccount:
+                                            updatedFirstAccount,
+                                        updatedSecondAccount:
+                                            updatedSecondAccount,
+                                      ),
+                                    );
+                              }
+                            } else {
+                              AppToast.showToastError(
+                                context,
+                                localize.pleaseFillAllRequiredFields,
+                              );
+                              return;
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
-        ),
-        bottomSheet: BottomSheetParent(
-          isWithBorderTop: true,
-          child: AppButton.darkLabel(
-            label: localize.save,
-            isActive: true,
-            onPressed: () {
-              final amount = ControllerHelper.getAmount(context);
-
-              if (_firstSelectedAccount == _secondSelectedAccount) {
-                AppToast.showToastError(
-                  context,
-                  localize.selectDifferentAccount,
-                );
-                return;
-              }
-
-              if (amount != null &&
-                  _firstSelectedAccount != null &&
-                  _secondSelectedAccount != null) {
-                final firstAmount = _firstSelectedAccount?.amount;
-                final secondAmount = _secondSelectedAccount?.amount;
-
-                if (firstAmount != null && secondAmount != null) {
-                  final updatedFirstAmount = firstAmount - amount;
-                  final updatedSecondAmount = secondAmount + amount;
-
-                  final updatedFirstAccount = _firstSelectedAccount!.copyWith(
-                    amount: updatedFirstAmount,
-                  );
-
-                  final updatedSecondAccount = _secondSelectedAccount!.copyWith(
-                    amount: updatedSecondAmount,
-                  );
-
-                  context.read<AccountBloc>().add(
-                        TransferAccountEvent(
-                          updatedFirstAccount: updatedFirstAccount,
-                          updatedSecondAccount: updatedSecondAccount,
-                        ),
-                      );
-                }
-              } else {
-                AppToast.showToastError(
-                  context,
-                  localize.pleaseFillAllRequiredFields,
-                );
-                return;
-              }
-            },
-          ),
         ),
       ),
     );
