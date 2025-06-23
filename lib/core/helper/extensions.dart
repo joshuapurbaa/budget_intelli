@@ -47,7 +47,7 @@ extension StringToDouble on String {
     // Hapus spasi putih di awal dan akhir string
     var input = trim();
 
-    // Bersihkan karakter yang tidak valid
+    // Hapus karakter yang tidak valid
     input = input.replaceAll(RegExp('[^0-9,.]'), '');
 
     // Jika string kosong setelah dibersihkan
@@ -67,19 +67,39 @@ extension StringToDouble on String {
         input = input.replaceAll(',', '');
       }
     } else if (input.contains(',')) {
-      // Jika hanya ada koma, tetapi dibelakang terdapat 2 digit desimal, maka koma digunakan sebagai desimal
+      // Split by comma to analyze the parts
       final parts = input.split(',');
-      if (parts.length == 2 && parts[1].length == 2) {
-        return double.parse(input);
-      } else {
-        // Jika hanya ada koma, tetapi dibelakang terdapat 3 angka maka hilangkan koma
+
+      // Check if this looks like thousand separators or decimal separator
+      var isThousandSeparator = false;
+
+      if (parts.length > 2) {
+        // Multiple commas = definitely thousand separators
+        isThousandSeparator = true;
+      } else if (parts.length == 2) {
+        // Single comma: check if it's likely a thousand separator or decimal
+        // If the part after comma has exactly 3 digits, it's likely a thousand separator
+        // If it has 1-2 digits, it's likely a decimal separator
         if (parts[1].length == 3) {
-          return double.parse(parts[0] + parts[1]);
+          isThousandSeparator = true;
+        } else if (parts[1].length <= 2) {
+          // This is a decimal separator
+          isThousandSeparator = false;
         }
+      }
+
+      if (isThousandSeparator) {
+        // Remove all commas (thousand separators)
+        input = input.replaceAll(',', '');
+      }
+      // If it's a decimal separator, keep the comma and let double.parse handle it
+      // But double.parse expects dot, so replace comma with dot
+      else {
+        input = input.replaceAll(',', '.');
       }
     } else if (input.contains('.')) {
       final parts = input.split('.');
-      if (parts.length == 2 && parts[1] == '0' || parts[1] == '00') {
+      if (parts.length == 2 && (parts[1] == '0' || parts[1] == '00')) {
         return double.parse(parts[0]);
       } else {
         if (parts[1].length == 3) {
