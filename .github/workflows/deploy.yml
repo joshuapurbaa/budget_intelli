@@ -1,0 +1,62 @@
+name: Deploy to Play Store
+
+on:
+  push:
+    branches: [ main, master ]
+  release:
+    types: [ published ]
+
+jobs:
+  deploy:
+    name: Build and Deploy to Play Store
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Setup Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: '17'
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version-file: 'pubspec.yaml'
+        channel: 'stable'
+        cache: true
+
+    - name: Install Dependencies
+      run: flutter pub get
+
+    - name: Run Tests
+      run: flutter test
+
+    - name: Create google_service_account.json
+      run: echo "${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}" | base64 --decode > google_service_account.json
+
+    - name: Create Android keystore
+      run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 --decode > android/app/release-keystore.jks
+
+    - name: Create keystore.properties
+      run: |
+        echo "storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}" > android/keystore.properties
+        echo "keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}" >> android/keystore.properties
+        echo "keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}" >> android/keystore.properties
+        echo "storeFile=release-keystore.jks" >> android/keystore.properties
+
+    - name: Build App Bundle
+      run: flutter build appbundle --release
+
+    - name: Deploy to Play Store
+      uses: r0adkll/upload-google-play@v1.1.3
+      with:
+        serviceAccountJsonPlainText: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        packageName: com.porseatechnology.budgetIntelli
+        releaseFiles: build/app/outputs/bundle/release/app-release.aab
+        track: internal
+        status: completed
+        whatsNewDirectory: distribution/whatsnew
+        mappingFile: build/app/outputs/mapping/release/mapping.txt 

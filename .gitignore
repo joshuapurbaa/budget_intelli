@@ -55,3 +55,14 @@ lib/core/constants/api_key.dart
 
 # FVM Version Cache
 .fvm/
+
+# Deployment secrets (DO NOT COMMIT)
+android/keystore.properties
+android/app/*.jks
+android/app/*.keystore
+google_service_account.json
+*.p12
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
