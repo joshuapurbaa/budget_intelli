@@ -134,3 +134,9 @@ class SetOnlyFinancialTrackerChange extends SettingEvent {
 
   final bool value;
 }
+
+class UpdateShowAmountEvent extends SettingEvent {
+  UpdateShowAmountEvent({required this.showAmount});
+
+  final bool showAmount;
+}

@@ -16,6 +16,7 @@ class SettingPreferenceRepo {
   static const String _notificationEnable = 'notificationEnable';
   static const String _schedulePaymentNotification =
       'schedulePaymentNotification';
+  static const String _showAmount = 'showAmount';
 
   static const Duration _sessionDuration = Duration(minutes: 30);
 
@@ -171,5 +172,16 @@ class SettingPreferenceRepo {
   Future<bool> getOnlyFinancialTracker() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_onlyFinancialTracker) ?? false;
+  }
+
+  // Setters and Getters for show amount
+  Future<void> setShowAmount({required bool value}) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_showAmount, value);
+  }
+
+  Future<bool> getShowAmount() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_showAmount) ?? false;
   }
 }

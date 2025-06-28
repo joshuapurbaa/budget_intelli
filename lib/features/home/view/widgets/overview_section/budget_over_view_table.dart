@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class BudgetOverviewTable extends StatelessWidget {
   const BudgetOverviewTable({
@@ -9,6 +10,7 @@ class BudgetOverviewTable extends StatelessWidget {
     required this.totalActualExpense,
     required this.plannedRemaining,
     required this.actualRemaining,
+    required this.showAmount,
     super.key,
   });
 
@@ -18,6 +20,7 @@ class BudgetOverviewTable extends StatelessWidget {
   final double totalActualExpense;
   final double plannedRemaining;
   final double actualRemaining;
+  final bool showAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -116,22 +119,34 @@ class BudgetOverviewTable extends StatelessWidget {
         // Planned column
         Expanded(
           flex: 2,
-          child: AppText(
-            text: planned,
-            style: textStyle,
-            fontWeight: fontWeight,
-            textAlign: TextAlign.center,
-          ),
+          child: showAmount
+              ? AppText(
+                  text: planned,
+                  style: textStyle,
+                  fontWeight: fontWeight,
+                  textAlign: TextAlign.center,
+                )
+              : Icon(
+                  FontAwesomeIcons.ellipsis,
+                  color: context.color.primary,
+                  size: 35,
+                ),
         ),
         // Actual column
         Expanded(
           flex: 2,
-          child: AppText(
-            text: actual,
-            style: textStyle,
-            fontWeight: fontWeight,
-            textAlign: TextAlign.center,
-          ),
+          child: showAmount
+              ? AppText(
+                  text: actual,
+                  style: textStyle,
+                  fontWeight: fontWeight,
+                  textAlign: TextAlign.center,
+                )
+              : Icon(
+                  FontAwesomeIcons.ellipsis,
+                  color: context.color.primary,
+                  size: 35,
+                ),
         ),
       ],
     );

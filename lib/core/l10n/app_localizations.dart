@@ -2575,6 +2575,66 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Terjadi kesalahan'**
   String get somethingWentWrong;
+
+  /// No description provided for @updateAvailable.
+  ///
+  /// In id, this message translates to:
+  /// **'Update Tersedia'**
+  String get updateAvailable;
+
+  /// No description provided for @newVersionAvailable.
+  ///
+  /// In id, this message translates to:
+  /// **'Versi baru Budget Intelli telah tersedia!'**
+  String get newVersionAvailable;
+
+  /// No description provided for @currentVersion.
+  ///
+  /// In id, this message translates to:
+  /// **'Versi Saat Ini'**
+  String get currentVersion;
+
+  /// No description provided for @newVersion.
+  ///
+  /// In id, this message translates to:
+  /// **'Versi Baru'**
+  String get newVersion;
+
+  /// No description provided for @updateRecommendation.
+  ///
+  /// In id, this message translates to:
+  /// **'Kami merekomendasikan untuk update guna mendapatkan fitur dan perbaikan terbaru.'**
+  String get updateRecommendation;
+
+  /// No description provided for @later.
+  ///
+  /// In id, this message translates to:
+  /// **'Nanti'**
+  String get later;
+
+  /// No description provided for @updateNow.
+  ///
+  /// In id, this message translates to:
+  /// **'Update Sekarang'**
+  String get updateNow;
+
+  /// No description provided for @updateDownloaded.
+  ///
+  /// In id, this message translates to:
+  /// **'Update Terunduh'**
+  String get updateDownloaded;
+
+  /// No description provided for @restartToComplete.
+  ///
+  /// In id, this message translates to:
+  /// **'Restart aplikasi untuk menyelesaikan update.'**
+  String get restartToComplete;
+
+  /// No description provided for @restartNow.
+  ///
+  /// In id, this message translates to:
+  /// **'Restart Sekarang'**
+  String get restartNow;
 }
 
 class _AppLocalizationsDelegate

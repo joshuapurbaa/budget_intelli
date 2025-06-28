@@ -246,6 +246,9 @@ void main() async {
         BlocProvider<MemberDbBloc>(
           create: (_) => serviceLocator<MemberDbBloc>(),
         ),
+        BlocProvider<AppUpdateCubit>(
+          create: (_) => AppUpdateCubit(),
+        ),
       ],
       child: const BudgetIntelli(),
     ),

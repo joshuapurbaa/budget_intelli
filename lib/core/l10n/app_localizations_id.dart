@@ -1285,4 +1285,36 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get somethingWentWrong => 'Terjadi kesalahan';
+
+  @override
+  String get updateAvailable => 'Update Tersedia';
+
+  @override
+  String get newVersionAvailable => 'Versi baru Budget Intelli telah tersedia!';
+
+  @override
+  String get currentVersion => 'Versi Saat Ini';
+
+  @override
+  String get newVersion => 'Versi Baru';
+
+  @override
+  String get updateRecommendation =>
+      'Kami merekomendasikan untuk update guna mendapatkan fitur dan perbaikan terbaru.';
+
+  @override
+  String get later => 'Nanti';
+
+  @override
+  String get updateNow => 'Update Sekarang';
+
+  @override
+  String get updateDownloaded => 'Update Terunduh';
+
+  @override
+  String get restartToComplete =>
+      'Restart aplikasi untuk menyelesaikan update.';
+
+  @override
+  String get restartNow => 'Restart Sekarang';
 }

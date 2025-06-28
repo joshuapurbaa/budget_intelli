@@ -411,5 +411,15 @@
   "moreEntries": "entri lebih banyak",
   "goalUpdatedSuccessfully": "Target berhasil diperbarui",
   "pleaseEnterValidAmount": "Harap masukkan jumlah yang valid",
-  "somethingWentWrong": "Terjadi kesalahan"
+  "somethingWentWrong": "Terjadi kesalahan",
+  "updateAvailable": "Update Tersedia",
+  "newVersionAvailable": "Versi baru Budget Intelli telah tersedia!",
+  "currentVersion": "Versi Saat Ini",
+  "newVersion": "Versi Baru",
+  "updateRecommendation": "Kami merekomendasikan untuk update guna mendapatkan fitur dan perbaikan terbaru.",
+  "later": "Nanti",
+  "updateNow": "Update Sekarang",
+  "updateDownloaded": "Update Terunduh",
+  "restartToComplete": "Restart aplikasi untuk menyelesaikan update.",
+  "restartNow": "Restart Sekarang"
 }

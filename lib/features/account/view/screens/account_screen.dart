@@ -1,8 +1,10 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/account/view/controller/controller.dart';
+import 'package:budget_intelli/features/settings/controller/settings_bloc/settings_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -24,6 +26,8 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
+    final showAmount = context.read<SettingBloc>().state.showAmount;
+
     return Scaffold(
       appBar: appBarPrimary(
         context: context,
@@ -74,34 +78,51 @@ class _AccountScreenState extends State<AccountScreen> {
                     top: 10,
                     bottom: 10,
                   ),
-                  child: RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: 'Total: ',
-                          style: textStyle(
-                            context,
-                            style: StyleType.bodLg,
-                          ).copyWith(
-                            color:
-                                context.color.onSurface.withValues(alpha: 0.5),
+                  child: showAmount
+                      ? RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: 'Total: ',
+                                style: textStyle(
+                                  context,
+                                  style: StyleType.bodLg,
+                                ).copyWith(
+                                  color: context.color.onSurface
+                                      .withValues(alpha: 0.5),
+                                ),
+                              ),
+                              TextSpan(
+                                text: NumberFormatter.formatToMoneyDouble(
+                                  context,
+                                  totalAmount,
+                                ),
+                                style: textStyle(
+                                  context,
+                                  style: StyleType.bodLg,
+                                ).copyWith(
+                                  color: context.color.primary,
+                                ),
+                              ),
+                            ],
                           ),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            AppText(
+                              text: 'Total: ',
+                              style: StyleType.bodLg,
+                              color: context.color.onSurface
+                                  .withValues(alpha: 0.5),
+                            ),
+                            Icon(
+                              FontAwesomeIcons.ellipsis,
+                              color: context.color.primary,
+                              size: 35,
+                            ),
+                          ],
                         ),
-                        TextSpan(
-                          text: NumberFormatter.formatToMoneyDouble(
-                            context,
-                            totalAmount,
-                          ),
-                          style: textStyle(
-                            context,
-                            style: StyleType.bodLg,
-                          ).copyWith(
-                            color: context.color.primary,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                 ),
               ),
               SliverFillRemaining(
@@ -165,26 +186,36 @@ class _AccountScreenState extends State<AccountScreen> {
                                     children: [
                                       AppText(
                                         text: account.name,
-                                        style: StyleType.bodMed,
+                                        style: StyleType.bodLg,
                                         textAlign: TextAlign.center,
                                         maxLines: 2,
                                         color: context.color.primary,
                                         fontWeight: FontWeight.bold,
                                       ),
                                       Gap.vertical(16),
-                                      const AppDivider(),
-                                      Gap.vertical(16),
-                                      AppText(
-                                        text:
-                                            NumberFormatter.formatToMoneyDouble(
-                                          context,
-                                          account.amount,
-                                        ),
-                                        style: StyleType.bodMed,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        fontWeight: FontWeight.w500,
+                                      AppDivider(
+                                        color: context.color.onSurface
+                                            .withValues(alpha: 0.1),
                                       ),
+                                      Gap.vertical(16),
+                                      if (showAmount)
+                                        AppText(
+                                          text: NumberFormatter
+                                              .formatToMoneyDouble(
+                                            context,
+                                            account.amount,
+                                          ),
+                                          style: StyleType.bodMed,
+                                          textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                          fontWeight: FontWeight.w500,
+                                        )
+                                      else
+                                        Icon(
+                                          FontAwesomeIcons.ellipsis,
+                                          color: context.color.primary,
+                                          size: 35,
+                                        ),
                                     ],
                                   ),
                                 ),

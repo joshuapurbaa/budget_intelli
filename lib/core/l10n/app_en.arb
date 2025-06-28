@@ -411,5 +411,15 @@
   "moreEntries": "more entries",
   "goalUpdatedSuccessfully": "Goal updated successfully",
   "pleaseEnterValidAmount": "Please enter a valid amount",
-  "somethingWentWrong": "Something went wrong"
+  "somethingWentWrong": "Something went wrong",
+  "updateAvailable": "Update Available",
+  "newVersionAvailable": "A new version of Budget Intelli is available!",
+  "currentVersion": "Current Version",
+  "newVersion": "New Version",
+  "updateRecommendation": "We recommend updating to get the latest features and improvements.",
+  "later": "Later",
+  "updateNow": "Update Now",
+  "updateDownloaded": "Update Downloaded",
+  "restartToComplete": "Restart the app to complete the update.",
+  "restartNow": "Restart Now"
 }

@@ -45,6 +45,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     on<BiometricSettingChange>(_onBiometricSettingChange);
     on<AuthenticationChange>(_onAuthenticationChange);
     on<NotificationChange>(_onNotificationChange);
+    on<UpdateShowAmountEvent>(_onUpdateShowAmount);
   }
 
   final SettingPreferenceRepo _settingRepository;
@@ -104,7 +105,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
     final useBiometrics = await _settingRepository.getUseBiometrics();
     final authenticated = await _settingRepository.getIsAuthenticated();
     final notificationEnable = await _settingRepository.getNotificationEnable();
-
+    final showAmount = await _settingRepository.getShowAmount();
     emit(
       state.copyWith(
         selectedLanguage: selectedLanguage,
@@ -123,6 +124,7 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         useBiometrics: useBiometrics,
         isAuthenticated: authenticated,
         notificationEnable: notificationEnable,
+        showAmount: showAmount,
       ),
     );
   }
@@ -353,5 +355,13 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
         onlyFinancialTracker: event.value,
       ),
     );
+  }
+
+  Future<void> _onUpdateShowAmount(
+    UpdateShowAmountEvent event,
+    Emitter<SettingState> emit,
+  ) async {
+    await _settingRepository.setShowAmount(value: event.showAmount);
+    emit(state.copyWith(showAmount: event.showAmount));
   }
 }

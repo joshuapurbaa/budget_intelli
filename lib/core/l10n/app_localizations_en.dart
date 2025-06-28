@@ -1282,4 +1282,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get somethingWentWrong => 'Something went wrong';
+
+  @override
+  String get updateAvailable => 'Update Available';
+
+  @override
+  String get newVersionAvailable =>
+      'A new version of Budget Intelli is available!';
+
+  @override
+  String get currentVersion => 'Current Version';
+
+  @override
+  String get newVersion => 'New Version';
+
+  @override
+  String get updateRecommendation =>
+      'We recommend updating to get the latest features and improvements.';
+
+  @override
+  String get later => 'Later';
+
+  @override
+  String get updateNow => 'Update Now';
+
+  @override
+  String get updateDownloaded => 'Update Downloaded';
+
+  @override
+  String get restartToComplete => 'Restart the app to complete the update.';
+
+  @override
+  String get restartNow => 'Restart Now';
 }

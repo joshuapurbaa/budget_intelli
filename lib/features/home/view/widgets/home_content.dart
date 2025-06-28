@@ -83,20 +83,22 @@ class _HomeContentState extends State<HomeContent>
             _getBudgetById(state.lastSeenBudgetId);
           }
         },
-        builder: (context, state) {
+        builder: (context, settingState) {
+          final showAmount = settingState.showAmount;
           final lastSeenBudgetIdNullOrEmpty =
-              state.lastSeenBudgetId == null || state.lastSeenBudgetId!.isEmpty;
+              settingState.lastSeenBudgetId == null ||
+                  settingState.lastSeenBudgetId!.isEmpty;
 
           if (lastSeenBudgetIdNullOrEmpty) {
             return SafeArea(
               child: EmptyHomeContentWithAddBudgetButton(
-                loading: state.loading,
+                loading: settingState.loading,
               ),
             );
-          } else if (state.loading) {
+          } else if (settingState.loading) {
             return SafeArea(
               child: EmptyHomeContent(
-                loading: state.loading,
+                loading: settingState.loading,
               ),
             );
           } else {
@@ -173,7 +175,9 @@ class _HomeContentState extends State<HomeContent>
                               children: [
                                 Padding(
                                   padding: getEdgeInsets(left: 16, right: 16),
-                                  child: const AppBarWidget(),
+                                  child: AppBarWidget(
+                                    showAmount: settingState.showAmount,
+                                  ),
                                 ),
                                 DefaultTabController(
                                   length: 3,
@@ -227,6 +231,7 @@ class _HomeContentState extends State<HomeContent>
                                 itemCategoryTransactions:
                                     itemCategoryTransactions,
                                 user: widget.user,
+                                showAmount: showAmount,
                               ),
                               TrackingView(
                                 budgetId: budget.id,

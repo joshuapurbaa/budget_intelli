@@ -12,6 +12,7 @@ export 'constants/local_data/spending_categories.dart';
 // error
 export 'error/exception.dart';
 export 'error/failures.dart';
+export 'global_controller/app_update/app_update_cubit.dart';
 export 'global_controller/box_calendar/box_calendar_cubit.dart';
 export 'global_controller/box_category/box_category_cubit.dart';
 export 'global_controller/location/location_cubit.dart';
@@ -28,6 +29,8 @@ export 'network/connection_checker.dart';
 // routes
 export 'routes/app_route_import.dart';
 export 'routes/my_route.dart';
+// services
+export 'services/update_service.dart';
 // theme
 export 'theme/app_color.dart';
 export 'theme/app_text_style.dart';
@@ -58,11 +61,9 @@ export 'utils/text_localize.dart';
 export 'utils/text_style.dart';
 export 'utils/timestamp_formatter.dart';
 export 'utils/top_curve_clipper.dart';
-
 // typedef
 export 'utils/typedef.dart';
 export 'utils/usecase.dart';
-
 // widgets
 export 'widgets/ad_widget_repository.dart';
 export 'widgets/app_animated_container.dart';
@@ -95,9 +96,9 @@ export 'widgets/app_sliver_body.dart';
 export 'widgets/app_sliver_presistent_header.dart';
 export 'widgets/app_text.dart';
 export 'widgets/app_transformer.dart';
+export 'widgets/app_update_dialog.dart';
 export 'widgets/bottom_sheet_parent.dart';
 export 'widgets/box_calculator/box_calculator.dart';
-
 // cubit
 export 'widgets/box_calculator/cubit/box_calculator_cubit.dart';
 export 'widgets/box_calender.dart';

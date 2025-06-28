@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -25,6 +26,7 @@ class BudgetOverview extends StatefulWidget {
     required this.totalBudgetIncome,
     required this.user,
     required this.itemCategoryTransactions,
+    required this.showAmount,
     super.key,
   });
 
@@ -36,7 +38,7 @@ class BudgetOverview extends StatefulWidget {
   final double totalBudgetIncome;
   final UserIntelli? user;
   final List<ItemCategoryTransaction> itemCategoryTransactions;
-
+  final bool showAmount;
   @override
   State<BudgetOverview> createState() => _BudgetOverviewState();
 }
@@ -311,9 +313,17 @@ class _BudgetOverviewState extends State<BudgetOverview> {
             Gap.vertical(10),
             const HeaderWidget(),
             const AnalyzeBudgetButton(),
-            _buildBudgetSummaryCard(dateRangeStr, marginLRB, groupsEmpty,
-                expensesEmpty, budgetMetrics),
-            _buildCategoryGroupsList(budgetMetrics['plannedRemaining']!),
+            _buildBudgetSummaryCard(
+              dateRangeStr,
+              marginLRB,
+              groupsEmpty,
+              expensesEmpty,
+              budgetMetrics,
+            ),
+            _buildCategoryGroupsList(
+              budgetMetrics['plannedRemaining']!,
+              widget.showAmount,
+            ),
             _buildActionButtons(budgetMetrics['plannedRemaining']!),
             _buildDeleteBudgetSection(),
             if (!premiumUser) _buildAdSection(),
@@ -337,7 +347,10 @@ class _BudgetOverviewState extends State<BudgetOverview> {
       padding: getEdgeInsets(left: 10, right: 10, top: 10),
       child: Column(
         children: [
-          AppText.autoSize(text: dateRangeStr, style: StyleType.bodLg),
+          AppText(
+            text: dateRangeStr,
+            style: StyleType.bodLg,
+          ),
           Gap.vertical(10),
           AppDivider(
             color: context.color.onSurface.withValues(alpha: 0.3),
@@ -346,6 +359,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
           if (groupsEmpty)
             const CircularProgressIndicator.adaptive()
           else ...[
+            Gap.vertical(10),
             PieChartOverview(
               groupCategoryHistories: widget.groupCategoryHistories,
               totalExpense: widget.budget.totalPlanExpense,
@@ -380,6 +394,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
             totalActualExpense: widget.totalActualExpense,
             plannedRemaining: budgetMetrics['plannedRemaining']!,
             actualRemaining: budgetMetrics['actualRemaining']!,
+            showAmount: widget.showAmount,
           ),
           GestureDetector(
             onTap: () => setState(() => openDataTable = false),
@@ -401,17 +416,25 @@ class _BudgetOverviewState extends State<BudgetOverview> {
   }
 
   /// Builds the list of category groups with their items
-  Widget _buildCategoryGroupsList(double plannedRemaining) {
+  Widget _buildCategoryGroupsList(double plannedRemaining, bool showAmount) {
     return Column(
       children: List.generate(
         widget.groupCategoryHistories.length,
-        (indexGroup) => _buildCategoryGroupCard(indexGroup, plannedRemaining),
+        (indexGroup) => _buildCategoryGroupCard(
+          indexGroup,
+          plannedRemaining,
+          showAmount,
+        ),
       ),
     );
   }
 
   /// Builds a single category group card
-  Widget _buildCategoryGroupCard(int indexGroup, double plannedRemaining) {
+  Widget _buildCategoryGroupCard(
+    int indexGroup,
+    double plannedRemaining,
+    bool showAmount,
+  ) {
     final groupCategoryHistory = widget.groupCategoryHistories[indexGroup];
     final groupName = groupCategoryHistory.groupName;
     final items = groupCategoryHistory.itemCategoryHistories;
@@ -426,7 +449,12 @@ class _BudgetOverviewState extends State<BudgetOverview> {
       child: Column(
         children: [
           _buildGroupHeader(
-              indexGroup, groupName, totalAmount, groupCategoryHistory),
+            indexGroup,
+            groupName,
+            totalAmount,
+            groupCategoryHistory,
+            showAmount,
+          ),
           if (expandListTileValue[indexGroup]) ...[
             Gap.vertical(10),
             if (items.isNotEmpty)
@@ -447,6 +475,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
     String groupName,
     double totalAmount,
     GroupCategoryHistory groupCategoryHistory,
+    bool showAmount,
   ) {
     return GestureDetector(
       onTap: () {
@@ -478,11 +507,18 @@ class _BudgetOverviewState extends State<BudgetOverview> {
             ),
           ),
           Gap.horizontal(10),
-          AppText(
-            text: NumberFormatter.formatToMoneyDouble(context, totalAmount),
-            style: StyleType.bodMed,
-            fontWeight: FontWeight.w700,
-          ),
+          if (showAmount)
+            AppText(
+              text: NumberFormatter.formatToMoneyDouble(context, totalAmount),
+              style: StyleType.bodMed,
+              fontWeight: FontWeight.w700,
+            )
+          else
+            Icon(
+              FontAwesomeIcons.ellipsis,
+              color: context.color.primary,
+              size: 35,
+            ),
           Gap.horizontal(10),
           _buildEditGroupButton(groupCategoryHistory, indexGroup, groupName),
         ],
@@ -608,7 +644,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
     final iconPathNotNull = iconPath != null;
     final isIncome = item.type == 'income';
     final localize = textLocalizer(context);
-
+    final showAmount = widget.showAmount;
     // Calculate progress metrics
     final actualAmount = widget.itemCategoryTransactions
         .where((element) => element.itemHistoId == item.id)
@@ -639,6 +675,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
                   right:
                       NumberFormatter.formatToMoneyDouble(context, item.amount),
                   lineThrough: completed,
+                  showAmount: showAmount,
                 ),
               ),
               if (completed) ...[

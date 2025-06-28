@@ -22,6 +22,11 @@ class _BudgetIntelliState extends State<BudgetIntelli> {
 
     // context.read<AuthBloc>().add(GetCurrentUserSessionEvent());
     context.read<SettingBloc>().add(GetUserSettingEvent());
+
+    // Check for app updates on startup
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<AppUpdateCubit>().checkForUpdates();
+    });
   }
 
   @override
@@ -36,24 +41,36 @@ class _BudgetIntelliState extends State<BudgetIntelli> {
       designSize: const Size(375, 812),
       minTextAdapt: true,
       builder: (context, child) {
-        return BlocBuilder<SettingBloc, SettingState>(
-          builder: (context, state) {
-            return MaterialApp.router(
-              locale: state.selectedLanguage.value,
-              localizationsDelegates: AppLocalizations.localizationsDelegates,
-              supportedLocales: AppLocalizations.supportedLocales,
-              debugShowCheckedModeBanner: false,
-              title: 'Budget Intelli',
-              theme: MaterialTheme(AppTextStyle.textThemeLightMode).light(),
-              darkTheme: MaterialTheme(AppTextStyle.textThemeDarkMode).dark(),
-              themeMode: state.themeMode,
-              routeInformationParser: AppRoute.router.routeInformationParser,
-              routeInformationProvider:
-                  AppRoute.router.routeInformationProvider,
-              routerDelegate: AppRoute.router.routerDelegate,
-              backButtonDispatcher: AppRoute.router.backButtonDispatcher,
-            );
-          },
+        return MultiBlocListener(
+          listeners: [
+            BlocListener<AppUpdateCubit, AppUpdateState>(
+              listener: (context, state) {
+                if (state is AppUpdateAvailable) {
+                  // Show update dialog when update is available
+                  AppUpdateDialog.show(context, state.updateInfo);
+                }
+              },
+            ),
+          ],
+          child: BlocBuilder<SettingBloc, SettingState>(
+            builder: (context, state) {
+              return MaterialApp.router(
+                locale: state.selectedLanguage.value,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                debugShowCheckedModeBanner: false,
+                title: 'Budget Intelli',
+                theme: MaterialTheme(AppTextStyle.textThemeLightMode).light(),
+                darkTheme: MaterialTheme(AppTextStyle.textThemeDarkMode).dark(),
+                themeMode: state.themeMode,
+                routeInformationParser: AppRoute.router.routeInformationParser,
+                routeInformationProvider:
+                    AppRoute.router.routeInformationProvider,
+                routerDelegate: AppRoute.router.routerDelegate,
+                backButtonDispatcher: AppRoute.router.backButtonDispatcher,
+              );
+            },
+          ),
         );
       },
     );
