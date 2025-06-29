@@ -51,7 +51,7 @@ class RowText extends StatelessWidget {
           Icon(
             FontAwesomeIcons.ellipsis,
             color: context.color.primary,
-            size: 35,
+            size: 22,
           ),
       ],
     );

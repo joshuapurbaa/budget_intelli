@@ -1,5 +1,6 @@
 import 'package:budget_intelli/core/core.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class TransactionItemList extends StatelessWidget {
   const TransactionItemList({
@@ -7,6 +8,7 @@ class TransactionItemList extends StatelessWidget {
     required this.spendOn,
     required this.amount,
     required this.time,
+    required this.showAmount,
     this.iconPath,
     this.categoryName,
     super.key,
@@ -24,6 +26,7 @@ class TransactionItemList extends StatelessWidget {
   final int? hexColor;
   final String? iconPath;
   final String? categoryName;
+  final bool showAmount;
 
   @override
   Widget build(BuildContext context) {
@@ -72,13 +75,20 @@ class TransactionItemList extends StatelessWidget {
               ],
             ),
           ),
-          AppText(
-            text: NumberFormatter.formatToMoneyDouble(
-              context,
-              amount,
+          if (showAmount)
+            AppText(
+              text: NumberFormatter.formatToMoneyDouble(
+                context,
+                amount,
+              ),
+              style: StyleType.bodMed,
+            )
+          else
+            Icon(
+              FontAwesomeIcons.ellipsis,
+              color: context.color.primary,
+              size: 22,
             ),
-            style: StyleType.bodMed,
-          ),
           if (!noChevron) ...[
             Gap.horizontal(10),
             Icon(

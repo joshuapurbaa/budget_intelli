@@ -119,7 +119,7 @@ class _AccountScreenState extends State<AccountScreen> {
                             Icon(
                               FontAwesomeIcons.ellipsis,
                               color: context.color.primary,
-                              size: 35,
+                              size: 22,
                             ),
                           ],
                         ),
@@ -214,7 +214,7 @@ class _AccountScreenState extends State<AccountScreen> {
                                         Icon(
                                           FontAwesomeIcons.ellipsis,
                                           color: context.color.primary,
-                                          size: 35,
+                                          size: 22,
                                         ),
                                     ],
                                   ),

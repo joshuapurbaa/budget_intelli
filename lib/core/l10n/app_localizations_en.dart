@@ -1314,4 +1314,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get restartNow => 'Restart Now';
+
+  @override
+  String get budgetAnalysis => 'Budget Analysis';
+
+  @override
+  String get withAi => 'with AI';
 }

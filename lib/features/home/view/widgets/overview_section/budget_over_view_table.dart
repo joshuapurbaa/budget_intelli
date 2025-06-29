@@ -129,7 +129,7 @@ class BudgetOverviewTable extends StatelessWidget {
               : Icon(
                   FontAwesomeIcons.ellipsis,
                   color: context.color.primary,
-                  size: 35,
+                  size: 22,
                 ),
         ),
         // Actual column
@@ -145,7 +145,7 @@ class BudgetOverviewTable extends StatelessWidget {
               : Icon(
                   FontAwesomeIcons.ellipsis,
                   color: context.color.primary,
-                  size: 35,
+                  size: 22,
                 ),
         ),
       ],

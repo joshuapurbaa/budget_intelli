@@ -4,11 +4,15 @@ import 'package:budget_intelli/features/category/category_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FrequencyView extends StatefulWidget {
   const FrequencyView({
+    required this.showAmount,
     super.key,
   });
+
+  final bool showAmount;
 
   @override
   State<FrequencyView> createState() => _FrequencyViewState();
@@ -121,16 +125,23 @@ class _FrequencyViewState extends State<FrequencyView> {
                                       : Colors.black,
                                 ),
                                 Gap.vertical(8),
-                                AppText(
-                                  text: NumberFormatter.formatToMoneyDouble(
-                                    context,
-                                    totalAmountTransactionsExpenses,
+                                if (widget.showAmount)
+                                  AppText(
+                                    text: NumberFormatter.formatToMoneyDouble(
+                                      context,
+                                      totalAmountTransactionsExpenses,
+                                    ),
+                                    style: StyleType.bodMed,
+                                    fontWeight: FontWeight.bold,
+                                    maxLines: 1,
+                                    color: isIncome ? null : Colors.black,
+                                  )
+                                else
+                                  Icon(
+                                    FontAwesomeIcons.ellipsis,
+                                    color: context.color.primary,
+                                    size: 22,
                                   ),
-                                  style: StyleType.bodMed,
-                                  fontWeight: FontWeight.bold,
-                                  maxLines: 1,
-                                  color: isIncome ? null : Colors.black,
-                                ),
                               ],
                             ),
                           ),
@@ -168,16 +179,23 @@ class _FrequencyViewState extends State<FrequencyView> {
                                       : Colors.black,
                                 ),
                                 Gap.vertical(8),
-                                AppText(
-                                  text: NumberFormatter.formatToMoneyDouble(
-                                    context,
-                                    totalAmountTransactionsIncome,
+                                if (widget.showAmount)
+                                  AppText(
+                                    text: NumberFormatter.formatToMoneyDouble(
+                                      context,
+                                      totalAmountTransactionsIncome,
+                                    ),
+                                    style: StyleType.bodMed,
+                                    fontWeight: FontWeight.bold,
+                                    maxLines: 1,
+                                    color: isIncome ? Colors.black : null,
+                                  )
+                                else
+                                  Icon(
+                                    FontAwesomeIcons.ellipsis,
+                                    color: context.color.primary,
+                                    size: 22,
                                   ),
-                                  style: StyleType.bodMed,
-                                  fontWeight: FontWeight.bold,
-                                  maxLines: 1,
-                                  color: isIncome ? Colors.black : null,
-                                ),
                               ],
                             ),
                           ),
@@ -335,6 +353,7 @@ class _FrequencyViewState extends State<FrequencyView> {
                     hexColor: hexColor,
                     categoryName: categoryName,
                     iconPath: iconPath,
+                    showAmount: widget.showAmount,
                   );
                 },
                 separatorBuilder: (context, index) => AppDivider(

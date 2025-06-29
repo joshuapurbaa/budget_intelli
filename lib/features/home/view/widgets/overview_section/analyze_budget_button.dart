@@ -16,7 +16,7 @@ class _AnalyzeBudgetButtonState extends State<AnalyzeBudgetButton> {
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
-    final marginLRB = getEdgeInsets(left: 16, right: 16, bottom: 10);
+    final marginLRB = getEdgeInsets(left: 8, right: 16, bottom: 10);
 
     return BlocListener<PromptAnalysisCubit, PromptAnalysisState>(
       listener: (context, state) {
@@ -46,9 +46,20 @@ class _AnalyzeBudgetButtonState extends State<AnalyzeBudgetButton> {
           );
         },
         margin: marginLRB,
-        child: AppText(
-          text: localize.analyzeYourBudgetWithAI,
-          style: StyleType.bodLg,
+        padding: getEdgeInsetsAll(10),
+        child: Column(
+          children: [
+            AppText(
+              text: localize.budgetAnalysis,
+              style: StyleType.bodMed,
+              maxLines: 1,
+            ),
+            AppText(
+              text: localize.withAi,
+              style: StyleType.bodMed,
+              maxLines: 1,
+            ),
+          ],
         ),
       ),
     );

@@ -421,5 +421,7 @@
   "updateNow": "Update Now",
   "updateDownloaded": "Update Downloaded",
   "restartToComplete": "Restart the app to complete the update.",
-  "restartNow": "Restart Now"
+  "restartNow": "Restart Now",
+  "budgetAnalysis": "Budget Analysis",
+  "withAi": "with AI"
 }

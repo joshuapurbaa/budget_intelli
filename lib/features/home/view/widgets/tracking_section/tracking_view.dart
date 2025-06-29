@@ -10,10 +10,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class TrackingView extends StatefulWidget {
   const TrackingView({
     required this.budgetId,
+    required this.showAmount,
     super.key,
   });
 
   final String budgetId;
+  final bool showAmount;
 
   @override
   State<TrackingView> createState() => _TrackingViewState();
@@ -251,8 +253,10 @@ class _TrackingViewState extends State<TrackingView> {
             SliverToBoxAdapter(
               child: Gap.vertical(10),
             ),
-            const SliverFillRemaining(
-              child: FrequencyView(),
+            SliverFillRemaining(
+              child: FrequencyView(
+                showAmount: widget.showAmount,
+              ),
             ),
           ],
         );

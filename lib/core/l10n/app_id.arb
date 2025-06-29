@@ -421,5 +421,7 @@
   "updateNow": "Update Sekarang",
   "updateDownloaded": "Update Terunduh",
   "restartToComplete": "Restart aplikasi untuk menyelesaikan update.",
-  "restartNow": "Restart Sekarang"
+  "restartNow": "Restart Sekarang",
+  "budgetAnalysis": "Analisis Anggaran",
+  "withAi": "dengan AI"
 }

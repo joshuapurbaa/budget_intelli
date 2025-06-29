@@ -2635,6 +2635,18 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Restart Sekarang'**
   String get restartNow;
+
+  /// No description provided for @budgetAnalysis.
+  ///
+  /// In id, this message translates to:
+  /// **'Analisis Anggaran'**
+  String get budgetAnalysis;
+
+  /// No description provided for @withAi.
+  ///
+  /// In id, this message translates to:
+  /// **'dengan AI'**
+  String get withAi;
 }
 
 class _AppLocalizationsDelegate

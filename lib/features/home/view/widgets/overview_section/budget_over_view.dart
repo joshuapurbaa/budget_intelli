@@ -1,4 +1,5 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:budget_intelli/features/account/view/controller/account/account_bloc.dart';
 import 'package:budget_intelli/features/auth/auth_barrel.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/category/category_barrel.dart';
@@ -241,15 +242,8 @@ class _BudgetOverviewState extends State<BudgetOverview> {
 
         final budgetMetrics = _calculateBudgetMetrics();
 
-        return _buildBudgetOverviewContent(
-          context,
-          groupsEmpty,
-          dateRangeStr,
-          marginLRB,
-          expensesEmpty,
-          premiumUser,
-          budgetMetrics,
-        );
+        return _buildBudgetOverviewContent(context, groupsEmpty, dateRangeStr,
+            marginLRB, expensesEmpty, premiumUser, budgetMetrics);
       },
     );
   }
@@ -301,6 +295,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
     bool premiumUser,
     Map<String, double> budgetMetrics,
   ) {
+    final localize = textLocalizer(context);
     return RefreshIndicator.adaptive(
       onRefresh: () async {
         context.read<BudgetBloc>().add(
@@ -312,7 +307,56 @@ class _BudgetOverviewState extends State<BudgetOverview> {
           children: [
             Gap.vertical(10),
             const HeaderWidget(),
-            const AnalyzeBudgetButton(),
+            Row(
+              children: [
+                Expanded(
+                  flex: 2,
+                  child: AppGlass(
+                    margin: getEdgeInsets(left: 16, bottom: 10),
+                    padding: getEdgeInsetsAll(10),
+                    child: Column(
+                      children: [
+                        AppText(
+                          text: '${localize.accountBalance}: ',
+                          style: StyleType.bodMed,
+                        ),
+                        if (widget.showAmount)
+                          BlocBuilder<AccountBloc, AccountState>(
+                            builder: (context, state) {
+                              var accountBalance = 0.0;
+                              if (state.accounts.isNotEmpty) {
+                                accountBalance = state.accounts
+                                    .map((e) => e.amount)
+                                    .reduce(
+                                        (value, element) => value + element);
+                              }
+                              return AppText(
+                                text: NumberFormatter.formatToMoneyDouble(
+                                  context,
+                                  accountBalance,
+                                ),
+                                style: StyleType.bodMed,
+                                fontWeight: FontWeight.bold,
+                                color: context.color.primary,
+                              );
+                            },
+                          )
+                        else
+                          Icon(
+                            FontAwesomeIcons.ellipsis,
+                            color: context.color.primary,
+                            size: 22,
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Expanded(
+                  flex: 2,
+                  child: AnalyzeBudgetButton(),
+                ),
+              ],
+            ),
             _buildBudgetSummaryCard(
               dateRangeStr,
               marginLRB,
@@ -517,7 +561,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
             Icon(
               FontAwesomeIcons.ellipsis,
               color: context.color.primary,
-              size: 35,
+              size: 22,
             ),
           Gap.horizontal(10),
           _buildEditGroupButton(groupCategoryHistory, indexGroup, groupName),

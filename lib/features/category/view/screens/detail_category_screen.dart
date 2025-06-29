@@ -131,6 +131,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
   @override
   Widget build(BuildContext context) {
     final localize = textLocalizer(context);
+    final showAmount = context.read<SettingBloc>().state.showAmount;
 
     return BlocConsumer<CategoryCubit, CategoryState>(
       listener: (context, state) {
@@ -429,6 +430,7 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                                 amount: amount,
                                 time: time,
                                 categoryName: itemCategory?.name,
+                                showAmount: showAmount,
                               );
                             },
                             separatorBuilder: (context, index) => AppDivider(

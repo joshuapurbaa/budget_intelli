@@ -1,4 +1,5 @@
 import 'package:budget_intelli/core/core.dart';
+import 'package:budget_intelli/features/account/view/controller/account/account_bloc.dart';
 import 'package:budget_intelli/features/ai_assistant/ai_assistant_barrel.dart';
 import 'package:budget_intelli/features/auth/auth_barrel.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
@@ -28,12 +29,24 @@ class _HomeContentState extends State<HomeContent>
   @override
   void initState() {
     super.initState();
+    _initData();
+  }
+
+  void _initData() {
     context.read<BudgetsCubit>().getBudgets();
     _getBudgetById(null);
     _tabController = TabController(
       length: 3,
       vsync: this,
     );
+    context.read<AccountBloc>().add(GetAccountsEvent());
+  }
+
+  void _getData() {
+    context.read<SettingBloc>().add(GetUserSettingEvent());
+    context.read<BudgetsCubit>().getBudgets();
+    final state = context.read<SettingBloc>().state;
+    _getBudgetById(state.lastSeenBudgetId);
   }
 
   void _getBudgetById(String? lastSeenBudgetId) {
@@ -54,13 +67,6 @@ class _HomeContentState extends State<HomeContent>
         return;
       }
     });
-  }
-
-  void _getData() {
-    context.read<SettingBloc>().add(GetUserSettingEvent());
-    context.read<BudgetsCubit>().getBudgets();
-    final state = context.read<SettingBloc>().state;
-    _getBudgetById(state.lastSeenBudgetId);
   }
 
   @override
@@ -235,6 +241,7 @@ class _HomeContentState extends State<HomeContent>
                               ),
                               TrackingView(
                                 budgetId: budget.id,
+                                showAmount: showAmount,
                               ),
                               InsightView(
                                 budgetId: budget.id,

@@ -1317,4 +1317,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get restartNow => 'Restart Sekarang';
+
+  @override
+  String get budgetAnalysis => 'Analisis Anggaran';
+
+  @override
+  String get withAi => 'dengan AI';
 }
