@@ -1,5 +1,7 @@
 export 'view/widgets/app_bar_widget.dart';
 export 'view/widgets/empty_home_content.dart';
+// Financial Analysis
+export 'view/widgets/financial_analysis/financial_analysis_view.dart';
 export 'view/widgets/home_content.dart';
 export 'view/widgets/info_label_section.dart';
 export 'view/widgets/insight_section/insight_part.dart';

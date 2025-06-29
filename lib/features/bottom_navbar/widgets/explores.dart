@@ -1,5 +1,4 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/features/account/account_barrel.dart';
 import 'package:budget_intelli/features/auth/auth_barrel.dart';
 import 'package:budget_intelli/features/goals/goals_barrel.dart';
 import 'package:budget_intelli/features/my_portfolio/my_portfolio_barrel.dart';
@@ -72,7 +71,6 @@ class _ExploresState extends State<Explores> {
                       // Account Balance
                       AppGlass(
                         onTap: () {
-                          context.read<AccountBloc>().add(GetAccountsEvent());
                           context.push(
                             MyRoute.accountScreen,
                           );

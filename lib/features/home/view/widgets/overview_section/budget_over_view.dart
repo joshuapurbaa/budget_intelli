@@ -314,6 +314,9 @@ class _BudgetOverviewState extends State<BudgetOverview> {
                   child: AppGlass(
                     margin: getEdgeInsets(left: 16, bottom: 10),
                     padding: getEdgeInsetsAll(10),
+                    onTap: () {
+                      context.push(MyRoute.accountScreen);
+                    },
                     child: Column(
                       children: [
                         AppText(

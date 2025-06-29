@@ -15,6 +15,12 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AccountBloc>().add(GetAccountsEvent());
+  }
+
   void _whenCompleteAccountTransactionScreen() {
     context.read<AccountBloc>()
       ..add(
