@@ -471,8 +471,11 @@ class _CreateNewBudgetInitialScreenState
   }
 
   (String, String) _generateBalanceTitle(
-      BudgetFormState state, AppLocalizations localize) {
+    BudgetFormState state,
+    AppLocalizations localize,
+  ) {
     final balance = state.totalBalance!;
+    print('balance :: $balance');
     final money = NumberFormatter.formatToMoneyDouble(context, balance);
 
     if (balance < 0) {

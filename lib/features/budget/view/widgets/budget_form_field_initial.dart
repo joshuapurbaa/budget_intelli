@@ -510,14 +510,15 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
   }
 
   void _updateItemAmount(
-      ItemCategoryHistory item, String groupId, String value) {
+    ItemCategoryHistory item,
+    String groupId,
+    String value,
+  ) {
     // Parse currency formatted string properly
-    final cleanValue = value.replaceAll(RegExp(r'[^\d.]'), '');
-    final amount = double.tryParse(cleanValue) ?? 0.0;
+    final amount = value.toDouble();
 
     // Debug logging for amount parsing
-    debugPrint(
-        'Amount input: "$value" -> cleaned: "$cleanValue" -> parsed: $amount');
+    debugPrint('Amount input: $amount');
 
     final newCategory = item.copyWith(amount: amount);
 

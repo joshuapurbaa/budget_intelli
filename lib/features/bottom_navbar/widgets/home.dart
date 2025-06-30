@@ -1,5 +1,5 @@
 import 'package:budget_intelli/features/auth/auth_barrel.dart';
-import 'package:budget_intelli/features/home/view/widgets/home_content.dart';
+import 'package:budget_intelli/features/home/view/home_tab_view/home_content.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {

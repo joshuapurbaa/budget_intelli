@@ -4,7 +4,7 @@ import 'package:budget_intelli/features/ai_assistant/ai_assistant_barrel.dart';
 import 'package:budget_intelli/features/auth/auth_barrel.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/home/home_barrel.dart';
-import 'package:budget_intelli/features/home/view/widgets/insight_section/insight_view.dart';
+import 'package:budget_intelli/features/home/view/home_tab_view/insight_section/insight_view.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

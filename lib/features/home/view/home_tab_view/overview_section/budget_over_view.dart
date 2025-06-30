@@ -4,7 +4,7 @@ import 'package:budget_intelli/features/auth/auth_barrel.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/category/category_barrel.dart';
 import 'package:budget_intelli/features/home/home_barrel.dart';
-import 'package:budget_intelli/features/home/view/widgets/overview_section/header_widget.dart';
+import 'package:budget_intelli/features/home/view/home_tab_view/overview_section/header_widget.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

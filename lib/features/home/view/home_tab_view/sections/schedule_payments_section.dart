@@ -1,5 +1,5 @@
 import 'package:budget_intelli/core/core.dart';
-import 'package:budget_intelli/features/home/view/widgets/info_label_section.dart';
+import 'package:budget_intelli/features/home/view/home_tab_view/info_label_section.dart';
 import 'package:budget_intelli/features/schedule_payment/schedule_payment_barrel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
