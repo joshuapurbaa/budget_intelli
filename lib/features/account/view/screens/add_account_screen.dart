@@ -191,10 +191,7 @@ class _AddAccountScreenState extends State<AddAccountScreen> {
                         ),
                         Gap.vertical(8),
                         AppGlass(
-                          height: 70.h,
                           padding: getEdgeInsets(
-                            top: 10,
-                            bottom: 10,
                             left: 16,
                             right: 10,
                           ),

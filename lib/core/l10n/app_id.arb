@@ -436,5 +436,7 @@
   "takeProfit": "Take Profit",
   "stopLoss": "Stop Loss",
   "stopLossAtPrice": "Stop Loss pada harga",
-  "successfullyAddedPortfolio": "Berhasil menambahkan portfolio"
+  "successfullyAddedPortfolio": "Berhasil menambahkan portfolio",
+  "noAccount": "Belum ada akun",
+  "addAccount": "Tambah Akun"
 }

@@ -436,5 +436,7 @@
   "takeProfit": "Take Profit",
   "stopLoss": "Stop Loss",
   "stopLossAtPrice": "Stop Loss at price",
-  "successfullyAddedPortfolio": "Successfully added portfolio"
+  "successfullyAddedPortfolio": "Successfully added portfolio",
+  "noAccount": "No account",
+  "addAccount": "Add Account"
 }

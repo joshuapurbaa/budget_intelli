@@ -1362,4 +1362,10 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get successfullyAddedPortfolio => 'Berhasil menambahkan portfolio';
+
+  @override
+  String get noAccount => 'Belum ada akun';
+
+  @override
+  String get addAccount => 'Tambah Akun';
 }

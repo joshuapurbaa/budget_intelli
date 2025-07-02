@@ -1359,4 +1359,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get successfullyAddedPortfolio => 'Successfully added portfolio';
+
+  @override
+  String get noAccount => 'No account';
+
+  @override
+  String get addAccount => 'Add Account';
 }

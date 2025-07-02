@@ -2725,6 +2725,18 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Berhasil menambahkan portfolio'**
   String get successfullyAddedPortfolio;
+
+  /// No description provided for @noAccount.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada akun'**
+  String get noAccount;
+
+  /// No description provided for @addAccount.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah Akun'**
+  String get addAccount;
 }
 
 class _AppLocalizationsDelegate

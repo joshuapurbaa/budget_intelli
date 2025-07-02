@@ -160,104 +160,117 @@ class _AddIncomeIncomeTransactionScreenState
                           BlocBuilder<AccountBloc, AccountState>(
                             builder: (context, state) {
                               final accounts = state.accounts;
-                              return Row(
-                                children: [
-                                  Expanded(
-                                    child: AppGlass(
-                                      padding: getEdgeInsets(
-                                        left: 16,
-                                        right: 10,
-                                      ),
-                                      child: DropdownMenu<Account>(
-                                        expandedInsets: EdgeInsets.zero,
-                                        menuHeight: 150.h,
-                                        selectedTrailingIcon: const Icon(
-                                          CupertinoIcons.chevron_up,
-                                          size: 25,
+                              if (accounts.isEmpty) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    context.push(
+                                      MyRoute.addAccountScreen,
+                                    );
+                                  },
+                                  child: AppGlass(
+                                    child: Row(
+                                      children: [
+                                        getPngAsset(
+                                          accountPng,
+                                          height: 20,
+                                          width: 20,
+                                          color: context.color.onSurface,
                                         ),
-                                        leadingIcon: Padding(
-                                          padding: getEdgeInsets(right: 22),
-                                          child: getPngAsset(
-                                            accountPng,
-                                            height: 18,
-                                            width: 18,
-                                            color: context.color.onSurface,
-                                          ),
-                                        ),
-                                        inputDecorationTheme:
-                                            InputDecorationTheme(
-                                          border: InputBorder.none,
-                                          hintStyle: textStyle(
-                                            context,
+                                        Gap.horizontal(20),
+                                        Expanded(
+                                          child: AppText(
+                                            text: '${localize.addAccount}*',
                                             style: StyleType.bodMed,
-                                          ).copyWith(
-                                            fontWeight: FontWeight.w400,
                                             color: context.color.onSurface
                                                 .withValues(alpha: 0.5),
                                           ),
                                         ),
-                                        trailingIcon: const Icon(
-                                          CupertinoIcons.chevron_down,
-                                          size: 25,
+                                        Gap.horizontal(8),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: context.color.onSurface,
                                         ),
-                                        hintText: '${localize.selectAccount}*',
-                                        textStyle: textStyle(
-                                          context,
-                                          style: StyleType.bodMed,
-                                        ).copyWith(
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                        requestFocusOnTap: false,
-                                        onSelected: (Account? account) {
-                                          setState(() {
-                                            _selectedAccount = account;
-                                          });
-                                        },
-                                        menuStyle: MenuStyle(
-                                          visualDensity: VisualDensity.standard,
-                                          shape: WidgetStateProperty.all<
-                                              RoundedRectangleBorder>(
-                                            RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
-                                            ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
+                              return AppGlass(
+                                padding: getEdgeInsets(
+                                  left: 16,
+                                  right: 10,
+                                ),
+                                child: DropdownMenu<Account>(
+                                  expandedInsets: EdgeInsets.zero,
+                                  menuHeight: 150.h,
+                                  selectedTrailingIcon: const Icon(
+                                    CupertinoIcons.chevron_up,
+                                    size: 25,
+                                  ),
+                                  leadingIcon: Padding(
+                                    padding: getEdgeInsets(right: 22),
+                                    child: getPngAsset(
+                                      accountPng,
+                                      height: 18,
+                                      width: 18,
+                                      color: context.color.onSurface,
+                                    ),
+                                  ),
+                                  inputDecorationTheme: InputDecorationTheme(
+                                    border: InputBorder.none,
+                                    hintStyle: textStyle(
+                                      context,
+                                      style: StyleType.bodMed,
+                                    ).copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: context.color.onSurface
+                                          .withValues(alpha: 0.5),
+                                    ),
+                                  ),
+                                  trailingIcon: const Icon(
+                                    CupertinoIcons.chevron_down,
+                                    size: 25,
+                                  ),
+                                  hintText: '${localize.selectAccount}*',
+                                  textStyle: textStyle(
+                                    context,
+                                    style: StyleType.bodMed,
+                                  ).copyWith(
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  requestFocusOnTap: false,
+                                  onSelected: (Account? account) {
+                                    setState(() {
+                                      _selectedAccount = account;
+                                    });
+                                  },
+                                  menuStyle: MenuStyle(
+                                    visualDensity: VisualDensity.standard,
+                                    shape: WidgetStateProperty.all<
+                                        RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  ),
+                                  dropdownMenuEntries:
+                                      accounts.map<DropdownMenuEntry<Account>>(
+                                    (Account account) {
+                                      return DropdownMenuEntry<Account>(
+                                        value: account,
+                                        label: account.name,
+                                        style: MenuItemButton.styleFrom(
+                                          visualDensity:
+                                              VisualDensity.comfortable,
+                                          textStyle: textStyle(
+                                            context,
+                                            style: StyleType.bodMed,
                                           ),
                                         ),
-                                        dropdownMenuEntries: accounts
-                                            .map<DropdownMenuEntry<Account>>(
-                                          (Account account) {
-                                            return DropdownMenuEntry<Account>(
-                                              value: account,
-                                              label: account.name,
-                                              style: MenuItemButton.styleFrom(
-                                                visualDensity:
-                                                    VisualDensity.comfortable,
-                                                textStyle: textStyle(
-                                                  context,
-                                                  style: StyleType.bodMed,
-                                                ),
-                                              ),
-                                            );
-                                          },
-                                        ).toList(),
-                                      ),
-                                    ),
-                                  ),
-                                  Gap.horizontal(5),
-                                  GestureDetector(
-                                    onTap: () {
-                                      context.push(
-                                        MyRoute.addAccountScreen,
                                       );
                                     },
-                                    child: AppGlass(
-                                      child: Icon(
-                                        Icons.add,
-                                        color: context.color.primary,
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ).toList(),
+                                ),
                               );
                             },
                           ),
