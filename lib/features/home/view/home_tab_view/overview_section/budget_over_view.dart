@@ -506,10 +506,17 @@ class _BudgetOverviewState extends State<BudgetOverview> {
             Gap.vertical(10),
             if (items.isNotEmpty)
               _buildCategoryItemsList(
-                  items, plannedRemaining, groupCategoryHistory),
+                items,
+                plannedRemaining,
+                groupCategoryHistory,
+              ),
             Gap.vertical(10),
             _buildGroupActions(
-                items, isIncome, groupCategoryHistory, plannedRemaining),
+              items,
+              isIncome,
+              groupCategoryHistory,
+              plannedRemaining,
+            ),
           ],
         ],
       ),
@@ -737,7 +744,11 @@ class _BudgetOverviewState extends State<BudgetOverview> {
           ),
           if (percent > 0) ...[
             Gap.vertical(5),
-            _buildProgressIndicator(progressData, actualAmount),
+            _buildProgressIndicator(
+              progressData,
+              actualAmount,
+              showAmount,
+            ),
           ],
         ],
       ),
@@ -788,6 +799,7 @@ class _BudgetOverviewState extends State<BudgetOverview> {
   Widget _buildProgressIndicator(
     Map<String, double> progressData,
     double actualAmount,
+    bool showAmount,
   ) {
     final localize = textLocalizer(context);
     final percent = progressData['percent']!;
@@ -842,15 +854,22 @@ class _BudgetOverviewState extends State<BudgetOverview> {
                     fontStyle: FontStyle.italic,
                   ),
                   Gap.horizontal(4),
-                  AppText(
-                    text: NumberFormatter.formatToMoneyDouble(
-                      context,
-                      actualAmount,
+                  if (showAmount)
+                    AppText(
+                      text: NumberFormatter.formatToMoneyDouble(
+                        context,
+                        actualAmount,
+                      ),
+                      style: StyleType.bodSm,
+                      color: percentTextColor,
+                      fontStyle: FontStyle.italic,
+                    )
+                  else
+                    Icon(
+                      FontAwesomeIcons.ellipsis,
+                      color: context.color.primary,
+                      size: 22,
                     ),
-                    style: StyleType.bodSm,
-                    color: percentTextColor,
-                    fontStyle: FontStyle.italic,
-                  ),
                 ],
               ),
             ),

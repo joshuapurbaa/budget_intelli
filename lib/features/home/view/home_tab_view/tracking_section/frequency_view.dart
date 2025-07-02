@@ -139,7 +139,9 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 else
                                   Icon(
                                     FontAwesomeIcons.ellipsis,
-                                    color: context.color.primary,
+                                    color: isIncome
+                                        ? context.color.primary
+                                        : Colors.black,
                                     size: 22,
                                   ),
                               ],
@@ -193,7 +195,9 @@ class _FrequencyViewState extends State<FrequencyView> {
                                 else
                                   Icon(
                                     FontAwesomeIcons.ellipsis,
-                                    color: context.color.primary,
+                                    color: isIncome
+                                        ? Colors.black
+                                        : context.color.primary,
                                     size: 22,
                                   ),
                               ],

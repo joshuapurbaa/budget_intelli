@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_color_picker_plus/flutter_color_picker_plus.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 
 class DetailCategoryScreen extends StatefulWidget {
@@ -299,13 +300,20 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                                 Gap.vertical(8),
-                                AppText.color(
-                                  text: spentStr,
-                                  color: context.color.primary,
-                                  style: StyleType.bodLg,
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                ),
+                                if (showAmount)
+                                  AppText.color(
+                                    text: spentStr,
+                                    color: context.color.primary,
+                                    style: StyleType.bodLg,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                  )
+                                else
+                                  Icon(
+                                    FontAwesomeIcons.ellipsis,
+                                    color: context.color.primary,
+                                    size: 22,
+                                  ),
                               ],
                             ),
                           ),
@@ -325,13 +333,20 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                                   fontWeight: FontWeight.bold,
                                 ),
                                 Gap.vertical(8),
-                                AppText.color(
-                                  text: amountStr ?? '-',
-                                  color: context.color.primary,
-                                  style: StyleType.bodLg,
-                                  maxLines: 2,
-                                  textAlign: TextAlign.center,
-                                ),
+                                if (showAmount)
+                                  AppText.color(
+                                    text: amountStr ?? '-',
+                                    color: context.color.primary,
+                                    style: StyleType.bodLg,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                  )
+                                else
+                                  Icon(
+                                    FontAwesomeIcons.ellipsis,
+                                    color: context.color.primary,
+                                    size: 22,
+                                  ),
                               ],
                             ),
                           ),
@@ -340,31 +355,47 @@ class _DetailCategoryScreenState extends State<DetailCategoryScreen> {
                     ),
                     AppGlass(
                       margin: getEdgeInsets(right: 16, left: 16, bottom: 10),
-                      child: RichText(
-                        textAlign: TextAlign.center,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: title3,
-                              style: textStyle(
-                                context,
-                                style: StyleType.bodMed,
-                              ).copyWith(
-                                fontWeight: FontWeight.bold,
+                      child: showAmount
+                          ? RichText(
+                              textAlign: TextAlign.center,
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: title3,
+                                    style: textStyle(
+                                      context,
+                                      style: StyleType.bodMed,
+                                    ).copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: remainingStr,
+                                    style: textStyle(
+                                      context,
+                                      style: StyleType.bodLg,
+                                    ).copyWith(
+                                      color: context.color.primary,
+                                    ),
+                                  ),
+                                ],
                               ),
+                            )
+                          : Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AppText(
+                                  text: title3,
+                                  style: StyleType.bodMed,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                                Icon(
+                                  FontAwesomeIcons.ellipsis,
+                                  color: context.color.primary,
+                                  size: 22,
+                                ),
+                              ],
                             ),
-                            TextSpan(
-                              text: remainingStr,
-                              style: textStyle(
-                                context,
-                                style: StyleType.bodLg,
-                              ).copyWith(
-                                color: context.color.primary,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
                     ),
                     AppGlass(
                       margin: getEdgeInsets(right: 16, left: 16, bottom: 10),
