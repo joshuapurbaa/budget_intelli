@@ -423,5 +423,8 @@
   "restartToComplete": "Restart the app to complete the update.",
   "restartNow": "Restart Now",
   "budgetAnalysis": "Budget Analysis",
-  "withAi": "with AI"
+  "withAi": "with AI",
+  "myPortfolio": "My Portfolio",
+  "noPortfolio": "No Portfolio",
+  "addPortfolio": "Add Portfolio"
 }

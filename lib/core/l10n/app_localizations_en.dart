@@ -1320,4 +1320,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get withAi => 'with AI';
+
+  @override
+  String get myPortfolio => 'My Portfolio';
+
+  @override
+  String get noPortfolio => 'No Portfolio';
+
+  @override
+  String get addPortfolio => 'Add Portfolio';
 }

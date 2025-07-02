@@ -12,49 +12,62 @@ class MyPortfolioListScreen extends StatelessWidget {
     final myPortfolioList =
         context.watch<MyPortfolioDbBloc>().state.myPortfolios;
 
+    final localize = textLocalizer(context);
+
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          const SliverAppBarPrimary(
-            title: 'My Portfolio',
+      body: Stack(
+        children: [
+          CustomScrollView(
+            slivers: [
+              SliverAppBarPrimary(
+                title: localize.myPortfolio,
+              ),
+              if (myPortfolioList.isEmpty)
+                SliverFillRemaining(
+                  child: Center(
+                    child: AppText(
+                      text: localize.noPortfolio,
+                      style: StyleType.bodLg,
+                    ),
+                  ),
+                ),
+              SliverList.builder(
+                itemCount: myPortfolioList.length,
+                itemBuilder: (context, index) {
+                  return PortfolioItem(
+                    myPortfolio: myPortfolioList[index],
+                    onTap: () {
+                      context.pushNamed(
+                        MyRoute.detailPortfolio.noSlashes(),
+                      );
+                    },
+                  );
+                },
+              ),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 100),
+              ),
+            ],
           ),
-          if (myPortfolioList.isEmpty)
-            const SliverFillRemaining(
-              child: Center(
-                child: AppText(
-                  text: 'No Portfolio',
-                  style: StyleType.bodLg,
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              child: BottomSheetParent(
+                isWithBorderTop: true,
+                child: AppButton(
+                  label: localize.addPortfolio,
+                  onPressed: () async {
+                    await context.pushNamed(
+                      MyRoute.addPortfolio.noSlashes(),
+                    );
+                  },
                 ),
               ),
             ),
-          SliverList.builder(
-            itemCount: myPortfolioList.length,
-            itemBuilder: (context, index) {
-              return PortfolioItem(
-                myPortfolio: myPortfolioList[index],
-                onTap: () {
-                  context.pushNamed(
-                    MyRoute.detailPortfolio.noSlashes(),
-                  );
-                },
-              );
-            },
-          ),
-          const SliverToBoxAdapter(
-            child: SizedBox(height: 100),
           ),
         ],
-      ),
-      bottomSheet: BottomSheetParent(
-        isWithBorderTop: true,
-        child: AppButton(
-          label: 'Add Portfolio',
-          onPressed: () async {
-            await context.pushNamed(
-              MyRoute.addPortfolio.noSlashes(),
-            );
-          },
-        ),
       ),
     );
   }

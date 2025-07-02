@@ -1323,4 +1323,13 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get withAi => 'dengan AI';
+
+  @override
+  String get myPortfolio => 'Portfolio Saya';
+
+  @override
+  String get noPortfolio => 'Belum ada portfolio';
+
+  @override
+  String get addPortfolio => 'Tambah Portfolio';
 }

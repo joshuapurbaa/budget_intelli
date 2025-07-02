@@ -2647,6 +2647,24 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'dengan AI'**
   String get withAi;
+
+  /// No description provided for @myPortfolio.
+  ///
+  /// In id, this message translates to:
+  /// **'Portfolio Saya'**
+  String get myPortfolio;
+
+  /// No description provided for @noPortfolio.
+  ///
+  /// In id, this message translates to:
+  /// **'Belum ada portfolio'**
+  String get noPortfolio;
+
+  /// No description provided for @addPortfolio.
+  ///
+  /// In id, this message translates to:
+  /// **'Tambah Portfolio'**
+  String get addPortfolio;
 }
 
 class _AppLocalizationsDelegate

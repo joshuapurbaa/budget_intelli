@@ -423,5 +423,8 @@
   "restartToComplete": "Restart aplikasi untuk menyelesaikan update.",
   "restartNow": "Restart Sekarang",
   "budgetAnalysis": "Analisis Anggaran",
-  "withAi": "dengan AI"
+  "withAi": "dengan AI",
+  "myPortfolio": "Portfolio Saya",
+  "noPortfolio": "Belum ada portfolio",
+  "addPortfolio": "Tambah Portfolio"
 }
