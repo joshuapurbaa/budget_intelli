@@ -51,18 +51,6 @@ class AppGlass extends StatelessWidget {
               : (isDarkMode
                   ? context.color.secondaryContainer
                   : context.color.surface),
-          // gradient: isDarkMode
-          //     ? LinearGradient(
-          //         colors: [
-          //           context.color.secondaryContainer,
-          //           context.color.surface,
-          //           context.color.surface,
-          //         ],
-          //         stops: const [0, 1, 1],
-          //         begin: Alignment.topLeft,
-          //         end: Alignment.bottomRight,
-          //       )
-          //     : null,
           borderRadius: BorderRadius.all(
             Radius.circular(borderRadius ?? 16),
           ),

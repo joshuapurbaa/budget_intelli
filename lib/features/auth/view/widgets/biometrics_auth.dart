@@ -233,7 +233,6 @@ class _BiometricAuthState extends State<BiometricAuth> {
               logo,
               width: 150,
               height: 150,
-              color: isDarkMode ? context.color.onPrimary : null,
             ),
             const Spacer(),
             Padding(

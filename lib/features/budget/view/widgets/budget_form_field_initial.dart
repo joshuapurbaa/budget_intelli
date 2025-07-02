@@ -399,11 +399,7 @@ class _BudgetFormFieldInitialState extends State<BudgetFormFieldInitial> {
                   focusedBorder: InputBorder.none,
                 ),
               ),
-              Divider(
-                color: context.color.primaryContainer.withValues(alpha: 0.4),
-                height: 0,
-                thickness: 0.5,
-              ),
+              const AppDivider(),
             ],
           ),
         ),

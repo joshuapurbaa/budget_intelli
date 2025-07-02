@@ -152,6 +152,36 @@ class _ExploresState extends State<Explores> {
                         ),
                       ),
 
+                      // My Portfolio
+                      AppGlass(
+                        onTap: () {
+                          context.read<MyPortfolioDbBloc>().add(
+                                const GetMyPortfolioListDbEvent(),
+                              );
+                          context.pushNamed(
+                            MyRoute.myPortfolio.noSlashes(),
+                          );
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            getPngAsset(
+                              portfolioPng,
+                              width: 50,
+                              height: 50,
+                              color: context.color.onSurface,
+                            ),
+                            Gap.vertical(22),
+                            const AppText(
+                              text: 'My Portfolio',
+                              style: StyleType.bodLg,
+                              textAlign: TextAlign.center,
+                              maxLines: 2,
+                            ),
+                          ],
+                        ),
+                      ),
+
                       // Schedule Payment
                       AppGlass(
                         onTap: () {
@@ -201,36 +231,6 @@ class _ExploresState extends State<Explores> {
                             Gap.vertical(22),
                             AppText(
                               text: localize.financialCalculator,
-                              style: StyleType.bodLg,
-                              textAlign: TextAlign.center,
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-
-                      // My Portfolio
-                      AppGlass(
-                        onTap: () {
-                          context.read<MyPortfolioDbBloc>().add(
-                                const GetMyPortfolioListDbEvent(),
-                              );
-                          context.pushNamed(
-                            MyRoute.myPortfolio.noSlashes(),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            getPngAsset(
-                              portfolioPng,
-                              width: 50,
-                              height: 50,
-                              color: context.color.onSurface,
-                            ),
-                            Gap.vertical(22),
-                            const AppText(
-                              text: 'My Portfolio',
                               style: StyleType.bodLg,
                               textAlign: TextAlign.center,
                               maxLines: 2,
