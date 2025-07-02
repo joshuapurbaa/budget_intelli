@@ -2,6 +2,7 @@ import 'package:budget_intelli/core/core.dart';
 import 'package:budget_intelli/features/budget/budget_barrel.dart';
 import 'package:budget_intelli/features/category/view/controllers/category/category_cubit.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
+import 'package:budget_intelli/init_dependencies.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +51,8 @@ class _AddItemCategoryOverviewScreenState
   }
 
   void _reset() {
+    if (!mounted) return;
+
     context.read<BudgetFirestoreCubit>().resetState();
     _nameController.clear();
     iconPath = null;
@@ -61,12 +64,15 @@ class _AddItemCategoryOverviewScreenState
   }
 
   Future<void> _onSuccessInsert(CategoryState state) async {
+    if (!mounted) return;
+
     final settingState = context.read<SettingBloc>().state;
     final premium = settingState.premiumUser;
 
     if (premium) {
       if (state.itemCategoryHistoryParam != null &&
           state.itemCategoryParam != null) {
+        if (!mounted) return;
         await context
             .read<BudgetFirestoreCubit>()
             .insertItemCategoryHistoryToFirestore(
@@ -76,28 +82,38 @@ class _AddItemCategoryOverviewScreenState
             );
       }
     } else {
-      _getItem(state);
+      await _getItem(state);
     }
   }
 
-  void _getItem(CategoryState state) {
-    context.read<BudgetBloc>().add(
-          GetBudgetsByIdEvent(
-            id: state.budget?.id ?? '',
-          ),
-        );
+  Future<void> _getItem(CategoryState state) async {
+    final budgetId = await sl<UserPreferenceRepo>().getLastSeenBudgetId();
 
-    context.read<CategoryCubit>()
-      ..getItemCategoryArgs(
-        itemCategoryHistory: itemCategoryHistory,
-        groupCategoryHistories: state.groupCategoryHistories,
-        budget: state.budget,
-        addNewItemCategory: false,
-      )
-      ..getItemCategoryTransactions(
-        itemId: itemCategoryHistory!.id,
-      );
+    if (!mounted) {
+      return;
+    }
 
+    if (budgetId != null) {
+      context.read<BudgetBloc>().add(
+            GetBudgetsByIdEvent(
+              id: budgetId,
+            ),
+          );
+    }
+
+    if (itemCategoryHistory != null) {
+      context.read<CategoryCubit>().getItemCategoryArgs(
+            itemCategoryHistory: itemCategoryHistory,
+            groupCategoryHistories: state.groupCategoryHistories,
+            budget: state.budget,
+            addNewItemCategory: false,
+          );
+      await context.read<CategoryCubit>().getItemCategoryTransactions(
+            itemId: itemCategoryHistory?.id ?? '',
+          );
+    }
+
+    if (!mounted) return;
     _reset();
   }
 

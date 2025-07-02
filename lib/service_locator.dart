@@ -1,6 +1,6 @@
 part of 'init_dependencies.dart';
 
-final GetIt serviceLocator = GetIt.instance;
+final GetIt sl = GetIt.instance;
 
 Future<void> initDependencies() async {
   await dotenv.load();
@@ -55,7 +55,7 @@ Future<void> initDependencies() async {
 
   await MobileAds.instance.initialize();
 
-  serviceLocator
+  sl
     ..registerLazySingleton<FirebaseAuth>(
       () => FirebaseAuth.instance,
     )
@@ -64,98 +64,98 @@ Future<void> initDependencies() async {
     )
     ..registerFactory(InternetConnection.new)
     ..registerFactory(
-      () => GetUserFirestoreUsecase(serviceLocator()),
+      () => GetUserFirestoreUsecase(sl()),
     )
     ..registerFactory<ConnectionChecker>(
-      () => ConnectionCheckerImpl(serviceLocator()),
+      () => ConnectionCheckerImpl(sl()),
     );
 }
 
 void _initAuth() {
-  serviceLocator
+  sl
     ..registerFactory<AuthRemoteDataSource>(
       () => AuthRemoteDataSourceImpl(
-        serviceLocator(),
-        serviceLocator(),
+        sl(),
+        sl(),
       ),
     )
     ..registerFactory<AuthRepository>(
       () => AuthRepositoryImpl(
-        remoteDataSource: serviceLocator(),
-        connectionChecker: serviceLocator(),
+        remoteDataSource: sl(),
+        connectionChecker: sl(),
       ),
     )
-    ..registerFactory(() => UserSignUpUsecase(serviceLocator()))
-    ..registerFactory(() => UserSignIn(serviceLocator()))
-    ..registerFactory(() => UserSignOut(serviceLocator()))
-    ..registerFactory(() => GetCurrentUserSessionUsecase(serviceLocator()))
-    ..registerFactory(() => InsertUserFirestoreUsecase(serviceLocator()))
-    ..registerFactory(() => UpdateUserFirestoreUsecases(serviceLocator()))
+    ..registerFactory(() => UserSignUpUsecase(sl()))
+    ..registerFactory(() => UserSignIn(sl()))
+    ..registerFactory(() => UserSignOut(sl()))
+    ..registerFactory(() => GetCurrentUserSessionUsecase(sl()))
+    ..registerFactory(() => InsertUserFirestoreUsecase(sl()))
+    ..registerFactory(() => UpdateUserFirestoreUsecases(sl()))
     ..registerLazySingleton(
       () => AuthBloc(
         // appUserCubit: serviceLocator(),
-        userSignUp: serviceLocator(),
-        userSignIn: serviceLocator(),
-        userSignOut: serviceLocator(),
-        getCurrentUser: serviceLocator(),
-        getUserCubit: serviceLocator(),
+        userSignUp: sl(),
+        userSignIn: sl(),
+        userSignOut: sl(),
+        getCurrentUser: sl(),
+        getUserCubit: sl(),
       ),
     )
     ..registerLazySingleton(
       () => UserFirestoreCubit(
-        getUser: serviceLocator(),
-        updateUser: serviceLocator(),
-        insertUserDataUsecase: serviceLocator(),
+        getUser: sl(),
+        updateUser: sl(),
+        insertUserDataUsecase: sl(),
       ),
     );
 }
 
 void _initSchedulePayment() {
-  serviceLocator
+  sl
     ..registerFactory<SchedulePaymentRemoteDataSource>(
       () => SchedulePaymentRemoteDataSourceImpl(
-        serviceLocator(),
-        serviceLocator(),
+        sl(),
+        sl(),
       ),
     )
     ..registerFactory<SchedulePaymentRepoFire>(
       () => SchedulePaymentRepoImplFire(
-        remoteDataSource: serviceLocator(),
-        connectionChecker: serviceLocator(),
+        remoteDataSource: sl(),
+        connectionChecker: sl(),
       ),
     )
-    ..registerFactory(() => GetSchedulePayments(serviceLocator()))
-    ..registerFactory(() => GetSchedulePayment(serviceLocator()))
-    ..registerFactory(() => UpdateSchedulePayment(serviceLocator()))
-    ..registerFactory(() => CreateSchedulePaymentFire(serviceLocator()))
-    ..registerFactory(() => DeleteSchedulePayment(serviceLocator()))
+    ..registerFactory(() => GetSchedulePayments(sl()))
+    ..registerFactory(() => GetSchedulePayment(sl()))
+    ..registerFactory(() => UpdateSchedulePayment(sl()))
+    ..registerFactory(() => CreateSchedulePaymentFire(sl()))
+    ..registerFactory(() => DeleteSchedulePayment(sl()))
     ..registerLazySingleton(
       () => SchedulePaymentBloc(
-        getSchedulePayments: serviceLocator(),
+        getSchedulePayments: sl(),
       ),
     )
     ..registerLazySingleton(
       () => CudSchedulePaymentBloc(
-        updateSchedulePayment: serviceLocator(),
-        createSchedulePayment: serviceLocator(),
-        deleteSchedulePayment: serviceLocator(),
+        updateSchedulePayment: sl(),
+        createSchedulePayment: sl(),
+        deleteSchedulePayment: sl(),
       ),
     )
     ..registerLazySingleton(
       () => GetSchedulePaymentCubit(
-        getSchedulePayment: serviceLocator(),
+        getSchedulePayment: sl(),
       ),
     );
 }
 
 void _initAiAssistant() {
-  serviceLocator.registerLazySingleton(
+  sl.registerLazySingleton(
     ChatCubit.new,
   );
 }
 
 void _initSettings() {
-  serviceLocator
+  sl
     ..registerLazySingleton(
       SettingPreferenceRepo.new,
     )
@@ -164,63 +164,63 @@ void _initSettings() {
     )
     ..registerLazySingleton(
       () => SettingBloc(
-        preferenceRepository: serviceLocator(),
-        userPreferenceRepo: serviceLocator(),
-        pdfRepository: serviceLocator(),
+        preferenceRepository: sl(),
+        userPreferenceRepo: sl(),
+        pdfRepository: sl(),
       ),
     );
 }
 
 void _initBudget() {
-  serviceLocator
+  sl
     ..registerFactory<BudgetLocalApi>(
       () => BudgetLocalApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<BudgetRepository>(
       () => BudgetRepositoryImpl(
-        localDataApi: serviceLocator(),
+        localDataApi: sl(),
       ),
     )
     ..registerFactory<GroupCategoryRepository>(
       () => GroupCategoryRepositoryImpl(
-        localDataApi: serviceLocator(),
+        localDataApi: sl(),
       ),
     )
     ..registerFactory<ItemCategoryRepository>(
       () => ItemCategoryRepositoryImpl(
-        localDataApi: serviceLocator(),
+        localDataApi: sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoryHistoryById(
-        repository: serviceLocator(),
+        repository: sl(),
       ),
     )
     ..registerFactory(
       () => InsertBudgetUsecase(
-        repository: serviceLocator(),
+        repository: sl(),
       ),
     )
     ..registerFactory(
       () => GetBudgetsById(
-        repository: serviceLocator(),
+        repository: sl(),
       ),
     )
     ..registerFactory(
       () => GetBudgetList(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => UpdateBudgetUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteBudgetById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
@@ -228,476 +228,476 @@ void _initBudget() {
     )
     ..registerLazySingleton(
       () => BudgetFormBloc(
-        preferenceRepository: serviceLocator(),
-        saveGroupCategory: serviceLocator(),
-        saveItemCategory: serviceLocator(),
-        saveBudgetToDB: serviceLocator(),
-        insertGroupCategoryUsecase: serviceLocator(),
-        insertItemCategoryUsecase: serviceLocator(),
-        getItemCategoryHistoriesUsecase: serviceLocator(),
+        preferenceRepository: sl(),
+        saveGroupCategory: sl(),
+        saveItemCategory: sl(),
+        saveBudgetToDB: sl(),
+        insertGroupCategoryUsecase: sl(),
+        insertItemCategoryUsecase: sl(),
+        getItemCategoryHistoriesUsecase: sl(),
       ),
     )
     ..registerLazySingleton(
       () => BudgetBloc(
-        getItemCategoryTransactionsByBudgetId: serviceLocator(),
-        updateBudgetDB: serviceLocator(),
-        getBudgetsFromDB: serviceLocator(),
-        getGroupCategoryHistoryUsecase: serviceLocator(),
-        updateGroupCategoryHistory: serviceLocator(),
+        getItemCategoryTransactionsByBudgetId: sl(),
+        updateBudgetDB: sl(),
+        getBudgetsFromDB: sl(),
+        getGroupCategoryHistoryUsecase: sl(),
+        updateGroupCategoryHistory: sl(),
       ),
     )
     ..registerLazySingleton(
       () => BudgetsCubit(
-        getBudgetList: serviceLocator(),
+        getBudgetList: sl(),
       ),
     );
 }
 
 void _initBudgetFirestore() {
-  serviceLocator
+  sl
     ..registerFactory<BudgetFirestoreApi>(
       () => BudgetFirestoreApiImpl(
-        firestore: serviceLocator(),
-        auth: serviceLocator(),
+        firestore: sl(),
+        auth: sl(),
       ),
     )
     ..registerFactory<BudgetFirestoreRepo>(
       () => BudgetFirestoreRepoImpl(
-        budgetFirestoreApi: serviceLocator(),
+        budgetFirestoreApi: sl(),
       ),
     )
     ..registerFactory<GroupCategoryFirestoreRepo>(
       () => GroupCategoryFirestoreRepoImpl(
-        budgetFirestoreApi: serviceLocator(),
+        budgetFirestoreApi: sl(),
       ),
     )
     ..registerFactory<ItemCategoryFirestoreRepo>(
       () => ItemCategoryFirestoreRepoImpl(
-        budgetFirestoreApi: serviceLocator(),
+        budgetFirestoreApi: sl(),
       ),
     )
     ..registerFactory<GroupCategoryHistoryFirestoreRepo>(
       () => GroupCategoryHistoryFirestoreRepoImpl(
-        budgetFirestoreApi: serviceLocator(),
+        budgetFirestoreApi: sl(),
       ),
     )
     ..registerFactory<ItemCategoryHistoryFirestoreRepo>(
       () => ItemCategoryHistoryFirestoreRepoImpl(
-        budgetFirestoreApi: serviceLocator(),
+        budgetFirestoreApi: sl(),
       ),
     )
     ..registerFactory<ItemCategoryTransactionFirestoreRepo>(
       () => ItemCategoryTransactionFirestoreRepoImpl(
-        budgetFirestoreApi: serviceLocator(),
+        budgetFirestoreApi: sl(),
       ),
     )
     ..registerFactory(
       () => GetBudgetsFromFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertBudgetToFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetGroupCategoriesFromFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertGroupCategoryToFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetGroupCategoryHistoryFromFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertGroupCategoryHistoryToFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoriesFromFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertItemCategoryToFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoryHistoryFromFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertItemCategoryHistoryToFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoryTransactionFromFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertItemCategoryTransactionToFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => UpdateItemCategoryFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => UpdateItemCategoryHistoryFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteItemCategoryHistoryFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertAccountHistoryFire(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => UpdateAccountFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertAccountFirestore(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => BudgetFirestoreCubit(
-        insertItemCategoryToFirestore: serviceLocator(),
-        insertItemCategoryHistoryToFirestore: serviceLocator(),
-        insertGroupCategoryToFirestore: serviceLocator(),
-        insertGroupCategoryHistoryToFirestore: serviceLocator(),
-        insertBudgetToFirestore: serviceLocator(),
-        updateUserFire: serviceLocator(),
-        updateItemCategoryFirestore: serviceLocator(),
-        updateItemCategoryHistoryFirestore: serviceLocator(),
+        insertItemCategoryToFirestore: sl(),
+        insertItemCategoryHistoryToFirestore: sl(),
+        insertGroupCategoryToFirestore: sl(),
+        insertGroupCategoryHistoryToFirestore: sl(),
+        insertBudgetToFirestore: sl(),
+        updateUserFire: sl(),
+        updateItemCategoryFirestore: sl(),
+        updateItemCategoryHistoryFirestore: sl(),
         // deleteItemCategoryHistoryFirestore: serviceLocator(),
-        insertAccountHistoryFirestore: serviceLocator(),
-        updateAccountFirestore: serviceLocator(),
-        insertItemCategoryTransactionFirestore: serviceLocator(),
-        insertAccountFirestore: serviceLocator(),
+        insertAccountHistoryFirestore: sl(),
+        updateAccountFirestore: sl(),
+        insertItemCategoryTransactionFirestore: sl(),
+        insertAccountFirestore: sl(),
       ),
     );
 }
 
 void _initiGroupCategoryHistry() {
-  serviceLocator
+  sl
     ..registerFactory<GroupCategoryHistoryRepository>(
       () => GroupCategoryHistoryRepositoryImpl(
-        localDataApi: serviceLocator(),
+        localDataApi: sl(),
       ),
     )
     ..registerFactory(
       () => GetGroupCategoryHistoriesUsecase(
-        repository: serviceLocator(),
+        repository: sl(),
       ),
     )
     ..registerFactory(
       () => GetGroupCategoryHistoryByBudgetId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertGroupCategoryHistoryUsecase(
-        repository: serviceLocator(),
+        repository: sl(),
       ),
     );
 }
 
 void _initItemCategoryHistry() {
-  serviceLocator
+  sl
     ..registerFactory<ItemCategoryHistoryRepository>(
       () => ItemCategoryHistoryRepositoryImpl(
-        localDataApi: serviceLocator(),
+        localDataApi: sl(),
       ),
     )
     ..registerFactory(
       () => InsertItemCategoryHistoriesUsecase(
-        repository: serviceLocator(),
+        repository: sl(),
       ),
     );
 }
 
 void _initItemCategoryTransaction() {
-  serviceLocator
+  sl
     ..registerFactory<ItemCategoryTransactionRepository>(
       () => ItemCategoryTransactionRepositoryImpl(
-        localDataApi: serviceLocator(),
+        localDataApi: sl(),
       ),
     )
     ..registerFactory(
       () => UpdateItemCategoryTransaction(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteItemCategoryTransactionByItemId(
-        serviceLocator(),
+        sl(),
       ),
     );
 }
 
 void _initGroupCategory() {
-  serviceLocator
+  sl
     ..registerFactory(
       () => InsertGroupCategoryUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetGroupCategoryHistoryById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteGroupCategoryById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteItemCategoryHistoryById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteItemCategoryTransactionById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => UpdateGroupCategoryHistoryUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetGroupCategoriesUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => UpdateGroupCategoryHistoryNoItemCategory(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => UpdateGroupCategoryUsecase(
-        serviceLocator(),
+        sl(),
       ),
     );
 }
 
 void _initItemCategory() {
-  serviceLocator
+  sl
     ..registerFactory(
       () => UpdateItemCategoryHistoryUsecase(
-        repository: serviceLocator(),
+        repository: sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoryTransactionsByItemId(
-        repository: serviceLocator(),
+        repository: sl(),
       ),
     )
     ..registerFactory(
       () => DeleteCategoryTransactionByGroupId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteItemCategoryHistoryByGroupId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteItemCategoryTransactionByBudgetId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteItemCategoryHistoryByBudgetId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => DeleteGroupCategoryByBudgetId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => InsertItemCategoryUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoriesUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => UpdateItemCategoryUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => CategoryCubit(
-        getItemCategoryTransactions: serviceLocator(),
-        updateItemCategoryToDB: serviceLocator(),
-        deleteItemCategoryTransaction: serviceLocator(),
-        deleteItemCategory: serviceLocator(),
-        deleteGroupCategory: serviceLocator(),
-        deleteItemCategoryTransactionByItemId: serviceLocator(),
-        deleteCategoryTransactionByGroupId: serviceLocator(),
-        deleteItemCategoryByGroupId: serviceLocator(),
-        insertGroupCategoryHistory: serviceLocator(),
-        insertItemCategoryHistory: serviceLocator(),
-        deleteBudgetById: serviceLocator(),
-        getItemCategoryHistoriesByBudgetId: serviceLocator(),
-        getOnlyGroupCategoryById: serviceLocator(),
-        getItemCategoriesUsecase: serviceLocator(),
-        getGroupCategoriesUsecase: serviceLocator(),
-        getGroupCategoryHistoriesUsecase: serviceLocator(),
-        insertItemCategoryUsecase: serviceLocator(),
-        getGroupCategoryHistoryByBudgetId: serviceLocator(),
-        insertGroupCategoryUsecase: serviceLocator(),
-        updateItemCategoryUsecase: serviceLocator(),
-        getAccountByIdUsecase: serviceLocator(),
-        updateGroupCategoryHistoryUsecase: serviceLocator(),
-        updateGroupCategoryUsecase: serviceLocator(),
-        updateBudgetUsecase: serviceLocator(),
+        getItemCategoryTransactions: sl(),
+        updateItemCategoryToDB: sl(),
+        deleteItemCategoryTransaction: sl(),
+        deleteItemCategory: sl(),
+        deleteGroupCategory: sl(),
+        deleteItemCategoryTransactionByItemId: sl(),
+        deleteCategoryTransactionByGroupId: sl(),
+        deleteItemCategoryByGroupId: sl(),
+        insertGroupCategoryHistory: sl(),
+        insertItemCategoryHistory: sl(),
+        deleteBudgetById: sl(),
+        getItemCategoryHistoriesByBudgetId: sl(),
+        getOnlyGroupCategoryById: sl(),
+        getItemCategoriesUsecase: sl(),
+        getGroupCategoriesUsecase: sl(),
+        getGroupCategoryHistoriesUsecase: sl(),
+        insertItemCategoryUsecase: sl(),
+        getGroupCategoryHistoryByBudgetId: sl(),
+        insertGroupCategoryUsecase: sl(),
+        updateItemCategoryUsecase: sl(),
+        getAccountByIdUsecase: sl(),
+        updateGroupCategoryHistoryUsecase: sl(),
+        updateGroupCategoryUsecase: sl(),
+        updateBudgetUsecase: sl(),
       ),
     );
 }
 
 void _transactions() {
-  serviceLocator
+  sl
     ..registerFactory(
       () => InsertItemCategoryTransaction(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoryTransactionsByBudgetId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => TransactionsCubit(
-        updateItemCategoryTransaction: serviceLocator(),
-        updateBudgetDB: serviceLocator(),
-        insertItemCategoryTransaction: serviceLocator(),
-        getItemCategoryTransactionsByBudgetId: serviceLocator(),
-        insertAccountHistoryUsecase: serviceLocator(),
-        updateAccountUsecase: serviceLocator(),
+        updateItemCategoryTransaction: sl(),
+        updateBudgetDB: sl(),
+        insertItemCategoryTransaction: sl(),
+        getItemCategoryTransactionsByBudgetId: sl(),
+        insertAccountHistoryUsecase: sl(),
+        updateAccountUsecase: sl(),
       ),
     );
 }
 
 void _initTrackingCategories() {
-  serviceLocator
+  sl
     ..registerFactory(
       () => GetItemCategoryHistoriesUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetAllItemCategoryTransactions(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoryHistoriesByGroupId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory(
       () => GetItemCategoryHistoriesByBudgetId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => TrackingCubit(
-        getItemCategoryTransactionsByBudgetId: serviceLocator(),
-        getItemCategoriesByGroupId: serviceLocator(),
-        getItemCategoriesByBudgetId: serviceLocator(),
+        getItemCategoryTransactionsByBudgetId: sl(),
+        getItemCategoriesByGroupId: sl(),
+        getItemCategoriesByBudgetId: sl(),
       ),
     );
 }
 
 void _initInsight() {
-  serviceLocator.registerLazySingleton(
+  sl.registerLazySingleton(
     () => InsightCubit(
-      getItemCategoryTransactionsByBudgetId: serviceLocator(),
-      getItemCategoriesByGroupId: serviceLocator(),
-      getItemCategoriesByBudgetId: serviceLocator(),
+      getItemCategoryTransactionsByBudgetId: sl(),
+      getItemCategoriesByGroupId: sl(),
+      getItemCategoriesByBudgetId: sl(),
     ),
   );
 }
 
 void _initNetWorth() {
-  serviceLocator
+  sl
     ..registerFactory<NetWorthLocalApi>(
       () => NetWorthLocalApiImpl(
-        netWorthDatabase: serviceLocator(),
+        netWorthDatabase: sl(),
       ),
     )
     ..registerFactory<AssetRepository>(
       () => AssetRepositoryImpl(
-        netWorthLocalApi: serviceLocator(),
+        netWorthLocalApi: sl(),
       ),
     )
     ..registerFactory<LiabilityRepository>(
       () => LiabilityRepositoryImpl(
-        netWorthLocalApi: serviceLocator(),
+        netWorthLocalApi: sl(),
       ),
     )
     ..registerFactory<InsertAssetUsecase>(
       () => InsertAssetUsecase(
-        assetRepository: serviceLocator(),
+        assetRepository: sl(),
       ),
     )
     ..registerFactory<InsertLiabilityUsecase>(
       () => InsertLiabilityUsecase(
-        liabilitiesRepository: serviceLocator(),
+        liabilitiesRepository: sl(),
       ),
     )
     ..registerFactory<GetAssetListUsecase>(
       () => GetAssetListUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetLiabilityListUsecase>(
       () => GetLiabilityListUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateAssetUsecase>(
       () => UpdateAssetUsecase(
-        assetRepository: serviceLocator(),
+        assetRepository: sl(),
       ),
     )
     ..registerFactory<DeleteAssetUsecase>(
       () => DeleteAssetUsecase(
-        assetRepository: serviceLocator(),
+        assetRepository: sl(),
       ),
     )
     ..registerLazySingleton(
@@ -705,538 +705,538 @@ void _initNetWorth() {
     )
     ..registerLazySingleton(
       () => NetWorthBloc(
-        insertAsset: serviceLocator(),
-        insertLiabilities: serviceLocator(),
-        getAssetList: serviceLocator(),
-        getLiabilityList: serviceLocator(),
-        updateAsset: serviceLocator(),
-        deleteAssetUsecase: serviceLocator(),
+        insertAsset: sl(),
+        insertLiabilities: sl(),
+        getAssetList: sl(),
+        getLiabilityList: sl(),
+        updateAsset: sl(),
+        deleteAssetUsecase: sl(),
       ),
     );
 }
 
 void _initAccount() {
-  serviceLocator
+  sl
     ..registerLazySingleton(
       AccountDatabase.new,
     )
     ..registerFactory<AccountDatabaseApi>(
       () => AccountDatabaseApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<AccountRepository>(
       () => AccountRepoImpl(
-        accountDatabaseApi: serviceLocator(),
+        accountDatabaseApi: sl(),
       ),
     )
     ..registerFactory<AccountHistoryFirestoreRepo>(
       () => AccountHistoryFirestoreRepoImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<AccountFirestoreRepo>(
       () => AccountFirestoreRepoImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<AccountHistoryRepository>(
       () => AccountHistoryRepoImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<AccountHistoryDatabaseApi>(
       () => AccountHistoryDatabaseApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<AccountFirestoreApi>(
       () => AccountFirestoreApiImpl(
-        serviceLocator(),
-        serviceLocator(),
+        sl(),
+        sl(),
       ),
     )
     ..registerFactory<AccountHistoryFirestoreApi>(
       () => AccountHistoryFirestoreApiImpl(
-        serviceLocator(),
-        serviceLocator(),
+        sl(),
+        sl(),
       ),
     )
     ..registerFactory<InsertAccountUsecase>(
       () => InsertAccountUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateAccountUsecase>(
       () => UpdateAccountUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetAccountsUsecase>(
       () => GetAccountsUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetAccountHistoriesUsecase>(
       () => GetAccountHistoriesUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertAccountHistoryUsecase>(
       () => InsertAccountHistoryUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetAccountByIdUsecase>(
       () => GetAccountByIdUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<DeleteAccountUsecase>(
       () => DeleteAccountUsecase(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => AccountBloc(
-        getAccountsUsecase: serviceLocator(),
-        insertAccountUsecase: serviceLocator(),
-        settingPreferenceRepo: serviceLocator(),
-        updateAccountUsecase: serviceLocator(),
-        getAccountHistoriesUsecase: serviceLocator(),
-        getAllItemCategoryTransactions: serviceLocator(),
-        getItemCategoryHistoriesUsecase: serviceLocator(),
-        deleteAccountUsecase: serviceLocator(),
+        getAccountsUsecase: sl(),
+        insertAccountUsecase: sl(),
+        settingPreferenceRepo: sl(),
+        updateAccountUsecase: sl(),
+        getAccountHistoriesUsecase: sl(),
+        getAllItemCategoryTransactions: sl(),
+        getItemCategoryHistoriesUsecase: sl(),
+        deleteAccountUsecase: sl(),
       ),
     );
 }
 
 void _initRepository() {
-  serviceLocator
+  sl
     ..registerFactory<PdfRepository>(
       PdfRepository.new,
     )
     ..registerLazySingleton(
       () => PreferenceCubit(
-        settingRepository: serviceLocator(),
-        userPreferenceRepo: serviceLocator(),
+        settingRepository: sl(),
+        userPreferenceRepo: sl(),
       ),
     );
 }
 
 void _initGemini() {
-  serviceLocator
+  sl
     ..registerFactory<GeminiRepositoryModel>(
       () => GeminiRepositoryModel.instance,
     )
     ..registerLazySingleton(
       () => PromptCubit(
-        geminiModelRepository: serviceLocator(),
-        settingRepository: serviceLocator(),
+        geminiModelRepository: sl(),
+        settingRepository: sl(),
       ),
     )
     ..registerLazySingleton(
       () => PromptAnalysisCubit(
-        geminiModelRepository: serviceLocator(),
-        settingRepository: serviceLocator(),
+        geminiModelRepository: sl(),
+        settingRepository: sl(),
       ),
     );
 }
 
 void _initSchedulePaymentDb() {
-  serviceLocator
+  sl
     ..registerLazySingleton(
       SchedulePaymentDatabase.new,
     )
     ..registerFactory<SchedulePaymentDatabaseApi>(
       () => SchedulePaymentDatabaseApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<RepetitionRepoDb>(
       () => RepetitionRepoDbImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertSchedulePaymentDb>(
       () => InsertSchedulePaymentDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<DeleteSchedulePaymentDbById>(
       () => DeleteSchedulePaymentDbById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetSchedulePaymentDbById>(
       () => GetSchedulePaymentDbById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetSchedulePaymentsDb>(
       () => GetSchedulePaymentsDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateSchedulePaymentDb>(
       () => UpdateSchedulePaymentDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => SchedulePaymentDbBloc(
-        insertSchedulePaymentDb: serviceLocator(),
-        getSchedulePaymentById: serviceLocator(),
-        getSchedulePaymentDb: serviceLocator(),
-        getRepetitionListBySchedulePaymentId: serviceLocator(),
-        insertRepetitionsToDb: serviceLocator(),
-        updatedRepetitionById: serviceLocator(),
-        updateSchedulePaymentDb: serviceLocator(),
+        insertSchedulePaymentDb: sl(),
+        getSchedulePaymentById: sl(),
+        getSchedulePaymentDb: sl(),
+        getRepetitionListBySchedulePaymentId: sl(),
+        insertRepetitionsToDb: sl(),
+        updatedRepetitionById: sl(),
+        updateSchedulePaymentDb: sl(),
       ),
     );
 }
 
 void _initRepetition() {
-  serviceLocator
+  sl
     ..registerFactory<RepetitionDatabaseApi>(
       () => RepetitionDatabaseApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<SchedulePaymentRepositoryDb>(
       () => SchedulePaymentRepositoryImplDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertRepetitionToDb>(
       () => InsertRepetitionToDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertRepetitionsToDb>(
       () => InsertRepetitionsToDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetRepetitionListBySchedulePaymentId>(
       () => GetRepetitionListBySchedulePaymentId(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateRepetitionById>(
       () => UpdateRepetitionById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetRepetitionById>(
       () => GetRepetitionById(
-        serviceLocator(),
+        sl(),
       ),
     );
 }
 
 void _initGoal() {
-  serviceLocator
+  sl
     ..registerLazySingleton(GoalDatabase.new)
     ..registerFactory<GoalDatabaseApi>(
       () => GoalDatabaseApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GoalRepository>(
       () => GoalRepositoryImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<DeleteGoalFromDb>(
       () => DeleteGoalFromDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetGoalFromDbById>(
       () => GetGoalFromDbById(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetGoalsFromDb>(
       () => GetGoalsFromDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertGoalToDb>(
       () => InsertGoalToDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateGoalFromDb>(
       () => UpdateGoalFromDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => GoalDatabaseBloc(
-        insertGoalToDb: serviceLocator(),
-        updateGoalFromDb: serviceLocator(),
-        getGoalFromDbById: serviceLocator(),
-        getGoalsFromDb: serviceLocator(),
-        deleteGoalFromDb: serviceLocator(),
+        insertGoalToDb: sl(),
+        updateGoalFromDb: sl(),
+        getGoalFromDbById: sl(),
+        getGoalsFromDb: sl(),
+        deleteGoalFromDb: sl(),
       ),
     );
 }
 
 void _initMyPortfolio() {
-  serviceLocator
+  sl
     ..registerLazySingleton(MyPortfolioDatabase.new)
     ..registerFactory<MyPortfolioDatabaseApi>(
       () => MyPortfolioDatabaseApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<MyPortfolioRepository>(
       () => MyPortfolioRepositoryImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<DeleteMyPortfolioDb>(
       () => DeleteMyPortfolioDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetMyPortfolioByIdDb>(
       () => GetMyPortfolioByIdDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetMyPortfolioListDb>(
       () => GetMyPortfolioListDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertMyPortfolioDb>(
       () => InsertMyPortfolioDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateMyPortfolioDb>(
       () => UpdateMyPortfolioDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => MyPortfolioDbBloc(
-        insertMyPortfolioDb: serviceLocator(),
-        updateMyPortfolioDb: serviceLocator(),
-        getMyPortfolioByIdDb: serviceLocator(),
-        getMyPortfolioListDb: serviceLocator(),
-        deleteMyPortfolioDb: serviceLocator(),
+        insertMyPortfolioDb: sl(),
+        updateMyPortfolioDb: sl(),
+        getMyPortfolioByIdDb: sl(),
+        getMyPortfolioListDb: sl(),
+        deleteMyPortfolioDb: sl(),
       ),
     );
 }
 
 void _insertFinancialCategoryDb() {
-  serviceLocator
+  sl
     ..registerLazySingleton(FinancialCategoryDb.new)
     ..registerFactory<FinancialCategoryDbApi>(
       () => FinancialCategoryDbApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<FinancialCategoryRepository>(
       () => FinancialCategoryRepositoryImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertFinancialCategoryDb>(
       () => InsertFinancialCategoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetFinancialCategoryDb>(
       () => GetFinancialCategoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetAllFinancialCategoryDb>(
       () => GetAllFinancialCategoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateFinancialCategoryDb>(
       () => UpdateFinancialCategoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<DeleteFinancialCategoryDb>(
       () => DeleteFinancialCategoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => FinancialCategoryBloc(
-        insertFinancialCategoryDb: serviceLocator(),
-        updateFinancialCategoryDb: serviceLocator(),
-        getFinancialCategoryDb: serviceLocator(),
-        getFinancialCategoriesDb: serviceLocator(),
-        deleteFinancialCategoryDb: serviceLocator(),
+        insertFinancialCategoryDb: sl(),
+        updateFinancialCategoryDb: sl(),
+        getFinancialCategoryDb: sl(),
+        getFinancialCategoriesDb: sl(),
+        deleteFinancialCategoryDb: sl(),
       ),
     );
 }
 
 void _insertFinancialCategoryHistoryDb() {
-  serviceLocator
+  sl
     ..registerFactory<FinancialCategoryHistoryDbApi>(
       () => FinancialCategoryHistoryDbApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<FinancialCategoryHistoryRepository>(
       () => FinancialCategoryHistoryRepositoryImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertFinancialCategoryHistoryDb>(
       () => InsertFinancialCategoryHistoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetFinancialCategoryHistoryDb>(
       () => GetFinancialCategoryHistoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetFinancialCategoryHistoriesDb>(
       () => GetFinancialCategoryHistoriesDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateFinancialCategoryHistoryDb>(
       () => UpdateFinancialCategoryHistoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<DeleteFinancialCategoryHistoryDb>(
       () => DeleteFinancialCategoryHistoryDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => FinancialCategoryHistoryBloc(
-        insertFinancialCategoryHistoryDb: serviceLocator(),
-        updateFinancialCategoryHistoryDb: serviceLocator(),
-        getFinancialCategoryHistoryDb: serviceLocator(),
-        getFinancialCategoryHistoriesDb: serviceLocator(),
-        deleteFinancialCategoryHistoryDb: serviceLocator(),
+        insertFinancialCategoryHistoryDb: sl(),
+        updateFinancialCategoryHistoryDb: sl(),
+        getFinancialCategoryHistoryDb: sl(),
+        getFinancialCategoryHistoriesDb: sl(),
+        deleteFinancialCategoryHistoryDb: sl(),
       ),
     );
 }
 
 void _initFinancialTransactionDb() {
-  serviceLocator
+  sl
     ..registerLazySingleton(FinancialTransactionDb.new)
     ..registerFactory<FinancialTransactionDbApi>(
       () => FinancialTransactionDbApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<FinancialTransactionRepository>(
       () => FinancialTransactionRepositoryImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertFinancialTransactionDb>(
       () => InsertFinancialTransactionDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetFinancialTransactionByIdDb>(
       () => GetFinancialTransactionByIdDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetAllFinancialTransactionDb>(
       () => GetAllFinancialTransactionDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateFinancialTransactionDb>(
       () => UpdateFinancialTransactionDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<DeleteFinancialTransactionDb>(
       () => DeleteFinancialTransactionDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetAllFinancialTransactionByMonthAndYearDb>(
       () => GetAllFinancialTransactionByMonthAndYearDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => FinancialTransactionBloc(
-        insertFinancialTransactionDb: serviceLocator(),
-        updateFinancialTransactionDb: serviceLocator(),
-        getFinancialTransactionDb: serviceLocator(),
-        getAllFinancialTransactionDb: serviceLocator(),
-        deleteFinancialTransactionDb: serviceLocator(),
+        insertFinancialTransactionDb: sl(),
+        updateFinancialTransactionDb: sl(),
+        getFinancialTransactionDb: sl(),
+        getAllFinancialTransactionDb: sl(),
+        deleteFinancialTransactionDb: sl(),
       ),
     );
 }
 
 void _initFinancialDashboard() {
-  serviceLocator.registerLazySingleton(
+  sl.registerLazySingleton(
     () => FinancialDashboardCubit(
-      getAllFinancialTransactionByMonthAndYearDb: serviceLocator(),
+      getAllFinancialTransactionByMonthAndYearDb: sl(),
     ),
   );
 }
 
 void _initMemberDb() {
-  serviceLocator
+  sl
     ..registerLazySingleton(MemberDb.new)
     ..registerFactory<MemberDbApi>(
       () => MemberDbApiImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<MemberDbRepository>(
       () => MemberDbRepositoryImpl(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<InsertMemberDb>(
       () => InsertMemberDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetMemberByIdDb>(
       () => GetMemberByIdDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<GetAllMemberDb>(
       () => GetAllMemberDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<UpdateMemberDb>(
       () => UpdateMemberDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerFactory<DeleteMemberDb>(
       () => DeleteMemberDb(
-        serviceLocator(),
+        sl(),
       ),
     )
     ..registerLazySingleton(
       () => MemberDbBloc(
-        insertMemberDb: serviceLocator(),
-        updateMemberDb: serviceLocator(),
-        getMemberByIdDb: serviceLocator(),
-        getAllMemberDb: serviceLocator(),
-        deleteMemberDb: serviceLocator(),
+        insertMemberDb: sl(),
+        updateMemberDb: sl(),
+        getMemberByIdDb: sl(),
+        getAllMemberDb: sl(),
+        deleteMemberDb: sl(),
       ),
     );
 }

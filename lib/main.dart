@@ -130,10 +130,10 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider<AuthBloc>(
-          create: (_) => serviceLocator<AuthBloc>(),
+          create: (_) => sl<AuthBloc>(),
         ),
         BlocProvider<SchedulePaymentBloc>(
-          create: (_) => serviceLocator<SchedulePaymentBloc>(),
+          create: (_) => sl<SchedulePaymentBloc>(),
         ),
         BlocProvider<UploadImageBloc>(
           create: (_) => UploadImageBloc(),
@@ -145,16 +145,16 @@ void main() async {
           create: (_) => BoxCalendarCubit(),
         ),
         BlocProvider<UserFirestoreCubit>(
-          create: (_) => serviceLocator<UserFirestoreCubit>(),
+          create: (_) => sl<UserFirestoreCubit>(),
         ),
         BlocProvider<GetSchedulePaymentCubit>(
-          create: (_) => serviceLocator<GetSchedulePaymentCubit>(),
+          create: (_) => sl<GetSchedulePaymentCubit>(),
         ),
         BlocProvider<CudSchedulePaymentBloc>(
-          create: (_) => serviceLocator<CudSchedulePaymentBloc>(),
+          create: (_) => sl<CudSchedulePaymentBloc>(),
         ),
         BlocProvider<ChatCubit>(
-          create: (_) => serviceLocator<ChatCubit>(),
+          create: (_) => sl<ChatCubit>(),
         ),
         BlocProvider<BoxCalculatorCubit>(
           create: (_) => BoxCalculatorCubit(),
@@ -163,61 +163,61 @@ void main() async {
           create: (_) => RepititionCubit(),
         ),
         BlocProvider<SettingBloc>(
-          create: (_) => serviceLocator<SettingBloc>(),
+          create: (_) => sl<SettingBloc>(),
         ),
         BlocProvider<BudgetFormBloc>(
-          create: (_) => serviceLocator<BudgetFormBloc>(),
+          create: (_) => sl<BudgetFormBloc>(),
         ),
         BlocProvider<BudgetBloc>(
-          create: (_) => serviceLocator<BudgetBloc>(),
+          create: (_) => sl<BudgetBloc>(),
         ),
         BlocProvider<AppSizeCubit>(
           create: (_) => AppSizeCubit(),
         ),
         BlocProvider<CategoryCubit>(
-          create: (_) => serviceLocator<CategoryCubit>(),
+          create: (_) => sl<CategoryCubit>(),
         ),
         BlocProvider<TransactionsCubit>(
-          create: (_) => serviceLocator<TransactionsCubit>(),
+          create: (_) => sl<TransactionsCubit>(),
         ),
         BlocProvider<BudgetsCubit>(
-          create: (_) => serviceLocator<BudgetsCubit>(),
+          create: (_) => sl<BudgetsCubit>(),
         ),
         BlocProvider<TrackingCubit>(
-          create: (_) => serviceLocator<TrackingCubit>(),
+          create: (_) => sl<TrackingCubit>(),
         ),
         BlocProvider<SearchTransactionCubit>(
           create: (_) => SearchTransactionCubit(),
         ),
         BlocProvider<InsightCubit>(
-          create: (_) => serviceLocator<InsightCubit>(),
+          create: (_) => sl<InsightCubit>(),
         ),
         BlocProvider<NetWorthBloc>(
-          create: (_) => serviceLocator<NetWorthBloc>(),
+          create: (_) => sl<NetWorthBloc>(),
         ),
         BlocProvider<AccountBloc>(
-          create: (_) => serviceLocator<AccountBloc>(),
+          create: (_) => sl<AccountBloc>(),
         ),
         BlocProvider<BudgetFirestoreCubit>(
-          create: (_) => serviceLocator<BudgetFirestoreCubit>(),
+          create: (_) => sl<BudgetFirestoreCubit>(),
         ),
         BlocProvider<PreferenceCubit>(
-          create: (_) => serviceLocator<PreferenceCubit>(),
+          create: (_) => sl<PreferenceCubit>(),
         ),
         BlocProvider<PromptCubit>(
-          create: (_) => serviceLocator<PromptCubit>(),
+          create: (_) => sl<PromptCubit>(),
         ),
         BlocProvider<PromptAnalysisCubit>(
-          create: (_) => serviceLocator<PromptAnalysisCubit>(),
+          create: (_) => sl<PromptAnalysisCubit>(),
         ),
         BlocProvider<SchedulePaymentDbBloc>(
-          create: (_) => serviceLocator<SchedulePaymentDbBloc>(),
+          create: (_) => sl<SchedulePaymentDbBloc>(),
         ),
         BlocProvider<GoalDatabaseBloc>(
-          create: (_) => serviceLocator<GoalDatabaseBloc>(),
+          create: (_) => sl<GoalDatabaseBloc>(),
         ),
         BlocProvider<MyPortfolioDbBloc>(
-          create: (_) => serviceLocator<MyPortfolioDbBloc>(),
+          create: (_) => sl<MyPortfolioDbBloc>(),
         ),
         BlocProvider<AppBoxCalendarCubit>(
           create: (_) => AppBoxCalendarCubit(),
@@ -226,16 +226,16 @@ void main() async {
           create: (_) => FinancialCalculatorCubit(),
         ),
         BlocProvider<FinancialDashboardCubit>(
-          create: (_) => serviceLocator<FinancialDashboardCubit>(),
+          create: (_) => sl<FinancialDashboardCubit>(),
         ),
         BlocProvider<FinancialCategoryBloc>(
-          create: (_) => serviceLocator<FinancialCategoryBloc>(),
+          create: (_) => sl<FinancialCategoryBloc>(),
         ),
         BlocProvider<FinancialCategoryHistoryBloc>(
-          create: (_) => serviceLocator<FinancialCategoryHistoryBloc>(),
+          create: (_) => sl<FinancialCategoryHistoryBloc>(),
         ),
         BlocProvider<FinancialTransactionBloc>(
-          create: (_) => serviceLocator<FinancialTransactionBloc>(),
+          create: (_) => sl<FinancialTransactionBloc>(),
         ),
         BlocProvider<LocationCubit>(
           create: (context) => LocationCubit(),
@@ -244,7 +244,7 @@ void main() async {
           create: (context) => TimeScrollWheelCubit(),
         ),
         BlocProvider<MemberDbBloc>(
-          create: (_) => serviceLocator<MemberDbBloc>(),
+          create: (_) => sl<MemberDbBloc>(),
         ),
         BlocProvider<AppUpdateCubit>(
           create: (_) => AppUpdateCubit(),

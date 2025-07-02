@@ -136,7 +136,7 @@ class _BoxCalculatorState extends State<BoxCalculator>
       isScrollControlled: true,
       context: context,
       transitionAnimationController: AnimationController(
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 200),
         vsync: this,
       ),
       builder: (context) {

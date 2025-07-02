@@ -3,6 +3,7 @@ import 'package:budget_intelli/features/budget/view/controller/budget/budget_blo
 import 'package:budget_intelli/features/budget/view/controller/budgets/budgets_cubit.dart';
 import 'package:budget_intelli/features/settings/settings_barrel.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,11 +20,6 @@ class AppBarWidget extends StatefulWidget {
 }
 
 class _AppBarWidgetState extends State<AppBarWidget> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
   void _onBudgetSelected(String budgetId) {
     context.read<SettingBloc>().add(
           SetUserLastSeenBudgetId(lastSeenBudgetId: budgetId),
@@ -51,55 +47,80 @@ class _AppBarWidgetState extends State<AppBarWidget> {
           children: [
             GestureDetector(
               onTap: () async {
-                final result = await showCupertinoModalPopup<String>(
+                final selectedBudgetId = await showModalBottomSheet<String>(
                   context: context,
+                  backgroundColor: Colors.transparent,
                   builder: (context) {
-                    if (budgetsNotNullOrNotEmpty) {
-                      return CupertinoActionSheet(
-                        title: AppText(
-                          text: localize.selectBudget,
-                          style: StyleType.headMed,
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: CupertinoColors.systemBackground
+                            .resolveFrom(context),
+                        borderRadius: const BorderRadius.vertical(
+                          top: Radius.circular(12),
                         ),
-                        actions: List.generate(
-                          budgets.length,
-                          (index) {
-                            return CupertinoActionSheetAction(
-                              onPressed: () {
-                                final budgetId = budgets[index].id;
-                                context.pop(budgetId);
-                              },
+                      ),
+                      child: SafeArea(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(16),
                               child: AppText(
-                                text: budgets[index].budgetName,
-                                style: StyleType.bodMed,
+                                text: localize.selectBudget,
+                                style: StyleType.headMed,
                               ),
-                            );
-                          },
-                        ),
-                      );
-                    } else {
-                      return CupertinoActionSheet(
-                        title: AppText(
-                          text: localize.selectBudget,
-                          style: StyleType.headMed,
-                        ),
-                        actions: List.generate(1, (index) {
-                          return CupertinoActionSheetAction(
-                            onPressed: () {
-                              context.pop();
-                            },
-                            child: AppText(
-                              text: localize.noBudgetCreatedYet,
-                              style: StyleType.bodMed,
                             ),
-                          );
-                        }),
-                      );
-                    }
+                            const AppDivider(),
+                            if (budgetsNotNullOrNotEmpty) ...[
+                              ...List.generate(
+                                budgets.length,
+                                (index) {
+                                  return CupertinoButton(
+                                    onPressed: () {
+                                      final budgetId = budgets[index].id;
+                                      context.pop(budgetId);
+                                    },
+                                    child: Container(
+                                      width: double.infinity,
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 8,
+                                      ),
+                                      child: AppText(
+                                        text: budgets[index].budgetName,
+                                        style: StyleType.bodMed,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ] else ...[
+                              CupertinoButton(
+                                onPressed: () {
+                                  context.pop();
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 12),
+                                  child: AppText(
+                                    text: localize.noBudgetCreatedYet,
+                                    style: StyleType.bodMed,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ],
+                            Gap.vertical(16),
+                          ],
+                        ),
+                      ),
+                    );
                   },
                 );
 
-                if (result != null) {
-                  _onBudgetSelected(result);
+                if (selectedBudgetId != null) {
+                  _onBudgetSelected(selectedBudgetId);
                 }
               },
               child: BlocBuilder<BudgetBloc, BudgetState>(

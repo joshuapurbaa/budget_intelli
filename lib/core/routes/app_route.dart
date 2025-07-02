@@ -6,13 +6,13 @@ class AppRoute {
     initialLocation: MyRoute.initialScreen,
     redirect: (context, state) async {
       final initialSettingDone =
-          await serviceLocator<SettingPreferenceRepo>().getInitialSetting();
+          await sl<SettingPreferenceRepo>().getInitialSetting();
       final initialCreateBudget =
-          await serviceLocator<SettingPreferenceRepo>().getIntialCreateBudget();
+          await sl<SettingPreferenceRepo>().getIntialCreateBudget();
       final continueWithoutLogin =
-          await serviceLocator<UserPreferenceRepo>().getContinueWithoutLogin();
-      final onlyFinancialTracker = await serviceLocator<SettingPreferenceRepo>()
-          .getOnlyFinancialTracker();
+          await sl<UserPreferenceRepo>().getContinueWithoutLogin();
+      final onlyFinancialTracker =
+          await sl<SettingPreferenceRepo>().getOnlyFinancialTracker();
       final onInitialScreen = state.fullPath == MyRoute.initialScreen;
 
       if (onlyFinancialTracker &&
