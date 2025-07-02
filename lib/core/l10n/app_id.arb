@@ -426,5 +426,15 @@
   "withAi": "dengan AI",
   "myPortfolio": "Portfolio Saya",
   "noPortfolio": "Belum ada portfolio",
-  "addPortfolio": "Tambah Portfolio"
+  "addPortfolio": "Tambah Portfolio",
+  "stockSymbol": "Simbol Saham",
+  "companyName": "Nama Perusahaan",
+  "buyDate": "Tanggal Beli",
+  "buyReason": "Alasan Beli",
+  "buyPrice": "Harga Beli",
+  "lot": "Lot",
+  "takeProfit": "Take Profit",
+  "stopLoss": "Stop Loss",
+  "stopLossAtPrice": "Stop Loss pada harga",
+  "successfullyAddedPortfolio": "Berhasil menambahkan portfolio"
 }

@@ -426,5 +426,15 @@
   "withAi": "with AI",
   "myPortfolio": "My Portfolio",
   "noPortfolio": "No Portfolio",
-  "addPortfolio": "Add Portfolio"
+  "addPortfolio": "Add Portfolio",
+  "stockSymbol": "Stock Symbol",
+  "companyName": "Company Name",
+  "buyDate": "Buy Date",
+  "buyReason": "Buy Reason",
+  "buyPrice": "Buy Price",
+  "lot": "Lot",
+  "takeProfit": "Take Profit",
+  "stopLoss": "Stop Loss",
+  "stopLossAtPrice": "Stop Loss at price",
+  "successfullyAddedPortfolio": "Successfully added portfolio"
 }

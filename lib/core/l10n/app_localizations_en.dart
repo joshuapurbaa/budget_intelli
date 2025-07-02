@@ -1329,4 +1329,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addPortfolio => 'Add Portfolio';
+
+  @override
+  String get stockSymbol => 'Stock Symbol';
+
+  @override
+  String get companyName => 'Company Name';
+
+  @override
+  String get buyDate => 'Buy Date';
+
+  @override
+  String get buyReason => 'Buy Reason';
+
+  @override
+  String get buyPrice => 'Buy Price';
+
+  @override
+  String get lot => 'Lot';
+
+  @override
+  String get takeProfit => 'Take Profit';
+
+  @override
+  String get stopLoss => 'Stop Loss';
+
+  @override
+  String get stopLossAtPrice => 'Stop Loss at price';
+
+  @override
+  String get successfullyAddedPortfolio => 'Successfully added portfolio';
 }

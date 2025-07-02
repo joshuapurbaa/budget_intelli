@@ -1332,4 +1332,34 @@ class AppLocalizationsId extends AppLocalizations {
 
   @override
   String get addPortfolio => 'Tambah Portfolio';
+
+  @override
+  String get stockSymbol => 'Simbol Saham';
+
+  @override
+  String get companyName => 'Nama Perusahaan';
+
+  @override
+  String get buyDate => 'Tanggal Beli';
+
+  @override
+  String get buyReason => 'Alasan Beli';
+
+  @override
+  String get buyPrice => 'Harga Beli';
+
+  @override
+  String get lot => 'Lot';
+
+  @override
+  String get takeProfit => 'Take Profit';
+
+  @override
+  String get stopLoss => 'Stop Loss';
+
+  @override
+  String get stopLossAtPrice => 'Stop Loss pada harga';
+
+  @override
+  String get successfullyAddedPortfolio => 'Berhasil menambahkan portfolio';
 }

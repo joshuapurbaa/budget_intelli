@@ -2665,6 +2665,66 @@ abstract class AppLocalizations {
   /// In id, this message translates to:
   /// **'Tambah Portfolio'**
   String get addPortfolio;
+
+  /// No description provided for @stockSymbol.
+  ///
+  /// In id, this message translates to:
+  /// **'Simbol Saham'**
+  String get stockSymbol;
+
+  /// No description provided for @companyName.
+  ///
+  /// In id, this message translates to:
+  /// **'Nama Perusahaan'**
+  String get companyName;
+
+  /// No description provided for @buyDate.
+  ///
+  /// In id, this message translates to:
+  /// **'Tanggal Beli'**
+  String get buyDate;
+
+  /// No description provided for @buyReason.
+  ///
+  /// In id, this message translates to:
+  /// **'Alasan Beli'**
+  String get buyReason;
+
+  /// No description provided for @buyPrice.
+  ///
+  /// In id, this message translates to:
+  /// **'Harga Beli'**
+  String get buyPrice;
+
+  /// No description provided for @lot.
+  ///
+  /// In id, this message translates to:
+  /// **'Lot'**
+  String get lot;
+
+  /// No description provided for @takeProfit.
+  ///
+  /// In id, this message translates to:
+  /// **'Take Profit'**
+  String get takeProfit;
+
+  /// No description provided for @stopLoss.
+  ///
+  /// In id, this message translates to:
+  /// **'Stop Loss'**
+  String get stopLoss;
+
+  /// No description provided for @stopLossAtPrice.
+  ///
+  /// In id, this message translates to:
+  /// **'Stop Loss pada harga'**
+  String get stopLossAtPrice;
+
+  /// No description provided for @successfullyAddedPortfolio.
+  ///
+  /// In id, this message translates to:
+  /// **'Berhasil menambahkan portfolio'**
+  String get successfullyAddedPortfolio;
 }
 
 class _AppLocalizationsDelegate

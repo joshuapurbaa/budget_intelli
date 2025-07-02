@@ -32,7 +32,7 @@ class _AddMyPortfolioScreenState extends State<AddMyPortfolioScreen> {
 
   String? stopLossPriceString;
   double? stopLossPrice;
-  double heightSizebox = 70.h;
+  double? heightSizebox;
 
   @override
   void initState() {
@@ -94,226 +94,238 @@ class _AddMyPortfolioScreenState extends State<AddMyPortfolioScreen> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          const SliverAppBarPrimary(
-            title: 'Add Portfolio',
-          ),
-          SliverPadding(
-            padding: getEdgeInsetsAll(16),
-            sliver: SliverList(
-              delegate: SliverChildListDelegate.fixed(
-                [
-                  AppBoxFormField(
-                    hintText: 'Stock Symbol*',
-                    prefixIcon: stockSymbolPng,
-                    controller: _stockSymbolController,
-                    focusNode: _stockCodeFocusNode,
-                    isPng: true,
-                    iconColor: context.color.onSurface,
-                  ),
-                  Gap.vertical(10),
-                  AppBoxFormField(
-                    hintText: 'Company Name*',
-                    prefixIcon: companyOfficeBuilding,
-                    controller: _companyNameController,
-                    focusNode: _companyNameFocusNode,
-                    isPng: true,
-                    iconColor: context.color.onSurface,
-                  ),
-                  Gap.vertical(10),
-                  const AppBoxCalendar(
-                    label: 'Tanggal Beli*',
-                  ),
-                  Gap.vertical(10),
-                  AppBoxFormField(
-                    hintText: 'Buy Reason*',
-                    prefixIcon: reasonPng,
-                    controller: _buyReasonController,
-                    focusNode: _buyReasonFocusNode,
-                    isPng: true,
-                    iconColor: context.color.onSurface,
-                  ),
-                  Gap.vertical(10),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: AppBoxFormField(
-                          hintText: 'Harga Beli*',
-                          prefixIcon: priceTagPng,
-                          controller: _buyPriceController,
-                          focusNode: _buyPriceFocusNode,
-                          isPng: true,
-                          iconColor: context.color.onSurface,
-                          keyboardType: TextInputType.number,
-                          onChanged: (_) {
-                            setStopLossPrice();
-                          },
-                        ),
+      body: Stack(
+        children: [
+          CustomScrollView(
+            controller: _scrollController,
+            slivers: [
+              SliverAppBarPrimary(
+                title: localize.addPortfolio,
+              ),
+              SliverPadding(
+                padding: getEdgeInsetsAll(16),
+                sliver: SliverList(
+                  delegate: SliverChildListDelegate.fixed(
+                    [
+                      AppBoxFormField(
+                        hintText: '${localize.stockSymbol}*',
+                        prefixIcon: stockSymbolPng,
+                        controller: _stockSymbolController,
+                        focusNode: _stockCodeFocusNode,
+                        isPng: true,
+                        iconColor: context.color.onSurface,
                       ),
-                      Gap.horizontal(10),
-                      Expanded(
-                        child: AppBoxFormField(
-                          hintText: 'Lot*',
-                          prefixIcon: pieChartPng,
-                          controller: _lotController,
-                          focusNode: _lotFocusNode,
-                          isPng: true,
-                          iconColor: context.color.onSurface,
-                          keyboardType: TextInputType.number,
-                        ),
+                      Gap.vertical(10),
+                      AppBoxFormField(
+                        hintText: '${localize.companyName}*',
+                        prefixIcon: companyOfficeBuilding,
+                        controller: _companyNameController,
+                        focusNode: _companyNameFocusNode,
+                        isPng: true,
+                        iconColor: context.color.onSurface,
                       ),
-                    ],
-                  ),
-                  Gap.vertical(10),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: heightSizebox,
-                          child: Stack(
-                            children: [
-                              if (stopLossPriceString != null)
-                                Positioned(
-                                  top: 30,
-                                  bottom: 0,
-                                  right: 0,
-                                  left: 0,
-                                  child: Container(
-                                    alignment: Alignment.bottomLeft,
-                                    padding: getEdgeInsets(
-                                      left: 10,
-                                      bottom: 10,
-                                      right: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: context.color.primary
-                                          .withValues(alpha: 0.4),
-                                      borderRadius: const BorderRadius.vertical(
-                                        bottom: Radius.circular(10),
+                      Gap.vertical(10),
+                      AppBoxCalendar(
+                        label: '${localize.buyDate}*',
+                      ),
+                      Gap.vertical(10),
+                      AppBoxFormField(
+                        hintText: '${localize.buyReason}*',
+                        prefixIcon: reasonPng,
+                        controller: _buyReasonController,
+                        focusNode: _buyReasonFocusNode,
+                        isPng: true,
+                        iconColor: context.color.onSurface,
+                      ),
+                      Gap.vertical(10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: AppBoxFormField(
+                              hintText: '${localize.buyPrice}*',
+                              prefixIcon: priceTagPng,
+                              controller: _buyPriceController,
+                              focusNode: _buyPriceFocusNode,
+                              isPng: true,
+                              iconColor: context.color.onSurface,
+                              keyboardType: TextInputType.number,
+                              onChanged: (_) {
+                                setStopLossPrice();
+                              },
+                            ),
+                          ),
+                          Gap.horizontal(10),
+                          Expanded(
+                            child: AppBoxFormField(
+                              hintText: '${localize.lot}*',
+                              prefixIcon: pieChartPng,
+                              controller: _lotController,
+                              focusNode: _lotFocusNode,
+                              isPng: true,
+                              iconColor: context.color.onSurface,
+                              keyboardType: TextInputType.number,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Gap.vertical(10),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: heightSizebox,
+                              child: Stack(
+                                children: [
+                                  if (stopLossPriceString != null)
+                                    Positioned(
+                                      top: 30,
+                                      bottom: 0,
+                                      right: 0,
+                                      left: 0,
+                                      child: Container(
+                                        alignment: Alignment.bottomLeft,
+                                        padding: getEdgeInsets(
+                                          left: 10,
+                                          bottom: 10,
+                                          right: 10,
+                                        ),
+                                        decoration: BoxDecoration(
+                                          color: context.color.primary
+                                              .withValues(alpha: 0.4),
+                                          borderRadius:
+                                              const BorderRadius.vertical(
+                                            bottom: Radius.circular(10),
+                                          ),
+                                        ),
+                                        child: AppText(
+                                          text:
+                                              '${localize.stopLossAtPrice} : $stopLossPriceString',
+                                          style: StyleType.bodMed,
+                                        ),
                                       ),
                                     ),
-                                    child: AppText(
-                                      text:
-                                          'Stop Loss at price: $stopLossPriceString',
-                                      style: StyleType.bodMed,
-                                    ),
+                                  AppBoxFormField(
+                                    hintText: '${localize.takeProfit}*',
+                                    prefixIcon: takeProfitPng,
+                                    controller: _takeProfitController,
+                                    focusNode: _takeProfitFocusNode,
+                                    isPng: true,
+                                    iconColor: context.color.onSurface,
+                                    keyboardType: TextInputType.number,
+                                    onChanged: (val) {},
                                   ),
-                                ),
-                              AppBoxFormField(
-                                hintText: 'Take Profit',
-                                prefixIcon: takeProfitPng,
-                                controller: _takeProfitController,
-                                focusNode: _takeProfitFocusNode,
-                                isPng: true,
-                                iconColor: context.color.onSurface,
-                                keyboardType: TextInputType.number,
-                                onChanged: (val) {},
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                      Gap.horizontal(10),
-                      Expanded(
-                        child: AppBoxFormField(
-                          hintText: 'Stop Loss*',
-                          prefixIcon: stopLossPng,
-                          controller: _stopLossController,
-                          focusNode: _stopLossFocusNode,
-                          isPng: true,
-                          iconColor: context.color.onSurface,
-                          keyboardType: TextInputType.number,
-                          suffixIcon: const AppText(
-                            text: '%',
-                            style: StyleType.bodLg,
+                          Gap.horizontal(10),
+                          Expanded(
+                            child: AppBoxFormField(
+                              hintText: '${localize.stopLoss}*',
+                              prefixIcon: stopLossPng,
+                              controller: _stopLossController,
+                              focusNode: _stopLossFocusNode,
+                              isPng: true,
+                              iconColor: context.color.onSurface,
+                              keyboardType: TextInputType.number,
+                              suffixIcon: const AppText(
+                                text: '%',
+                                style: StyleType.bodLg,
+                              ),
+                              onChanged: (_) {
+                                setStopLossPrice();
+                              },
+                            ),
                           ),
-                          onChanged: (_) {
-                            setStopLossPrice();
-                          },
-                        ),
+                        ],
                       ),
+                      Gap.vertical(80),
                     ],
                   ),
-                  Gap.vertical(80),
-                ],
+                ),
+              ),
+            ],
+          ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: SafeArea(
+              child: BottomSheetParent(
+                isWithBorderTop: true,
+                child: BlocListener<MyPortfolioDbBloc, MyPortfolioDbState>(
+                  listener: (context, state) {
+                    if (state.insertMyPortfolioSuccess) {
+                      AppToast.showToastSuccess(
+                        context,
+                        localize.successfullyAddedPortfolio,
+                      );
+                      if (context.canPop()) {
+                        context.read<MyPortfolioDbBloc>().add(
+                              const GetMyPortfolioListDbEvent(),
+                            );
+                        context.pop();
+                      }
+                    }
+                  },
+                  child: AppButton(
+                    label: localize.add,
+                    onPressed: () async {
+                      String? selectedDate;
+                      final appBoxCalendarState =
+                          context.read<AppBoxCalendarCubit>().state;
+
+                      if (appBoxCalendarState is AppBoxCalendarSelected) {
+                        final date = appBoxCalendarState.selectedDate;
+                        selectedDate = date.toString();
+                      }
+
+                      if (_stockSymbolController.text.isEmpty ||
+                          _companyNameController.text.isEmpty ||
+                          _buyPriceController.text.isEmpty ||
+                          _stopLossController.text.isEmpty ||
+                          _lotController.text.isEmpty ||
+                          selectedDate == null ||
+                          stopLossPrice == null ||
+                          _takeProfitController.text.isEmpty ||
+                          _buyReasonController.text.isEmpty) {
+                        AppToast.showToastError(
+                          context,
+                          localize.pleaseFillAllRequiredFields,
+                        );
+                        return;
+                      }
+
+                      final myPortfolio = MyPortfolioModel(
+                        id: const Uuid().v4(),
+                        stockSymbol: _stockSymbolController.text,
+                        companyName: _companyNameController.text,
+                        buyPrice: double.tryParse(
+                          _buyPriceController.text.replaceAll('.', ''),
+                        )!,
+                        stopLoss: stopLossPrice!,
+                        takeProfit: double.tryParse(
+                          _takeProfitController.text.replaceAll('.', ''),
+                        ),
+                        lot: int.parse(_lotController.text),
+                        buyDate: selectedDate,
+                        createdAt: DateTime.now().toString(),
+                        updatedAt: DateTime.now().toString(),
+                        buyReason: _buyReasonController.text,
+                        closePrice: 0,
+                      );
+
+                      context.read<MyPortfolioDbBloc>().add(
+                            InsertMyPortfolioDbEvent(myPortfolio),
+                          );
+                    },
+                  ),
+                ),
               ),
             ),
-          ),
+          )
         ],
-      ),
-      bottomSheet: BottomSheetParent(
-        isWithBorderTop: true,
-        child: BlocListener<MyPortfolioDbBloc, MyPortfolioDbState>(
-          listener: (context, state) {
-            if (state.insertMyPortfolioSuccess) {
-              AppToast.showToastSuccess(
-                context,
-                'Successfully added portfolio',
-              );
-              if (context.canPop()) {
-                context.read<MyPortfolioDbBloc>().add(
-                      const GetMyPortfolioListDbEvent(),
-                    );
-                context.pop();
-              }
-            }
-          },
-          child: AppButton(
-            label: 'Add',
-            onPressed: () async {
-              String? selectedDate;
-              final appBoxCalendarState =
-                  context.read<AppBoxCalendarCubit>().state;
-
-              if (appBoxCalendarState is AppBoxCalendarSelected) {
-                final date = appBoxCalendarState.selectedDate;
-                selectedDate = date.toString();
-              }
-
-              if (_stockSymbolController.text.isEmpty ||
-                  _companyNameController.text.isEmpty ||
-                  _buyPriceController.text.isEmpty ||
-                  _stopLossController.text.isEmpty ||
-                  _lotController.text.isEmpty ||
-                  selectedDate == null ||
-                  stopLossPrice == null ||
-                  _takeProfitController.text.isEmpty ||
-                  _buyReasonController.text.isEmpty) {
-                AppToast.showToastError(
-                  context,
-                  localize.pleaseFillAllRequiredFields,
-                );
-                return;
-              }
-
-              final myPortfolio = MyPortfolioModel(
-                id: const Uuid().v4(),
-                stockSymbol: _stockSymbolController.text,
-                companyName: _companyNameController.text,
-                buyPrice: double.tryParse(
-                  _buyPriceController.text.replaceAll('.', ''),
-                )!,
-                stopLoss: stopLossPrice!,
-                takeProfit: double.tryParse(
-                  _takeProfitController.text.replaceAll('.', ''),
-                ),
-                lot: int.parse(_lotController.text),
-                buyDate: selectedDate,
-                createdAt: DateTime.now().toString(),
-                updatedAt: DateTime.now().toString(),
-                buyReason: _buyReasonController.text,
-                closePrice: 0,
-              );
-
-              context.read<MyPortfolioDbBloc>().add(
-                    InsertMyPortfolioDbEvent(myPortfolio),
-                  );
-            },
-          ),
-        ),
       ),
     );
   }
